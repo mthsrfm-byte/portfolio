@@ -95,6 +95,12 @@ function sera_pp_frame( $k, $style = '', $pos = '' ) {
 	return '<div class="ppx-img"' . ( $style ? ' style="' . esc_attr( $style ) . '"' : '' ) . '>' . $img . '</div>';
 }
 
+/** A clip made in the Paperplane, inside a frame box: poster first, the file loads and plays only on screen. */
+function sera_pp_clip( $file, $style = '' ) {
+	$base = get_template_directory_uri() . '/assets/cases/paperplane/' . $file;
+	return '<div class="ppx-img"' . ( $style ? ' style="' . esc_attr( $style ) . '"' : '' ) . '><video data-pp-video data-src="' . esc_url( $base . '.mp4' ) . '" poster="' . esc_url( $base . '.webp' ) . '" muted loop playsinline preload="none" aria-hidden="true"></video></div>';
+}
+
 /** One view of Ren's character sheet: front, three quarters, profile or back. */
 function sera_pp_sheet_view( $v ) {
 	$files = array( 'front' => 'ren-frente', 'tq' => 'ren-34', 'side' => 'ren-perfil', 'back' => 'ren-costas' );
@@ -161,7 +167,7 @@ function sera_pp_desk( $id ) {
 	switch ( $id ) {
 		case 'ideia':
 			$in  = sera_pp_head( 'Passo 1 de 10 · Escrever', 'Qual é a história?', 'Comece pela ideia. Título, duração e formato aparecem no caminho, conforme o roteiro cresce.', 'Próximo: universo' );
-			$in .= '<div class="ppx-card" style="margin-top:26px;width:860px"><div class="ppx-lbl" style="margin-bottom:10px">A ideia em uma frase</div><div style="font-size:19px;line-height:1.45;min-height:56px"><span class="ppx-typed">Uma garçonete de trem noturno descobre que o passageiro da mesa 4 sabe exatamente como ela vai morrer.</span><span class="ppx-caret"></span></div></div>';
+			$in .= '<div class="ppx-card pp-fx" style="margin-top:26px;width:860px"><div class="ppx-lbl" style="margin-bottom:10px">A ideia em uma frase</div><div style="font-size:19px;line-height:1.45;min-height:56px"><span class="ppx-typed">Uma garçonete de trem noturno descobre que o passageiro da mesa 4 sabe exatamente como ela vai morrer.</span><span class="ppx-caret"></span></div></div>';
 			$in .= '<div class="ppx-card" style="margin-top:14px;width:860px"><div style="display:flex;justify-content:space-between;align-items:center"><div class="ppx-lbl">Título</div><span class="ppx-chip on">' . $ts12 . ' Pedir sugestões</span></div><div class="ppx-input" style="margin-top:10px">A estação sem nome</div></div>';
 			$in .= '<div class="ppx-note" style="margin-top:14px;width:860px"><span class="ppx-tag">Duração</span>&nbsp; Hoje o episódio tem 2:23, somando 8 cenas. Ela muda sozinha quando você adiciona ou corta cenas.</div>';
 			$in .= '<div style="margin-top:14px;width:860px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px">';
@@ -177,7 +183,7 @@ function sera_pp_desk( $id ) {
 			$in .= '<div class="ppx-card"><div style="font-size:17px;margin-bottom:8px">O mundo</div><div style="color:var(--p-ink-2)">Um trem noturno que cruza o interior sem nunca parar na mesma estação duas vezes. Quem embarca não lembra de ter comprado o bilhete. A equipe de bordo envelhece normalmente; os passageiros, não.</div></div>';
 			$in .= '<div class="ppx-card"><div style="font-size:17px;margin-bottom:10px">Tom</div><div style="display:flex;gap:6px"><span class="ppx-chip on">Melancólico ×</span><span class="ppx-chip on">Tenso ×</span><span class="ppx-chip on">Silencioso ×</span><span class="ppx-chip">+ Adicionar</span></div></div>';
 			$in .= '<div class="ppx-card"><div style="font-size:17px;margin-bottom:8px">Regras que nunca mudam</div><div style="color:var(--p-ink-2);line-height:1.8">• Sempre é noite do lado de fora, mesmo quando o relógio diz o contrário.<br>• O relógio do pai da Lia é o único objeto que funciona certo no trem.<br>• Ninguém fala o nome da próxima estação.</div></div>';
-			$in .= '</div><div class="ppx-card" style="display:flex;flex-direction:column;gap:10px"><div style="font-size:17px">Perguntas em aberto</div><div style="font-size:11.5px;color:var(--p-muted)">O Origami achou pontos que a história ainda não explica.</div>';
+			$in .= '</div><div class="ppx-card pp-fx" style="display:flex;flex-direction:column;gap:10px"><div style="font-size:17px">Perguntas em aberto</div><div style="font-size:11.5px;color:var(--p-muted)">O Origami achou pontos que a história ainda não explica.</div>';
 			foreach ( array( 'Por que só a Lia percebe que os passageiros não envelhecem?', 'O que acontece com quem desce do trem?', 'Dante está ajudando a Lia ou prendendo ela ali?' ) as $q ) {
 				$in .= '<div class="ppx-soft"><div style="font-weight:500">' . $q . '</div><div style="font-size:11px;color:var(--p-muted);margin-top:4px">Sugestão do Origami pronta para virar regra.</div><span class="ppx-chip" style="margin-top:8px">Virar regra</span></div>';
 			}
@@ -188,7 +194,7 @@ function sera_pp_desk( $id ) {
 			$in  = sera_pp_head( 'Passo 3 de 10 · Escrever', 'Roteiro', 'Escreva cena por cena. Para pedir ajuda, use o Origami ao lado: ele sugere, você aceita ou não.' );
 			$in .= '<div style="display:flex;gap:6px;margin-top:16px;align-items:center"><span class="ppx-chip">‹</span><span class="ppx-chip">Cena 3 de 8 · <b style="font-weight:500">Mesa 4</b></span><span class="ppx-chip">›</span><span class="ppx-mono" style="margin-left:auto">8 cenas · 2:23</span><span class="ppx-chip">+ Cena</span></div>';
 			$in .= '<div style="display:flex;gap:16px;margin-top:12px"><div class="ppx-card ppx-script" style="width:700px;height:520px;padding:28px 40px"><div class="ppx-lbl">Cena 3 · 0:24</div><div style="font-family:var(--p-sans);font-size:20px;margin:4px 0 18px">Mesa 4</div>INT. VAGÃO-RESTAURANTE — NOITE<br><br>O vagão balança vazio. Copos tilintam nas mesas. LIA (28) entra, o casaco molhado de chuva.<br><br><span class="hl">Ela senta perto da janela. Do outro lado, DANTE (34) já estava ali.</span><br><br><div style="text-align:center">DANTE</div><div style="margin:0 120px">Você não devia estar aqui.</div><br>Ele empurra um bilhete amassado sobre a mesa.<br><br>O trem freia de repente. Lia é jogada contra Dante.</div>';
-			$in .= '<div class="ppx-card ppx-side" style="width:320px;height:560px;margin-top:-40px"><div style="display:flex;align-items:center;gap:8px"><span class="ppx-ori-ic">' . sera_pp_tsuru( 15 ) . '</span><div><div style="font-size:15px">Origami</div><div class="ppx-lbl">seu assistente de IA</div></div><span class="ppx-tag is-muted" style="margin-left:auto">vendo: roteiro</span></div>';
+			$in .= '<div class="ppx-card ppx-side pp-fx" style="width:320px;height:560px;margin-top:-40px"><div style="display:flex;align-items:center;gap:8px"><span class="ppx-ori-ic">' . sera_pp_tsuru( 15 ) . '</span><div><div style="font-size:15px">Origami</div><div class="ppx-lbl">seu assistente de IA</div></div><span class="ppx-tag is-muted" style="margin-left:auto">vendo: roteiro</span></div>';
 			$in .= '<div class="ppx-sug">Deixar a fala do Dante mais ameaçadora<div class="ppx-sug-a"><span class="ppx-chip">Aplicar</span><u>Agora não</u></div></div>';
 			$in .= '<div class="ppx-sug">Adicionar uma cena depois da cena 3<div class="ppx-sug-a"><span class="ppx-chip">Aplicar</span><u>Agora não</u></div></div>';
 			$in .= '<div class="ppx-soft" style="color:var(--p-ink-2)">Oi, Matheus. Estou acompanhando o episódio inteiro. Peça qualquer coisa: se for de outra etapa, eu te levo até lá.</div><div class="ppx-soft" style="color:var(--p-ink-2)">Encontrei 3 personagens: Lia, Dante e o Condutor. Já estou gerando o visual.</div>';
@@ -199,13 +205,13 @@ function sera_pp_desk( $id ) {
 			$in  = '<div class="ppx-step">Personagens e vozes › Ren</div>';
 			$in .= '<div style="display:flex;align-items:center;gap:14px;margin-top:10px">' . sera_pp_portrait( 'rosto', 'width:52px;height:52px;border-radius:50%' ) . '<div><div class="ppx-title" style="font-size:48px;margin:0">Ren</div><div class="ppx-sub" style="margin-top:2px">Rapaz de 19 anos que espera no banco da plataforma</div></div><span class="ppx-tag ok" style="margin-left:auto">Visual aprovado</span></div>';
 			$in .= '<div class="ppx-tabs"><span class="on">Visual</span><span>Voz</span><span>Falas (6)</span></div>';
-			$in .= '<div class="ppx-card" style="margin-top:14px;width:1000px;padding:12px"><div class="ppx-sheet">' . sera_pp_sheet_view( 'front' ) . sera_pp_sheet_view( 'tq' ) . sera_pp_sheet_view( 'side' ) . sera_pp_sheet_view( 'back' ) . '</div><div class="ppx-sheet-l"><span>Frente</span><span>Três quartos</span><span>Perfil</span><span>Costas</span></div></div>';
+			$in .= '<div class="ppx-card pp-fx" style="margin-top:14px;width:1000px;padding:12px"><div class="ppx-sheet">' . sera_pp_sheet_view( 'front' ) . sera_pp_sheet_view( 'tq' ) . sera_pp_sheet_view( 'side' ) . sera_pp_sheet_view( 'back' ) . '</div><div class="ppx-sheet-l"><span>Frente</span><span>Três quartos</span><span>Perfil</span><span>Costas</span></div></div>';
 			$in .= '<div class="ppx-card" style="margin-top:12px;width:1000px"><div style="font-weight:500;margin-bottom:6px">Aparência fixa</div><div style="color:var(--p-ink-2)">Rapaz de 19 anos, rosto fino e olhar desconfiado. Cabelo preto curto e despenteado. Figurino fixo: jaqueta escura de gola, camiseta verde-escura, calça e botas marrom-escuras.</div></div>';
 			return sera_pp_shell( 'people', $done( 'people' ), $in );
 
 		case 'estilo':
 			$in  = sera_pp_head( 'Passo 4 de 10 · Visualizar', 'Estilo visual', 'O visual do filme inteiro: personagens, cenários e quadros.', 'Próximo: personagens', '<span class="ppx-chip">Modo básico</span>' );
-			$in .= '<div class="ppx-card" style="margin-top:24px;width:640px;display:flex;gap:18px;padding:12px"><div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;width:340px;height:204px;border-radius:6px;overflow:hidden">';
+			$in .= '<div class="ppx-card pp-fx" style="margin-top:24px;width:640px;display:flex;gap:18px;padding:12px"><div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;width:340px;height:204px;border-radius:6px;overflow:hidden">';
 			foreach ( array( 'cel-1', 'cel-2', 'cel-3', 'cel-4' ) as $c ) {
 				$in .= sera_pp_frame( $c, 'border-radius:0;height:100px' );
 			}
@@ -228,7 +234,7 @@ function sera_pp_desk( $id ) {
 				$in .= '<div class="ppx-row' . ( 2 === $i ? ' is-sel' : '' ) . '" style="padding:8px">' . sera_pp_frame( $l[0], 'width:54px;height:34px;flex:none' ) . '<div><div style="font-size:12px">' . $l[1] . '</div><div class="ppx-lbl">4 ângulos</div></div></div>';
 			}
 			$in .= '<div class="ppx-row" style="justify-content:center">+ Novo cenário</div></div>' . sera_pp_frame( 'loc-tunel', 'width:880px;height:470px' ) . '</div>';
-			$in .= '<div class="ppx-angle"><div class="ppx-lbl">Outro ângulo · Trilhos e túnel</div><div class="ppx-angle-in"><div class="ppx-compass"><i class="cone"></i><b class="cam"></b>';
+			$in .= '<div class="ppx-angle pp-fx"><div class="ppx-lbl">Outro ângulo · Trilhos e túnel</div><div class="ppx-angle-in"><div class="ppx-compass"><i class="cone"></i><b class="cam"></b>';
 			foreach ( range( 0, 7 ) as $k ) {
 				$in .= '<span style="--k:' . $k . '"' . ( in_array( $k, array( 0, 2, 5 ), true ) ? ' class="has"' : '' ) . '></span>';
 			}
@@ -246,7 +252,7 @@ function sera_pp_desk( $id ) {
 				array( 'ombro', '1E', 'Hana se vira para Ren e o questiona.', 'Sobre o ombro · 8 s · escolha da IA' ),
 			);
 			foreach ( $rows as $i => $r ) {
-				$in .= '<div class="ppx-row' . ( 2 === $i ? ' is-sel' : '' ) . '">' . sera_pp_shot_icon( $r[0] ) . '<div style="flex:1"><div><b style="font-weight:500;margin-right:6px">' . $r[1] . '</b>' . $r[2] . '</div><div style="font-size:11px;color:var(--p-muted)">' . $r[3] . '</div></div><span style="color:var(--p-muted)">›</span></div>';
+				$in .= '<div class="ppx-row' . ( 2 === $i ? ' is-sel pp-fx' : '' ) . '">' . sera_pp_shot_icon( $r[0] ) . '<div style="flex:1"><div><b style="font-weight:500;margin-right:6px">' . $r[1] . '</b>' . $r[2] . '</div><div style="font-size:11px;color:var(--p-muted)">' . $r[3] . '</div></div><span style="color:var(--p-muted)">›</span></div>';
 			}
 			$in .= '<div class="ppx-why"><span class="ppx-tag">Por que close</span> A cena pede a reação antes da explicação: o rosto da Hana conta que o trem já foi antes de a gente ver os trilhos.</div>';
 			$in .= '</div><div class="ppx-card" style="width:330px"><div class="ppx-lbl">Cena 1</div><div style="font-size:19px;margin:4px 0 2px">Estação Shinji-mae</div><div style="font-size:11px;color:var(--p-muted)">9 tomadas · 75 s</div><div class="ppx-lbl" style="margin:14px 0 8px">Tipos de plano</div><div class="ppx-shots">';
@@ -259,7 +265,7 @@ function sera_pp_desk( $id ) {
 		case 'storyboard':
 			$in  = sera_pp_head( 'Passo 8 de 10 · Visualizar', 'Storyboard', 'Uma imagem por tomada, já com personagens, cenário e plano. Imagem é barata; vídeo não. Aprove aqui antes de animar.', 'Próximo: animação', '<span class="ppx-chip">Modo básico</span>' );
 			$in .= '<div class="ppx-card" style="margin-top:18px;display:flex;align-items:center;gap:20px"><div><span style="font-size:30px;font-weight:300">8</span> de 9 tomadas aprovadas<div class="ppx-bar" style="width:420px"><i style="width:88%"></i></div></div><span class="ppx-chip" style="margin-left:auto">' . $ts12 . ' Conferir continuidade</span></div>';
-			$in .= '<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px">';
+			$in .= '<div class="pp-fx" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:14px">';
 			$sb  = array( array( 'relogio', '3A', 'Lia olha o relógio parado', 'Plano médio · 5 s' ), array( 'close', '3B', 'Close de Lia, assustada', 'Close · 4 s' ), array( 'ombro', '3C', 'Dante empurra o bilhete', 'Sobre o ombro · 5 s' ), array( 'freio', '3D', 'O trem freia de repente', 'Plano geral · 6 s' ) );
 			foreach ( $sb as $i => $f ) {
 				$in .= '<div class="ppx-card ppx-sb">' . sera_pp_frame( $f[0], 'height:150px' ) . '<span class="ppx-tag ppx-sb-tag">' . $f[1] . '</span><div class="ppx-sb-t">' . $f[2] . '</div><div class="ppx-sb-m">' . $f[3] . '</div><div class="ppx-sb-a">' . ( $i < 3 ? '<span class="ppx-tag ok">✓ Aprovada</span><u>Desfazer</u>' : '<span class="ppx-btn sm">Aprovar</span>' ) . '</div></div>';
@@ -275,7 +281,7 @@ function sera_pp_desk( $id ) {
 			$in .= '<span class="ppx-chip on">3F</span></span><span class="ppx-btn" style="margin-left:auto">Próximo: montagem →</span></div>';
 			$in .= '<svg class="ppx-wire" viewBox="0 0 1228 800" aria-hidden="true"><path d="M230 170C290 170 280 150 330 150"/><path d="M850 280C880 280 870 220 900 220"/></svg>';
 			$in .= '<div class="ppx-node" style="left:40px;top:100px;width:190px;padding:7px"><div class="ppx-lbl" style="margin-bottom:5px">Primeiro quadro · 3F</div>' . sera_pp_frame( 'mesa', 'height:100px' ) . '<div style="font-size:10.5px;color:var(--p-muted);margin-top:6px">A imagem do storyboard.</div></div>';
-			$in .= '<div class="ppx-node" style="left:330px;top:100px;width:520px;padding:0;overflow:hidden"><div class="ppx-node-h">Movimento</div><div style="padding:14px 16px"><div class="ppx-lbl">O que se move nesta tomada</div><div class="ppx-input is-plain" style="margin-top:6px;height:84px;font-size:12.5px"><span class="ppx-typed">O trem freia forte, Lia é jogada contra Dante; os copos deslizam e a luminária balança.</span><span class="ppx-caret"></span></div>';
+			$in .= '<div class="ppx-node pp-fx" style="left:330px;top:100px;width:520px;padding:0;overflow:hidden"><div class="ppx-node-h">Movimento</div><div style="padding:14px 16px"><div class="ppx-lbl">O que se move nesta tomada</div><div class="ppx-input is-plain" style="margin-top:6px;height:84px;font-size:12.5px"><span class="ppx-typed">O trem freia forte, Lia é jogada contra Dante; os copos deslizam e a luminária balança.</span><span class="ppx-caret"></span></div>';
 			$in .= '<div style="display:flex;gap:6px;margin-top:10px"><span class="ppx-chip">' . $ts12 . ' Refinar com o Origami</span><span class="ppx-chip">Ver o pedido completo</span></div>';
 			$in .= '<div class="ppx-lbl" style="margin-top:16px">Qualidade</div><div class="ppx-input is-plain" style="margin-top:6px;font-size:12.5px">Equilibrada · LTX-2.5 Pro</div>';
 			$in .= '<div class="ppx-lbl" style="margin-top:14px">Duração</div><div style="display:flex;gap:4px;margin-top:6px">';
@@ -306,9 +312,9 @@ function sera_pp_desk( $id ) {
 			foreach ( array( '1 · A plataforma', '2 · Primeira noite', '3 · Mesa 4', '4 · A freada', '5 · O vagão das fotos', '6 · Cabine vazia', '7 · O relógio volta', '8 · A estação sem nome' ) as $i => $t ) {
 				$in .= '<div class="ppx-cut-sc' . ( 2 === $i ? ' on' : '' ) . '"><span>' . $t . '</span><span class="ppx-mono">0:' . array( 20, 28, 25, 16, 16, 14, 13, 16 )[ $i ] . '</span></div>';
 			}
-			$in .= '</div><div class="ppx-cut-view">' . sera_pp_frame( 'ombro', 'flex:1' ) . '<div class="ppx-cut-ctl">‹‹ <span>▶</span> ››</div></div>';
+			$in .= '</div><div class="ppx-cut-view">' . sera_pp_clip( 'v-4k', 'flex:1' ) . '<div class="ppx-cut-ctl">‹‹ <span>▶</span> ››</div></div>';
 			$in .= '<div class="ppx-cut-insp"><div style="display:flex;justify-content:space-between"><b style="font-weight:500;font-size:15px">3C</b><span class="ppx-mono">5,0 s</span></div><div style="color:var(--p-muted)">Cena 3 · Sobre o ombro</div><div class="ppx-lbl">Enquadramento</div><div class="ppx-kv"><span>Escala</span><span>100%</span></div><div class="ppx-lbl">Transição</div><div class="ppx-kv"><span>Entrada</span><span>Corte</span></div><div class="ppx-lbl">Áudio</div><div style="display:flex;align-items:center;gap:8px"><span style="flex:1;height:3px;background:var(--p-lime);border-radius:3px"></span>100%</div></div>';
-			$in .= '<div class="ppx-tl"><div class="ppx-tl-hint"><span>✂</span><span>Arraste as bordas para aparar; S divide; espaço toca.</span></div><div class="ppx-tl-ruler">';
+			$in .= '<div class="ppx-tl pp-fx"><div class="ppx-tl-hint"><span>✂</span><span>Arraste as bordas para aparar; S divide; espaço toca.</span></div><div class="ppx-tl-ruler">';
 			foreach ( array( '0:00', '0:15', '0:30', '0:45', '1:00', '1:15', '1:30', '1:45', '2:00' ) as $t ) {
 				$in .= '<span>' . $t . '</span>';
 			}
@@ -349,7 +355,7 @@ function sera_pp_phone( $id ) {
 
 		case 'ideia':
 			$b = '<div class="ppx-step">Passo 1 de 10 · Escrever</div><div class="ppx-mtitle">Qual é a<br>história?</div><div class="ppx-sub">Comece pela ideia. Título, duração e formato aparecem no caminho.</div>';
-			$b .= '<div class="ppx-card" style="margin-top:18px"><div class="ppx-lbl" style="margin-bottom:8px">A ideia em uma frase</div><div style="font-size:17px;line-height:1.45">Uma garçonete de trem noturno descobre que o passageiro da mesa 4 sabe exatamente como ela vai morrer.<span class="ppx-caret"></span></div></div>';
+			$b .= '<div class="ppx-card pp-fxm" style="margin-top:18px"><div class="ppx-lbl" style="margin-bottom:8px">A ideia em uma frase</div><div style="font-size:17px;line-height:1.45">Uma garçonete de trem noturno descobre que o passageiro da mesa 4 sabe exatamente como ela vai morrer.<span class="ppx-caret"></span></div></div>';
 			$b .= '<div class="ppx-card" style="margin-top:10px"><div style="display:flex;justify-content:space-between;align-items:center"><div class="ppx-lbl">Título</div><span class="ppx-chip on">' . sera_pp_tsuru( 12 ) . ' Sugerir</span></div><div class="ppx-input" style="margin-top:8px">A estação sem nome</div></div>';
 			$b .= '<span class="ppx-btn lg">Próximo: universo →</span>';
 			return sera_pp_mob( 'Escrever', $b );
@@ -357,7 +363,7 @@ function sera_pp_phone( $id ) {
 		case 'universo':
 			$b = '<div class="ppx-step">Passo 2 de 10 · Escrever</div><div class="ppx-mtitle">O universo</div>';
 			$b .= '<div class="ppx-card" style="margin-top:14px"><div style="font-size:15px;margin-bottom:6px">Regras que nunca mudam</div><div style="color:var(--p-ink-2);line-height:1.6;font-size:12.5px">• Sempre é noite do lado de fora.<br>• O relógio do pai da Lia é o único que funciona.<br>• Ninguém fala o nome da próxima estação.</div></div>';
-			$b .= '<div class="ppx-card" style="margin-top:10px;display:flex;flex-direction:column;gap:8px"><div style="font-size:15px">Perguntas em aberto</div>';
+			$b .= '<div class="ppx-card pp-fxm" style="margin-top:10px;display:flex;flex-direction:column;gap:8px"><div style="font-size:15px">Perguntas em aberto</div>';
 			foreach ( array( 'O que acontece com quem desce do trem?', 'Dante está ajudando a Lia ou prendendo ela ali?' ) as $q ) {
 				$b .= '<div class="ppx-soft"><div style="font-weight:500;font-size:12.5px">' . $q . '</div><span class="ppx-chip" style="margin-top:6px">Virar regra</span></div>';
 			}
@@ -366,18 +372,18 @@ function sera_pp_phone( $id ) {
 		case 'roteiro':
 			$b = '<div class="ppx-step">Passo 3 de 10 · Escrever</div><div class="ppx-mtitle">Roteiro</div><div style="display:flex;gap:6px;margin:14px 0"><span class="ppx-chip">‹</span><span class="ppx-chip" style="flex:1;justify-content:center">Cena 3 · Mesa 4</span><span class="ppx-chip">›</span></div>';
 			$b .= '<div class="ppx-card ppx-script" style="font-size:13.5px;padding:18px">INT. VAGÃO-RESTAURANTE — NOITE<br><br>O vagão balança vazio. Copos tilintam nas mesas. LIA (28) entra, o casaco molhado de chuva.<br><br><span class="hl">Ela senta perto da janela. Do outro lado, DANTE (34) já estava ali.</span><br><br><div style="text-align:center">DANTE</div><div style="margin:0 30px">Você não devia estar aqui.</div></div>';
-			$b .= '<div class="ppx-sug" style="margin-top:10px">Deixar a fala do Dante mais ameaçadora<div class="ppx-sug-a"><span class="ppx-chip">Aplicar</span><u>Agora não</u></div></div>';
+			$b .= '<div class="ppx-sug pp-fxm" style="margin-top:10px">Deixar a fala do Dante mais ameaçadora<div class="ppx-sug-a"><span class="ppx-chip">Aplicar</span><u>Agora não</u></div></div>';
 			return sera_pp_mob( 'Escrever', $b );
 
 		case 'elenco':
-			$b = '<div class="ppx-step">Passo 5 de 10 · Visualizar</div><div class="ppx-mtitle">Personagens<br>e vozes</div><div class="ppx-cast">';
+			$b = '<div class="ppx-step">Passo 5 de 10 · Visualizar</div><div class="ppx-mtitle">Personagens<br>e vozes</div><div class="ppx-cast pp-fxm">';
 			foreach ( array( array( 'hana', 'Hana' ), array( 'ren', 'Ren' ), array( 'okabe', 'Sr. Okabe' ), array( 'bilh', 'Bilheteiro' ) ) as $c ) {
 				$b .= '<div class="ppx-card" style="padding:6px">' . sera_pp_portrait( $c[0], 'height:150px' ) . '<div style="font-size:13px;margin:6px 2px 2px">' . $c[1] . '</div><span class="ppx-chip sm">◉ voz</span></div>';
 			}
 			return sera_pp_mob( 'Visualizar', $b . '</div>' );
 
 		case 'estilo':
-			$b = '<div class="ppx-step">Passo 4 de 10 · Visualizar</div><div class="ppx-mtitle">Estilo visual</div><div class="ppx-card" style="margin-top:14px;padding:8px"><div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;border-radius:6px;overflow:hidden">';
+			$b = '<div class="ppx-step">Passo 4 de 10 · Visualizar</div><div class="ppx-mtitle">Estilo visual</div><div class="ppx-card pp-fxm" style="margin-top:14px;padding:8px"><div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;border-radius:6px;overflow:hidden">';
 			foreach ( array( 'cel-1', 'cel-2', 'cel-3', 'cel-4' ) as $c ) {
 				$b .= sera_pp_frame( $c, 'height:84px;border-radius:0' );
 			}
@@ -388,14 +394,14 @@ function sera_pp_phone( $id ) {
 			return sera_pp_mob( 'Visualizar', $b . '</div>' );
 
 		case 'cenarios':
-			$b = '<div class="ppx-step">Passo 6 de 10 · Visualizar</div><div class="ppx-mtitle">Cenários</div>' . sera_pp_frame( 'loc-tunel', 'height:180px;margin-top:14px' ) . '<div style="display:flex;flex-direction:column;gap:7px;margin-top:12px">';
+			$b = '<div class="ppx-step">Passo 6 de 10 · Visualizar</div><div class="ppx-mtitle">Cenários</div>' . str_replace( 'class="ppx-img"', 'class="ppx-img pp-fxm"', sera_pp_frame( 'loc-tunel', 'height:180px;margin-top:14px' ) ) . '<div style="display:flex;flex-direction:column;gap:7px;margin-top:12px">';
 			foreach ( array( array( 'loc-plataforma', 'Plataforma' ), array( 'loc-vagao', 'Interior do vagão' ), array( 'loc-tunel', 'Trilhos e túnel' ) ) as $i => $l ) {
 				$b .= '<div class="ppx-row' . ( 2 === $i ? ' is-sel' : '' ) . '" style="padding:7px">' . sera_pp_frame( $l[0], 'width:52px;height:32px;flex:none' ) . '<div style="font-size:12.5px">' . $l[1] . '<div class="ppx-lbl">4 ângulos</div></div></div>';
 			}
 			return sera_pp_mob( 'Visualizar', $b . '</div>' );
 
 		case 'montagem':
-			$b = '<div class="ppx-step">Passo 10 de 10 · Filmar</div><div class="ppx-mtitle">Montagem</div>' . sera_pp_frame( 'ombro', 'height:170px;margin-top:14px' ) . '<div class="ppx-mtl">';
+			$b = '<div class="ppx-step">Passo 10 de 10 · Filmar</div><div class="ppx-mtitle">Montagem</div>' . sera_pp_frame( 'ombro', 'height:170px;margin-top:14px' ) . '<div class="ppx-mtl pp-fxm">';
 			foreach ( array( 'plataforma', 'relogio', 'close', 'ombro', 'freio', 'mesa' ) as $c ) {
 				$b .= sera_pp_frame( $c, 'flex:1;height:100%;border-radius:2px' );
 			}
@@ -406,12 +412,12 @@ function sera_pp_phone( $id ) {
 			$b    = '<div class="ppx-step">Passo 7 de 10 · Visualizar</div><div class="ppx-mtitle">Decupagem</div><div class="ppx-lbl" style="margin-top:14px">Cena 1 · Estação Shinji-mae · 9 tomadas</div><div style="display:flex;flex-direction:column;gap:7px;margin-top:8px">';
 			$rows = array( array( 'ppp', '1A', 'Chuva no telhado da plataforma vazia', 'Primeiríssimo · 8 s' ), array( 'gpg', '1B', 'Hana corre pela plataforma', 'Grande plano geral · 8 s' ), array( 'close', '1C', 'Hana para, olhando os trilhos', 'Close · 10 s · IA' ), array( 'medio', '1D', 'Ren no banco escuro', 'Plano médio · 9 s · IA' ), array( 'ombro', '1E', 'Hana se vira para Ren', 'Sobre o ombro · 8 s' ) );
 			foreach ( $rows as $i => $r ) {
-				$b .= '<div class="ppx-row' . ( 2 === $i ? ' is-sel' : '' ) . '" style="padding:8px 10px">' . sera_pp_shot_icon( $r[0] ) . '<div style="flex:1;font-size:12.5px"><div><b style="font-weight:500;margin-right:4px">' . $r[1] . '</b>' . $r[2] . '</div><div style="font-size:10.5px;color:var(--p-muted)">' . $r[3] . '</div></div></div>';
+				$b .= '<div class="ppx-row' . ( 2 === $i ? ' is-sel pp-fxm' : '' ) . '" style="padding:8px 10px">' . sera_pp_shot_icon( $r[0] ) . '<div style="flex:1;font-size:12.5px"><div><b style="font-weight:500;margin-right:4px">' . $r[1] . '</b>' . $r[2] . '</div><div style="font-size:10.5px;color:var(--p-muted)">' . $r[3] . '</div></div></div>';
 			}
 			return sera_pp_mob( 'Visualizar', $b . '</div>' );
 
 		case 'storyboard':
-			$b = '<div class="ppx-step">Passo 8 de 10 · Visualizar</div><div class="ppx-mtitle">Storyboard</div><div class="ppx-card" style="margin-top:14px;padding:12px"><span style="font-size:26px;font-weight:300">6</span> de 6 tomadas aprovadas <span class="ppx-tag ok">Tudo aprovado</span></div><div class="ppx-cast is-sb">';
+			$b = '<div class="ppx-step">Passo 8 de 10 · Visualizar</div><div class="ppx-mtitle">Storyboard</div><div class="ppx-card" style="margin-top:14px;padding:12px"><span style="font-size:26px;font-weight:300">6</span> de 6 tomadas aprovadas <span class="ppx-tag ok">Tudo aprovado</span></div><div class="ppx-cast is-sb pp-fxm">';
 			foreach ( array( array( 'relogio', 'Plano médio' ), array( 'close', 'Close' ), array( 'ombro', 'Ombro' ), array( 'freio', 'Geral' ) ) as $i => $f ) {
 				$b .= '<div class="ppx-card" style="padding:5px">' . sera_pp_frame( $f[0], 'height:84px' ) . '<div style="font-size:11px;margin:5px 2px 3px">3' . 'ABCD'[ $i ] . ' · ' . $f[1] . '</div><span class="ppx-tag ok">✓ Aprovada</span></div>';
 			}
@@ -419,7 +425,7 @@ function sera_pp_phone( $id ) {
 
 		case 'animacao':
 			$b = '<div class="ppx-step">Passo 9 de 10 · Filmar</div><div class="ppx-mtitle">Animação</div>' . sera_pp_frame( 'mesa', 'height:190px;margin-top:14px' );
-			$b .= '<div class="ppx-card" style="margin-top:10px"><div class="ppx-lbl">O que se move · 3F</div><div style="font-size:13px;margin-top:6px">O trem freia forte, Lia é jogada contra Dante; os copos deslizam.<span class="ppx-caret"></span></div></div>';
+			$b .= '<div class="ppx-card pp-fxm" style="margin-top:10px"><div class="ppx-lbl">O que se move · 3F</div><div style="font-size:13px;margin-top:6px">O trem freia forte, Lia é jogada contra Dante; os copos deslizam.<span class="ppx-caret"></span></div></div>';
 			$b .= '<div style="display:flex;gap:5px;margin-top:10px"><span class="ppx-chip on">Auto · 4 s</span><span class="ppx-chip">6 s</span><span class="ppx-chip">Voz da Lia</span></div><span class="ppx-btn lg">Gerar take · US$ 0,32</span>';
 			return sera_pp_mob( 'Filmar', $b );
 	}

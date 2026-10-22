@@ -52,6 +52,7 @@
 .ppx-input.is-plain{background:var(--p-surface)}
 .ppx-img{position:relative;overflow:hidden;border-radius:6px;background:#1B2330}
 .ppx-img.is-sheet{background:#DCDDDC}
+.ppx-img>video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .ppx-img>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;max-width:none}
 .ppx-bar{height:3px;margin-top:8px;background:var(--p-line)}
 .ppx-bar i{display:block;height:100%;background:var(--p-ink)}

@@ -1,6 +1,8 @@
-# Paperplane · case (rascunho v3)
+# Paperplane · case (rascunho v4)
 
 Prévia: `../paperplane-case.html` (página inteira, com o CSS, as fontes, as imagens, os vídeos e os scripts do Sera v.1 embutidos; abra no navegador e role devagar).
+
+Diagnóstico da v3 e orientações da v4: `BRIEF.md`.
 
 Os arquivos aqui seguem a estrutura do tema e entram nele como estão:
 
@@ -22,7 +24,7 @@ Para ligar no tema:
    - enfileirar `pp-ui.css` junto do `lume-ui.css`;
    - incluir `pp` na regex de `sera_case_prefixes()`, `'paperplane' => array( 'pp' )` e `'pp-' => array( 'pp' )` em `sera_mockup_prefixes()`;
    - enfileirar `assets/js/pp-case.js` (defer, no rodapé) quando o conteúdo tiver `wp:sera/artifact {"name":"pp-` ou `"mockup":"pp-`.
-2. `inc/blocks.php`: adicionar em `sera_artifact_names()` os nomes `pp-glance`, `pp-coldopen`, `pp-tabs`, `pp-pains`, `pp-market`, `pp-statement`, `pp-principles`, `pp-cast`, `pp-styles`, `pp-take`, `pp-router`, `pp-engines`, `pp-lab`, `pp-made`, `pp-solo`, `pp-status`, `pp-reflection`, `pp-signals`.
+2. `inc/blocks.php`: adicionar em `sera_artifact_names()` os nomes `pp-glance`, `pp-coldopen`, `pp-tabs`, `pp-pains`, `pp-market`, `pp-spell`, `pp-principles`, `pp-cast`, `pp-styles`, `pp-take`, `pp-4k`, `pp-router`, `pp-engines`, `pp-models`, `pp-lab`, `pp-made`, `pp-solo`, `pp-status`, `pp-reflection`, `pp-signals`.
 3. `inc/template-tags.php`: adicionar os quatro mockups em `sera_mockups()`.
 4. `page.php`: `'paperplane' => 'pp'` e `'pp-' => 'pp'` no mapa do próximo case.
 5. `inc/starter-content.php`: a versão em inglês e a entrada do case (slug `paperplane`), quando o texto em PT estiver aprovado.

@@ -29,12 +29,12 @@ $c .= sera_b_art( 'pp-market' );
 $c .= sera_b_p( 'Duas linhas dessa tabela viraram o produto. Ninguém junta <strong>o fluxo de um estúdio</strong>, do roteiro à montagem, com <strong>a liberdade de escolher o motor</strong>: o modelo de cada etapa e quem paga a GPU. Quem entrega o fluxo prende você nos créditos. Quem entrega a liberdade cobra em complexidade.' );
 
 $c .= sera_b_chapter( 3, 'A aposta', 'Escreva uma frase. Dirija o resto.' );
-$c .= sera_b_art( 'pp-statement' );
-$c .= sera_b_p( 'Chamei de Paperplane. Fundei sozinho, com IA do começo ao fim: pesquisa, produto, design, código e até os dois episódios que aparecem nesta página. É o meu primeiro produto fundado solo; está no ar, em beta fechado. Antes da primeira tela, quatro decisões, uma contra cada dor.' );
+$c .= sera_b_art( 'pp-spell' );
+$c .= sera_b_p( 'É essa a promessa da landing, e ela precisava ser verdade no produto. Chamei de Paperplane. Fundei sozinho, com IA do começo ao fim: pesquisa, produto, design, código e até os dois episódios que aparecem nesta página. É o meu primeiro produto fundado solo; está no ar, em beta fechado. Antes da primeira tela, quatro decisões, uma contra cada dor.' );
 $c .= sera_b_art( 'pp-principles' );
 
 $c .= sera_b_chapter( 4, 'O estúdio', 'Dez etapas, três atos, uma aba só.' );
-$c .= sera_b_p( 'O estúdio segue a ordem em que um filme é feito de verdade: escrever, visualizar, filmar. Cada etapa entrega para a próxima, e o Origami, o assistente do estúdio, acompanha o projeto inteiro. Role devagar: a tela do computador mostra o estúdio por dentro, e o celular, a mesma etapa no bolso.', 'lead' );
+$c .= sera_b_p( 'O estúdio segue a ordem em que um filme é feito de verdade: escrever, visualizar, filmar. Cada etapa entrega para a próxima, e o Origami, o assistente do estúdio, acompanha o projeto inteiro. Role devagar: a câmera aproxima no que importa em cada etapa.', 'lead' );
 $c .= sera_b_mock( 'pp-tour' );
 
 $c .= sera_b_chapter( 5, 'Continuidade', 'O difícil não é gerar um quadro bonito. É gerar o oitavo igual ao primeiro.' );
@@ -49,6 +49,7 @@ $c .= sera_b_chapter( 6, 'Filmar', 'Imagem custa centavos. Vídeo custa dólares
 $c .= sera_b_p( 'A regra de fluxo que mais mudou a conta: só vira vídeo o que já foi aprovado como imagem. O quadro do storyboard vira o primeiro frame do take, e quem dirige só conta o que se move. A fala sai na voz do próprio personagem.', 'lead' );
 $c .= sera_b_art( 'pp-take' );
 $c .= sera_b_p( 'Depois, a montagem fecha o episódio numa linha do tempo com vídeo, efeitos, falas e trilha, e exporta em 1080p nativo, com <strong>upscale até 4K</strong> sem sair do projeto. Nada de baixar, subir em outro programa e torcer.' );
+$c .= sera_b_art( 'pp-4k' );
 
 $c .= sera_b_mock( 'pp-duo' );
 
@@ -57,6 +58,7 @@ $c .= sera_b_p( 'Quase toda ferramenta de vídeo com IA vende a mesma coisa: cr�
 $c .= sera_b_art( 'pp-router' );
 $c .= sera_b_p( 'São quatro jeitos de pagar, e dá para trocar no meio do projeto. O último é o maior diferencial e já está no ar: um app de desktop conecta a placa de vídeo de quem usa ao mesmo estúdio. O setup mínimo é algo como uma RTX 4090, com 24 GB de memória de vídeo.' );
 $c .= sera_b_art( 'pp-engines' );
+$c .= sera_b_art( 'pp-models' );
 
 $c .= sera_b_chapter( 9, 'Em beta, no ar', 'Duas funções novas, testadas por quem entrou primeiro.' );
 $c .= sera_b_p( 'O Origami Assistant e o Smart Engine já estão no ar para quem entrou no beta, e ainda podem mudar de forma e de nome com o que eles ensinarem. Os dois atacam o mesmo problema por lados diferentes: o Origami diminui o trabalho de quem dirige, e o Smart Engine diminui a conta.' );

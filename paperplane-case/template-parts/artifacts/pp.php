@@ -152,7 +152,7 @@ switch ( $args['name'] ) :
 						<?php foreach ( $rows as $r ) : ?>
 							<tr><th scope="row"><?php echo esc_html( $r[0] ); ?></th>
 							<?php for ( $k = 1; $k <= 4; $k++ ) : ?>
-								<td<?php echo 4 === $k ? ' class="is-pp"' : ''; ?>><i class="pp-dot is-<?php echo esc_attr( $r[ $k ] ); ?>" role="img" aria-label="<?php echo esc_attr( $lbl[ $r[ $k ] ] ); ?>"></i></td>
+								<td data-l="<?php echo esc_attr( array( 'Geradores', 'Nós locais', 'Editores', 'Paperplane' )[ $k - 1 ] ); ?>"<?php echo 4 === $k ? ' class="is-pp"' : ''; ?>><i class="pp-dot is-<?php echo esc_attr( $r[ $k ] ); ?>" role="img" aria-label="<?php echo esc_attr( $lbl[ $r[ $k ] ] ); ?>"></i></td>
 							<?php endfor; ?>
 							</tr>
 						<?php endforeach; ?>
@@ -475,7 +475,7 @@ switch ( $args['name'] ) :
 		<div class="pp-made" data-pp-made>
 			<?php foreach ( $rows as $ri => $r ) : ?>
 				<div class="pp-made-row<?php echo $ri ? ' is-rev' : ''; ?>">
-					<span class="pp-made-l"><b><?php echo esc_html( $r[0] ); ?></b><?php echo count( $r[1] ); ?> takes</span>
+					<span class="pp-made-l"><b><?php echo esc_html( $r[0] ); ?></b></span>
 					<div class="pp-made-track">
 						<?php for ( $loop = 0; $loop < 2; $loop++ ) : ?>
 							<?php foreach ( $r[1] as $c ) : ?>
@@ -485,12 +485,7 @@ switch ( $args['name'] ) :
 					</div>
 				</div>
 			<?php endforeach; ?>
-			<div class="pp-made-cast">
-				<span class="art-label">Elenco de Sem Partidas</span>
-				<?php foreach ( array( array( 'hana', 'Hana' ), array( 'ren', 'Ren' ), array( 'okabe', 'Sr. Okabe' ), array( 'bilh', 'Bilheteiro' ) ) as $c ) : ?>
-					<span class="pp-made-p"><?php echo sera_pp_portrait( $c[0] ); // phpcs:ignore ?><?php echo esc_html( $c[1] ); ?></span>
-				<?php endforeach; ?>
-			</div>
+			
 		</div>
 		<?php
 		break;
@@ -531,6 +526,54 @@ switch ( $args['name'] ) :
 			<div><h3>Consistência é produto, não prompt.</h3><p>Personagem que não muda de cara não vem de um prompt melhor. Vem de uma ficha que viaja com o projeto e entra em todo pedido, sem a pessoa precisar lembrar.</p></div>
 			<div><h3>O preço é parte da interface.</h3><p>Em IA generativa, mostrar o custo na hora da decisão importa tanto quanto mostrar o resultado. Todo botão do Paperplane diz quanto custa antes de gerar.</p></div>
 			<div><h3>Ainda falta provar: quem troca oito abas por uma?</h3><p>A aposta é que roteiristas, creators e estúdios pequenos preferem um estúdio inteiro a um quebra-cabeça. A lista de espera é o primeiro sinal; o beta aberto é a prova.</p></div>
+		</div>
+		<?php
+		break;
+
+	case 'pp-spell':
+		$chip = function ( $file, $pos = '50% 50%' ) {
+			return '<span class="pp-spell-chip"><img src="' . sera_pp_src( $file ) . '" alt="" loading="lazy" decoding="async" style="object-position:' . esc_attr( $pos ) . '"></span>';
+		};
+		?>
+		<p class="pp-spell" data-pp-spell>Você chega com a história <?php echo $chip( 'sb-h' ); // phpcs:ignore ?> e a vontade de dirigir. O Paperplane conjura o elenco, <?php echo $chip( 'cast-64a6ee13', '20% 50%' ); // phpcs:ignore ?> os cenários, <?php echo $chip( 'loc-vagao' ); // phpcs:ignore ?> cada plano <?php echo $chip( 'sb-a' ); // phpcs:ignore ?> e cada take, até a última cena.</p>
+		<?php
+		break;
+
+	case 'pp-4k':
+		?>
+		<div class="pp-4k">
+			<div class="pp-4k-film"><?php echo sera_pp_video( 'v-4k' ); // phpcs:ignore ?><span class="pp-4k-tag">Montagem · A estação sem nome</span></div>
+			<div class="pp-4k-side">
+				<span class="art-label">Exportar episódio</span>
+				<p class="pp-4k-h">Abracadabra.<br>Seu filme, em até <b class="pp-k4">4K</b>.</p>
+				<div class="pp-4k-rows">
+					<div><span>MP4 · 1080p</span><em>nativo</em></div>
+					<div class="is-on"><span>Upscale · 4K (2160p)</span><em>+ 3 min</em></div>
+					<div><span>Só as falas · WAV</span><em></em></div>
+				</div>
+				<div class="pp-4k-tracks" aria-hidden="true"><span>Vídeo</span><span>Efeitos</span><span>Falas</span><span>Trilha</span></div>
+			</div>
+		</div>
+		<p class="art-cap">Clipe da montagem de “A estação sem nome”, feito no Paperplane. O tempo do upscale é ilustrativo.</p>
+		<?php
+		break;
+
+	case 'pp-models':
+		$models = array( 'Claude', 'Nano Banana', 'GPT Image', 'FLUX', 'Seedream', 'Seedance', 'Kling', 'LTX', 'MiniMax', 'Wan', 'ElevenLabs', 'Muse' );
+		?>
+		<div class="pp-models">
+			<span class="art-label">Os melhores modelos de IA, ensaiando no mesmo palco</span>
+			<div class="marquee" style="--dur:46s">
+				<div class="marquee-track">
+					<?php for ( $copy = 0; $copy < 2; $copy++ ) : ?>
+						<ul class="marquee-list"<?php echo $copy ? ' aria-hidden="true"' : ''; ?>>
+							<?php foreach ( $models as $m ) : ?>
+								<li><?php echo esc_html( $m ); ?></li>
+							<?php endforeach; ?>
+						</ul>
+					<?php endfor; ?>
+				</div>
+			</div>
 		</div>
 		<?php
 		break;
