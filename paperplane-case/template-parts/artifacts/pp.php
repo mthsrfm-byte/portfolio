@@ -37,7 +37,7 @@ switch ( $args['name'] ) :
 		$hops  = array( 'copia · cola', 'baixa · sobe', 'print · planilha', 'reescreve o prompt', 'exporta · importa', 'baixa · sobe', 'exporta de novo' );
 		?>
 		<div class="art-panel pp-scatter">
-			<span class="art-label">Uma cena de um minuto, hoje</span>
+			<span class="art-label">Um minuto de filme, hoje</span>
 			<span class="art-title">Oito ferramentas, sete viagens de arquivo, e nenhuma lembra o que a anterior fez.</span>
 			<ol class="pp-chain">
 				<?php foreach ( $tools as $i => $t ) : ?>
@@ -103,7 +103,7 @@ switch ( $args['name'] ) :
 		?>
 		<div class="statement">
 			<span class="art-label">A aposta</span>
-			<p>Fazer um filme com IA deveria ser escrever uma frase e dirigir o resto. <em>Da ideia ao 4K, no mesmo lugar.</em></p>
+			<p>Sua ideia deveria virar filme sem precisar de uma equipe de 50 pessoas. <em>Da primeira frase ao 4K, num estúdio só.</em></p>
 			<span class="by">O Paperplane começa por uma frase e termina num episódio montado. No meio, tudo o que um estúdio faz: universo, roteiro, elenco, cenários, decupagem, storyboard, animação e montagem, ligados ao mesmo projeto. A IA faz o trabalho pesado; a palavra final é sempre de quem dirige.</span>
 		</div>
 		<?php
@@ -307,6 +307,132 @@ switch ( $args['name'] ) :
 			<div><h3>Consistência é produto, não prompt.</h3><p>Personagem que não muda de cara não vem de um prompt melhor. Vem de uma ficha que viaja com o projeto e entra em todo pedido, sem a pessoa precisar lembrar.</p></div>
 			<div><h3>O preço é parte da interface.</h3><p>Em IA generativa, mostrar o custo na hora da decisão importa tanto quanto mostrar o resultado. Todo botão do Paperplane diz quanto custa antes de gerar.</p></div>
 			<div><h3>Ainda falta provar: quem troca oito ferramentas por uma?</h3><p>A aposta é que roteiristas, creators e estúdios pequenos preferem um estúdio inteiro a um quebra-cabeça. A lista de espera é o primeiro sinal; o beta aberto é a prova.</p></div>
+		</div>
+		<?php
+		break;
+
+	case 'pp-coldopen':
+		// One sentence typed at the top, the episode it became rolling underneath (A estação sem nome).
+		$roll = array(
+			array( 'n-c5b568cf', '1A' ),
+			array( 'n-716c2a5a', '2A' ),
+			array( 'n-28767caf', '2C' ),
+			array( 'sb-a', '3A' ),
+			array( 'sb-b', '3B' ),
+			array( 'sb-d', '3C' ),
+			array( 'sb-e', '3D' ),
+			array( 'n-4f6f962b', '4E' ),
+			array( 'n-dbccf7a7', '5B' ),
+			array( 'n-64e0721f', '8A' ),
+			array( 'n-8eebb5ec', '8C' ),
+		);
+		?>
+		<div class="pp-cold">
+			<div class="pp-cold-top">
+				<span class="art-label">Cena 0 · antes do case</span>
+				<p class="pp-cold-line"><span class="pp-cold-q">“</span>Uma garçonete de trem noturno descobre que o passageiro da mesa 4 sabe exatamente como ela vai morrer.<i class="pp-cold-caret" aria-hidden="true"></i></p>
+				<span class="pp-cold-arrow"><b>Uma frase</b><i aria-hidden="true"></i><b>Um episódio</b></span>
+			</div>
+			<div class="pp-reel" role="img" aria-label="Onze quadros do episódio A estação sem nome, da plataforma ao vagão-restaurante, todos gerados no Paperplane a partir da frase acima">
+				<div class="pp-reel-track">
+					<?php for ( $loop = 0; $loop < 2; $loop++ ) : ?>
+						<?php foreach ( $roll as $r ) : ?>
+							<figure class="pp-reel-f"<?php echo $loop ? ' aria-hidden="true"' : ''; ?>><img src="<?php echo sera_pp_src( $r[0] ); // phpcs:ignore ?>" alt="" loading="lazy" decoding="async"><figcaption><b><?php echo esc_html( $r[1] ); ?></b></figcaption></figure>
+						<?php endforeach; ?>
+					<?php endfor; ?>
+				</div>
+			</div>
+			<div class="pp-cold-foot"><span><b>A estação sem nome</b> · episódio 1 · 8 cenas · 2:23</span><span>Isto aqui já foi só uma frase. Cada quadro desta página nasceu no Paperplane.</span></div>
+		</div>
+		<?php
+		break;
+
+	case 'pp-cast':
+		$views = array( array( 'ren-frente', 'Frente' ), array( 'ren-34', 'Três quartos' ), array( 'ren-perfil', 'Perfil' ), array( 'ren-costas', 'Costas' ) );
+		$lia   = array( array( 'sb-a', '3A · Plano médio' ), array( 'sb-b', '3B · Close' ), array( 'sb-d', '3C · Sobre o ombro' ), array( 'n-4f6f962b', '4E · Close' ) );
+		?>
+		<div class="pp-cast">
+			<div class="pp-cast-sheet">
+				<div class="pp-cast-h"><span class="art-label">A ficha · Sem Partidas</span><h4>Ren, em quatro vistas</h4></div>
+				<div class="pp-cast-views">
+					<?php foreach ( $views as $v ) : ?>
+						<figure><img src="<?php echo sera_pp_src( $v[0] ); // phpcs:ignore ?>" alt="" loading="lazy" decoding="async"><figcaption><?php echo esc_html( $v[1] ); ?></figcaption></figure>
+					<?php endforeach; ?>
+				</div>
+				<p>Rapaz de 19 anos, rosto fino e olhar desconfiado. Jaqueta escura de gola, camiseta verde-escura, botas marrons. <b>Isso não muda.</b></p>
+			</div>
+			<div class="pp-cast-shots">
+				<div class="pp-cast-h"><span class="art-label">A mesma pessoa · A estação sem nome</span><h4>Cena 3 ou cena 80, a Lia continua sendo a Lia.</h4></div>
+				<div class="pp-cast-grid">
+					<?php foreach ( $lia as $l ) : ?>
+						<figure><img src="<?php echo sera_pp_src( $l[0] ); // phpcs:ignore ?>" alt="" loading="lazy" decoding="async"><figcaption><?php echo esc_html( $l[1] ); ?></figcaption></figure>
+					<?php endforeach; ?>
+				</div>
+			</div>
+		</div>
+		<p class="art-cap">Quadros e fichas gerados no Paperplane para os dois episódios de exemplo. Planos, luz e lugar mudam; rosto, cabelo e figurino ficam.</p>
+		<?php
+		break;
+
+	case 'pp-styles':
+		$deck = array(
+			array( 'ns-2d-sombrio', 'Drama 2D sombrio' ),
+			array( 'ns-live-action-de-drama', 'Drama live action' ),
+			array( 'ns-preto-e-branco-dos-anos-60', 'Noir anos 60' ),
+			array( 'ns-sci-fi-ambicioso', 'Sci-fi épico' ),
+			array( 'ns-sitcom-nostalgico', 'Sitcom anos 90' ),
+			array( 'ns-stop-motion', 'Stop motion' ),
+		);
+		?>
+		<div class="pp-styles">
+			<div class="pp-styles-copy">
+				<span class="art-label">Biblioteca de estilos</span>
+				<h4>Feitiço <mark>trocou.</mark><br>História <mark>ficou.</mark></h4>
+				<p>Escolha um traço da biblioteca ou ensine um novo com algumas imagens. Ele vira regra do projeto e entra em todo pedido.</p>
+			</div>
+			<ol class="pp-deck">
+				<?php foreach ( $deck as $i => $d ) : ?>
+					<li style="--i:<?php echo (int) $i; ?>"><img src="<?php echo sera_pp_src( $d[0] ); // phpcs:ignore ?>" alt="" loading="lazy" decoding="async"><span><?php echo esc_html( $d[1] ); ?></span></li>
+				<?php endforeach; ?>
+			</ol>
+		</div>
+		<?php
+		break;
+
+	case 'pp-made':
+		$eps = array(
+			array(
+				'Sem Partidas',
+				'Hana corre pela plataforma e perde o último trem. No banco escuro, Ren já estava lá.',
+				array( array( 'v-placa', '1A' ), array( 'v-corrida', '1B' ), array( 'v-banco', '1C' ), array( 'v-close', '1E' ), array( 'v-encontro', '2A' ) ),
+				array( array( 'hana', 'Hana' ), array( 'ren', 'Ren' ), array( 'okabe', 'Sr. Okabe' ), array( 'bilh', 'Bilheteiro' ) ),
+			),
+			array(
+				'A estação sem nome',
+				'Uma garçonete de trem noturno descobre que o passageiro da mesa 4 sabe exatamente como ela vai morrer.',
+				array( array( 'n-716c2a5a', '2A' ), array( 'n-9d3e32ea', '2D' ), array( 'v-mesa', '3C' ), array( 'v-vagao', '3F' ), array( 'n-dbccf7a7', '5B' ) ),
+				array(),
+			),
+		);
+		?>
+		<div class="pp-made">
+			<?php foreach ( $eps as $n => $e ) : ?>
+				<div class="pp-ep">
+					<div class="pp-ep-h"><span class="art-label">Episódio de exemplo · <?php printf( '%02d', $n + 1 ); ?></span><h4><?php echo esc_html( $e[0] ); ?></h4><p><?php echo esc_html( $e[1] ); ?></p></div>
+					<div class="pp-ep-strip">
+						<?php foreach ( $e[2] as $f ) : ?>
+							<figure><img src="<?php echo sera_pp_src( $f[0] ); // phpcs:ignore ?>" alt="" loading="lazy" decoding="async"><figcaption>Tomada <?php echo esc_html( $f[1] ); ?></figcaption></figure>
+						<?php endforeach; ?>
+					</div>
+					<?php if ( $e[3] ) : ?>
+						<div class="pp-ep-cast"><span class="art-label">Elenco</span>
+							<?php foreach ( $e[3] as $c ) : ?>
+								<span class="pp-ep-p"><?php echo sera_pp_portrait( $c[0] ); // phpcs:ignore ?><?php echo esc_html( $c[1] ); ?></span>
+							<?php endforeach; ?>
+						</div>
+					<?php endif; ?>
+				</div>
+			<?php endforeach; ?>
 		</div>
 		<?php
 		break;

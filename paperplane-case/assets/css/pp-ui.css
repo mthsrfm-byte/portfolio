@@ -52,7 +52,7 @@
 .ppx-input.is-plain{background:var(--p-surface)}
 .ppx-img{position:relative;overflow:hidden;border-radius:6px;background:#1B2330}
 .ppx-img.is-sheet{background:#DCDDDC}
-.ppx-art{position:absolute;inset:0;width:100%;height:100%}
+.ppx-img>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;max-width:none}
 .ppx-bar{height:3px;margin-top:8px;background:var(--p-line)}
 .ppx-bar i{display:block;height:100%;background:var(--p-ink)}
 .ppx-row{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--p-line);border-radius:6px;background:var(--p-surface)}
@@ -86,7 +86,7 @@
 .ppx-tabs span{padding-bottom:8px;color:var(--p-muted)}
 .ppx-tabs span.on{border-bottom:2px solid var(--p-ink);color:var(--p-ink)}
 .ppx-sheet{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;height:300px}
-.ppx-sheet svg{position:static;width:100%;height:100%;border-radius:6px;background:#DCDDDC}
+.ppx-sheet img{width:100%;height:100%;object-fit:contain;object-position:50% 100%;border-radius:6px;background:#0E0E13;display:block}
 .ppx-sheet-l{display:flex;justify-content:space-around;margin-top:6px;font-size:10.5px;color:var(--p-muted)}
 
 /* ---------- shot list ---------- */

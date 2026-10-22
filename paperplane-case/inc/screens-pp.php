@@ -57,257 +57,61 @@ function sera_pp_shot_icon( $k ) {
 	return isset( $p[ $k ] ) ? '<span class="ppx-ico"><svg viewBox="0 0 24 24" aria-hidden="true">' . $p[ $k ] . '</svg></span>' : '';
 }
 
-/* ------------------------------------------------------------- frames drawn in code */
+/* ------------------------------------------------------------- frames from the episodes */
 
 /**
- * Rain: thin slanted strokes inside a box, deterministic (same drawing on every render).
- */
-function sera_pp_rain( $x, $y, $w, $h, $n, $color = '#6F7E86', $op = '.5' ) {
-	$s = '<g stroke="' . $color . '" stroke-width=".5" stroke-linecap="round" opacity="' . $op . '">';
-	for ( $i = 0; $i < $n; $i++ ) {
-		$px = $x + fmod( abs( sin( $i * 12.9898 ) * 437.58 ), $w );
-		$py = $y + fmod( abs( sin( $i * 78.233 ) * 943.17 ), max( 1, $h - 6 ) );
-		$s .= sprintf( '<path d="M%.1f %.1fl-1.6 5"/>', $px, $py );
-	}
-	return $s . '</g>';
-}
-
-/**
- * A character as a bust, drawn in a 40×46 box (head centred at 20,16).
- */
-function sera_pp_bust( $who, $tx = 0, $ty = 0, $sc = 1, $mood = '' ) {
-	$c = array(
-		'lia'   => array( '#D8B08C', '#2A1E1A', '#8C9096', '#EDE4D0' ),
-		'dante' => array( '#C99A78', '#15161B', '#1E2230', '#D9D4C8' ),
-		'hana'  => array( '#E0BC98', '#3A2A22', '#2B3446', '#EDE4D0' ),
-		'ren'   => array( '#D2A47E', '#121318', '#6F7E86', '#2B3446' ),
-		'okabe' => array( '#CFA27E', '#9AA0A6', '#1E2A3A', '#C6A06A' ),
-		'bilh'  => array( '#C99A78', '#3B2A22', '#6F2E2E', '#EDE4D0' ),
-	);
-	list( $skin, $hair, $top, $in ) = $c[ $who ];
-	$g  = sprintf( '<g transform="translate(%s %s) scale(%s)">', $tx, $ty, $sc );
-	$g .= '<path d="M3 46C3 35 9 30 20 30s17 5 17 16Z" fill="' . $top . '"/>';
-	$g .= '<path d="M15.5 30.5 20 38l4.5-7.5Z" fill="' . $in . '"/>';
-	$g .= '<rect x="17" y="22" width="6" height="9" rx="2" fill="' . $skin . '" opacity=".85"/>';
-	// hair behind the head
-	if ( 'hana' === $who ) {
-		$g .= '<path d="M11 15c0-8 18-8 18 0l1.5 14c-2 1-4 0-4.5-3h-12c-.5 3-2.5 4-4.5 3Z" fill="' . $hair . '"/>';
-	} elseif ( 'lia' === $who ) {
-		$g .= '<circle cx="20" cy="5.5" r="4" fill="' . $hair . '"/>';
-	}
-	$g .= '<ellipse cx="20" cy="16" rx="7.4" ry="9" fill="' . $skin . '"/>';
-	// hair on top
-	switch ( $who ) {
-		case 'lia':
-			$g .= '<path d="M12.4 15c-.4-6.5 3.4-9.6 7.6-9.6s8 3.1 7.6 9.6c-1.2-3.4-3.8-5.2-7.6-5.2s-6.4 1.8-7.6 5.2Z" fill="' . $hair . '"/>';
-			break;
-		case 'dante':
-			$g .= '<path d="M12.6 13.6c0-5.2 3.2-7.4 7.4-7.4s7.4 2.2 7.4 7.4c-1.4-2.2-4-3.1-7.4-3.1s-6 .9-7.4 3.1Z" fill="' . $hair . '"/>';
-			$g .= '<path d="M18.5 30.5h3l.6 7-2.1 2.5-2.1-2.5Z" fill="#6F2E2E"/>';
-			break;
-		case 'hana':
-			$g .= '<path d="M12.4 16c-.6-6.6 3.4-10 7.6-10s8.2 3.4 7.6 10c-2-3-4.4-4.4-6.6-4.6-1 1.6-4.4 3.4-8.6 4.6Z" fill="' . $hair . '"/>';
-			break;
-		case 'ren':
-			$g .= '<path d="M12 14c-1-6 3-9.5 8-9.5s9 3 8 9.5l-1.6-2.4-1.2 2-1.6-2.6-1.6 2.2-1.6-2.4-1.6 2.4-1.6-2.2-1.6 2.6-1.2-2Z" fill="' . $hair . '"/>';
-			$g .= '<path d="M11.6 15.5a8.4 8.4 0 0 1 16.8 0" fill="none" stroke="#C6A06A" stroke-width="1.4"/><rect x="10.4" y="14.5" width="2.6" height="5" rx="1.2" fill="#C6A06A"/>';
-			break;
-		case 'okabe':
-			$g .= '<path d="M12.4 15.5c-.4-4 1.2-6.4 3-7.4h9.2c1.8 1 3.4 3.4 3 7.4l-1.4-3H13.8Z" fill="' . $hair . '"/>';
-			$g .= '<path d="M11.4 9.4c1.4-3.6 4.8-5.2 8.6-5.2s7.2 1.6 8.6 5.2Z" fill="#1E2A3A"/><rect x="10" y="8.6" width="20" height="2" rx="1" fill="#14202E"/>';
-			break;
-		case 'bilh':
-			$g .= '<path d="M11.4 10c1.4-3.6 4.8-5.2 8.6-5.2s7.2 1.6 8.6 5.2Z" fill="#6F2E2E"/><rect x="10.4" y="9.2" width="19.2" height="2" rx="1" fill="#4A1E1E"/>';
-			$g .= '<path d="M16.4 20.2c1.2-.8 2.4-.8 3.6 0 1.2-.8 2.4-.8 3.6 0-1.2 1.4-2.4 1.4-3.6.4-1.2 1-2.4 1-3.6-.4Z" fill="' . $hair . '"/>';
-			break;
-	}
-	// face
-	if ( 'wide' === $mood ) {
-		$g .= '<ellipse cx="17.2" cy="16.6" rx="1.4" ry="1.1" fill="#F4EEE4"/><ellipse cx="22.8" cy="16.6" rx="1.4" ry="1.1" fill="#F4EEE4"/><circle cx="17.2" cy="16.7" r=".6" fill="#16161A"/><circle cx="22.8" cy="16.7" r=".6" fill="#16161A"/><path d="M15.6 14.2c.8-.6 1.8-.7 2.8-.4M21.6 13.8c1-.3 2-.2 2.8.4" stroke="#2A1E1A" stroke-width=".55" fill="none" stroke-linecap="round"/><ellipse cx="20" cy="21.6" rx="1" ry=".8" fill="#7A3E3A"/>';
-	} else {
-		$g .= '<circle cx="17.2" cy="16.8" r=".75" fill="#16161A"/><circle cx="22.8" cy="16.8" r=".75" fill="#16161A"/><path d="M18.6 21.4c.9.4 1.9.4 2.8 0" stroke="#7A3E3A" stroke-width=".6" fill="none" stroke-linecap="round"/>';
-	}
-	// shade on one side of the face (key light from the window)
-	$g .= '<path d="M20 7c4.1 0 7.4 4 7.4 9s-3.3 9-7.4 9c2.2-2.6 3-5.6 3-9s-.8-6.4-3-9Z" fill="#0E0E13" opacity=".12"/>';
-	if ( 'lia' === $who ) {
-		$g .= '<path d="M13 38h14v8H13Z" fill="#EDE4D0" opacity=".9"/>';
-	}
-	return $g . '</g>';
-}
-
-/** A night window of the train with rain, at x,y. */
-function sera_pp_window( $x, $y, $w = 44, $h = 30 ) {
-	return sprintf( '<rect x="%1$s" y="%2$s" width="%3$s" height="%4$s" rx="5" fill="#121A26"/><rect x="%1$s" y="%2$s" width="%3$s" height="%4$s" rx="5" fill="none" stroke="#495B74" stroke-width="1.2"/><path d="M%5$s %2$sl10 %4$s" stroke="#F4EEE4" stroke-width="5" opacity=".04"/>', $x, $y, $w, $h, $x + 8 ) . sera_pp_rain( $x + 3, $y + 2, $w - 6, $h - 2, (int) ( $w * .5 ), '#6F7E86', '.6' );
-}
-
-function sera_pp_sconce( $x, $y ) {
-	return sprintf( '<circle cx="%1$s" cy="%2$s" r="11" fill="#C6A06A" opacity=".1"/><circle cx="%1$s" cy="%2$s" r="5" fill="#C6A06A" opacity=".22"/><circle cx="%1$s" cy="%2$s" r="1.8" fill="#F2D49A"/>', $x, $y );
-}
-
-/**
- * A frame of the episode “A estação sem nome”, drawn in SVG (16:9).
+ * URL of an image made in the Paperplane for the two sample episodes (assets/cases/paperplane/).
  *
- * @param string $k     Scene key.
- * @param string $style Inline style for the frame box.
+ * @param string $file File name without extension.
  */
-function sera_pp_frame( $k, $style = '' ) {
-	$s = '';
-	switch ( $k ) {
-		case 'vagao': // the dining car, empty
-			$s .= '<rect width="160" height="90" fill="#2B3446"/><rect width="160" height="11" fill="#1B2330"/><rect y="11" width="160" height="1.6" fill="#C6A06A" opacity=".35"/>';
-			foreach ( array( 6, 58, 110 ) as $x ) {
-				$s .= sera_pp_window( $x, 18 );
-				$s .= sprintf( '<rect x="%s" y="46" width="6" height="32" rx="2" fill="#495B74"/><rect x="%s" y="46" width="6" height="32" rx="2" fill="#495B74"/>', $x - 4, $x + 42 );
-				$s .= sprintf( '<path d="M%s 60h46l3 4H%sz" fill="#8A8E6E"/><rect x="%s" y="64" width="4" height="14" fill="#1B2330"/>', $x - 1, $x - 4, $x + 20 );
-			}
-			$s .= sera_pp_sconce( 54, 24 ) . sera_pp_sconce( 106, 24 );
-			$s .= '<rect y="78" width="160" height="12" fill="#141B26"/>';
-			break;
-
-		case 'plataforma': // the platform under the flickering lamp
-			$s .= '<rect width="160" height="90" fill="#1B2330"/><path d="M0 0h160v9L0 17Z" fill="#0E0E13"/>';
-			$s .= '<path d="M0 56 160 50v40H0Z" fill="#2B3446"/><path d="M0 56 160 50v2L0 58.4Z" fill="#C6A06A" opacity=".75"/>';
-			$s .= '<path d="M0 66 160 60" stroke="#495B74" stroke-width=".6"/><path d="M0 74 160 68" stroke="#495B74" stroke-width=".6"/>';
-			$s .= '<path d="M119 20 98 74h44Z" fill="#C6A06A" opacity=".16"/><rect x="118" y="14" width="2.2" height="42" fill="#495B74"/><rect x="113" y="14" width="12" height="3" rx="1.5" fill="#6F7E86"/><circle cx="119" cy="19" r="2.4" fill="#F2D49A"/>';
-			$s .= '<rect x="132" y="44" width="20" height="2.4" rx="1" fill="#6F7E86"/><rect x="134" y="46" width="1.6" height="7" fill="#495B74"/><rect x="148" y="46" width="1.6" height="7" fill="#495B74"/>';
-			$s .= sera_pp_rain( 0, 14, 160, 50, 70, '#6F7E86', '.45' );
-			break;
-
-		case 'hana-plat': // Hana waits on the platform
-			$s .= sera_pp_frame_svg( 'plataforma' );
-			$s .= '<g transform="translate(58 26)"><path d="M6 48 7.5 22h9L18 48h-3.2L12 30l-2.8 18Z" fill="#141A24"/><rect x="5.4" y="12" width="13" height="13" rx="4" fill="#2B3446"/><circle cx="12" cy="7" r="5" fill="#E0BC98"/><path d="M7 8c0-6 10-6 10 0l.6 6c-1 .6-2 0-2.2-1.6H8.6C8.4 14 7.4 14.6 6.4 14Z" fill="#3A2A22"/><rect x="17" y="13" width="5" height="9" rx="2" fill="#495B74"/></g>';
-			break;
-
-		case 'tunel': // tracks into the tunnel
-			$s .= '<rect width="160" height="90" fill="#2B3446"/><path d="M0 0h160v20H0Z" fill="#1B2330"/>';
-			$s .= '<path d="M38 90V44a42 36 0 0 1 84 0v46Z" fill="#0E0E13"/><path d="M38 90V44a42 36 0 0 1 84 0" fill="none" stroke="#495B74" stroke-width="2"/>';
-			$s .= '<ellipse cx="80" cy="52" rx="9" ry="6" fill="#C6A06A" opacity=".35"/><ellipse cx="80" cy="52" rx="3.4" ry="2.4" fill="#F2D49A" opacity=".8"/>';
-			$s .= '<path d="M16 90 76 56M144 90 84 56" stroke="#6F7E86" stroke-width="1.4"/>';
-			foreach ( array( 86, 78, 71, 65, 61 ) as $i => $y ) {
-				$hw = 52 - $i * 10;
-				$s .= sprintf( '<path d="M%s %sh%s" stroke="#495B74" stroke-width="%s"/>', 80 - $hw, $y, 2 * $hw, 1.6 - $i * .25 );
-			}
-			$s .= sera_pp_rain( 0, 0, 36, 90, 16, '#6F7E86', '.4' ) . sera_pp_rain( 124, 0, 36, 90, 16, '#6F7E86', '.4' );
-			break;
-
-		case 'relogio': // 3A · Lia looks at the stopped watch · medium shot
-			$s .= '<rect width="160" height="90" fill="#2B3446"/>' . sera_pp_window( 92, 12, 60, 40 ) . sera_pp_sconce( 76, 18 );
-			$s .= sera_pp_bust( 'lia', 30, 18, 1.55 );
-			$s .= '<g transform="translate(86 60)"><circle r="8" fill="#C6A06A"/><circle r="6.2" fill="#EDE4D0"/><path d="M0 0V-4.4M0 0l3 1.6" stroke="#1B2330" stroke-width=".9" stroke-linecap="round"/><rect x="-1.4" y="-10.4" width="2.8" height="2.6" rx=".8" fill="#C6A06A"/></g>';
-			$s .= '<path d="M70 72c6-6 10-10 16-12" stroke="#D8B08C" stroke-width="4.6" stroke-linecap="round" fill="none"/>';
-			$s .= '<rect y="80" width="160" height="10" fill="#8A8E6E"/>';
-			break;
-
-		case 'close': // 3B · close on Lia, frightened
-			$s .= '<rect width="160" height="90" fill="#495B74"/><rect x="104" width="56" height="90" fill="#2B3446"/>' . sera_pp_rain( 106, 0, 52, 90, 26, '#6F7E86', '.5' );
-			$s .= sera_pp_bust( 'lia', 42, 2, 2.05, 'wide' );
-			break;
-
-		case 'ombro': // 3C · Dante pushes the ticket · over the shoulder
-			$s .= '<rect width="160" height="90" fill="#2B3446"/>' . sera_pp_window( 74, 10, 64, 36 ) . sera_pp_sconce( 60, 16 );
-			$s .= sera_pp_bust( 'lia', 82, 22, 1.3 );
-			$s .= '<path d="M0 70h160v20H0Z" fill="#8A8E6E"/><path d="M68 76 84 73l3 4-16 3Z" fill="#EDE4D0"/><path d="M71 76.6h9" stroke="#8A8E6E" stroke-width=".5"/>';
-			$s .= '<path d="M-6 90C-6 64 6 52 28 52c10 0 18 4 22 10 6 8 8 18 8 28Z" fill="#14161E"/><ellipse cx="26" cy="38" rx="15" ry="18" fill="#14161E"/><path d="M14 30c2-8 8-12 13-12 7 0 12 5 13 12-4-3-8-5-13-5s-9 2-13 5Z" fill="#0B0C10"/>';
-			break;
-
-		case 'freio': // 3D · the train brakes · wide shot
-			$s .= '<rect width="160" height="90" fill="#121A26"/><rect y="66" width="160" height="24" fill="#0E0E13"/>';
-			$s .= '<g stroke="#495B74" stroke-width=".8" opacity=".8"><path d="M0 22h40M10 30h28M2 60h30M120 26h40M128 58h32"/></g>';
-			$s .= '<rect x="22" y="30" width="122" height="34" rx="6" fill="#2B3446"/><rect x="22" y="56" width="122" height="4" fill="#1B2330"/>';
-			foreach ( array( 30, 52, 74, 96, 118 ) as $x ) {
-				$s .= sprintf( '<rect x="%s" y="36" width="16" height="12" rx="2" fill="#C6A06A" opacity=".85"/>', $x );
-			}
-			$s .= '<circle cx="44" cy="64" r="5" fill="#1B2330"/><circle cx="122" cy="64" r="5" fill="#1B2330"/>';
-			$s .= '<g fill="#F7FF9E"><circle cx="50" cy="67" r=".9"/><circle cx="53" cy="65.6" r=".6"/><circle cx="55" cy="68" r=".7"/><circle cx="128" cy="67" r=".9"/><circle cx="131" cy="65.4" r=".6"/></g>';
-			$s .= '<path d="M0 69h160" stroke="#6F7E86" stroke-width="1"/>';
-			break;
-
-		case 'xicara': // 3E · the cup shakes on the table · detail
-			$s .= '<rect width="160" height="90" fill="#2B3446"/><path d="M0 44h160v46H0Z" fill="#8A8E6E"/>';
-			$s .= '<ellipse cx="80" cy="70" rx="30" ry="7" fill="#6F7E86" opacity=".55"/><ellipse cx="80" cy="68" rx="26" ry="5.6" fill="#EDE4D0"/>';
-			$s .= '<path d="M62 40h36l-4 26H66Z" fill="#EDE4D0"/><ellipse cx="80" cy="40" rx="18" ry="4" fill="#E2D8C2"/><ellipse cx="80" cy="40.6" rx="15.6" ry="3" fill="#5A3A24"/><path d="M98 45c8 0 8 13-1 13" stroke="#EDE4D0" stroke-width="3" fill="none"/>';
-			$s .= '<g stroke="#F4EEE4" stroke-width=".7" fill="none" opacity=".6"><path d="M54 40c-3 6-3 14 0 20M48 38c-4 8-4 18 0 26M106 40c3 6 3 14 0 20M112 38c4 8 4 18 0 26"/></g>';
-			break;
-
-		case 'mesa': // 3F · Lia thrown against Dante · medium
-			$s .= '<rect width="160" height="90" fill="#2B3446"/>' . sera_pp_window( 48, 8, 64, 34 ) . sera_pp_sconce( 30, 16 ) . sera_pp_sconce( 130, 16 );
-			$s .= sera_pp_bust( 'dante', 38, 22, 1.4 ) . sera_pp_bust( 'lia', 70, 26, 1.32, 'wide' );
-			$s .= '<path d="M0 74h160v16H0Z" fill="#8A8E6E"/>';
-			$s .= '<g stroke="#F4EEE4" stroke-width=".8" opacity=".5"><path d="M118 40h20M122 46h16M120 52h14"/></g>';
-			break;
-
-		case 'estilo-a':
-			$s .= sera_pp_frame_svg( 'vagao' );
-			break;
-		case 'estilo-b': // neon street
-			$s .= '<rect width="160" height="90" fill="#1B2330"/><rect x="10" y="20" width="40" height="70" fill="#2B3446"/><rect x="60" y="8" width="36" height="82" fill="#232B3A"/><rect x="106" y="26" width="46" height="64" fill="#2B3446"/>';
-			$s .= '<rect x="16" y="30" width="22" height="6" rx="2" fill="#C6A06A"/><rect x="66" y="22" width="24" height="4" rx="2" fill="#8A8E6E"/><rect x="112" y="36" width="30" height="5" rx="2" fill="#C6A06A" opacity=".8"/>';
-			$s .= '<path d="M0 82h160v8H0Z" fill="#0E0E13"/><path d="M0 84h160" stroke="#C6A06A" stroke-width=".6" opacity=".5"/>' . sera_pp_rain( 0, 0, 160, 80, 50, '#6F7E86', '.4' );
-			break;
-		case 'estilo-c': // car at night
-			$s .= '<rect width="160" height="90" fill="#121A26"/><path d="M0 64h160v26H0Z" fill="#1B2330"/><path d="M30 62c4-12 14-18 26-18h40c12 0 20 6 26 18Z" fill="#2B3446"/><rect x="24" y="60" width="112" height="12" rx="5" fill="#495B74"/><circle cx="48" cy="73" r="6" fill="#0E0E13"/><circle cx="112" cy="73" r="6" fill="#0E0E13"/><rect x="128" y="62" width="8" height="3" rx="1.5" fill="#F2D49A"/><path d="M136 63 160 58v10Z" fill="#F2D49A" opacity=".18"/>';
-			break;
-		case 'estilo-d': // anime-like sky
-			$s .= '<rect width="160" height="90" fill="#495B74"/><circle cx="118" cy="26" r="12" fill="#EDE4D0" opacity=".85"/><path d="M0 60c30-10 60-6 90 0s50 4 70-2v32H0Z" fill="#2B3446"/><path d="M0 72c40-8 80-4 160 0v18H0Z" fill="#1B2330"/>';
-			break;
-	}
-	return '<div class="ppx-img"' . ( $style ? ' style="' . esc_attr( $style ) . '"' : '' ) . '><svg class="ppx-art" viewBox="0 0 160 90" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' . $s . '</svg></div>';
-}
-
-/** Raw SVG content of a scene (to layer a figure on top of a location). */
-function sera_pp_frame_svg( $k ) {
-	$h = sera_pp_frame( $k );
-	return preg_replace( '#^.*?<svg[^>]*>|</svg></div>$#s', '', $h );
+function sera_pp_src( $file ) {
+	return esc_url( get_template_directory_uri() . '/assets/cases/paperplane/' . $file . '.webp' );
 }
 
 /**
- * Hana's character sheet: front, three quarters, profile and back (60×120 each).
+ * A frame of “A estação sem nome” or “Sem Partidas” (16:9). Scene keys used by the screens map to
+ * the real images; any other key is taken as a file name.
+ *
+ * @param string $k     Scene key or file name.
+ * @param string $style Inline style for the frame box.
+ * @param string $pos   Optional object-position.
  */
-function sera_pp_sheet_view( $v ) {
-	$skin = '#E0BC98';
-	$hair = '#3A2A22';
-	$jk   = '#2B3446';
-	$s    = '<rect width="60" height="120" fill="#DCDDDC"/><ellipse cx="30" cy="112" rx="16" ry="2.4" fill="#0E0E13" opacity=".12"/>';
-	$legs = '<path d="M20 64 21.6 106h7.2L30 74l1.2 32h7.2L40 64Z" fill="#495B74"/><rect x="20.4" y="105" width="8.8" height="4" rx="1.6" fill="#15161B"/><rect x="31" y="105" width="8.8" height="4" rx="1.6" fill="#15161B"/>';
-	switch ( $v ) {
-		case 'front':
-			$s .= $legs;
-			$s .= '<path d="M17 36c0-4 6-6 13-6s13 2 13 6l1.4 28H15.6Z" fill="' . $jk . '"/><path d="M26 30.4 30 41l4-10.6Z" fill="#EDE4D0"/>';
-			$s .= '<path d="M17 37 12.4 62l3.6 1 4.4-21Z" fill="' . $jk . '"/><path d="M43 37l4.6 25-3.6 1-4.4-21Z" fill="' . $jk . '"/><circle cx="14" cy="64" r="2.4" fill="' . $skin . '"/><circle cx="46" cy="64" r="2.4" fill="' . $skin . '"/>';
-			$s .= '<path d="M20.6 17c0-9 18.8-9 18.8 0l1.6 14c-2.2 1-4.4 0-4.8-3H23.8c-.4 3-2.6 4-4.8 3Z" fill="' . $hair . '"/>';
-			$s .= '<rect x="27.4" y="25" width="5.2" height="6" rx="2" fill="' . $skin . '"/><ellipse cx="30" cy="18" rx="7.6" ry="9.2" fill="' . $skin . '"/>';
-			$s .= '<path d="M22.4 18c-.6-6.8 3.4-10.2 7.6-10.2s8.2 3.4 7.6 10.2c-2-3-4.4-4.6-6.6-4.8-1 1.6-4.4 3.4-8.6 4.8Z" fill="' . $hair . '"/>';
-			$s .= '<circle cx="27.2" cy="19" r=".8" fill="#16161A"/><circle cx="32.8" cy="19" r=".8" fill="#16161A"/><path d="M28.6 23.4c.9.4 1.9.4 2.8 0" stroke="#7A3E3A" stroke-width=".6" fill="none" stroke-linecap="round"/>';
-			break;
-		case 'tq':
-			$s .= $legs;
-			$s .= '<path d="M19 36c0-4 5-6 11.4-6S42 32 42 36l1 28H17.6Z" fill="' . $jk . '"/><path d="M29 30.4 32 40l3-9.6Z" fill="#EDE4D0"/>';
-			$s .= '<path d="M41.6 37l4 25-3.6 1-3.8-21Z" fill="' . $jk . '"/><circle cx="44" cy="64" r="2.4" fill="' . $skin . '"/><path d="M19.4 38 17 61l3 .8 2.4-20Z" fill="#232B3A"/>';
-			$s .= '<path d="M21 17c0-9 19-9 19 0l.4 14c-2 .8-3.6-.4-4-3H24c-.8 2.4-2.4 3.6-4.2 3Z" fill="' . $hair . '"/>';
-			$s .= '<rect x="29" y="25" width="5.2" height="6" rx="2" fill="' . $skin . '"/><ellipse cx="31.4" cy="18" rx="7" ry="9.2" fill="' . $skin . '"/><path d="M38 19.4l1.6 1.4-1.6.6Z" fill="' . $skin . '"/>';
-			$s .= '<path d="M23.6 18.6c-.8-7 3.4-10.8 7.8-10.8s8.4 3.6 7.6 10.4c-2-3-4-4.6-6-4.6-1.4 1.8-5 3.6-9.4 5Z" fill="' . $hair . '"/>';
-			$s .= '<circle cx="31" cy="19" r=".8" fill="#16161A"/><circle cx="35.8" cy="19" r=".75" fill="#16161A"/><path d="M32.6 23.4c.8.4 1.6.4 2.4 0" stroke="#7A3E3A" stroke-width=".6" fill="none" stroke-linecap="round"/>';
-			break;
-		case 'side':
-			$s .= '<path d="M25 64 26 106h7l1-42Z" fill="#495B74"/><rect x="25.4" y="105" width="11" height="4" rx="1.6" fill="#15161B"/>';
-			$s .= '<path d="M23 36c0-4 3-6 7-6s7 2 7.4 6l.6 28H22.4Z" fill="' . $jk . '"/><path d="M27.4 37 26.4 62l3.6.6 1-24Z" fill="#232B3A"/><circle cx="28.4" cy="64" r="2.4" fill="' . $skin . '"/>';
-			$s .= '<path d="M22 17c0-9 16-10 16-1l-6 0 .4 15c-2.4.4-4-.8-4.6-3h-5.6c-.6 1.4-1.4 2-2.4 2Z" fill="' . $hair . '"/>';
-			$s .= '<rect x="29.4" y="25" width="5" height="6" rx="2" fill="' . $skin . '"/><path d="M27 10c6 0 10.4 3.6 10.4 8.4l1.8 2.6-1.8.6c0 4.2-3 6.6-7 6.6-3 0-4.4-2-4.4-2Z" fill="' . $skin . '"/>';
-			$s .= '<path d="M24.4 18c0-7 3.6-10.2 8-10.2 4 0 6.4 2.6 6.6 6.4-2.6-1.6-5.2-2.2-8-2-1 2.2-3.6 4.4-6.6 5.8Z" fill="' . $hair . '"/><circle cx="35" cy="19" r=".8" fill="#16161A"/>';
-			break;
-		case 'back':
-			$s .= $legs;
-			$s .= '<path d="M17 36c0-4 6-6 13-6s13 2 13 6l1.4 28H15.6Z" fill="' . $jk . '"/><path d="M30 31v32" stroke="#232B3A" stroke-width=".8"/>';
-			$s .= '<path d="M17 37 12.4 62l3.6 1 4.4-21Z" fill="' . $jk . '"/><path d="M43 37l4.6 25-3.6 1-4.4-21Z" fill="' . $jk . '"/><circle cx="14" cy="64" r="2.4" fill="' . $skin . '"/><circle cx="46" cy="64" r="2.4" fill="' . $skin . '"/>';
-			$s .= '<path d="M20.6 17c0-11 18.8-11 18.8 0l1.6 14c-3 1.4-6.6 1.4-11 1.4s-8-.2-11-1.4Z" fill="' . $hair . '"/><path d="M30 9v21" stroke="#2A1E18" stroke-width=".5" opacity=".6"/>';
-			break;
-	}
-	return '<svg class="ppx-art" viewBox="0 0 60 120" preserveAspectRatio="xMidYMid meet" aria-hidden="true">' . $s . '</svg>';
+function sera_pp_frame( $k, $style = '', $pos = '' ) {
+	$map  = array(
+		'vagao'      => 'loc-vagao', // the dining car, empty
+		'plataforma' => 'loc-plataforma', // the platform under the lamp
+		'hana-plat'  => 'c-545cac2b', // Hana on the platform
+		'tunel'      => 'loc-tunel', // tracks into the tunnel
+		'relogio'    => 'sb-a', // 3A · Lia looks at the stopped watch
+		'close'      => 'sb-b', // 3B · close on Lia, frightened
+		'ombro'      => 'sb-d', // 3C · Dante pushes the ticket
+		'freio'      => 'sb-e', // 3D · the train brakes
+		'xicara'     => 'sb-i', // 3E · detail
+		'mesa'       => 'v-mesa-f0', // 3F · Lia and Dante at table 4
+		'estilo-a'   => 'cel-1',
+	);
+	$file = isset( $map[ $k ] ) ? $map[ $k ] : $k;
+	$img  = '<img src="' . sera_pp_src( $file ) . '" alt="" loading="lazy" decoding="async"' . ( $pos ? ' style="object-position:' . esc_attr( $pos ) . '"' : '' ) . '>';
+	return '<div class="ppx-img"' . ( $style ? ' style="' . esc_attr( $style ) . '"' : '' ) . '>' . $img . '</div>';
 }
 
-/** A cast portrait (bust on the sheet's grey), for the cast grid. */
+/** One view of Ren's character sheet: front, three quarters, profile or back. */
+function sera_pp_sheet_view( $v ) {
+	$files = array( 'front' => 'ren-frente', 'tq' => 'ren-34', 'side' => 'ren-perfil', 'back' => 'ren-costas' );
+	return '<img src="' . sera_pp_src( $files[ $v ] ) . '" alt="" loading="lazy" decoding="async">';
+}
+
+/** A cast portrait cropped from the character sheet, for the cast grid. */
 function sera_pp_portrait( $who, $style = '' ) {
-	return '<div class="ppx-img is-sheet"' . ( $style ? ' style="' . esc_attr( $style ) . '"' : '' ) . '><svg class="ppx-art" viewBox="0 0 40 46" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><rect width="40" height="46" fill="#DCDDDC"/>' . sera_pp_bust( $who, 2, 4, .9 ) . '</svg></div>';
+	$cast = array(
+		'hana'  => array( 'cast-6ab7d758', '4% 22%' ),
+		'ren'   => array( 'cast-80a5c5b7', '4% 22%' ),
+		'okabe' => array( 'cast-60c2a332', '4% 22%' ),
+		'bilh'  => array( 'cast-64a6ee13', '4% 22%' ),
+		'rosto' => array( 'ren-rosto', '50% 30%' ),
+	);
+	$c = $cast[ $who ];
+	return '<div class="ppx-img is-sheet"' . ( $style ? ' style="' . esc_attr( $style ) . '"' : '' ) . '><img src="' . sera_pp_src( $c[0] ) . '" alt="" loading="lazy" decoding="async" style="object-position:' . $c[1] . '"></div>';
 }
 
 /* ------------------------------------------------------------- desktop shell */
@@ -392,11 +196,11 @@ function sera_pp_desk( $id ) {
 			return sera_pp_shell( 'doc', $done( 'doc' ), $in, array( 'ori' => false ) );
 
 		case 'personagem':
-			$in  = '<div class="ppx-step">Personagens e vozes › Hana</div>';
-			$in .= '<div style="display:flex;align-items:center;gap:14px;margin-top:10px">' . sera_pp_portrait( 'hana', 'width:52px;height:52px;border-radius:50%' ) . '<div><div class="ppx-title" style="font-size:48px;margin:0">Hana</div><div class="ppx-sub" style="margin-top:2px">Garota de 17 anos que perde o último trem da noite</div></div><span class="ppx-tag ok" style="margin-left:auto">Visual aprovado</span></div>';
+			$in  = '<div class="ppx-step">Personagens e vozes › Ren</div>';
+			$in .= '<div style="display:flex;align-items:center;gap:14px;margin-top:10px">' . sera_pp_portrait( 'rosto', 'width:52px;height:52px;border-radius:50%' ) . '<div><div class="ppx-title" style="font-size:48px;margin:0">Ren</div><div class="ppx-sub" style="margin-top:2px">Rapaz de 19 anos que espera no banco da plataforma</div></div><span class="ppx-tag ok" style="margin-left:auto">Visual aprovado</span></div>';
 			$in .= '<div class="ppx-tabs"><span class="on">Visual</span><span>Voz</span><span>Falas (6)</span></div>';
 			$in .= '<div class="ppx-card" style="margin-top:14px;width:1000px;padding:12px"><div class="ppx-sheet">' . sera_pp_sheet_view( 'front' ) . sera_pp_sheet_view( 'tq' ) . sera_pp_sheet_view( 'side' ) . sera_pp_sheet_view( 'back' ) . '</div><div class="ppx-sheet-l"><span>Frente</span><span>Três quartos</span><span>Perfil</span><span>Costas</span></div></div>';
-			$in .= '<div class="ppx-card" style="margin-top:12px;width:1000px"><div style="font-weight:500;margin-bottom:6px">Aparência fixa</div><div style="color:var(--p-ink-2)">Garota de 17 anos, aparência jovem e traços delicados, expressão ansiosa mas contida. Cabelo castanho-escuro na altura dos ombros. Figurino fixo: jaqueta de tecido escuro sobre camiseta simples e calça jeans.</div></div>';
+			$in .= '<div class="ppx-card" style="margin-top:12px;width:1000px"><div style="font-weight:500;margin-bottom:6px">Aparência fixa</div><div style="color:var(--p-ink-2)">Rapaz de 19 anos, rosto fino e olhar desconfiado. Cabelo preto curto e despenteado. Figurino fixo: jaqueta escura de gola, camiseta verde-escura, calça e botas marrom-escuras.</div></div>';
 			return sera_pp_shell( 'people', $done( 'people' ), $in );
 
 		case 'decupagem':
