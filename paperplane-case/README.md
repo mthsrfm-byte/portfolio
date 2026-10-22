@@ -30,3 +30,5 @@ Para ligar no tema:
 5. `inc/starter-content.php`: a versão em inglês e a entrada do case (slug `paperplane`), quando o texto em PT estiver aprovado.
 
 O capítulo 07 não usa `sera_b_chapter()`: o título fica dentro do mockup `pp-duo` (com as mesmas classes `kicker` e `h2.chapter`), para ficar preso na rolagem junto do aparelho.
+
+6. Topo novo dos cases (todos): enfileirar `assets/css/case-hero.css` depois do `case.css` em páginas de case. Só CSS; o markup do `page.php` não muda.

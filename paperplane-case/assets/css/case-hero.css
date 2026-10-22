@@ -1,0 +1,29 @@
+/* Sera — case hero v2 (all cases). Centred title block; the product stage rises right under it and
+   the metrics ride on the stage's lower edge as one glass bar. CSS only: same markup as page.php. */
+.case-hero{padding-top:clamp(56px,6vw,88px)}
+.case-hero>.wrap{display:flex;flex-direction:column;align-items:center;text-align:center}
+.case-hero .back-link{order:0;align-self:center;margin-bottom:clamp(14px,2vw,22px)}
+.case-hero .case-meta{order:1;justify-content:center}
+.case-hero h1{order:2;margin-inline:auto;max-width:17ch;font-size:clamp(40px,6vw,92px);line-height:.96}
+.case-hero .lede{order:3;margin:22px auto 0;max-width:62ch;font-size:clamp(16.5px,1.35vw,19px);text-wrap:pretty}
+.case-hero .chips{order:4;justify-content:center;margin-top:22px!important}
+.case-hero .case-hero-visual{order:5;width:100%;margin-top:clamp(32px,4.5vw,56px);border-radius:var(--r-lg) var(--r-lg) 0 0;box-shadow:0 -40px 80px -60px rgba(14,14,19,.35);min-height:clamp(440px,50vw,720px)}
+.case-hero .metrics{order:6;position:relative;z-index:3;width:min(980px,calc(100% - 48px));max-width:none;margin:-64px auto 0;padding:18px 8px;border:1px solid rgba(255,255,255,.55);border-radius:20px;background:rgba(250,249,245,.82);-webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);box-shadow:0 30px 60px -30px rgba(14,14,19,.45);text-align:left}
+.case-hero .metric{padding:2px 22px}
+.case-hero .metric+.metric{padding-left:22px}
+@media (max-width:760px){
+  .case-hero h1{font-size:clamp(36px,10.5vw,52px);max-width:none}
+  .case-hero .lede{font-size:16px}
+  .case-hero .case-hero-visual{border-radius:var(--r-lg)}
+  .case-hero .metrics{width:100%;margin-top:14px;padding:4px 18px;border-color:var(--line);background:var(--surface);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
+  .case-hero .metric,.case-hero .metric+.metric{padding:14px 0}
+}
+@media (max-width:760px){.case-hero .case-hero-visual{min-height:480px}}
+@media (max-width:760px){
+  .case-hero{padding-top:96px}
+  .case-hero .metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));padding:4px 6px}
+  .case-hero .metric,.case-hero .metric+.metric{padding:14px 8px;margin:0;border-top:0}
+  .case-hero .metric+.metric{border-left:1px solid var(--line)}
+  .case-hero .metric b{font-size:22px}
+  .case-hero .metric span{font-size:11.5px;margin-top:6px}
+}
