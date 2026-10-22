@@ -203,6 +203,38 @@ function sera_pp_desk( $id ) {
 			$in .= '<div class="ppx-card" style="margin-top:12px;width:1000px"><div style="font-weight:500;margin-bottom:6px">Aparência fixa</div><div style="color:var(--p-ink-2)">Rapaz de 19 anos, rosto fino e olhar desconfiado. Cabelo preto curto e despenteado. Figurino fixo: jaqueta escura de gola, camiseta verde-escura, calça e botas marrom-escuras.</div></div>';
 			return sera_pp_shell( 'people', $done( 'people' ), $in );
 
+		case 'estilo':
+			$in  = sera_pp_head( 'Passo 4 de 10 · Visualizar', 'Estilo visual', 'O visual do filme inteiro: personagens, cenários e quadros.', 'Próximo: personagens', '<span class="ppx-chip">Modo básico</span>' );
+			$in .= '<div class="ppx-card" style="margin-top:24px;width:640px;display:flex;gap:18px;padding:12px"><div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;width:340px;height:204px;border-radius:6px;overflow:hidden">';
+			foreach ( array( 'cel-1', 'cel-2', 'cel-3', 'cel-4' ) as $c ) {
+				$in .= sera_pp_frame( $c, 'border-radius:0;height:100px' );
+			}
+			$in .= '</div><div style="flex:1;padding-top:12px"><div style="font-size:20px;letter-spacing:-.02em">Anime 2D Cel</div><div class="ppx-lbl" style="margin-top:4px">6 regras · 4 referências</div><div style="display:flex;gap:4px;margin-top:16px">';
+			foreach ( array( '#1B2330', '#2B3446', '#495B74', '#6F7E86', '#8A8E6E', '#C6A06A' ) as $c ) {
+				$in .= '<span style="width:26px;height:26px;border-radius:3px;background:' . $c . '"></span>';
+			}
+			$in .= '</div><div style="display:flex;gap:6px;margin-top:18px"><span class="ppx-chip">Ver regras</span><span class="ppx-chip">Editar</span></div></div></div>';
+			$in .= '<div style="font-size:17px;margin:30px 0 12px">Sua biblioteca</div><div style="display:flex;gap:12px"><div class="ppx-card" style="width:150px;height:132px;display:grid;place-items:center;text-align:center;color:var(--p-muted);font-size:11.5px"><div><span style="display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--p-lime);color:var(--p-on-lime)">+</span><div style="margin-top:6px;color:var(--p-ink)">Novo estilo</div>Das suas imagens</div></div>';
+			foreach ( array( array( 'ns-stop-motion', 'Stop motion' ), array( 'ns-live-action-de-drama', 'Drama live action' ), array( 'ns-preto-e-branco-dos-anos-60', 'Noir anos 60' ), array( 'ns-sci-fi-ambicioso', 'Sci-fi épico' ), array( 'ns-sitcom-nostalgico', 'Sitcom anos 90' ) ) as $n ) {
+				$in .= '<div class="ppx-card" style="width:170px;padding:6px">' . sera_pp_frame( $n[0], 'height:92px' ) . '<div style="font-size:11.5px;margin:6px 2px 0">' . $n[1] . '</div></div>';
+			}
+			$in .= '</div>';
+			return sera_pp_shell( 'style', $done( 'style' ), $in );
+
+		case 'cenarios':
+			$in  = sera_pp_head( 'Passo 6 de 10 · Visualizar', 'Cenários', 'A IA gera cada lugar de um ângulo só. Outros ângulos você cria quando precisar, apontando a câmera no mapa.', 'Próximo: decupagem' );
+			$in .= '<div style="display:flex;gap:16px;margin-top:22px"><div style="width:220px;flex:none;display:flex;flex-direction:column;gap:8px">';
+			foreach ( array( array( 'loc-plataforma', 'Plataforma' ), array( 'loc-vagao', 'Interior do vagão' ), array( 'loc-tunel', 'Trilhos e túnel' ) ) as $i => $l ) {
+				$in .= '<div class="ppx-row' . ( 2 === $i ? ' is-sel' : '' ) . '" style="padding:8px">' . sera_pp_frame( $l[0], 'width:54px;height:34px;flex:none' ) . '<div><div style="font-size:12px">' . $l[1] . '</div><div class="ppx-lbl">4 ângulos</div></div></div>';
+			}
+			$in .= '<div class="ppx-row" style="justify-content:center">+ Novo cenário</div></div>' . sera_pp_frame( 'loc-tunel', 'width:880px;height:470px' ) . '</div>';
+			$in .= '<div class="ppx-angle"><div class="ppx-lbl">Outro ângulo · Trilhos e túnel</div><div class="ppx-angle-in"><div class="ppx-compass"><i class="cone"></i><b class="cam"></b>';
+			foreach ( range( 0, 7 ) as $k ) {
+				$in .= '<span style="--k:' . $k . '"' . ( in_array( $k, array( 0, 2, 5 ), true ) ? ' class="has"' : '' ) . '></span>';
+			}
+			$in .= '</div><div style="flex:1">' . sera_pp_frame( 'loc-tunel', 'height:150px', '30% 50%' ) . '<div style="font-size:12px;margin-top:8px">Câmera a sudoeste, na altura dos olhos</div><div style="display:flex;gap:4px;margin-top:8px"><span class="ppx-chip">Baixa</span><span class="ppx-chip on">Olhos</span><span class="ppx-chip">Alta</span></div><span class="ppx-btn" style="margin-top:12px">Gerar este ângulo · US$ 0,04</span></div></div></div>';
+			return sera_pp_shell( 'mount', $done( 'mount' ), $in );
+
 		case 'decupagem':
 			$in   = sera_pp_head( 'Passo 7 de 10 · Visualizar', 'Decupagem', 'Cada cena vira tomadas: trechos sem corte de câmera, com o plano e o lugar da câmera escolhidos a partir dos personagens e cenários.', 'Próximo: storyboard', '<span class="ppx-chip">' . $ts12 . ' Decupar todas</span>' );
 			$in  .= '<div style="display:flex;gap:16px;margin-top:20px"><div style="width:780px;display:flex;flex-direction:column;gap:8px">';
@@ -343,6 +375,32 @@ function sera_pp_phone( $id ) {
 				$b .= '<div class="ppx-card" style="padding:6px">' . sera_pp_portrait( $c[0], 'height:150px' ) . '<div style="font-size:13px;margin:6px 2px 2px">' . $c[1] . '</div><span class="ppx-chip sm">◉ voz</span></div>';
 			}
 			return sera_pp_mob( 'Visualizar', $b . '</div>' );
+
+		case 'estilo':
+			$b = '<div class="ppx-step">Passo 4 de 10 · Visualizar</div><div class="ppx-mtitle">Estilo visual</div><div class="ppx-card" style="margin-top:14px;padding:8px"><div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;border-radius:6px;overflow:hidden">';
+			foreach ( array( 'cel-1', 'cel-2', 'cel-3', 'cel-4' ) as $c ) {
+				$b .= sera_pp_frame( $c, 'height:84px;border-radius:0' );
+			}
+			$b .= '</div><div style="font-size:16px;margin:10px 2px 2px">Anime 2D Cel</div><div class="ppx-lbl" style="margin:0 2px">6 regras · 4 referências</div></div><div class="ppx-lbl" style="margin:16px 0 8px">Sua biblioteca</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
+			foreach ( array( array( 'ns-stop-motion', 'Stop motion' ), array( 'ns-preto-e-branco-dos-anos-60', 'Noir anos 60' ) ) as $n ) {
+				$b .= '<div class="ppx-card" style="padding:5px">' . sera_pp_frame( $n[0], 'height:70px' ) . '<div style="font-size:11px;margin:5px 2px 0">' . $n[1] . '</div></div>';
+			}
+			return sera_pp_mob( 'Visualizar', $b . '</div>' );
+
+		case 'cenarios':
+			$b = '<div class="ppx-step">Passo 6 de 10 · Visualizar</div><div class="ppx-mtitle">Cenários</div>' . sera_pp_frame( 'loc-tunel', 'height:180px;margin-top:14px' ) . '<div style="display:flex;flex-direction:column;gap:7px;margin-top:12px">';
+			foreach ( array( array( 'loc-plataforma', 'Plataforma' ), array( 'loc-vagao', 'Interior do vagão' ), array( 'loc-tunel', 'Trilhos e túnel' ) ) as $i => $l ) {
+				$b .= '<div class="ppx-row' . ( 2 === $i ? ' is-sel' : '' ) . '" style="padding:7px">' . sera_pp_frame( $l[0], 'width:52px;height:32px;flex:none' ) . '<div style="font-size:12.5px">' . $l[1] . '<div class="ppx-lbl">4 ângulos</div></div></div>';
+			}
+			return sera_pp_mob( 'Visualizar', $b . '</div>' );
+
+		case 'montagem':
+			$b = '<div class="ppx-step">Passo 10 de 10 · Filmar</div><div class="ppx-mtitle">Montagem</div>' . sera_pp_frame( 'ombro', 'height:170px;margin-top:14px' ) . '<div class="ppx-mtl">';
+			foreach ( array( 'plataforma', 'relogio', 'close', 'ombro', 'freio', 'mesa' ) as $c ) {
+				$b .= sera_pp_frame( $c, 'flex:1;height:100%;border-radius:2px' );
+			}
+			$b .= '</div><div class="ppx-mtl is-a">' . sera_pp_wave( 40, 2 ) . '</div><div class="ppx-card" style="margin-top:12px;padding:12px"><div class="ppx-lbl">Exportar</div><div class="ppx-ex-r on" style="margin-top:8px"><span>Upscale · 4K</span><em>+ 3 min</em></div></div><span class="ppx-btn lg">Exportar episódio</span>';
+			return sera_pp_mob( 'Filmar', $b );
 
 		case 'decupagem':
 			$b    = '<div class="ppx-step">Passo 7 de 10 · Visualizar</div><div class="ppx-mtitle">Decupagem</div><div class="ppx-lbl" style="margin-top:14px">Cena 1 · Estação Shinji-mae · 9 tomadas</div><div style="display:flex;flex-direction:column;gap:7px;margin-top:8px">';

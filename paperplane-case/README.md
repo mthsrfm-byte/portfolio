@@ -1,6 +1,6 @@
-# Paperplane · case (rascunho v2)
+# Paperplane · case (rascunho v3)
 
-Prévia: `../paperplane-case.html` (página inteira, com o CSS, as fontes, as imagens e os scripts do Sera v.1 embutidos).
+Prévia: `../paperplane-case.html` (página inteira, com o CSS, as fontes, as imagens, os vídeos e os scripts do Sera v.1 embutidos; abra no navegador e role devagar).
 
 Os arquivos aqui seguem a estrutura do tema e entram nele como estão:
 
@@ -9,11 +9,11 @@ Os arquivos aqui seguem a estrutura do tema e entram nele como estão:
 | `inc/i18n/cases/paperplane.php` | Texto do case (PT), nos blocos `sera_b_*` |
 | `inc/screens-pp.php` | Telas do Paperplane em código (`sera_pp_desk`, `sera_pp_phone`); os quadros usam as imagens reais dos episódios (`sera_pp_frame`, `sera_pp_src`) |
 | `template-parts/artifacts/pp.php` | Artefatos `pp-*` |
-| `template-parts/mockups/` | `paperplane` (hero), `pp-shots-studio` (slider), `pp-nodes`, `pp-cut`, `pp-duo` (celular dobrável que abre com o scroll) |
+| `template-parts/mockups/` | `paperplane` (hero), `pp-tour` (o estúdio em 10 etapas, preso na rolagem), `pp-nodes` (modo avançado animado), `pp-duo` (celular dobrável que abre com a rolagem, com o título do capítulo 07) |
 | `assets/css/pp-ui.css` | UI do produto, escopada em `.ppx` |
-| `assets/css/cases/pp.css` | Artefatos, palcos e o Duo |
-| `assets/js/pp-duo.js` | Motor do Duo (CSS 3D), portado da landing do Paperplane |
-| `assets/cases/paperplane/` | Quadros, fichas, cenários e estilos gerados no Paperplane para “Sem Partidas” e “A estação sem nome” (webp), mais as mãos do Duo |
+| `assets/css/cases/pp.css` | Artefatos, palcos, tour, Duo e as demos do laboratório (escopadas em `.ppl`) |
+| `assets/js/pp-case.js` | Tudo o que se move no case: Duo e demos do laboratório (portados da landing), tour, modo avançado, abas, estilos, roteador e vídeos. Sob movimento reduzido, tudo para num estado completo |
+| `assets/cases/paperplane/` | Quadros, fichas, cenários, estilos e clipes (mp4, só carregam quando aparecem na tela) gerados no Paperplane para “Sem Partidas” e “A estação sem nome”, mais as mãos do Duo |
 
 Para ligar no tema:
 
@@ -21,9 +21,10 @@ Para ligar no tema:
    - `require_once` de `inc/screens-pp.php`;
    - enfileirar `pp-ui.css` junto do `lume-ui.css`;
    - incluir `pp` na regex de `sera_case_prefixes()`, `'paperplane' => array( 'pp' )` e `'pp-' => array( 'pp' )` em `sera_mockup_prefixes()`;
-   - `pp` na regex que carrega o `shots.js` (`(rh|lm|pp)-shots-`);
-   - enfileirar `assets/js/pp-duo.js` (defer, no rodapé) quando o conteúdo tiver `"mockup":"pp-duo"`.
-2. `inc/blocks.php`: adicionar em `sera_artifact_names()` os nomes `pp-glance`, `pp-coldopen`, `pp-scatter`, `pp-pains`, `pp-market`, `pp-statement`, `pp-principles`, `pp-acts`, `pp-cast`, `pp-consist`, `pp-styles`, `pp-engines`, `pp-gpu-map`, `pp-lab`, `pp-made`, `pp-solo`, `pp-status`, `pp-reflection`, `pp-signals`.
-3. `inc/template-tags.php`: adicionar os cinco mockups em `sera_mockups()`.
+   - enfileirar `assets/js/pp-case.js` (defer, no rodapé) quando o conteúdo tiver `wp:sera/artifact {"name":"pp-` ou `"mockup":"pp-`.
+2. `inc/blocks.php`: adicionar em `sera_artifact_names()` os nomes `pp-glance`, `pp-coldopen`, `pp-tabs`, `pp-pains`, `pp-market`, `pp-statement`, `pp-principles`, `pp-cast`, `pp-styles`, `pp-take`, `pp-router`, `pp-engines`, `pp-lab`, `pp-made`, `pp-solo`, `pp-status`, `pp-reflection`, `pp-signals`.
+3. `inc/template-tags.php`: adicionar os quatro mockups em `sera_mockups()`.
 4. `page.php`: `'paperplane' => 'pp'` e `'pp-' => 'pp'` no mapa do próximo case.
 5. `inc/starter-content.php`: a versão em inglês e a entrada do case (slug `paperplane`), quando o texto em PT estiver aprovado.
+
+O capítulo 07 não usa `sera_b_chapter()`: o título fica dentro do mockup `pp-duo` (com as mesmas classes `kicker` e `h2.chapter`), para ficar preso na rolagem junto do aparelho.

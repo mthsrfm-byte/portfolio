@@ -85,8 +85,8 @@
 .ppx-tabs{display:flex;gap:18px;margin-top:18px;border-bottom:1px solid var(--p-line);font-size:12.5px}
 .ppx-tabs span{padding-bottom:8px;color:var(--p-muted)}
 .ppx-tabs span.on{border-bottom:2px solid var(--p-ink);color:var(--p-ink)}
-.ppx-sheet{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;height:300px}
-.ppx-sheet img{width:100%;height:100%;object-fit:contain;object-position:50% 100%;border-radius:6px;background:#0E0E13;display:block}
+.ppx-sheet{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:300px;gap:8px;height:300px}
+.ppx-sheet img{width:100%;height:300px;min-height:0;object-fit:contain;object-position:50% 100%;border-radius:6px;background:#E4E5E2;padding:10px 0 4px;display:block}
 .ppx-sheet-l{display:flex;justify-content:space-around;margin-top:6px;font-size:10.5px;color:var(--p-muted)}
 
 /* ---------- shot list ---------- */
@@ -171,3 +171,21 @@
 .ppx-mori svg{width:22px;height:22px}
 .ppx-cast{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
 .ppx-cast.is-sb{gap:8px;margin-top:10px}
+
+/* locations · another angle (compass with the camera cone) */
+.ppx-angle{position:absolute;left:340px;top:150px;width:600px;padding:18px;border-radius:10px;background:var(--p-surface);box-shadow:0 30px 80px rgba(0,0,0,.35),0 0 0 1px var(--p-line)}
+.ppx-main:has(.ppx-angle)::after{content:"";position:absolute;inset:0;background:rgba(14,14,19,.32);z-index:1}
+.ppx-angle{z-index:2}
+.ppx-angle-in{display:flex;gap:18px;margin-top:12px;align-items:flex-start}
+.ppx-compass{position:relative;width:200px;height:200px;flex:none;border-radius:50%;background:radial-gradient(circle,var(--p-surface-2) 0 38%,transparent 39%),repeating-conic-gradient(from 0deg,var(--p-line) 0 1deg,transparent 1deg 45deg);border:1px solid var(--p-line)}
+.ppx-compass span{position:absolute;left:50%;top:50%;width:14px;height:14px;margin:-7px;border-radius:50%;background:var(--p-surface);box-shadow:inset 0 0 0 1.5px var(--p-line-strong);transform:rotate(calc(var(--k) * 45deg)) translateY(-88px)}
+.ppx-compass span.has{background:#2F9E62;box-shadow:none}
+.ppx-compass .cam{position:absolute;left:50%;top:50%;width:18px;height:18px;margin:-9px;border-radius:5px;background:var(--p-ink);transform:rotate(225deg) translateY(-62px);animation:ppx-orbit 9s ease-in-out infinite}
+.ppx-compass .cone{position:absolute;left:50%;top:50%;width:0;height:0;border-left:40px solid transparent;border-right:40px solid transparent;border-top:70px solid rgba(247,255,158,.75);transform-origin:50% 0;transform:translateX(-50%) rotate(45deg);animation:ppx-cone 9s ease-in-out infinite}
+@keyframes ppx-orbit{0%,100%{transform:rotate(225deg) translateY(-62px)}50%{transform:rotate(300deg) translateY(-62px)}}
+@keyframes ppx-cone{0%,100%{transform:translateX(-50%) rotate(45deg)}50%{transform:translateX(-50%) rotate(120deg)}}
+/* phone montage strip */
+.ppx-mtl{display:flex;gap:2px;height:34px;margin-top:10px}
+.ppx-mtl.is-a{height:22px;margin-top:4px;border-radius:3px;background:rgba(47,158,98,.14);padding:2px 4px}
+.ppx-mtl.is-a .ppx-wave{height:100%}
+@media (prefers-reduced-motion:reduce){.ppx-compass .cam,.ppx-compass .cone{animation:none}}

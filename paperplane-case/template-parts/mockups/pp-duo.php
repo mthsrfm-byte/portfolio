@@ -1,19 +1,30 @@
 <?php
 /**
- * Mockup: Paperplane · the studio in a foldable phone that opens with the scroll (CSS 3D, ported from
- * the Paperplane landing). Closed: the home on the cover screen. Open: the storyboard across both halves.
- * Motion: assets/js/pp-duo.js. Reduced motion shows it open.
+ * Mockup: Paperplane · in any screen. The landing's foldable phone, on the page itself: the chapter
+ * title sits above it, four phones rise around it, and it opens with the scroll (CSS 3D).
+ * Motion: assets/js/pp-case.js (duo). Reduced motion shows it open, with the phones in place.
  *
  * @package Sera
  */
 
 defined( 'ABSPATH' ) || exit;
+
+$sats = array( array( 'roteiro', -2 ), array( 'elenco', -1 ), array( 'cenarios', 1 ), array( 'animacao', 2 ) );
 ?>
 <div class="pp-duo">
 <div class="duo-section" data-paperplane-duo data-duo-hand-src="<?php echo sera_pp_src( 'maos' ); // phpcs:ignore ?>">
- <div class="duo-sticky">
-		<span class="brand-chip"><span class="pp-chip-logo"><?php echo sera_pp_logo(); // phpcs:ignore ?></span><span>Paperplane</span></span>
-  <div class="duo-stage"><div class="duo-ground"></div><div class="duo-device" data-hands="true" role="img" aria-label="Um celular dobrável com o Paperplane: fechado, a tela de início com o botão para continuar; aberto, o storyboard da cena 3 com as quatro tomadas aprovadas."><div class="duo-rig">
+	<div class="duo-sticky">
+		<div class="pp-duo-copy">
+			<p class="kicker">07 · Em qualquer tela</p>
+			<h2 class="wp-block-heading chapter">Um estúdio de cinema <mark>no seu bolso.</mark></h2>
+			<p>Aprove um take no metrô, ajuste uma fala na fila do café, revise a montagem no sofá. Dobrado, o estúdio cabe no bolso; aberto, vira uma mesa de storyboard.</p>
+		</div>
+		<div class="pp-duo-sats" aria-hidden="true">
+			<?php foreach ( $sats as $i => $sat ) : ?>
+				<div class="pp-duo-sat" style="--k:<?php echo (int) $sat[1]; ?>"><?php echo sera_device( 'ppx-screen', sera_pp_phone( $sat[0] ) ); // phpcs:ignore ?></div>
+			<?php endforeach; ?>
+		</div>
+		<div class="duo-stage"><div class="duo-ground"></div><div class="duo-device" data-hands="true" role="img" aria-label="Um celular dobrável com o Paperplane: fechado, a tela de início com o botão para continuar; aberto, o storyboard da cena 3 com as quatro tomadas aprovadas."><div class="duo-rig">
   <i class="duo-hinge"></i>
   <div class="duo-half duo-right"><i class="duo-layer" style="transform:translateZ(-1px)"></i><i class="duo-layer" style="transform:translateZ(-2px)"></i><i class="duo-layer" style="transform:translateZ(-3px)"></i><i class="duo-layer" style="transform:translateZ(-4px)"></i><i class="duo-layer" style="transform:translateZ(-5px)"></i><i class="duo-layer" style="transform:translateZ(-6px)"></i><i class="duo-layer" style="transform:translateZ(-7px)"></i><i class="duo-layer" style="transform:translateZ(-8px)"></i><i class="duo-layer" style="transform:translateZ(-9px)"></i><div class="duo-face duo-face-back"><div class="duo-back-cameras"><i></i><i></i></div></div><div class="duo-face duo-front"><div class="duo-viewport"><div class="duo-inner-ui" aria-hidden="true">
   <div class="duo-ui-status"><span>9:41</span><span style="font-size:12px">▮▮▮ &nbsp;◓ &nbsp; ▰</span></div>
@@ -35,7 +46,8 @@ defined( 'ABSPATH' ) || exit;
   <div class="duo-ui-summary"><b>6</b><span>de 6 tomadas aprovadas</span><span>✓ TUDO APROVADO</span></div>
   <div class="duo-ui-grid"><article class="duo-ui-card"><img src="<?php echo sera_pp_src( 'sb-a' ); // phpcs:ignore ?>" loading="lazy" decoding="async" alt="Quadro 1 do storyboard"><strong>3A · Lia olha o relógio parado</strong><div class="duo-ui-meta"><span>Plano médio · 5 s</span><span class="duo-ui-approved">✓ Aprovada</span></div></article><article class="duo-ui-card"><img src="<?php echo sera_pp_src( 'sb-b' ); // phpcs:ignore ?>" loading="lazy" decoding="async" alt="Quadro 2 do storyboard"><strong>3B · Close de Lia, assustada</strong><div class="duo-ui-meta"><span>Close · 4 s</span><span class="duo-ui-approved">✓ Aprovada</span></div></article><article class="duo-ui-card"><img src="<?php echo sera_pp_src( 'sb-d' ); // phpcs:ignore ?>" loading="lazy" decoding="async" alt="Quadro 3 do storyboard"><strong>3C · Dante empurra o bilhete</strong><div class="duo-ui-meta"><span>Sobre o ombro · 5 s</span><span class="duo-ui-approved">✓ Aprovada</span></div></article><article class="duo-ui-card"><img src="<?php echo sera_pp_src( 'sb-e' ); // phpcs:ignore ?>" loading="lazy" decoding="async" alt="Quadro 4 do storyboard"><strong>3D · O trem freia de repente</strong><div class="duo-ui-meta"><span>Plano geral · 6 s</span><span class="duo-ui-approved">✓ Aprovada</span></div></article></div><div class="duo-ui-bottom"><span>CENA 3 · MESA 4 &nbsp; / &nbsp; 6 TOMADAS</span><span class="duo-ui-origami"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"><path d="M1.2 7.6 7.6 15.6l2.6-1.1Z"/><path d="M2.2 21.5 7.6 15.6h2.6l5.4 3.4Z"/><path d="M2.2 21.5 15.6 19"/><path d="M10.2 15.6 12.7 13.3l2.9 3.9.7 3.8-2.1-1.4"/><path d="M16.3 21 18.6 13l.9-.6 3.8 3-3.6-.6-3.1 6.2"/><path d="M10.9 14.6 11.1 11 19.9 2.5l-.5 10.2"/><path d="M19.9 2.5 14.5 15"/></svg> Origami</span></div>
   </div></div></div><i class="duo-reflection"></i><i class="duo-crease"></i></div><i class="duo-shade"></i></div><i class="duo-button"></i></div>
-  <div class="duo-hand duo-hand-left"><img data-duo-hand alt="" draggable="false"><img class="duo-wrist" data-duo-hand alt="" draggable="false"></div><div class="duo-hand duo-hand-right"><img data-duo-hand alt="" draggable="false"><img class="duo-wrist" data-duo-hand alt="" draggable="false"></div>
+  <div class="duo-hand duo-hand-left"><img data-duo-hand alt="" draggable="false"></div><div class="duo-hand duo-hand-right"><img data-duo-hand alt="" draggable="false"></div>
   </div></div></div>
- <div class="duo-cap" aria-hidden="true"><span class="duo-cap-l">Dobrado</span><i class="duo-cap-bar"><b></b></i><span class="duo-cap-r">Aberto · Storyboard</span></div></div></div>
+	</div>
+</div>
 </div>
