@@ -10,7 +10,7 @@ O tema já tem um smooth scroll no estilo do Lenis (`main.js`, bloco v3.4.1). En
 | **Mídia com peso**: o quadro atrasa um pouco, estica e curva a borda de trás conforme a velocidade, e volta com mola quando a rolagem para | `.case-hero-visual`, `.sera-mockup-block`, `.next-thumb`, `wp-block-image`, `wp-block-video` |
 | **Paralaxe dentro do quadro**, com um leve zoom de saída na entrada | Imagem e vídeo com zoom de cobertura. Nos mockups em HTML do topo do case só o conteúdo desliza: o fundo e o selo da marca ficam no lugar |
 
-Um arquivo só: `assets/js/scroll-fx.js` (~9 KB sem minificar, sem dependências).
+Um arquivo só: `assets/js/scroll-fx.js` (~10 KB sem minificar, sem dependências).
 
 ## Como ligar no tema
 
