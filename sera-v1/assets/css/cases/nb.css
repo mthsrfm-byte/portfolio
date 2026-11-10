@@ -1,0 +1,178 @@
+/* Sera — Bastidores · case-specific artifacts (nb-*) */
+@font-face{font-family:"Fraunces";src:url("../../fonts/fraunces.woff2") format("woff2-variations");font-weight:100 900;font-display:swap}
+/* ---- Bastidores ---- */
+.art--nb{--ca:#FF3B00;--ca-soft:#FBEDE6;--ca-ink:#0A0A0A}
+.art--nb .impact .art-label{color:#FF7A4D}
+.nb-levers{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:stretch;margin-top:22px}
+.nb-levers>div{padding:24px;border-radius:20px;background:#F7F5F0;border:1px solid #E4E0D6}
+.nb-levers b{display:block;font:500 28px/1 "Fraunces",Georgia,serif;letter-spacing:-.02em}
+.nb-levers span{display:block;margin-top:10px;font-size:15px;line-height:1.5;color:#57534B}
+.nb-levers ul{margin:14px 0 0;padding:0;list-style:none}
+.nb-levers li{padding:8px 0;border-top:1px solid #E4E0D6;font:500 12px "Geist Mono",monospace;letter-spacing:.04em;text-transform:uppercase}
+.nb-levers>i{align-self:center;font:500 34px "Fraunces",serif;font-style:normal;color:#FF3B00}
+.nb-ds-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.nb-ds-grid>div{padding:22px;border-radius:18px;background:#F7F5F0;border:1px solid #E4E0D6;min-width:0}
+.nb-ds-grid .brand{display:flex;flex-direction:column;justify-content:center;gap:14px}
+.nb-ds-grid .brand .nb-brand b{font-size:44px}
+.nb-ds-grid .brand .nb-icon{width:36px;height:45px}
+.nb-ds-grid small{font-size:13px;color:#6E6A61;line-height:1.45}
+.nb-ds-grid .type{display:flex;gap:18px;align-items:center}
+.nb-ds-grid .type>b{font:800 64px/1 "Fraunces",serif}
+.nb-ds-grid .type strong{display:block;font:600 17px "Fraunces",serif}
+.nb-ds-grid .type strong:nth-of-type(2){font-family:"Geist",sans-serif}
+.nb-ds-grid .type strong.mono{font-family:"Geist Mono",monospace;font-size:14px}
+.nb-ds-grid .type span{display:block;margin-bottom:8px;font-size:13px;color:#6E6A61}
+.nb-ds-grid .sw{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.nb-ds-grid .sw span{display:flex;align-items:flex-end;height:110px;padding:10px;border-radius:12px;color:#fff;font:500 11px "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;border:1px solid rgba(0,0,0,.08)}
+.nb-ds-grid .sw span:first-child{border:1.5px solid #C9C3B6;box-shadow:inset 0 0 0 1px #fff}
+.nb-ds-grid .titles{display:flex;flex-direction:column;justify-content:center;gap:10px}
+.nb-ds-grid .titles span{padding-bottom:10px;border-bottom:1px solid #0A0A0A;font:500 26px/1 "Fraunces",serif;letter-spacing:-.02em}
+.nb-ds-grid .titles em{font-weight:400}
+.nb-ds-grid .titles small{font:400 14px "Fraunces",serif;color:#8C877B}
+.nb-ds-grid .titles strong{font-weight:800}
+.nb-adplan{display:grid;grid-template-columns:260px 1fr;gap:32px;align-items:center;margin-top:22px}
+.nb-adplan .page{display:flex;flex-direction:column;gap:6px;padding:12px;border-radius:14px;background:#F7F5F0;border:1px solid #E4E0D6}
+.nb-adplan .page i{display:block;border-radius:4px;background:#E4E0D6}
+.nb-adplan .page i.bar{height:8px;background:#0A0A0A}
+.nb-adplan .head{height:16px}
+.nb-adplan .page i.hero{height:90px;background:#2A2A2A}
+.nb-adplan .row{height:38px}
+.nb-adplan .page i.foot{height:26px;background:#0A0A0A}
+.nb-adplan .page i.ad{display:grid;place-items:center;border:1.5px dashed #FF3B00;background:#FBEDE6;color:#C23000;font:600 9.5px "Geist Mono",monospace;font-style:normal;letter-spacing:.06em}
+.nb-adplan .a1{height:46px}
+.nb-adplan .a2{height:22px}
+.nb-adplan ol{margin:0;padding:0;list-style:none;counter-reset:a;display:grid;gap:12px}
+.nb-adplan li{counter-increment:a;display:grid;grid-template-columns:34px 1fr;gap:4px 12px;padding:14px 16px;border-radius:14px;background:#F7F5F0;border:1px solid #E4E0D6}
+.nb-adplan li::before{content:counter(a,decimal-leading-zero);grid-row:1/3;font:500 12px "Geist Mono",monospace;color:#FF3B00}
+.nb-adplan li b{font-size:15.5px}
+.nb-adplan li span{font-size:14px;line-height:1.45;color:#57534B}
+@media (max-width:760px){
+  .nb-levers{grid-template-columns:1fr}
+  .nb-levers>i{justify-self:center}
+  .nb-ds-grid,.nb-adplan{grid-template-columns:1fr}
+  .nb-adplan .page{max-width:260px}
+}
+/* ---- nb additions (v1.7) ---- */
+/* Bastidores · upscale artifacts (nb-fold, nb-slot, nb-weight) */
+/* ---------- nb-fold: above-the-fold comparison */
+.art-nb-fold .nb-fold{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:26px}
+.art-nb-fold figure{margin:0;min-width:0}
+.art-nb-fold figcaption{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.art-nb-fold figcaption b{font:500 12px "Geist Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:#0A0A0A}
+.art-nb-fold .new figcaption b{color:#C23000}
+.art-nb-fold figcaption span{font-size:14px;color:#6E6A61}
+.art-nb-fold .scr{position:relative;display:flex;flex-direction:column;gap:6px;padding:12px;border-radius:16px;border:1px solid #E4E0D6;background:#fff;overflow:hidden}
+.art-nb-fold .new .scr{background:#F7F5F0}
+.art-nb-fold .l{position:relative;display:flex;align-items:center;gap:10px;min-width:0;padding:0 12px 0 38px;border-radius:6px;font:500 11.5px/1.25 "Geist Mono",monospace;letter-spacing:.03em;color:#57534B}
+.art-nb-fold .l>i{position:absolute;left:8px;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#0A0A0A;color:#fff;font:600 10.5px "Geist Mono",monospace;font-style:normal}
+.art-nb-fold .new .l>i{background:#FF3B00}
+.art-nb-fold .l span{overflow:hidden;text-overflow:ellipsis}
+/* old */
+.art-nb-fold .l-soc{height:30px;background:#F2F2F2;justify-content:flex-start}
+.art-nb-fold .l-soc em{width:22px;height:6px;border-radius:3px;background:#D4D4D4}
+.art-nb-fold .l-soc em:first-of-type{margin-left:auto}
+.art-nb-fold .l-logo{height:62px;background:#F2F2F2;justify-content:space-between}
+.art-nb-fold .l-logo img{height:34px;width:auto}
+.art-nb-fold .l-logo span{color:#068DC7;text-transform:uppercase;font-weight:600;text-align:right}
+.art-nb-fold .l-menu{height:34px;background:#F2F2F2;border-top:1px solid #E0E0E0;border-bottom:1px solid #E0E0E0;text-transform:uppercase;font-weight:600;color:#1a1a1a}
+.art-nb-fold .l-thumbs{flex-direction:column;align-items:stretch;justify-content:center;gap:6px;height:92px;background:#F2F2F2}
+.art-nb-fold .l-thumbs>i{top:18px}
+.art-nb-fold .l-thumbs span{padding-top:2px;color:#068DC7;font-weight:600;text-transform:uppercase}
+.art-nb-fold .l-thumbs div{display:grid;grid-template-columns:repeat(6,1fr);gap:4px}
+.art-nb-fold .l-thumbs em{height:40px;border-radius:3px;background:linear-gradient(135deg,#9BA3B4,#C9B8A8)}
+.art-nb-fold .l-story{height:56px;padding-left:12px;background:#F2F2F2;opacity:.6}
+/* new */
+.art-nb-fold .l-tick{height:30px;padding-left:38px;background:#0A0A0A;color:#FDFCF8}
+.art-nb-fold .l-tick>i{background:#FF3B00}
+.art-nb-fold .l-tick b{padding:3px 7px;border-radius:3px;background:#FF3B00;color:#fff;font-weight:600;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase}
+.art-nb-fold .l-head{height:50px;justify-content:space-between;background:#fff;border:1px solid #E4E0D6}
+.art-nb-fold .l-head .nb-brand{gap:6px}
+.art-nb-fold .l-head .nb-brand b{font-size:19px}
+.art-nb-fold .l-head .nb-icon{width:15px;height:19px}
+.art-nb-fold .l-ad{height:44px;justify-content:center;border:1.5px dashed #FF3B00;background:#FBEDE6;color:#C23000;font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+.art-nb-fold .l-hero{display:grid;align-items:stretch;grid-template-columns:1.3fr 1fr;gap:6px;height:128px;padding:0;background:transparent}
+.art-nb-fold .l-hero>i{top:16px;left:8px;transform:none;z-index:1}
+.art-nb-fold .l-hero .m{display:flex;flex-direction:column;justify-content:flex-end;gap:3px;padding:10px 12px;border-radius:6px;background:linear-gradient(160deg,#3A3F46,#0D0F12 70%);color:#fff}
+.art-nb-fold .l-hero .m small{font:600 10px "Geist Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:#FF7A4D}
+.art-nb-fold .l-hero .m span{font:600 16px/1.1 "Fraunces",Georgia,serif;letter-spacing:-.01em}
+.art-nb-fold .l-hero .s{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.art-nb-fold .l-hero .s em{border-radius:6px;background:linear-gradient(160deg,#8A5A36,#27201A)}
+.art-nb-fold .l-hero .s em:nth-child(2){background:linear-gradient(160deg,#5B3AA0,#1B1030)}
+.art-nb-fold .l-hero .s em:nth-child(3){background:linear-gradient(160deg,#34495E,#101820)}
+.art-nb-fold .l-hero .s em:nth-child(4){background:linear-gradient(160deg,#2F4F3B,#0E1714)}
+.art-nb-fold .l-sec{height:40px;padding-left:12px;border-bottom:1px solid #0A0A0A;border-radius:0;font:400 16px "Fraunces",Georgia,serif;letter-spacing:-.01em;color:#0A0A0A;opacity:.6}
+.art-nb-fold .l-sec strong{font-weight:800}
+/* fold line */
+.art-nb-fold .fold{position:relative;height:0;margin:6px -12px;border-top:1.5px dashed #0A0A0A}
+.art-nb-fold .fold span{position:absolute;right:12px;top:-9px;padding:1px 8px;border-radius:999px;background:#0A0A0A;color:#fff;font:600 10px/16px "Geist Mono",monospace;letter-spacing:.1em;text-transform:uppercase}
+.art-nb-fold ol{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:8px}
+.art-nb-fold ol li{display:grid;grid-template-columns:40px 1fr;gap:10px;padding-top:8px;border-top:1px solid #E4E0D6;font-size:14px;line-height:1.45;color:#57534B}
+.art-nb-fold ol b{font:600 12px/1.6 "Geist Mono",monospace;color:#0A0A0A}
+.art-nb-fold .new ol b{color:#C23000}
+/* ---------- nb-slot: component anatomy */
+.art-nb-slot .nb-slot{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:32px;align-items:center;margin-top:26px}
+.art-nb-slot .feed{display:flex;flex-direction:column;gap:14px;padding:20px;border-radius:18px;background:#F7F5F0;border:1px solid #E4E0D6}
+.art-nb-slot .sec{padding-bottom:8px;border-bottom:1px solid #0A0A0A;font:400 20px/1 "Fraunces",Georgia,serif;letter-spacing:-.02em;color:#0A0A0A}
+.art-nb-slot .sec strong{font-weight:800}
+.art-nb-slot .row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.art-nb-slot .row span{display:flex;flex-direction:column;gap:5px}
+.art-nb-slot .row i{height:56px;border-radius:6px;background:linear-gradient(150deg,#8A5A36,#27201A)}
+.art-nb-slot .row span:nth-child(2) i{background:linear-gradient(150deg,#34495E,#101820)}
+.art-nb-slot .row span:nth-child(3) i{background:linear-gradient(150deg,#8E4A7C,#2A1E36)}
+.art-nb-slot .row b{height:6px;border-radius:3px;background:#CFC9BC}
+.art-nb-slot .row b:last-child{width:65%}
+.art-nb-slot .ad{position:relative;display:grid;place-items:center;height:92px;margin:4px 0;border:1.5px dashed #FF3B00;border-radius:6px;background:repeating-linear-gradient(135deg,#FBEDE6 0 10px,#F7E2D8 10px 20px)}
+.art-nb-slot .ad .tag{font:600 11px "Geist Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:#C23000}
+.art-nb-slot .pin{position:absolute;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#FF3B00;color:#fff;font:600 11px "Geist Mono",monospace}
+.art-nb-slot .p1{top:50%;left:calc(50% - 72px);transform:translateY(-50%)}
+.art-nb-slot .p2{top:-11px;right:18px}
+.art-nb-slot .p3{bottom:-11px;left:18px}
+.art-nb-slot ol{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.art-nb-slot li{display:grid;grid-template-columns:26px 1fr;gap:12px;padding:14px 16px;border-radius:14px;background:#F7F5F0;border:1px solid #E4E0D6}
+.art-nb-slot li>i{display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:#FF3B00;color:#fff;font:600 11px "Geist Mono",monospace;font-style:normal}
+.art-nb-slot li:last-child>i{background:#0A0A0A}
+.art-nb-slot li b{display:block;font-size:15.5px}
+.art-nb-slot li span{display:block;margin-top:3px;font-size:14px;line-height:1.45;color:#57534B}
+/* ---------- nb-weight: page weight */
+.art-nb-weight .nb-weight{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px 32px;margin-top:26px}
+.art-nb-weight .bars{grid-column:1/-1;display:grid;gap:16px;padding:24px;border-radius:18px;background:#F7F5F0;border:1px solid #E4E0D6}
+.art-nb-weight .bar{display:grid;grid-template-columns:96px minmax(0,1fr) 82px;gap:14px;align-items:center}
+.art-nb-weight .k{font:500 12px "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:#6E6A61}
+.art-nb-weight .track{position:relative;display:flex;align-items:center;height:40px}
+.art-nb-weight .track i{display:block;height:100%;border-radius:6px;background:repeating-linear-gradient(135deg,#BFB9AC 0 8px,#CFC9BC 8px 16px)}
+.art-nb-weight .new .track i{background:#0A0A0A}
+.art-nb-weight .track em{margin-left:12px;font:600 12px "Geist Mono",monospace;font-style:normal;letter-spacing:.06em;text-transform:uppercase;color:#C23000;white-space:nowrap}
+.art-nb-weight .bar b{font:600 22px/1 "Fraunces",Georgia,serif;letter-spacing:-.02em;text-align:right;color:#0A0A0A}
+.art-nb-weight .new b{color:#C23000}
+.art-nb-weight .cut ul{margin:12px 0 0;padding:0;list-style:none}
+.art-nb-weight .cut li{position:relative;padding:9px 0 9px 22px;border-top:1px solid #E4E0D6;font-size:14.5px;color:#57534B}
+.art-nb-weight .cut li::before{content:"";position:absolute;left:2px;top:50%;width:10px;height:2px;margin-top:-1px;background:#FF3B00}
+.art-nb-weight .why{display:grid;gap:12px;align-content:start}
+.art-nb-weight .why div{padding:18px 20px;border-radius:16px;background:#0A0A0A;color:#E9E9E4}
+.art-nb-weight .why b{display:block;font:500 22px/1 "Fraunces",Georgia,serif;letter-spacing:-.02em;color:#fff}
+.art-nb-weight .why span{display:block;margin-top:8px;font-size:14.5px;line-height:1.45;color:rgba(255,255,255,.72)}
+@media (max-width:760px){
+  .art-nb-fold .nb-fold,.art-nb-slot .nb-slot,.art-nb-weight .nb-weight{grid-template-columns:1fr}
+  .art-nb-fold .l-logo span{display:none}
+  .art-nb-fold .l-tick span{display:none}
+  .art-nb-fold .l-hero{height:112px}
+  .art-nb-slot .feed{padding:14px}
+  .art-nb-slot .row{gap:8px}
+  .art-nb-slot .row i{height:40px}
+  .art-nb-slot .ad{height:72px}
+  .art-nb-weight .bars{padding:18px 16px}
+  .art-nb-weight .bar{grid-template-columns:1fr auto;gap:6px 10px}
+  .art-nb-weight .bar .track{grid-column:1/-1;grid-row:2}
+  .art-nb-weight .track em{font-size:11px}
+}
+/* v1.7 responsive fixes (≤420px) */
+@media (max-width:760px){
+  .nb-ds-grid{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:420px){
+  .nb-ds-grid .brand .nb-brand b{font-size:32px}
+  .nb-ds-grid .type>b{font-size:48px}
+  .nb-ds-grid .titles span{font-size:21px}
+  .nb-ds-grid .sw{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .nb-ds-grid .sw span{height:64px}
+}

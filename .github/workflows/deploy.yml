@@ -1,0 +1,53 @@
+# Publica o tema Sera v.1 na HostGator a cada push na main que mude sera-v1/.
+# Secrets usados (Settings → Secrets and variables → Actions): FTP_SERVER, FTP_USERNAME, FTP_PASSWORD.
+# Conexão FTPS com verificação de certificado ligada.
+name: Deploy tema para matheusserafim.com
+
+on:
+  push:
+    branches: [main]
+    paths: ['sera-v1/**', '.github/workflows/deploy.yml']
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-theme
+  cancel-in-progress: false
+
+env:
+  THEME_DIR: matheusserafim.com/wp-content/themes/sera-v1/
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Checar PHP (lint)
+        run: find sera-v1 -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null
+
+      - name: Conferir se a pasta do tema existe no servidor
+        env:
+          S: ${{ secrets.FTP_SERVER }}
+          U: ${{ secrets.FTP_USERNAME }}
+          P: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          if ! curl -sS --fail --ssl-reqd --user "$U:$P" "ftp://$S/${THEME_DIR}style.css" -o /tmp/remote-style.css; then
+            echo "::error::Não consegui ler ${THEME_DIR}style.css no servidor. Nada foi enviado."
+            exit 1
+          fi
+          grep -m1 '^Version' /tmp/remote-style.css || true
+
+      - name: Enviar tema (só arquivos alterados)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          local-dir: ./sera-v1/
+          server-dir: ${{ env.THEME_DIR }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.DS_Store

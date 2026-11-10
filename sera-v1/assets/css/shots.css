@@ -1,0 +1,168 @@
+/* ==========================================================================
+   Sera v.1 — real product screenshots (Research Hub, anonymised)
+   1. Screenshots inside the shared frames (hero: sera_browser + sera_device)
+   2. .shots — slider of desktop + mobile pair cards (behaviour: assets/js/shots.js)
+   Works without JS: a native scroll-snap row. With JS (.is-ready): active card centred,
+   neighbours recede, the active phone slides up and settles.
+   ========================================================================== */
+
+/* ---------- 1. screenshots in frames ---------- */
+.shots-hero-page{background:#FDFDFD}
+.shots-hero-page img{display:block;width:1280px;height:800px;max-width:none}
+/* The phone screenshot starts under the iPhone status bar; a strip painted like the app's top keeps them one surface. */
+.screen.shots-screen{background:#FDFDFD}
+.shots-sb{position:absolute;top:0;left:0;right:0;height:54px;z-index:14}
+.screen.shots-screen .statusbar{background:transparent}
+.screen.shots-screen>.shots-img--mob{position:absolute;top:54px;left:0;display:block;width:393px;height:798px;max-width:none;object-fit:cover;object-position:top center}
+
+/* ---------- 2. pair-card slider ---------- */
+.sera-mockup-block:has(.shots){min-height:0;background:#0E0A10}
+.shots{
+	--cw:min(880px,78cqw);           /* card width */
+	--gap:clamp(20px,3cqw,40px);
+	--ease:cubic-bezier(.16,1,.3,1);
+	position:relative;container-type:inline-size;padding:clamp(40px,5cqw,64px) 0 clamp(28px,3.4cqw,44px);
+	background:radial-gradient(70% 60% at 78% 8%,rgba(255,0,155,.22),transparent 62%),radial-gradient(110% 90% at 12% 100%,#2A0B22 0%,#0E0A10 68%);
+	color:#F4EEF2;font-family:"Geist",system-ui,sans-serif;text-align:left
+}
+.shots-track{
+	position:relative;display:flex;align-items:flex-start;gap:var(--gap);
+	overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+	padding:28px calc(50cqw - var(--cw) / 2) 12px;
+	-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%)
+}
+.shots-track::-webkit-scrollbar{display:none}
+.shots-track:focus-visible{outline:2px solid #FF4FB8;outline-offset:-2px;border-radius:20px}
+.shots-card{
+	--bw:86cqw;     /* browser width  (of the card) */
+	--pw:24cqw;     /* phone width */
+	--ptop:24cqw;   /* phone top */
+	--pr:1cqw;      /* phone right inset */
+	flex:none;width:var(--cw);margin:0;container-type:inline-size;scroll-snap-align:center;scroll-snap-stop:always
+}
+.shots-stage{position:relative;height:calc(var(--ptop) + var(--pw) * 2.1007);transform-origin:50% 40%}
+.shots-bwrap{width:var(--bw)}
+.shots-browser{border-radius:clamp(8px,1.3cqw,14px);overflow:hidden;background:#FDFDFD;box-shadow:0 50px 90px -40px rgba(0,0,0,.75),0 18px 36px -18px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.08)}
+.shots-bar{position:relative;display:flex;align-items:center;height:clamp(14px,3.3cqw,30px);padding:0 clamp(6px,1.4cqw,14px);background:#F1F3F7;border-bottom:1px solid #E3E6EE}
+.shots-dotsw{display:flex;gap:clamp(3px,.6cqw,6px)}
+.shots-dotsw i{width:clamp(4px,.95cqw,9px);aspect-ratio:1;border-radius:50%;background:#FF5F57}
+.shots-dotsw i:nth-child(2){background:#FEBC2E}
+.shots-dotsw i:nth-child(3){background:#28C840}
+.shots-url{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;width:36%;height:64%;border-radius:clamp(3px,.7cqw,7px);background:#fff;font:500 clamp(6px,1.15cqw,11.5px)/1 "Geist",system-ui,sans-serif;color:#5B6272;white-space:nowrap;overflow:hidden}
+.shots-page img,.shots-img--desk{display:block;width:100%;height:auto}
+.shots-phone{position:absolute;top:var(--ptop);right:var(--pr);width:var(--pw);z-index:2}
+.shots-settle{transform-origin:50% 100%}
+.shots .shots-phone .device{--s:.53;filter:drop-shadow(0 30px 40px rgba(0,0,0,.45))}
+
+/* caption */
+.shots-cap{display:grid;gap:6px;max-width:62ch;margin:clamp(22px,3cqw,34px) 0 0;padding-left:2px}
+.shots-idx{font:500 11.5px/1 "Geist Mono",ui-monospace,monospace;letter-spacing:.08em;color:#FF6CC4}
+.shots-t{font:600 clamp(16px,2.1cqw,19px)/1.25 "Geist",system-ui,sans-serif;letter-spacing:-.012em;color:#fff}
+.shots-d{font-size:clamp(14px,1.75cqw,15.5px);line-height:1.5;color:rgba(244,238,242,.68)}
+
+/* nav (revealed by JS) */
+.shots-nav{display:flex;align-items:center;justify-content:center;gap:clamp(10px,2cqw,18px);margin-top:clamp(18px,2.6cqw,28px);padding:0 16px}
+.shots-nav[hidden]{display:none}
+.shots-btn{display:grid;place-items:center;width:40px;height:40px;padding:0;border-radius:50%;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.04);color:#fff;cursor:pointer;transition:background .25s,border-color .25s,opacity .25s}
+.shots-btn svg{width:18px;height:18px}
+.shots-btn:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.4)}
+.shots-btn:disabled{opacity:.3;cursor:default}
+.shots-btn:focus-visible,.shots-dot:focus-visible{outline:2px solid #FF4FB8;outline-offset:2px}
+.shots-dots{display:flex;align-items:center}
+.shots-dot{position:relative;width:22px;height:28px;padding:0;border:0;background:none;cursor:pointer}
+.shots-dot::before{content:"";position:absolute;left:50%;top:50%;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:4px;background:#fff;opacity:.32;transition:width .4s var(--ease),margin .4s var(--ease),opacity .3s,background .3s}
+.shots-dot[aria-current="true"]::before{width:20px;margin-left:-10px;opacity:1;background:#FF3DAF}
+.shots-count{min-width:62px;text-align:center;font:500 12px/1 "Geist Mono",ui-monospace,monospace;letter-spacing:.06em;color:rgba(244,238,242,.6)}
+.shots-count b{font-weight:500;color:#fff}
+
+/* ---------- states (JS ready) ---------- */
+.shots.is-ready .shots-stage{transition:transform .8s var(--ease),opacity .8s var(--ease),translate .4s var(--ease)}
+.shots.is-ready .shots-cap{transition:opacity .6s var(--ease)}
+.shots.is-ready .shots-card:not(.is-active){cursor:pointer}
+.shots.is-ready .shots-card:not(.is-active) .shots-stage{transform:scale(.94);opacity:.55}
+.shots.is-ready .shots-card:not(.is-active) .shots-cap{opacity:.35}
+/* entrance (first time the slider is seen) + the active phone sliding up and settling */
+.shots.is-ready .shots-browser{transition:transform .9s var(--ease),opacity .9s var(--ease),box-shadow .4s var(--ease)}
+.shots.is-ready .shots-settle{transition:transform .9s var(--ease) .18s,opacity .6s var(--ease) .18s}
+.shots.is-ready:not(.is-seen) .shots-browser{transform:translateY(56px) scale(.96);opacity:0}
+.shots.is-ready:not(.is-seen) .shots-settle{transform:translateY(72px) rotate(-3deg);opacity:0}
+.shots.is-ready .shots-card:not(.is-active) .shots-settle{transform:translateY(18%) rotate(-3deg)}
+.shots.is-ready .shots-card:not(.is-active) .shots-settle{transition-delay:0s}
+/* scroll-linked depth (case.js writes --p on .mk-anim): the phone travels more than the desktop */
+.shots-bwrap{transform:translateY(calc(var(--p,0) * -18px))}
+.shots-phone{transform:translateY(calc(var(--p,0) * -48px))}
+@media (hover:hover) and (pointer:fine){
+	.shots.is-ready .shots-card.is-active:hover .shots-stage{translate:0 -6px}
+	.shots.is-ready .shots-card.is-active:hover .shots-browser{box-shadow:0 64px 110px -40px rgba(0,0,0,.85),0 24px 44px -18px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.1)}
+}
+
+/* ---------- small screens ---------- */
+@media (max-width:860px){
+	.shots{--cw:min(640px,84cqw)}
+	.shots-card{--bw:84cqw;--pw:34cqw;--ptop:20cqw;--pr:0px}
+}
+@media (max-width:560px){
+	/* full-bleed band on phones so neighbours peek from the screen edges */
+	.case-content .sera-mockup-block:has(.shots){width:calc(100% + 2 * var(--gutter,16px));border-radius:0}
+	.shots{--cw:84cqw;--gap:14px;padding-top:28px}
+	.shots-track{padding-top:20px;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 4%,#000 96%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 4%,#000 96%,transparent 100%)}
+	.shots-card{--bw:80cqw;--pw:44cqw;--ptop:20cqw;--pr:0px}
+	.shots .shots-phone .device{--s:.35}
+	.shots-cap{padding:0 2px}
+	.shots-bar{height:12px}
+	.shots-url{display:none}
+}
+
+/* phone scale = phone width / 417 px, as a number (fallbacks above for older engines) */
+@supports (width:calc(1px * tan(atan2(1px,1px)))){
+	.shots .shots-phone .device{--s:tan(atan2(var(--pw),417px))}
+}
+
+/* ---------- reduced motion: no transitions, no parallax, everything in place ---------- */
+@media (prefers-reduced-motion:reduce){
+	.shots.is-ready .shots-stage,.shots.is-ready .shots-cap,.shots.is-ready .shots-browser,.shots.is-ready .shots-settle,.shots-dot::before{transition:none}
+	.shots-bwrap,.shots-phone{transform:none}
+	.shots.is-ready:not(.is-seen) .shots-browser,.shots.is-ready:not(.is-seen) .shots-settle,.shots.is-ready .shots-card:not(.is-active) .shots-settle{transform:none;opacity:1}
+	.shots.is-ready .shots-card.is-active:hover .shots-stage{translate:none}
+}
+
+/* ---------- v3.3.2 · fit the viewport height ----------
+   A card is as wide as the space allows, but never so tall that its caption falls below the fold
+   (e.g. a 13" laptop with the browser chrome open: ~700px of viewport). --k = stage height / card width,
+   --fix = everything around the stage (sticky header, band padding, caption, nav). */
+.shots{--k:.684;--fix:350px;--cw:max(460px,min(880px,78cqw,calc((100svh - var(--fix)) / var(--k))));padding:clamp(28px,3.4cqw,48px) 0 clamp(22px,2.6cqw,34px)}
+.shots-track{padding-top:18px;padding-bottom:6px}
+.shots-card{--ptop:18cqw}
+.shots-cap{margin-top:clamp(16px,2.2cqw,24px)}
+.shots-nav{margin-top:clamp(12px,1.8cqw,20px)}
+@media (min-width:861px){
+	/* caption on one row: index + title on the left, description on the right */
+	.shots-cap{grid-template-columns:minmax(0,15ch) minmax(0,1fr);column-gap:28px;row-gap:4px;max-width:none;align-items:start}
+	.shots-idx{grid-column:1;grid-row:1}
+	.shots-t{grid-column:1;grid-row:2}
+	.shots-d{grid-column:2;grid-row:1 / span 2;align-self:center}
+}
+@media (max-width:860px){
+	.shots{--k:.92;--fix:330px;--cw:max(420px,min(640px,84cqw,calc((100svh - var(--fix)) / var(--k))))}
+	.shots-card{--ptop:16cqw}
+}
+@media (max-width:560px){
+	.shots{--k:1.12;--fix:360px;--cw:max(250px,min(84cqw,calc((100svh - var(--fix)) / var(--k))))}
+	.shots-card{--ptop:20cqw}
+}
+
+/* v3.7.7 · loading: shimmer placeholders while each screenshot loads, then a soft fade-in */
+.shots-page,.screen.shots-screen,.shots-hero-page{position:relative}
+.shots-page::before,.screen.shots-screen::before{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(100deg,#ECEEF2 30%,#F7F8FA 50%,#ECEEF2 70%);background-size:300% 100%;animation:shots-shimmer 1.4s linear infinite}
+.screen.shots-screen::before{z-index:1}
+.shots-img{position:relative;z-index:2;transition:opacity .5s ease}
+.shots.is-loading .shots-img:not(.is-loaded){opacity:0}
+.shots-img.is-loaded~*,.shots-page:has(.is-loaded)::before,.screen.shots-screen:has(.is-loaded)::before{animation:none;opacity:0}
+@keyframes shots-shimmer{0%{background-position:100% 0}100%{background-position:0 0}}
+/* nav: one counter only (the caption already says 01 / 06), lighter controls */
+.shots-count{display:none}
+.shots-nav{gap:14px}
+.shots-btn{width:38px;height:38px;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18)}
+.shots-btn:disabled{opacity:.18}
+.shots-dot{width:18px}
+@media (prefers-reduced-motion:reduce){.shots-page::before,.screen.shots-screen::before{animation:none}}

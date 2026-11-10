@@ -1,0 +1,104 @@
+/* Sera — Western Union · case-specific artifacts (wu, wudx, wuerr, wujr) */
+.art--wu{--ca:#FFDD00;--ca-soft:#FFF6B8;--ca-ink:#0D0D0D}
+/* ---- wu additions (v1.7) ---- */
+/* Western Union · extra illustrated artifacts (error screen, diagnosis map, journey) */
+/* light-with-accent variants (hero/impact stay dark) */
+.art-wu-triangle .art-panel{background:var(--surface);color:var(--ink-2)}
+.art-wu-triangle .art-label{color:#8A6D00}
+.art-wu-triangle .art-title{color:var(--ink)}
+.art-wu-triangle .tri>div{background:var(--bg);border-color:var(--line)}
+.art-wu-triangle .tri .n{border-color:var(--ink);color:var(--ink)}
+.art-wu-triangle .tri h4{color:var(--ink)}
+.art-wu-triangle .tri ul{font-size:15px;color:var(--ink-2)}
+.art-wu-triangle .tri>div.key{background:var(--ca);border-color:transparent}
+/* shared pin */
+.art--wu .pin{display:inline-grid;place-items:center;width:24px;height:24px;flex:none;border-radius:50%;background:#FFDD00;color:#0D0D0D;border:2px solid #0D0D0D;font:600 11.5px/1 "Geist Mono",ui-monospace,monospace;font-style:normal}
+/* ---------------------------------------------------------- error screen */
+.art-wu-error-screen .wuerr{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:center;margin-top:32px}
+.art-wu-error-screen .wuerr-phone{position:relative;padding:22px 22px 26px;border-radius:30px;background:#F6F5F1;border:8px solid #0D0D0D;box-shadow:0 30px 50px -30px rgba(0,0,0,.45)}
+.art-wu-error-screen .wuerr-bar{display:flex;justify-content:space-between;margin-bottom:22px}
+.art-wu-error-screen .wuerr-bar i{display:block;width:28px;height:6px;border-radius:3px;background:#D8D6CE}
+.art-wu-error-screen .wuerr-bar i+i{width:44px}
+.art-wu-error-screen .wuerr-ico{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:#FDE8E8;color:#B42318;font:700 22px/1 var(--display)}
+.art-wu-error-screen .wuerr-h{position:relative;display:block;margin-top:16px;padding-right:30px;font-size:19px;line-height:1.2;font-weight:600;letter-spacing:-.01em;color:#0D0D0D}
+.art-wu-error-screen .wuerr-phone ol{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:10px}
+.art-wu-error-screen .wuerr-phone li{position:relative;display:grid;grid-template-columns:22px 1fr;gap:10px;padding-right:30px;font-size:14px;line-height:1.35;color:#2B2B2B}
+.art-wu-error-screen .wuerr-phone li>span{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#0D0D0D;color:#fff;font-size:11.5px;font-weight:600}
+.art-wu-error-screen .wuerr-help{position:relative;margin-top:20px;padding:14px 44px 14px 14px;border-radius:14px;background:#fff;border:1px solid var(--line);font-size:13.5px;line-height:1.4;color:#2B2B2B}
+.art-wu-error-screen .wuerr-help small{display:block;margin-top:6px;font-family:inherit;font-size:12px;font-weight:400;line-height:1.4;letter-spacing:0;color:var(--muted)}
+.art-wu-error-screen .wuerr-phone .pin{position:absolute;right:-4px;top:-2px}
+.art-wu-error-screen .wuerr-help .pin{right:10px;top:12px}
+.art-wu-error-screen .wuerr-notes{list-style:none;margin:0;padding:0;display:grid;gap:0;border-top:1px solid var(--line)}
+.art-wu-error-screen .wuerr-notes li{display:grid;grid-template-columns:24px 1fr;gap:16px;padding:22px 0;border-bottom:1px solid var(--line)}
+.art-wu-error-screen .wuerr-notes b{display:block;font-size:17px;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
+.art-wu-error-screen .wuerr-notes span{display:block;margin-top:5px;font-size:14px;line-height:1.5;color:var(--ink-2)}
+/* ---------------------------------------------------------- diagnosis map */
+.art-wu-diagnosis .wudx{margin-top:32px;border-top:1px solid var(--ink)}
+.art-wu-diagnosis .wudx-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:28px;padding:20px 0;border-bottom:1px solid var(--line);align-items:center}
+.art-wu-diagnosis .wudx-head{padding:12px 0;font:500 11.5px/1.3 "Geist Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.art-wu-diagnosis .wudx-cause{position:relative;display:grid;grid-template-columns:34px 1fr;column-gap:14px}
+.art-wu-diagnosis .wudx-cause i{grid-row:span 2;display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:#0D0D0D;color:#FFDD00;font:600 13px/1 "Geist Mono",monospace;font-style:normal}
+.art-wu-diagnosis .wudx-cause b{font-size:17px;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
+.art-wu-diagnosis .wudx-cause span{margin-top:3px;font-size:14px;line-height:1.45;color:var(--ink-2)}
+.art-wu-diagnosis .wudx-cause::after{content:"";position:absolute;right:-22px;top:50%;width:16px;height:2px;background:#0D0D0D}
+.art-wu-diagnosis .wudx-dec{display:flex;flex-wrap:wrap;gap:8px}
+.art-wu-diagnosis .wudx-dec span{display:inline-flex;align-items:center;gap:8px;padding:8px 14px 8px 8px;border-radius:999px;background:#FFF6B8;border:1px solid #F1D400;font-size:14px;line-height:1.25;color:#0D0D0D}
+.art-wu-diagnosis .wudx-dec i{display:inline-grid;place-items:center;min-width:28px;height:22px;padding:0 6px;border-radius:999px;background:#0D0D0D;color:#FFDD00;font:500 11.5px/1 "Geist Mono",monospace;font-style:normal}
+.art-wu-diagnosis .wudx-foot{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-top:24px;padding:18px 22px;border-radius:20px;background:var(--ca-soft)}
+.art-wu-diagnosis .wudx-foot .art-label{color:#8A6D00}
+.art-wu-diagnosis .wudx-foot ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.art-wu-diagnosis .wudx-foot li{padding:6px 12px;border-radius:999px;border:1px solid rgba(13,13,13,.25);font-size:13.5px;color:var(--ink)}
+.art-wu-diagnosis .wudx-foot li.g{background:#0D0D0D;border-color:#0D0D0D;color:#FFDD00}
+/* ---------------------------------------------------------- journey · same rows, the door moves up */
+.art-wu-journey .wujr{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:auto repeat(4,auto);gap:10px clamp(16px,2.4vw,28px);margin-top:32px}
+.art-wu-journey .wujr-col{grid-row:1/6;display:grid;grid-template-rows:subgrid;gap:10px;padding:20px;border-radius:20px;background:#F6F5F1;border:1px solid var(--line)}
+.art-wu-journey .wujr-steps{display:contents;list-style:none;margin:0;padding:0}
+.art-wu-journey .wujr-hd{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:2px 4px 8px}
+.art-wu-journey .wujr-hd b{font-family:var(--display);font-weight:500;font-stretch:92%;font-size:24px;letter-spacing:-.025em;color:var(--ink)}
+.art-wu-journey .wujr-hd span{font:500 11.5px/1.3 "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.art-wu-journey .new .wujr-hd b{display:inline-block;padding:0 10px;border-radius:8px;background:#FFDD00}
+.art-wu-journey .wujr-gate{display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px;align-items:start;align-content:center;padding:14px 16px;border-radius:14px;background:#fff;border:1px solid var(--line)}
+.art-wu-journey .wujr-gate>i{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;background:#0D0D0D;color:#fff;font:500 12px/1 "Geist Mono",monospace;font-style:normal}
+.art-wu-journey .wujr-gate b{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;font-size:15px;line-height:1.3;font-weight:600;color:var(--ink)}
+.art-wu-journey .wujr-gate span{display:block;margin-top:4px;font-size:13.5px;line-height:1.45;color:var(--ink-2)}
+.art-wu-journey .wujr-tag{display:inline-block;flex:none;white-space:nowrap;padding:3px 8px;border-radius:999px;border:1px solid rgba(13,13,13,.22);background:#fff;font:500 10.5px/1.2 "Geist Mono",monospace;font-style:normal;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.art-wu-journey .wujr-sub{display:flex!important;flex-wrap:wrap;gap:6px;margin-top:10px!important}
+.art-wu-journey .wujr-sub em{padding:5px 10px;border-radius:999px;background:#FFF6B8;font-style:normal;font-size:12.5px;line-height:1.2;color:#0D0D0D}
+.art-wu-journey .wujr-sub em.dk{background:#0D0D0D;color:#FFDD00}
+.art-wu-journey .wujr-door{display:flex;align-items:center;gap:12px;align-self:start;padding:14px 16px;border-radius:14px;background:#E9E7E0;color:var(--ink)}
+.art-wu-journey .wujr-door svg{flex:none;width:22px;height:22px}
+.art-wu-journey .wujr-door b{font-size:15px;font-weight:600}
+.art-wu-journey .wujr-door span{margin-left:auto;font:500 11px/1.3 "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.art-wu-journey .new .wujr-door{background:#FFDD00;color:#0D0D0D}
+.art-wu-journey .new .wujr-door span{color:rgba(13,13,13,.6)}
+.art-wu-journey .wujr-later{grid-row:span 2;align-self:start;display:grid;gap:8px;padding:16px;border-radius:14px;background:#fff;border:1px solid var(--line)}
+.art-wu-journey .wujr-later-hd{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:4px 12px;margin-bottom:2px}
+.art-wu-journey .wujr-later-hd b{font-size:15px;font-weight:600;color:var(--ink)}
+.art-wu-journey .wujr-later-hd span{font:500 11px/1.3 "Geist Mono",monospace;letter-spacing:.06em;text-transform:uppercase;color:#8A6D00}
+.art-wu-journey .wujr-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:10px;background:#F6F5F1}
+.art-wu-journey .wujr-item b{font-size:14px;font-weight:500;color:var(--ink)}
+.art-wu-journey .wujr-btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.art-wu-journey .wujr-btns>span{padding:7px 12px;border-radius:999px;border:1px solid rgba(13,13,13,.25);font-size:13px;font-weight:600;color:var(--ink)}
+.art-wu-journey .wujr-btns>span.pri{background:#0D0D0D;border-color:#0D0D0D;color:#FFDD00}
+.art-wu-journey .wujr-btns small{font-weight:400;opacity:.75;font-size:12px}
+.art-wu-journey .wujr-foot{list-style:none;display:flex;flex-wrap:wrap;gap:8px 0;margin:24px 0 0;padding:16px 0 0;border-top:1px solid var(--line)}
+.art-wu-journey .wujr-foot li{font-size:14px;line-height:1.4;color:var(--ink-2)}
+.art-wu-journey .wujr-foot li+li::before{content:"·";margin:0 14px;color:var(--muted)}
+.art-wu-journey .wujr-foot b{font-family:var(--display);font-weight:500;font-size:17px;letter-spacing:-.01em;color:var(--ink);margin-right:2px}
+@media (max-width:760px){
+  .art-wu-error-screen .wuerr{grid-template-columns:1fr}
+  .art-wu-error-screen .wuerr-phone{max-width:340px;width:100%;margin:0 auto;box-sizing:border-box}
+  .art-wu-diagnosis .wudx-head{display:none}
+  .art-wu-diagnosis .wudx-row{grid-template-columns:1fr;gap:14px}
+  .art-wu-diagnosis .wudx-cause::after{display:none}
+  .art-wu-diagnosis .wudx-dec{padding-left:48px}
+  .art-wu-journey .wujr{grid-template-columns:1fr;grid-template-rows:none;gap:14px}
+  .art-wu-journey .wujr-col{grid-row:auto;display:flex;flex-direction:column;gap:8px;padding:16px}
+  .art-wu-journey .wujr-gate{padding:12px 14px;gap:12px}
+  .art-wu-journey .wujr-door{align-self:stretch}
+  .art-wu-journey .wujr-door span{display:none}
+  .art-wu-journey .wujr-foot{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 16px}
+  .art-wu-journey .wujr-foot li+li::before{display:none}
+  .art-wu-journey .wujr-foot b{display:block}
+}/* PT: "A maioria" stays on one line in the audit number (EN "Most" is one word) */
+.art-wu-audit .audit-num b:lang(pt){font-size:clamp(64px,8.4vw,128px);white-space:nowrap}

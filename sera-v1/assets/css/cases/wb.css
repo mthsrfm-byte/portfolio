@@ -1,0 +1,240 @@
+/* Sera — will bank · case-specific artifacts (wbv framework, wbb bill, wbp process + polish)
+   v3.1 · round 2 visual polish. */
+.art--wb{--ca:#F8D63E;--ca-soft:#FBF1C4;--ca-ink:#26220F;--wb-olive:#8A7413;--wb-stage:#EFE9D6}
+
+/* ==========================================================================
+   wb-framework · Venn (Customer / Business / Technical → BUILD)
+   ========================================================================== */
+.art-wb-framework .wbv-wrap{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center}
+.art-wb-framework .wbv-copy{margin-top:18px;max-width:520px}
+.art-wb-framework .wbv{margin:0;display:flex;flex-direction:column;align-items:center}
+.art-wb-framework .wbv svg{display:block;width:100%;max-width:460px;height:auto;overflow:visible}
+.wbv circle{stroke-width:1.2}
+.wbv .wbv-c1{fill:#F8D63E;fill-opacity:.42;stroke:#C9A920;mix-blend-mode:multiply}
+.wbv .wbv-c2{fill:#26220F;fill-opacity:.07;stroke:#26220F;stroke-opacity:.45;mix-blend-mode:multiply}
+.wbv .wbv-c3{fill:#F6EFD6;fill-opacity:.6;stroke:none;mix-blend-mode:multiply}
+.wbv .wbv-c3h{stroke:#26220F;stroke-opacity:.45;stroke-dasharray:4 5}
+.wbv .wbv-lbl text{text-anchor:middle;fill:#26220F;font-family:"Geist",system-ui,sans-serif}
+.wbv .wbv-t{font-size:20px;font-weight:600;letter-spacing:-.01em}
+.wbv .wbv-s{font-size:15px;fill:#6B6552}
+.wbv .wbv-lead line{stroke:#26220F;stroke-opacity:.4;stroke-width:1.2}
+.wbv .wbv-lead circle{fill:#26220F;stroke:none}
+.wbv .wbv-core{fill:#F8D63E;stroke:none}
+.wbv .wbv-pill{fill:#26220F}
+.wbv .wbv-build{text-anchor:middle;fill:#F8D63E;font:700 15px "Geist",system-ui,sans-serif;letter-spacing:.1em}
+/* legend: reads as the key of the pill in the middle of the diagram */
+.wbv-out{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:10px 12px;margin-top:20px;padding-top:16px;border-top:1px solid var(--line);width:100%;max-width:460px;font-size:14px;color:var(--ink)}
+.wbv-key{display:inline-flex;align-items:center;gap:7px;height:26px;padding:0 11px;border-radius:999px;background:var(--ca-ink);color:var(--ca);font:600 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.wbv-key i{width:5px;height:5px;border-radius:50%;background:var(--ca)}
+.wbv-arr{color:var(--muted)}
+.wbv-items{display:inline-flex;flex-wrap:wrap;align-items:center;gap:4px 0;font-weight:500}
+.wbv-items span+span::before{content:"·";margin:0 10px;color:var(--muted)}
+
+/* ==========================================================================
+   wb-bill-model · two will bank phones, Before / After, animated
+   beat A: the purchase arrives (After updates the total at once); beat B: bottom banner.
+   Base styles = final state (reduced motion), banner below the list, never over a row.
+   ========================================================================== */
+.art-wb-bill-model .wbb{--ws:.74;display:grid;grid-template-columns:repeat(2,auto);justify-content:center;gap:clamp(40px,7vw,104px);margin-top:36px;padding:48px 24px 28px;border-radius:22px;background:radial-gradient(70% 70% at 50% 120%,rgba(248,214,62,.55),transparent 70%),var(--wb-stage)}
+.art-wb-bill-model .wbb-col{margin:0;display:flex;flex-direction:column;align-items:center;min-width:0}
+.art-wb-bill-model .wbb-crop{height:calc(660px * var(--ws));width:calc(417px * var(--ws));overflow:hidden;-webkit-mask-image:linear-gradient(#000 94%,transparent);mask-image:linear-gradient(#000 94%,transparent)}
+.art-wb-bill-model .wbb .device{--s:var(--ws)}
+.art-wb-bill-model .wbb-col figcaption{display:flex;flex-direction:column;align-items:center;gap:10px;margin-top:20px;max-width:calc(417px * var(--ws));text-align:center;text-wrap:balance;font-size:14.5px;line-height:1.4;color:#5E5A4C}
+.art-wb-bill-model .wbb-col figcaption b{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:999px;font:600 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;background:rgba(38,34,15,.08);color:var(--ca-ink)}
+.art-wb-bill-model .is-after figcaption b{background:var(--ca-ink);color:var(--ca)}
+.art-wb-bill-model .wbb-col figcaption span{color:var(--ca-ink)}
+/* screen */
+.wbb-scr .wbb-yellow{height:262px}
+.wbb-scr .wbb-pills{display:flex;align-items:center;gap:8px;margin:24px 22px 0}
+.wbb-scr .wbb-pill{margin:0}
+.wbb-scr .wbb-live{display:inline-flex;align-items:center;gap:5px;height:30px;padding:0 12px 0 10px;border-radius:999px;background:#26220F;color:#F8D63E;font-size:14px;font-weight:600}
+.wbb-scr .wbb-live .s-ico{width:14px;height:14px;stroke-width:2.2}
+.wbb-scr .wbb-amt{display:flex;align-items:baseline;gap:8px;padding:16px 22px 0;font-weight:700;letter-spacing:-.03em;color:#1A1A1A}
+.wbb-scr .wbb-cur{font-size:24px}
+.wbb-scr .wbb-roll{display:inline-block;height:54px;overflow:hidden;font-size:48px;line-height:54px}
+.wbb-scr .wbb-roll-in{display:flex;flex-direction:column}
+.is-after .wbb-scr .wbb-roll-in{transform:translateY(-54px)}
+.wbb-scr .wbb-due{padding:8px 22px 0;font-size:15px;color:#2B2A26}
+.wbb-scr .wbb-sec{padding:46px 22px 0;font-size:17px;font-weight:700}
+.wbb-scr .wbb-list{padding:6px 22px 0}
+.wbb-scr .wbb-list li{height:78px;padding:0;background:#fff}
+.wbb-scr .wbb-list .l b{font-size:16px}
+.wbb-scr .wbb-list .r b{display:block;font-size:16px}
+.wbb-scr .wb-list .r .wbb-st{display:inline-flex;align-items:center;gap:6px;margin-top:6px;height:26px;padding:0 10px;border-radius:999px;font-size:14px;font-weight:600;line-height:1}
+.wbb-scr .wb-list .r .wbb-st.pend{background:#FBE6CC;color:#8A4B0F}
+.wbb-scr .wbb-st.pend::before{content:"";width:7px;height:7px;border-radius:50%;border:1.6px dashed #B8661C}
+.wbb-scr .wb-list .r .wbb-st.ok{background:#F8D63E;color:#26220F}
+.wbb-scr .wbb-st.ok::before{content:"";width:6px;height:6px;border-radius:50%;background:#26220F}
+.wbb-scr .wbb-toast{position:absolute;left:16px;right:16px;top:568px;z-index:5;display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:16px;background:#26220F;color:#fff;font-size:15px;line-height:1.3;box-shadow:0 18px 40px -16px rgba(38,34,15,.6)}
+.wbb-scr .wbb-toast .s-ico{width:22px;height:22px;flex:none;color:#F8D63E}
+.wbb-scr .wbb-toast b{display:block;margin-bottom:2px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#F8D63E}
+.wbb-scr .wbb-toast.is-ok{background:#F8D63E;color:#26220F;box-shadow:0 18px 40px -16px rgba(138,116,19,.55)}
+.wbb-scr .wbb-toast.is-ok .s-ico,.wbb-scr .wbb-toast.is-ok b{color:#26220F}
+/* Before/After toggle: only on narrow screens (≤760), CSS-only radios */
+.art-wb-bill-model .wbb-r,.art-wb-bill-model .wbb-tog{display:none}
+@media (prefers-reduced-motion:no-preference){
+  .art-wb-bill-model .wbb-col{transition:opacity .45s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1),visibility .45s}
+  .wbb .wbb-new,.wbb .wbb-old,.wbb .wbb-roll-in,.wbb .wbb-live,.wbb .wbb-st.pend,.wbb .wbb-toast{animation-duration:7.2s;animation-iteration-count:infinite;animation-timing-function:cubic-bezier(.22,.8,.24,1);animation-play-state:paused}
+  .wbb.is-live .wbb-new,.wbb.is-live .wbb-old,.wbb.is-live .wbb-roll-in,.wbb.is-live .wbb-live,.wbb.is-live .wbb-st.pend,.wbb.is-live .wbb-toast{animation-play-state:running}
+  .wbb .wbb-new{animation-name:wbb-in}
+  .wbb .wbb-old{animation-name:wbb-push}
+  .wbb .is-after .wbb-roll-in{animation-name:wbb-roll}
+  .wbb .wbb-live{animation-name:wbb-live}
+  .wbb .wbb-st.pend{animation-name:wbb-nudge}
+  .wbb .wbb-toast{animation-name:wbb-toast}
+}
+/* story, 7.2 s, same clock in both phones
+   beat A (0–9%)   the new purchase slides into both lists
+   After (9–17%)   the total rolls up at once, "Atualizada agora" pops and pulses once
+   Before (9–14%)  the purchase just sits there, "Pendente" nudges; the total doesn't move
+   beat B (50–57%) a bottom banner rises below the list: due-date surprise / confirmation
+   86–92%          banner leaves · 90–100% the list and the total rewind to the start */
+@keyframes wbb-in{0%{opacity:0;transform:translateY(-22px)}9%{opacity:1;transform:none}88%{opacity:1;transform:none}94%,100%{opacity:0;transform:none}}
+@keyframes wbb-push{0%{transform:translateY(-78px)}9%{transform:none}92%{transform:none}100%{transform:translateY(-78px)}}
+@keyframes wbb-roll{0%,9%{transform:none}17%,90%{transform:translateY(-54px)}98%,100%{transform:none}}
+@keyframes wbb-live{0%,9%{opacity:0;transform:scale(.85);box-shadow:0 0 0 0 rgba(38,34,15,.35)}14%{opacity:1;transform:scale(1.06);box-shadow:0 0 0 0 rgba(38,34,15,.35)}18%{transform:none}26%{box-shadow:0 0 0 10px rgba(38,34,15,0)}88%{opacity:1;transform:none;box-shadow:0 0 0 10px rgba(38,34,15,0)}94%,100%{opacity:0;transform:scale(.85);box-shadow:0 0 0 0 rgba(38,34,15,0)}}
+@keyframes wbb-nudge{0%,10%{transform:none}13%{transform:scale(1.08)}17%,100%{transform:none}}
+@keyframes wbb-toast{0%,50%{opacity:0;transform:translateY(28px)}57%{opacity:1;transform:none}86%{opacity:1;transform:none}92%,100%{opacity:0;transform:translateY(28px)}}
+
+/* wb-process → shared timeline (.tl), block at the end of this file */
+.art--wb .tl{--tl-line:#26220F;--tl-dot:#F8D63E;--tl-dot-ring:#26220F;--tl-halo:rgba(248,214,62,.4);--tl-txt:#8A7413}
+
+/* ==========================================================================
+   polish · the rest of the will bank artifacts
+   ========================================================================== */
+.art--wb .glance-did li{background:transparent;border:1px solid var(--line);padding:5px 12px}
+.art-wb-stakes .stat{border-radius:22px}
+.art-wb-pains .pains{margin-top:28px}
+.art-wb-pains .pains li{padding:16px 0}
+.art-wb-pains .pains li:last-child{border-bottom:1px solid var(--line)}
+.art-wb-pains .pains li:not(.focus){color:var(--ink-2)}
+.art-wb-before-after .ba>div{padding:32px 30px}
+.art-wb-before-after .ba .row:first-of-type{border-top:0;padding-top:4px}
+.art-wb-lessons .statement{padding:44px 40px;border-radius:22px}
+.art-wb-lessons .statement::after{opacity:.18}
+.art-wb-lessons .statement p{font-size:clamp(24px,2.6vw,34px);line-height:1.12}
+.art-wb-lessons .is-ca{background:var(--ca);color:var(--ca-ink)}
+.art-wb-lessons .is-ca::after{display:none}
+.art-wb-lessons .is-ca .art-label{color:#5E4B00}
+.art-wb-lessons .is-ca p{color:var(--ca-ink)}
+.art-wb-lessons .is-ca p em{color:var(--ca-ink);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:6px}
+.art-wb-impact .impact-foot{gap:8px 20px;margin-top:36px;padding-top:22px;border-top:1px solid rgba(255,255,255,.14)}
+.art-wb-impact .impact-foot span{padding:0 0 0 16px;border:0;border-radius:0;background:none;position:relative;font-size:14px;color:rgba(255,255,255,.72)}
+.art-wb-impact .impact-foot span::before{content:"";position:absolute;left:0;top:.5em;width:6px;height:6px;border-radius:50%;background:var(--ca)}
+.art-wb-next .temporal>div{border-radius:22px}
+.art-wb-reflection .reflect>div{border-radius:22px}
+@media (max-width:1000px){
+  .art-wb-framework .wbv-wrap{grid-template-columns:minmax(0,1fr)}
+  .art-wb-framework .wbv{margin-top:8px}
+}
+@media (max-width:760px){
+  /* one phone at a time, Before/After toggle on top: fits one iPhone screen */
+  .art-wb-bill-model .wbb{--ws:.62;position:relative;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto;justify-items:center;gap:20px;margin-top:24px;padding:20px 12px 22px}
+  .art-wb-bill-model .wbb-r{display:block;position:absolute;width:1px;height:1px;margin:0;opacity:0;pointer-events:none}
+  .art-wb-bill-model .wbb-tog{display:grid;grid-template-columns:1fr 1fr;width:min(100%,260px);padding:4px;border-radius:999px;background:rgba(38,34,15,.08)}
+  .art-wb-bill-model .wbb-tog label{display:flex;align-items:center;justify-content:center;height:36px;border-radius:999px;cursor:pointer;font:600 11.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#5E5A4C;transition:background .3s,color .3s}
+  .art-wb-bill-model #wbb-v-before:checked~.wbb-tog label[for=wbb-v-before]{background:#fff;color:var(--ca-ink);box-shadow:0 2px 8px -3px rgba(38,34,15,.35)}
+  .art-wb-bill-model #wbb-v-after:checked~.wbb-tog label[for=wbb-v-after]{background:var(--ca-ink);color:var(--ca)}
+  .art-wb-bill-model .wbb-r:focus-visible~.wbb-tog{outline:2px solid var(--ca-ink);outline-offset:3px}
+  .art-wb-bill-model .wbb-col{grid-area:2/1}
+  .art-wb-bill-model .wbb-col figcaption{margin-top:14px}
+  .art-wb-bill-model .wbb-col figcaption b{display:none}
+  .art-wb-bill-model #wbb-v-before:checked~.is-after,.art-wb-bill-model #wbb-v-after:checked~.is-before{visibility:hidden;opacity:0}
+  .art-wb-bill-model #wbb-v-before:checked~.is-after{transform:translateX(32px)}
+  .art-wb-bill-model #wbb-v-after:checked~.is-before{transform:translateX(-32px)}
+  .art-wb-lessons .statement{padding:32px 26px}
+  .art-wb-before-after .ba>div{padding:26px 22px}
+}
+@media (max-width:640px){
+  .wbv .wbv-t{font-size:24px}
+  .wbv .wbv-s{font-size:18px}
+  .wbv .wbv-build{font-size:17px}
+  .wbv-out{flex-direction:column;gap:10px}
+  .wbv-arr{display:none}
+  .wbv-items{flex-direction:column;gap:4px;text-align:center}
+  .wbv-items span+span::before{display:none}
+}
+/* impact: arrows stay on the word, in the accent; numerals sized for words, not figures */
+.art-wb-impact .impact-grid b{font-size:clamp(40px,4.2vw,60px);line-height:.95}
+.art-wb-impact .impact-grid b .arr{display:inline-block;margin-left:.08em;font-size:.72em;color:var(--ca);white-space:nowrap}
+
+/* ==========================================================================
+   .tl · one timeline for every case (identical block in rh.css and wb.css)
+   desktop: horizontal track · ≤900: vertical, rule on the left
+   anatomy: marker · mono index · title · one-line description · one mono meta
+   motion (only .mk-anim.is-live, never under reduced motion):
+     entrance  the rule draws start→end in 1.4s, markers pop in sequence
+     loop 7.2s the highlight travels marker to marker up to the key step,
+               the key ripples at 50%, then it eases back (92–100%)
+   base styles = the informative state: path to the key step lit.
+   per case: --tl-line (rule highlight) --tl-dot/--tl-dot-ring (lit marker)
+             --tl-halo (key glow) --tl-txt (accent text)
+   ========================================================================== */
+.tl{--tl-base:rgba(15,25,30,.16);--tl-off:scaleX(0);--tl-origin:left center;margin-top:40px}
+.tl-list{position:relative;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr))}
+.tl-step{position:relative;min-width:0;padding:30px clamp(14px,1.8vw,28px) 0 0}
+.tl-step::before,.tl-step::after{content:"";position:absolute;left:6px;top:6px;width:100%;height:1px;background:var(--tl-base);transform-origin:var(--tl-origin)}
+.tl-step::after{top:5.5px;height:2px;background:var(--tl-line)}
+.tl-step:last-child::before,.tl-step:not(.is-path)::after{display:none}
+.tl-mark{position:absolute;left:0;top:0;z-index:1;width:13px;height:13px;border-radius:50%;background:var(--surface);border:1.5px solid var(--ink)}
+.tl-mark::before,.tl-mark::after{content:"";position:absolute;inset:-1.5px;border-radius:inherit;pointer-events:none}
+.tl-mark::after{background:var(--tl-dot);border:1.5px solid var(--tl-dot-ring);opacity:0}
+.tl-step.is-path .tl-mark::after{opacity:1}
+.tl-step.is-you .tl-mark{border-radius:3px;rotate:45deg}
+.tl-step.is-you.is-path .tl-mark::after{background:var(--ink);border-color:var(--ink)}
+.tl-step.is-key .tl-mark{left:-3px;top:-3px;width:19px;height:19px;background:var(--tl-dot);border-color:var(--tl-dot-ring);box-shadow:0 0 0 6px var(--tl-halo)}
+.tl-step.is-key.is-you .tl-mark{border-radius:4px}
+.tl-step.is-key .tl-mark::after{inset:-9px;background:var(--tl-halo);border:0;z-index:-1}
+.tl-step.is-key .tl-mark::before{border:1.5px solid var(--tl-dot-ring);opacity:0}
+.tl-idx{display:block;font:500 11.5px/1 var(--mono);letter-spacing:.06em;color:var(--muted)}
+.tl-title{margin-top:12px;font-size:16.5px;line-height:1.25;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
+.tl-desc{margin:8px 0 0;font-size:14px;line-height:1.5;color:var(--ink-2)}
+.tl-meta{display:block;margin-top:14px;font:500 10.5px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.tl-step.is-you .tl-meta,.tl-step.is-key .tl-meta,.tl-step.is-key .tl-idx{color:var(--tl-txt)}
+@media (max-width:900px){
+  .tl{--tl-off:scaleY(0);--tl-origin:center top;margin-top:32px;max-width:640px}
+  .tl-list{grid-template-columns:minmax(0,1fr)}
+  .tl-step{padding:0 0 40px 38px}
+  .tl-step:last-child{padding-bottom:0}
+  .tl-step::before,.tl-step::after{left:6px;top:6px;bottom:-6px;width:1px;height:auto}
+  .tl-step::after{left:5.5px;width:2px}
+  .tl-idx{padding-top:1px}
+  .tl-title{margin-top:8px;font-size:18px}
+  .tl-desc{font-size:15px}
+  .tl-meta{margin-top:12px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .tl.mk-anim .tl-step::before{animation:tl-draw var(--tl-step) linear calc(var(--i) * var(--tl-step)) both paused}
+  .tl.mk-anim .tl-mark{animation:tl-pop .55s cubic-bezier(.34,1.56,.64,1) calc(var(--i) * var(--tl-step)) both paused}
+  .tl.mk-anim .tl-step.is-path::after,.tl.mk-anim .tl-step.is-path .tl-mark::after,.tl.mk-anim .tl-step.is-key .tl-mark::after{animation-duration:7.2s;animation-timing-function:cubic-bezier(.2,.7,.2,1);animation-delay:1.7s;animation-iteration-count:infinite;animation-fill-mode:backwards;animation-play-state:paused}
+  .tl.mk-anim .tl-step.is-key .tl-mark::before{animation:tl-ripple 7.2s cubic-bezier(.2,.7,.2,1) 1.7s infinite backwards paused}
+  .tl.mk-anim.is-live .tl-step.tl-step::before,.tl.mk-anim.is-live .tl-step.tl-step .tl-mark,.tl.mk-anim.is-live .tl-step.tl-step::after,.tl.mk-anim.is-live .tl-step.tl-step .tl-mark::after,.tl.mk-anim.is-live .tl-step.tl-step .tl-mark::before{animation-play-state:running}
+  .tl-step:nth-child(1)::after{animation-name:tl-seg-0}.tl-step:nth-child(1) .tl-mark::after{animation-name:tl-hl-0}
+  .tl-step:nth-child(2)::after{animation-name:tl-seg-1}.tl-step:nth-child(2) .tl-mark::after{animation-name:tl-hl-1}
+  .tl-step:nth-child(3)::after{animation-name:tl-seg-2}.tl-step:nth-child(3) .tl-mark::after{animation-name:tl-hl-2}
+  .tl-step:nth-child(4)::after{animation-name:tl-seg-3}.tl-step:nth-child(4) .tl-mark::after{animation-name:tl-hl-3}
+  .tl-step:nth-child(5)::after{animation-name:tl-seg-4}.tl-step:nth-child(5) .tl-mark::after{animation-name:tl-hl-4}
+  .tl-step:nth-child(6)::after{animation-name:tl-seg-5}.tl-step:nth-child(6) .tl-mark::after{animation-name:tl-hl-5}
+  .tl-step:nth-child(7)::after{animation-name:tl-seg-6}.tl-step:nth-child(7) .tl-mark::after{animation-name:tl-hl-6}
+  .tl-step:nth-child(8)::after{animation-name:tl-seg-7}.tl-step:nth-child(8) .tl-mark::after{animation-name:tl-hl-7}
+}
+@keyframes tl-draw{from{transform:var(--tl-off)}to{transform:none}}
+@keyframes tl-pop{0%{opacity:0;scale:0}60%{opacity:1;scale:1.35}100%{opacity:1;scale:1}}
+@keyframes tl-ripple{0%,48%{opacity:0;scale:1}50%{opacity:.9;scale:1}64%,100%{opacity:0;scale:2.8}}
+@keyframes tl-seg-0{0%,4%{transform:var(--tl-off)}10%,98.6%{transform:none}100%,100%{transform:var(--tl-off)}}
+@keyframes tl-hl-0{0%,2%{opacity:0;scale:.3}4.5%{opacity:1;scale:1.45}8%,98.6%{opacity:1;scale:1}100%,100%{opacity:0;scale:.3}}
+@keyframes tl-seg-1{0%,10%{transform:var(--tl-off)}16%,97.2%{transform:none}98.6%,100%{transform:var(--tl-off)}}
+@keyframes tl-hl-1{0%,10%{opacity:0;scale:.3}12.5%{opacity:1;scale:1.45}16%,98.6%{opacity:1;scale:1}100%,100%{opacity:0;scale:.3}}
+@keyframes tl-seg-2{0%,16%{transform:var(--tl-off)}22%,95.8%{transform:none}97.2%,100%{transform:var(--tl-off)}}
+@keyframes tl-hl-2{0%,16%{opacity:0;scale:.3}18.5%{opacity:1;scale:1.45}22%,97.2%{opacity:1;scale:1}98.6%,100%{opacity:0;scale:.3}}
+@keyframes tl-seg-3{0%,22%{transform:var(--tl-off)}28%,94.4%{transform:none}95.8%,100%{transform:var(--tl-off)}}
+@keyframes tl-hl-3{0%,22%{opacity:0;scale:.3}24.5%{opacity:1;scale:1.45}28%,95.8%{opacity:1;scale:1}97.2%,100%{opacity:0;scale:.3}}
+@keyframes tl-seg-4{0%,28%{transform:var(--tl-off)}34%,93%{transform:none}94.4%,100%{transform:var(--tl-off)}}
+@keyframes tl-hl-4{0%,28%{opacity:0;scale:.3}30.5%{opacity:1;scale:1.45}34%,94.4%{opacity:1;scale:1}95.8%,100%{opacity:0;scale:.3}}
+@keyframes tl-seg-5{0%,34%{transform:var(--tl-off)}40%,91.6%{transform:none}93%,100%{transform:var(--tl-off)}}
+@keyframes tl-hl-5{0%,34%{opacity:0;scale:.3}36.5%{opacity:1;scale:1.45}40%,93%{opacity:1;scale:1}94.4%,100%{opacity:0;scale:.3}}
+@keyframes tl-seg-6{0%,40%{transform:var(--tl-off)}46%,90.2%{transform:none}91.6%,100%{transform:var(--tl-off)}}
+@keyframes tl-hl-6{0%,40%{opacity:0;scale:.3}42.5%{opacity:1;scale:1.45}46%,91.6%{opacity:1;scale:1}93%,100%{opacity:0;scale:.3}}
+@keyframes tl-seg-7{0%,46%{transform:var(--tl-off)}52%,88.8%{transform:none}90.2%,100%{transform:var(--tl-off)}}
+@keyframes tl-hl-7{0%,46%{opacity:0;scale:.3}48.5%{opacity:1;scale:1.45}52%,90.2%{opacity:1;scale:1}91.6%,100%{opacity:0;scale:.3}}
+.art--wb .stat.hl small{border-top-color:rgba(17,17,16,.55);color:#2B2A26}

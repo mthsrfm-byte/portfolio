@@ -1,0 +1,214 @@
+/* Sera — Lume UI in code (scope .lmx). Ported 1:1 from the Lume product (Lovable): Pitaya tokens,
+   IBM Plex Sans (self-hosted, declared in mockups.css), the same components and sizes.
+   Screens: inc/screens-lm.php. Motion: bottom of this file, only inside an armed .mk-anim stage,
+   7.2 s loops paused off screen (--mk-ps); unarmed or reduced motion = the final, static state. */
+.lmx{--u-pink:#FF009B;--u-pink-soft:#FFE9F6;--u-pink-ink:#C2157F;--u-ink:#192D37;--u-mut:#6F7D84;--u-bg:#FCFCFC;--u-g1:#F5F5FA;--u-g2:#EBEBF0;--u-g3:#DCDCE1;--u-g4:#BEC3CD;--u-navy:#14242E;--u-navy2:#192D37;--u-green:#0A7D50;--u-green-soft:#E4F8EF;--u-orange:#A05A0A;--u-orange-soft:#FFF6ED;--u-red:#DC2D3C;--u-red-soft:#FFE2E2;--u-blue:#004696;--u-blue-soft:#E5EEFB;--u-phone:#121C24;--f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;--f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;position:relative;z-index:2;-webkit-font-smoothing:antialiased}
+.lmx-desk{width:1280px;height:800px}
+.lmx-desk>.shell,.lmx-desk>div:first-child{height:100%}
+.lmx-ph{position:absolute;top:54px;left:0;right:0;bottom:0;overflow:hidden;background:var(--u-bg)}
+.screen.lmx-screen{background:#FCFCFC}
+.screen.lmx-screen.is-dark{background:#14242E}
+.screen.lmx-screen .statusbar{position:relative;z-index:3}
+.lmx-fit{width:100%;overflow:hidden}
+.lmx-fit>.lmx-desk{zoom:var(--lz,.5)}
+.shots-lm .shots-page::before{display:none}
+/* ============ Telas do produto (mockups, sempre claras) ============ */
+.lmx{font-family:var(--f-body);font-size:14px;line-height:20px;letter-spacing:.1px;color:var(--u-ink);background:var(--u-bg);overflow:hidden;text-align:left}
+.lmx *{box-sizing:border-box}
+.lmx p{margin:0}
+.lmx svg.i{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.lmx .r{display:flex;align-items:center}
+.lmx .c{display:flex;flex-direction:column}
+.lmx .g4{gap:4px}.lmx .g6{gap:6px}.lmx .g8{gap:8px}.lmx .g10{gap:10px}.lmx .g12{gap:12px}.lmx .g16{gap:16px}.lmx .g20{gap:20px}.lmx .g24{gap:24px}
+.lmx .sb{justify-content:space-between}
+.lmx .f1{flex:1;min-width:0}
+.lmx .mut{color:var(--u-mut)}
+.lmx .t11{font-size:11px;line-height:14px}.lmx .t12{font-size:12px;line-height:16px}.lmx .t13{font-size:13px;line-height:18px}.lmx .t15{font-size:15px;line-height:22px}.lmx .t16{font-size:16px;line-height:24px}.lmx .t18{font-size:18px;line-height:26px}.lmx .t20{font-size:20px;line-height:28px}.lmx .t24{font-size:24px;line-height:32px}.lmx .t32{font-size:32px;line-height:40px}
+.lmx .b5{font-weight:500}.lmx .b6{font-weight:600}.lmx .b7{font-weight:700}
+.lmx .pk{color:var(--u-pink-ink)}
+.lmx .mono{font-family:var(--f-mono)}
+.lmx .tab{font-variant-numeric:tabular-nums}
+.lmx .box{background:var(--u-bg);border:1px solid var(--u-g3);border-radius:16px;padding:16px;box-shadow:0 1px 3px rgba(25,45,55,.08),0 1px 2px rgba(25,45,55,.04)}
+.lmx .card{background:#fff;border:1px solid var(--u-g3);border-radius:12px}
+.lmx .kick{font-size:12px;line-height:16px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--u-pink);white-space:nowrap}
+.lmx .over{font-size:11px;line-height:14px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--u-mut)}
+.lmx .pt{font-size:24px;line-height:32px;font-weight:600}
+.lmx .btn{display:flex;align-items:center;justify-content:center;gap:8px;height:48px;border-radius:12px;background:var(--u-pink);color:#fff;font-weight:600;font-size:15px;white-space:nowrap;padding:0 18px;border:1px solid var(--u-pink)}
+.lmx .btn.out{background:var(--u-bg);color:var(--u-ink);border-color:var(--u-g4)}
+.lmx .btn.ghost{background:transparent;color:var(--u-ink);border-color:transparent}
+.lmx .btn.dark{background:var(--u-navy);border-color:var(--u-navy);color:#fff}
+.lmx .btn.sm{height:36px;font-size:13px;padding:0 14px;border-radius:10px}
+.lmx .btn.xs{height:30px;font-size:12px;padding:0 10px;border-radius:8px}
+.lmx .btn.dis{background:var(--u-g2);border-color:var(--u-g2);color:var(--u-mut)}
+.lmx .chip{display:inline-flex;align-items:center;gap:6px;height:36px;border-radius:32px;border:1px solid var(--u-g3);background:var(--u-bg);padding:0 14px;font-size:13px;font-weight:600;white-space:nowrap}
+.lmx .chip.on{border-color:var(--u-pink);background:var(--u-pink-soft);color:var(--u-pink-ink)}
+.lmx .chip.navy{background:var(--u-navy);border-color:var(--u-navy);color:#fff}
+.lmx .pill{display:inline-flex;align-items:center;gap:5px;height:22px;border-radius:32px;padding:0 9px;font-size:12px;font-weight:600;white-space:nowrap}
+.lmx .p-draft{background:var(--u-g1);color:var(--u-mut);border:1px solid var(--u-g3)}
+.lmx .p-field{background:var(--u-pink-soft);color:var(--u-pink-ink)}
+.lmx .p-done{background:var(--u-navy);color:#fff}
+.lmx .p-ok{background:var(--u-green-soft);color:var(--u-green)}
+.lmx .p-bad{background:var(--u-red-soft);color:var(--u-red)}
+.lmx .p-warn{background:var(--u-orange-soft);color:var(--u-orange)}
+.lmx .p-test{background:var(--u-blue-soft);color:var(--u-blue)}
+.lmx .p-live{background:var(--u-green-soft);color:var(--u-green)}
+.lmx .dot{width:7px;height:7px;border-radius:50%;background:currentColor;display:inline-block;flex:none}
+.lmx .prog{height:6px;border-radius:9px;background:var(--u-g1);overflow:hidden}
+.lmx .prog > i{display:block;height:100%;background:var(--u-pink);border-radius:9px}
+.lmx .inp{height:44px;border:1px solid var(--u-g4);border-radius:12px;background:#fff;display:flex;align-items:center;padding:0 12px;color:var(--u-mut);font-size:14px;overflow:hidden;white-space:nowrap}
+.lmx .ta{border:1px solid var(--u-g4);border-radius:12px;background:#fff;padding:10px 12px;color:var(--u-ink);font-size:13px;line-height:19px}
+.lmx .lbl{font-size:13px;font-weight:600}
+.lmx .hr{height:1px;background:var(--u-g3)}
+.lmx .sw{width:36px;height:20px;border-radius:20px;background:var(--u-g4);position:relative;flex:none}
+.lmx .sw::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff}
+.lmx .sw.on{background:var(--u-pink)}.lmx .sw.on::after{left:18px}
+.lmx .ck{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--u-g4);flex:none;display:flex;align-items:center;justify-content:center;background:#fff}
+.lmx .ck.on{background:var(--u-pink);border-color:var(--u-pink);color:#fff}
+.lmx .ck.on svg{width:13px;height:13px;stroke-width:3}
+.lmx .icb{width:36px;height:36px;border-radius:50%;background:var(--u-pink-soft);color:var(--u-pink-ink);display:flex;align-items:center;justify-content:center;flex:none}
+.lmx .mark{width:32px;height:32px;border-radius:10px;background:var(--u-pink);color:#fff;display:flex;align-items:center;justify-content:center;flex:none}
+.lmx .mark svg{width:18px;height:18px;stroke-width:2.2}
+.lmx .brand{display:flex;align-items:center;gap:10px}
+.lmx .brand b{display:block;font-size:17px;line-height:20px}
+.lmx .brand small{display:block;font-size:11px;line-height:14px;color:var(--u-mut)}
+.lmx .avatar{width:28px;height:28px;border-radius:50%;background:var(--u-navy);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
+
+/* App shell antigo */
+.lmx .oldhdr{height:64px;border-bottom:1px solid var(--u-g3);background:var(--u-bg);box-shadow:0 1px 3px rgba(25,45,55,.08)}
+.lmx .oldhdr .in, .lmx .page{width:896px;margin:0 auto;padding:0 16px}
+.lmx .oldnav a{font-size:13px;color:var(--u-mut);padding:8px 0;border-bottom:2px solid transparent}
+.lmx .oldnav a.on{border-color:var(--u-pink);color:var(--u-ink);font-weight:700}
+.lmx .fixbar{position:absolute;left:0;right:0;bottom:0;border-top:1px solid var(--u-g3);background:var(--u-bg);padding:12px 16px}
+
+/* App shell novo */
+.lmx .shell{display:grid;grid-template-columns:232px 1fr;height:100%}
+.lmx .side{background:var(--u-g1);border-right:1px solid var(--u-g3);padding:18px 12px;display:flex;flex-direction:column;gap:18px}
+.lmx .snav a{display:flex;align-items:center;gap:10px;height:36px;padding:0 10px;border-radius:10px;font-size:14px;color:var(--u-ink)}
+.lmx .snav a.on{background:#fff;font-weight:600;box-shadow:0 1px 2px rgba(25,45,55,.08)}
+.lmx .snav a.on svg{color:var(--u-pink)}
+.lmx .snav a .cnt{margin-left:auto;font-size:12px;color:var(--u-mut)}
+.lmx .sitem{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;font-size:13px;line-height:17px}
+.lmx .sitem.on{background:#fff;font-weight:600}
+.lmx .main{overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.lmx .mhead{padding:20px 32px 0;background:var(--u-bg)}
+.lmx .utabs{display:flex;gap:24px;border-bottom:1px solid var(--u-g3)}
+.lmx .utabs a{padding:12px 0;font-size:14px;font-weight:500;color:var(--u-mut);border-bottom:2px solid transparent;margin-bottom:-1px;display:flex;gap:6px;align-items:center}
+.lmx .utabs a.on{color:var(--u-ink);font-weight:600;border-color:var(--u-pink)}
+.lmx .utabs a .n{font-size:11px;background:var(--u-g2);color:var(--u-mut);border-radius:9px;padding:0 6px;line-height:16px}
+.lmx .mbody{padding:24px 32px;background:var(--u-g1);flex:1;overflow:hidden}
+.lmx table{border-collapse:collapse;width:100%}
+.lmx th{font-size:11px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--u-mut);text-align:left;padding:10px 14px;border-bottom:1px solid var(--u-g3);background:var(--u-bg)}
+.lmx td{padding:12px 14px;border-bottom:1px solid var(--u-g2);font-size:13px;vertical-align:middle;background:#fff}
+
+/* Telefone */
+
+.lmx .stbar{height:47px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 30px 8px;font-size:15px;font-weight:600}
+.lmx .stbar .ics{display:flex;gap:5px;align-items:center}
+.lmx .stbar .ics i{display:block;background:currentColor;border-radius:2px}
+.lmx .pfoot{position:absolute;left:0;right:0;bottom:0;border-top:1px solid var(--u-g3);background:var(--u-bg);padding:12px 16px 30px}
+.lmx .home{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:134px;height:5px;border-radius:5px;background:var(--u-ink)}
+.lmx .home.w{background:#fff}
+
+/* Mini protótipo (tela do app da Pagaleve dentro do mockup) */
+.lmx .proto{background:#fff;height:100%;display:flex;flex-direction:column;font-size:11px;line-height:14px;color:var(--u-ink)}
+.lmx .proto .ph{padding:10px 12px;display:flex;align-items:center;gap:8px;font-weight:600;font-size:12px}
+.lmx .proto .amt{font-size:22px;line-height:26px;font-weight:600}
+.lmx .proto .ln{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--u-g2)}
+.lmx .proto .cta{margin-top:auto;margin:auto 12px 14px;height:34px;border-radius:9px;background:var(--u-pink);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:12px}
+
+/* Bolhas */
+.lmx .bl{align-self:flex-start;max-width:85%;background:var(--u-g2);border-radius:16px 16px 16px 4px;padding:8px 12px;font-size:14px;line-height:20px}
+.lmx .bp{align-self:flex-end;background:var(--u-pink);color:#fff;border-radius:16px 16px 4px 16px;padding:8px 10px;display:flex;align-items:center;gap:8px}
+.lmx .wave{display:flex;align-items:center;gap:2px;height:20px}
+.lmx .wave i{display:block;width:2px;border-radius:2px;background:currentColor}
+.lmx .mic{width:56px;height:56px;border-radius:50%;background:var(--u-pink);color:#fff;display:flex;align-items:center;justify-content:center;flex:none}
+.lmx .mic svg{width:24px;height:24px}
+
+/* ---------------------------------------------------------------- motion (7.2 s loops) */
+.lmx-cur,.lmx-tap{display:none}
+.mk-armed .lmx-cur{display:block;position:absolute;left:0;top:0;z-index:30;width:22px;height:28px;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='28' viewBox='0 0 22 28'%3E%3Cpath d='M2 2v20l5.5-5 3.5 8.5 3.5-1.5-3.5-8.2h7.5z' fill='%23111' stroke='%23fff' stroke-width='1.8' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat;filter:drop-shadow(0 3px 5px rgba(0,0,0,.3));animation:lmx-cur 7.2s cubic-bezier(.65,0,.35,1) infinite both var(--mk-ps)}
+.mk-armed .lmx-cur::after{content:"";position:absolute;left:-21px;top:-21px;width:46px;height:46px;border-radius:50%;background:rgba(255,0,155,.28);box-shadow:0 0 0 2px rgba(255,255,255,.85);opacity:0;animation:lmx-click 7.2s ease-out infinite both var(--mk-ps)}
+@keyframes lmx-cur{0%,12%{transform:translate(var(--x0),var(--y0));opacity:0}18%{opacity:1}62%{transform:translate(var(--x1),var(--y1))}66%{transform:translate(var(--x1),var(--y1)) scale(.86)}70%,90%{transform:translate(var(--x1),var(--y1));opacity:1}96%,100%{transform:translate(var(--x1),var(--y1));opacity:0}}
+@keyframes lmx-click{0%,65%{opacity:0;transform:scale(.4)}67%{opacity:1;transform:scale(.5)}80%,100%{opacity:0;transform:scale(1.25)}}
+.mk-armed .lmx-tap{display:block;position:absolute;z-index:30;left:calc(var(--x) - 22px);top:calc(var(--y) - 22px);width:44px;height:44px;border-radius:50%;background:rgba(18,18,24,.24);box-shadow:0 0 0 2px rgba(255,255,255,.95),0 10px 22px -6px rgba(0,0,0,.4);pointer-events:none;opacity:0;animation:lmx-tap 7.2s cubic-bezier(.3,.7,.3,1) var(--d,0s) infinite both var(--mk-ps)}
+@keyframes lmx-tap{0%{opacity:0;transform:scale(1.4)}4%{opacity:1;transform:scale(1)}7%{transform:scale(.82)}10%{transform:scale(1)}16%,100%{opacity:0;transform:scale(1.05)}}
+/* live dots and voice waves */
+.mk-armed .lmx .dot{animation:lmx-live 1.6s ease-out infinite var(--mk-ps)}
+@keyframes lmx-live{0%{box-shadow:0 0 0 0 color-mix(in srgb,currentColor 45%,transparent)}100%{box-shadow:0 0 0 7px color-mix(in srgb,currentColor 0%,transparent)}}
+.mk-armed .lmx .wave:not(.lmx-wbase):not(.lmx-played) i{transform-origin:center;animation:lmx-wave 1.2s ease-in-out calc(var(--i,0) * -.11s) infinite alternate var(--mk-ps)}
+@keyframes lmx-wave{0%{transform:scaleY(.35)}100%{transform:scaleY(1)}}
+/* bars fill */
+.mk-armed .lmx .prog>i{transform-origin:left;animation:lmx-fill 7.2s cubic-bezier(.2,.7,.2,1) infinite both var(--mk-ps)}
+@keyframes lmx-fill{0%,6%{transform:scaleX(0)}40%,100%{transform:scaleX(1)}}
+.mk-armed .lmx-seg{transform-origin:left;animation:lmx-seg 7.2s cubic-bezier(.2,.7,.2,1) calc(var(--k,0) * .12s) infinite both var(--mk-ps)}
+@keyframes lmx-seg{0%,4%{transform:scaleX(0)}14%,100%{transform:scaleX(1)}}
+/* D3: typing a Figma link, the screens it read, the summary */
+.lmx-type{display:inline-block;white-space:nowrap;color:var(--u-ink)}
+.mk-armed .lmx-type{animation:lmx-type 7.2s steps(48,end) infinite both var(--mk-ps);border-right:1.5px solid transparent}
+@keyframes lmx-type{0%,4%{clip-path:inset(0 100% 0 0);border-color:#FF009B}36%{clip-path:inset(0 0 0 0);border-color:#FF009B}38%,100%{clip-path:inset(0 0 0 0);border-color:transparent}}
+.mk-armed .lmx-late{animation:lmx-late 7.2s ease-out infinite both var(--mk-ps)}
+@keyframes lmx-late{0%,40%{opacity:0}46%,100%{opacity:1}}
+.mk-armed .lmx-pop1{animation:lmx-pop1 7.2s cubic-bezier(.34,1.56,.64,1) infinite both var(--mk-ps)}
+@keyframes lmx-pop1{0%,40%{transform:scale(0)}46%,100%{transform:scale(1)}}
+.mk-armed .lmx-pop{animation:lmx-pop 7.2s cubic-bezier(.2,.7,.2,1) calc(var(--k,0) * .25s) infinite both var(--mk-ps)}
+@keyframes lmx-pop{0%,42%{opacity:0;transform:translateY(10px)}52%,100%{opacity:1;transform:none}}
+/* selections (P1, P6, P3 card, P7 chip): plain state first, then the real selected state */
+.mk-armed .lmx-sel{animation:lmx-sel 7.2s ease infinite both var(--mk-ps)}
+.mk-armed .lmx-sel .lmx-ckmark{animation:lmx-ck 7.2s ease infinite both var(--mk-ps)}
+@keyframes lmx-sel{0%,21%{background:var(--pb);border-color:var(--pbc);color:var(--pc);font-weight:var(--pw)}}
+@keyframes lmx-ck{0%,21%{opacity:0;transform:scale(.4)}25%,100%{opacity:1;transform:none}}
+.lmx-sel[style*="--pb"] {}
+.mk-armed .lmx-sel2{animation:lmx-sel2 7.2s ease infinite both var(--mk-ps)}
+@keyframes lmx-sel2{0%,65%{background:#fff;border-color:var(--u-g3)}}
+.mk-armed .lmx-ckbox{animation:lmx-ckbox 7.2s ease infinite both var(--mk-ps)}
+.mk-armed .lmx-ckbox svg{animation:lmx-ckm 7.2s ease infinite both var(--mk-ps)}
+@keyframes lmx-ckbox{0%,65%{background:#fff;border-color:var(--u-g4)}}
+@keyframes lmx-ckm{0%,65%{opacity:0}68%,100%{opacity:1}}
+.mk-armed .lmx-sel3{animation:lmx-sel3 7.2s ease infinite both var(--mk-ps)}
+.mk-armed .lmx-sel3 .lmx-ckmark3{animation:lmx-ck3 7.2s ease infinite both var(--mk-ps)}
+@keyframes lmx-sel3{0%,62%{background:var(--pb);border-color:var(--pbc);color:var(--pc)}}
+@keyframes lmx-ck3{0%,62%{opacity:0;width:0}66%,100%{opacity:1}}
+.mk-armed .lmx-in{animation:lmx-in 7.2s cubic-bezier(.2,.7,.2,1) calc(var(--k,0) * .55s) infinite both var(--mk-ps)}
+@keyframes lmx-in{0%,2%{opacity:0;transform:translateX(-14px)}10%,100%{opacity:1;transform:none}}
+/* P2: mic halo */
+.mk-armed .lmx-halo{animation:lmx-halo 1.8s ease-in-out infinite alternate var(--mk-ps)}
+@keyframes lmx-halo{to{transform:scale(1.06)}}
+/* P4: the prototype loads while the Lume introduces itself */
+@property --lmx-p{syntax:"<integer>";inherits:false;initial-value:100}
+@property --lmx-s{syntax:"<integer>";inherits:false;initial-value:42}
+@property --lmx-s9{syntax:"<integer>";inherits:false;initial-value:9}
+.lmx-pct{counter-reset:p var(--lmx-p)}
+.lmx-pct::after{content:counter(p) "%"}
+.mk-armed .lmx-pct{animation:lmx-pct 7.2s cubic-bezier(.65,0,.35,1) infinite both var(--mk-ps)}
+@keyframes lmx-pct{0%,4%{--lmx-p:18}80%,100%{--lmx-p:100}}
+.lmx-load{width:100%!important;transform-origin:left}
+.mk-armed .lmx-load{animation:lmx-load 7.2s cubic-bezier(.65,0,.35,1) infinite both var(--mk-ps)}
+@keyframes lmx-load{0%,4%{transform:scaleX(.18)}80%,100%{transform:scaleX(1)}}
+/* P5: recording timer and blinking dot */
+.lmx-s9{counter-reset:s var(--lmx-s9)}
+.lmx-s9::after{content:counter(s,decimal-leading-zero)}
+.mk-armed .lmx-s9{animation:lmx-s9 7.2s linear infinite both var(--mk-ps)}
+@keyframes lmx-s9{0%{--lmx-s9:0}85%,100%{--lmx-s9:9}}
+.mk-armed .lmx-blink{animation:lmx-blink 1s steps(2,jump-none) infinite var(--mk-ps)}
+@keyframes lmx-blink{50%{opacity:.25}}
+/* D6: the replay advances */
+.lmx-s{counter-reset:s var(--lmx-s)}
+.lmx-s::after{content:counter(s,decimal-leading-zero)}
+.mk-armed .lmx-s{animation:lmx-s 7.2s linear infinite both var(--mk-ps)}
+@keyframes lmx-s{0%{--lmx-s:10}100%{--lmx-s:58}}
+.lmx-played{pointer-events:none;clip-path:inset(0 52% 0 0)}
+.mk-armed .lmx-played{animation:lmx-played 7.2s linear infinite both var(--mk-ps)}
+@keyframes lmx-played{0%{clip-path:inset(0 70% 0 0)}100%{clip-path:inset(0 46% 0 0)}}
+.lmx-wbase i{background:var(--u-g3)!important}
+/* P7: stars fill one by one */
+.mk-armed .lmx-star{animation:lmx-star 7.2s cubic-bezier(.34,1.56,.64,1) calc(var(--k,0) * .32s) infinite both var(--mk-ps)}
+@keyframes lmx-star{0%,12%{opacity:.18;filter:grayscale(1);transform:scale(.8)}18%,100%{opacity:1;filter:none;transform:none}}
+@media (prefers-reduced-motion:reduce){.lmx *{animation:none!important}}
+/* findings: the same screen on desktop and on the phone (light, unlike the dark stages) */
+.lmx-duo{display:grid;grid-template-columns:1.9fr 1fr;gap:16px;align-items:stretch}
+.lmx-duo-desk{margin:0;padding:clamp(12px,2.2vw,28px);border-radius:28px;background:var(--surface,#fff);border:1px solid var(--line,#E4E1DA);overflow:hidden}
+.lmx-duo-ph{display:flex;align-items:flex-end;justify-content:center;padding:32px 18px 0;overflow:hidden;border-radius:28px;border:1px solid var(--line,#E4E1DA);background:radial-gradient(100% 80% at 50% 0%,#FFE3F3 0%,var(--bg,#F6F4F0) 75%)}
+.lmx-duo-ph .device{--s:.6;margin-bottom:-90px}
+.lmx-duo-cap{margin-top:12px;font-size:13.5px;color:var(--muted,#6E6C66)}
+@media (max-width:1000px){.lmx-duo{grid-template-columns:1fr}.lmx-duo-ph .device{--s:.56}}
+.lmx .ta{overflow:hidden}
