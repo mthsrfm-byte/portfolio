@@ -241,7 +241,7 @@
       try { seguro(m.frame.contentDocument) } catch (e) {}
       try { const d = m.frame.contentDocument, w = d.documentElement.clientWidth, h = d.documentElement.clientHeight; const t = corEm(d, w / 2, 2), b = corEm(d, 4, h - 2); if (t) ap.style.setProperty('--ap-topo', t); if (b) ap.style.setProperty('--ap-base', b) } catch (e) {}
     })
-  }, 700)
+  }, 1500)
 
   function registrar(el) {
     if (el.__moldura) return el.__moldura
@@ -1274,7 +1274,7 @@
     raf = 0
     const y = h.getBoundingClientRect().bottom + 6
     let escuro = false
-    const pts = [innerWidth * 0.25, innerWidth * 0.5, innerWidth * 0.75]
+    const pts = [6, innerWidth - 22] // só as bordas: vale o fundo da página, não cartões escuros no meio
     let votos = 0
     pts.forEach((x) => {
       let n = document.elementFromPoint(x, y)
@@ -1282,14 +1282,14 @@
         if (n.closest && n.closest('.site-header')) { n = null; break }
         const st = getComputedStyle(n)
         const l = lum(st.backgroundColor)
-        if (l !== null) { if (l < 0.35) votos++; break }
-        if (st.backgroundImage && st.backgroundImage !== 'none' && n.matches('.night-sky,.pp-night')) { votos++; break }
+        if (l !== null) { if (l < 0.12) votos++; break }
         n = n.parentElement
       }
     })
-    escuro = votos >= 2
+    escuro = votos === pts.length
     h.classList.toggle('hdr-escuro', escuro)
   }
   const pedir = () => { if (!raf) raf = requestAnimationFrame(ver) }
-  addEventListener('scroll', pedir, { passive: true }); addEventListener('resize', pedir); setInterval(pedir, 800); pedir()
+  // Sem ouvir o scroll (forçar layout a cada quadro travava a rolagem suave): checa 4x por segundo, fora do caminho da rolagem.
+  setInterval(() => { if (!document.hidden) pedir() }, 250); pedir()
 })()

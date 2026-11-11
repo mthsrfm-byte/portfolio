@@ -832,7 +832,9 @@ html:not(.js) .pp-case .night-list li,html:not(.js) .pp-case .night-notes,html:n
 .site-header.hdr-escuro::after{background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.1) 12%,rgba(255,255,255,.1) 88%,rgba(255,255,255,0));box-shadow:none;opacity:1}
 .site-header.hdr-escuro .brand,.site-header.hdr-escuro .brand-name,.site-header.hdr-escuro .primary-nav a,.site-header.hdr-escuro .lang-trigger,.site-header.hdr-escuro .menu-toggle{color:#F1F0EB}
 .site-header.hdr-escuro .brand-name{color:rgba(241,240,235,.7)}
-.site-header.hdr-escuro .brand svg{filter:invert(1) brightness(1.05)}
+.site-header.hdr-escuro .brand svg{color:#F1F0EB;filter:none}
 .site-header.hdr-escuro .lang-trigger,.site-header.hdr-escuro .menu-toggle{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.16)}
 .site-header.hdr-escuro .btn-dark{background:var(--lime,#F7FF9E);color:#111110;border-color:transparent}
 .site-header .brand svg,.site-header .lang-trigger,.site-header .menu-toggle,.site-header .btn-dark{transition:filter .35s ease,background-color .35s ease,color .35s ease,border-color .35s ease}
+.site-header.hdr-escuro .read-progress{background:var(--lime,#F7FF9E)}
+.pp-case .pp-night.tem-ceu .night-list{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
