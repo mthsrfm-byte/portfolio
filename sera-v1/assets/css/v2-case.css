@@ -113,6 +113,9 @@ html.is-v2 body:not(.is-pp) .cv2-fig .art-label{display:flex;align-items:center;
 html.is-v2 body:not(.is-pp) .cv2-fig .art-label::before{content:"";flex:none;width:6px;height:6px;border-radius:1.5px;background:var(--case-mark)}
 html.is-v2 body:not(.is-pp) .cv2-fig .art-cap{display:flex;gap:10px;font-family:var(--mono);font-size:11.5px;line-height:1.55;letter-spacing:.02em;color:var(--muted)}
 html.is-v2 body:not(.is-pp) .cv2-fig .art-cap::before{content:"";flex:none;width:18px;height:1px;margin-top:.75em;background:currentColor;opacity:.6}
+/* captions with an inline link: keep the sentence in one flow (flex would split it into columns) */
+html.is-v2 body:not(.is-pp) .cv2-fig .art-cap:has(a){display:block;position:relative;padding-left:28px}
+html.is-v2 body:not(.is-pp) .cv2-fig .art-cap:has(a)::before{position:absolute;left:0;top:.75em;margin:0}
 /* calm entrance, once: the frame unmasks from the bottom while it settles */
 @keyframes cv2-fig{from{clip-path:inset(0 0 18% 0 round 28px);translate:0 28px;opacity:0}to{clip-path:inset(0 0 0 0 round 0);translate:0 0;opacity:1}}
 html.cv2-anim.is-v2 body:not(.is-pp) .cv2-fig.cv2-in{animation:cv2-fig 1.05s var(--cv2-out) both}
@@ -253,6 +256,10 @@ html.is-v2 body:not(.is-pp) .case-content .cv2-anchor{scroll-margin-top:150px}
   html.is-v2 body:not(.is-pp) .next-thumb .nt-card{width:760px;height:553px;transform:scale(var(--nt-s))}
   html.is-v2 body:not(.is-pp) .next-thumb .nt-card .case-visual{transform:none;width:100%;height:100%;margin:0}
 }
+/* narrow phones: keep the next-case thumbnail scaled to (100vw - 32px) / 760px so it is not clipped */
+@media (max-width:389px){html.is-v2 body:not(.is-pp) .next-case.has-thumb{--nt-s:.4513}}
+@media (max-width:369px){html.is-v2 body:not(.is-pp) .next-case.has-thumb{--nt-s:.4316}}
+@media (max-width:349px){html.is-v2 body:not(.is-pp) .next-case.has-thumb{--nt-s:.379}}
 
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion:reduce){
