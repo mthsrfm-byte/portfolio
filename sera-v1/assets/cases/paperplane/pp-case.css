@@ -795,7 +795,7 @@ html:not(.js) .pp-case .night-list li,html:not(.js) .pp-case .night-notes,html:n
 @media (max-width:760px){.pp-case .pp-night.tem-ceu .night-list{padding:4px 16px;border-radius:18px}.pp-case .night-list li{grid-template-columns:62px 1fr;gap:10px}}
 /* Mesa: cabe na tela no desktop e a notificação encaixa no canto da grade */
 @media (min-width:761px){
-.pp-case .pp-mesa{aspect-ratio:auto;height:min(calc(100svh - var(--header-h) - 40px),calc(min(1200px,100vw - 2*var(--gutter)) * .6));min-height:460px}
+.pp-case .pp-mesa{aspect-ratio:auto;height:min(calc(100svh - var(--header-h) - 40px),calc(min(1200px,100vw - 2*var(--gutter)) * .52));min-height:440px}
 .pp-case .pp-notif{right:calc(var(--grade-x,8%) - 10px);top:calc(var(--grade-y,4%) - 14px)}
 .pp-case .jan-c{min-height:0}
 }
