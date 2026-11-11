@@ -566,7 +566,7 @@ defined( 'ABSPATH' ) || exit;
   </div>
 
   <div class="pp-days">
-    <div class="pp-wide days-head"><span class="pp-art-label"><?php sera_e( 'The 23 days', 'Os 23 dias' ); ?></span><span class="dias-dica"><svg class="ico" aria-hidden="true"><use href="#pp-i-arrastar"/></svg><?php sera_e( 'Drag, use the arrows or the wheel', 'Arraste, use as setas ou a roda' ); ?></span></div>
+    <div class="pp-wide days-head"><span class="pp-art-label"><?php sera_e( 'The 23 days', 'Os 23 dias' ); ?></span><span class="dias-dica"><svg class="ico" aria-hidden="true"><use href="#pp-i-arrastar"/></svg><?php sera_e( 'Drag to see', 'Arraste para ver' ); ?></span></div>
     <div class="days-viewport">
       <div class="days-trilho">
         <i class="days-fio" aria-hidden="true"><i class="days-fio-cheio"></i></i>

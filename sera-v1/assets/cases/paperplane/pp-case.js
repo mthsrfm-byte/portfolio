@@ -225,6 +225,15 @@
     if (palco) palco.dataset.tema = tema
   })
 
+  /* Status bar e faixa inferior do celular com a mesma cor do topo/base do app (iframe da mesma origem). */
+  const corEm = (doc, x, y) => { let n = doc.elementFromPoint(x, y); while (n && n.nodeType === 1) { const c = doc.defaultView.getComputedStyle(n).backgroundColor; if (c && c !== 'transparent' && !/rgba\([^)]*,\s*0\)$/.test(c)) return c; n = n.parentElement } return null }
+  setInterval(() => {
+    molduras.forEach((m) => {
+      const ap = m.frame && m.el.closest('.aparelho'); if (!ap) return
+      try { const d = m.frame.contentDocument, w = d.documentElement.clientWidth, h = d.documentElement.clientHeight; const t = corEm(d, w / 2, 2), b = corEm(d, 4, h - 2); if (t) ap.style.setProperty('--ap-topo', t); if (b) ap.style.setProperty('--ap-base', b) } catch (e) {}
+    })
+  }, 700)
+
   function registrar(el) {
     if (el.__moldura) return el.__moldura
     const m = new Moldura(el)
@@ -1235,7 +1244,7 @@
     const ctas = $('[data-aviao-pouso]')
     if (!ctas || reduz || !temAviao()) return
     // Pousa ao lado do último botão, voando pela faixa do título do fecho.
-    const voar = () => { let pouso = {}; try { pouso = pousoAoLado(ctas, $('.pp-chapter-title', ctas), $('.pp-ctas .pp-cta:last-child', ctas)) } catch (e) {} try { window.PPAviao.voar(ctas, Object.assign({}, pouso, { borda: true, alvo: $('.pp-ctas .pp-cta:first-child', ctas), duracao: 5800 })) } catch (e) {} }
+    const voar = () => { let pouso = {}; try { pouso = pousoAoLado(ctas, $('.pp-chapter-title', ctas), $('.pp-ctas .pp-cta:last-child', ctas)) } catch (e) {} try { window.PPAviao.voar(ctas, Object.assign({}, pouso, { borda: true, alvo: $('.pp-ctas .pp-cta:last-child', ctas), duracao: 5800 })) } catch (e) {} }
     ScrollTrigger.create({ trigger: ctas, start: 'top 60%', once: true, onEnter: voar })
   }
 })()

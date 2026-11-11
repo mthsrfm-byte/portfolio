@@ -48,7 +48,7 @@
   function trajetoBorda(inst, w, h) {
     var r = inst.el.getBoundingClientRect(), a = inst.opcoes.alvo
     var xs = -r.left - 90, ys = h * 0.66, xe = w * 0.9, ye = h * 0.45
-    if (a) { var ar = a.getBoundingClientRect(); xe = ar.right - r.left + 22; ye = ar.top - r.top + ar.height * 0.42 }
+    if (a) { var ar = a.getBoundingClientRect(); xe = Math.min(w - 30, ar.right - r.left + 52); ye = ar.top - r.top + ar.height * 0.42 }
     var dx = xe - xs, lift = Math.min(h * 0.24, 150)
     return 'M ' + xs + ' ' + ys + ' C ' + (xs + dx * 0.32) + ' ' + (ys - lift) + ', ' + (xs + dx * 0.7) + ' ' + (ye - lift * 0.35) + ', ' + xe + ' ' + ye
   }

@@ -1,6 +1,6 @@
 === Sera v.1 ===
 Contributors: matheusserafim
-Stable tag: 3.18.3
+Stable tag: 3.18.4
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
@@ -56,6 +56,9 @@ Rascunhos aparecem na Home só para você (logado), com a etiqueta "Rascunho".
 da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
+
+= 3.18.4 =
+* Paperplane: avião pousa à direita do último botão; sem linha azul de foco; linha dos 23 dias só com "Arraste para ver"; manhã do relógio legível (véu escuro e texto claro); celulares mais largos, faixa inferior própria (não cobre a interface) e status bar com a cor do app.
 
 = 3.18.3 =
 * Paperplane: cards de regra contidos (o hover dos botões não passa para o card vizinho).
