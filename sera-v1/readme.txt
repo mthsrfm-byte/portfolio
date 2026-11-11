@@ -57,6 +57,9 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.22.0 =
+* Menu em vidro claro fixo (opção 01): mesma pílula fosca sobre qualquer fundo, sem trocar para escuro (v2-dark e hdr-escuro desligados). Pílula e botões em cápsula completa, também no celular.
+
 = 3.21.9 =
 * Próximo case: na miniatura o celular fica sempre na frente do navegador (o navegador cobria metade da tela do iPhone).
 

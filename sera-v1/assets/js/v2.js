@@ -643,7 +643,7 @@
 			var b = toneAt( c + 6 );
 			if ( a === b && a !== isDark ) {
 				isDark = a;
-				header.classList.toggle( 'v2-dark', a );
+				// menu fixo em vidro claro: não troca mais de cor sobre blocos escuros (3.22.0)
 			}
 		};
 		var remeasure = function () {

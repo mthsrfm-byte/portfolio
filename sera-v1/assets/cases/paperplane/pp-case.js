@@ -1290,7 +1290,7 @@
       }
     })
     escuro = votos === pts.length
-    h.classList.toggle('hdr-escuro', escuro)
+    h.classList.remove('hdr-escuro') // menu fixo em vidro claro (3.22.0)
   }
   const pedir = () => { if (!raf) raf = requestAnimationFrame(ver) }
   // Sem ouvir o scroll (forçar layout a cada quadro travava a rolagem suave): checa 4x por segundo, fora do caminho da rolagem.
