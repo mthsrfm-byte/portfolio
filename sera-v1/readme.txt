@@ -57,6 +57,11 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.24.0 =
+* Menu 03 "troca lenta": a pílula volta a escurecer sobre blocos escuros (Approach, zonas escuras do Paperplane, painéis em largura total), agora com transição de 0,9 s por uma camada de opacidade. Detecção leve em v2.js (só os blocos escuros, medidos no carregamento/redimensionamento). Mantém botões de 12px e paddings de 3.23.
+* Barra de status do iPhone acompanha o menu (meta theme-color clara/escura).
+* Paperplane: troca das dez etapas em fade cruzado mais longo (tela e legenda no celular); "3C" não fica mais por cima do "Take #1.0" no card 04; sai o bloco "curvas do produto".
+
 = 3.23.0 =
 * Menu: botões levemente quadrados (12px) com a pílula concêntrica (19px desktop, 23px celular); marca com a mesma folga à esquerda que em cima/embaixo; sem fio de progresso.
 * Paleta: o azul sai do tema; destaque em tinta (#111110) e cinza claro sobre escuro. Palavra rotativa do hero em tinta.

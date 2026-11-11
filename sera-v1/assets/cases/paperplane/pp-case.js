@@ -330,8 +330,9 @@
           nova.style.zIndex = '2'; velha.style.zIndex = '1'
           if (reduzido()) { nova.style.opacity = '1'; velha.style.opacity = '0' }
           else {
-            const sai = velha.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateY(-4px)' }], { duration: 140, easing: 'cubic-bezier(.4,0,1,1)', fill: 'forwards' })
-            const entra = nova.animate([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 280, delay: 40, easing: 'cubic-bezier(.33,1,.68,1)', fill: 'forwards' })
+            // troca cruzada e mais longa: a velha esmaece enquanto a nova assenta (antes 140/280 ms, um corte quase seco)
+            const sai = velha.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 460, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' })
+            const entra = nova.animate([{ opacity: 0, transform: 'scale(.985)' }, { opacity: 1, transform: 'none' }], { duration: 560, easing: 'cubic-bezier(.22,1,.36,1)', fill: 'forwards' })
             await entra.finished
             sai.cancel(); entra.cancel()
             nova.style.opacity = '1'; velha.style.opacity = '0'
@@ -396,7 +397,6 @@
     micro()
     noite()
     contrato()
-    curvas()
     midiasDaPagina()
     fichaGerada()
     dadosDaDobra()
@@ -697,7 +697,7 @@
       lista.forEach((li, k) => li.classList.toggle('is-active', k === i))
       const g = Number(lista[i].dataset.g)
       grupos.forEach((li, k) => li.classList.toggle('is-on', k === g))
-      barras.forEach((b, k) => gsap.to(b, { scaleX: gsap.utils.clamp(0, 1, (i - INICIO[k] + 1) / TAM[k]), duration: reduz ? 0 : 0.45, ease: 'quieto', overwrite: true }))
+      barras.forEach((b, k) => gsap.to(b, { scaleX: gsap.utils.clamp(0, 1, (i - INICIO[k] + 1) / TAM[k]), duration: reduz ? 0 : 0.6, ease: 'quieto', overwrite: true }))
       cont.textContent = String(i + 1).padStart(2, '0') + ' / 10'
       palco.mostrar(i)
     }
@@ -953,22 +953,6 @@
     const todas = () => ordem.forEach((n, i) => setTimeout(() => acoes[n] && acoes[n](), i * 650))
     $('.mi-todas').addEventListener('click', todas)
     if (!reduzido()) ScrollTrigger.create({ trigger: grade, start: 'top 62%', once: true, onEnter: todas })
-  }
-  function curvas() {
-    const linhas = $$('.curve')
-    linhas.forEach((l) => {
-      const n = l.dataset.ease.match(/[\d.]+/g).map(Number), W = 34, H = 24
-      $('path', l).setAttribute('d', `M0,${H} C${n[0] * W},${H - n[1] * H} ${n[2] * W},${H - n[3] * H} ${W},0`)
-      l.addEventListener('click', () => tocar(l))
-    })
-    function tocar(l) {
-      const d = $('.track i', l), tr = $('.track', l), fora = d.dataset.out !== '1'
-      d.style.transition = reduzido() ? 'none' : `transform ${l.dataset.ms}ms ${l.dataset.ease}`
-      d.style.transform = `translateX(${fora ? tr.clientWidth - d.offsetWidth : 0}px)`
-      d.dataset.out = fora ? '1' : '0'
-    }
-    const todas = $('.curves-all')
-    if (todas) todas.addEventListener('click', () => linhas.forEach((l, i) => setTimeout(() => tocar(l), reduzido() ? 0 : i * 110)))
   }
 
   /* ================= 07 SITE: a home rola de verdade dentro da moldura ================= */

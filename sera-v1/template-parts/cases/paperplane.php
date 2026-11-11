@@ -361,15 +361,6 @@ defined( 'ABSPATH' ) || exit;
       <li class="mi" data-mi="pensa"><div class="mi-palco mi-palco--conversa pp-micro" data-theme="light"><div class="mi-conversa"><span class="mi-pergunta"><?php sera_e( 'Break down scene 3?', 'Decupa a cena 3?' ); ?></span></div></div><h3><?php sera_e( 'Origami thinking', 'Origami pensando' ); ?></h3><p><?php sera_e( 'A plane made of particles flies and lands on the lines of the answer.', 'Um avião de partículas voa e pousa nas linhas da resposta.' ); ?></p><button type="button" class="mi-tocar"><?php sera_e( 'Play', 'Tocar' ); ?></button></li>
       <li class="mi" data-mi="tsuru"><div class="mi-palco pp-micro" data-theme="light"><span class="mi-tsuru"></span><span class="mi-bt-tsuru"></span></div><h3>Tsuru</h3><p><?php sera_e( 'Everything that generates carries the tsuru, which flaps its wings on hover.', 'Tudo o que gera leva o tsuru, que bate as asas quando o mouse passa.' ); ?></p><button type="button" class="mi-tocar"><?php sera_e( 'Play', 'Tocar' ); ?></button></li>
     </ul>
-    <div class="mi-curvas">
-      <div class="curves-head"><span class="pp-art-label"><?php sera_e( 'The product’s curves, at their real duration', 'As curvas do produto, com a duração real' ); ?></span><button type="button" class="btn-ghost curves-all"><?php sera_e( 'Play the curves', 'Tocar as curvas' ); ?></button></div>
-      <ul class="curve-list">
-        <li><button type="button" class="curve" data-ease="cubic-bezier(.33,1,.68,1)" data-ms="280"><code>--ease-quieto</code><span class="cv"><?php sera_e( 'enter without a bounce', 'entrar sem quique' ); ?></span><svg class="cg" viewBox="0 0 40 28" aria-hidden="true"><path/></svg><span class="track" aria-hidden="true"><i></i></span></button></li>
-        <li><button type="button" class="curve" data-ease="cubic-bezier(.2,1.25,.4,1)" data-ms="450"><code>--ease-pouso</code><span class="cv"><?php sera_e( 'paper settling', 'papel assentando' ); ?></span><svg class="cg" viewBox="0 0 40 28" aria-hidden="true"><path/></svg><span class="track" aria-hidden="true"><i></i></span></button></li>
-        <li><button type="button" class="curve" data-ease="cubic-bezier(.4,0,1,1)" data-ms="140"><code>--ease-in</code><span class="cv"><?php sera_e( 'for leaving only', 'só para sair' ); ?></span><svg class="cg" viewBox="0 0 40 28" aria-hidden="true"><path/></svg><span class="track" aria-hidden="true"><i></i></span></button></li>
-        <li><button type="button" class="curve" data-ease="cubic-bezier(.45,0,.55,1)" data-ms="550"><code>--ease-in-out</code><span class="cv"><?php sera_e( 'credit in flight', 'o crédito em voo' ); ?></span><svg class="cg" viewBox="0 0 40 28" aria-hidden="true"><path/></svg><span class="track" aria-hidden="true"><i></i></span></button></li>
-      </ul>
-    </div>
     <p class="pp-cap mi-a11y"><?php sera_e( 'With reduced motion, only the end states. Nothing is lost.', 'Com movimento reduzido, só os estados finais. Nada se perde.' ); ?></p>
   </div>
 </section>
