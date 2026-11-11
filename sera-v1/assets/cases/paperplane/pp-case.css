@@ -777,3 +777,19 @@ html:not(.js) .pp-case .night-list li,html:not(.js) .pp-case .night-notes,html:n
 /* Fecho: o avião entra pela borda esquerda da tela, então a área não pode cortar nada */
 .pp-case [data-aviao-pouso].pp-aviao-area{overflow:visible}
 .pp-case:has([data-aviao-pouso]){overflow-x:clip}
+/* Noite refinada: vidro leve no lugar do bloco escuro, trilho de horas à esquerda e a hora ativa em limão */
+.pp-case .pp-night.tem-ceu .night-list{background:rgba(10,13,20,.42);backdrop-filter:blur(18px) saturate(1.1);-webkit-backdrop-filter:blur(18px) saturate(1.1);border:1px solid rgba(244,243,238,.1);border-radius:24px;padding:clamp(8px,1.2vw,16px) clamp(20px,2.6vw,36px)}
+.pp-case .night-list li{position:relative;grid-template-columns:64px 1fr;padding:clamp(18px,3.2vh,30px) 0;border-top:0;font-size:clamp(16px,1.35vw,19px)}
+.pp-case .night-list li:last-child{border-bottom:0}
+.pp-case .night-list li+li{border-top:1px solid rgba(244,243,238,.1)}
+.pp-case .night-list time{position:relative;padding-left:16px}
+.pp-case .night-list time::before{content:"";position:absolute;left:0;top:9px;width:7px;height:7px;border-radius:50%;background:rgba(244,243,238,.35);transition:background-color .3s,box-shadow .3s}
+.js .pp-case .night-list li{opacity:.5}
+.js .pp-case .night-list li.is-on{opacity:1}
+.pp-case .night-list li.is-on time{color:var(--lime)}
+.pp-case .night-list li.is-on time::before{background:var(--lime);box-shadow:0 0 0 4px rgba(247,255,158,.18)}
+.pp-case .pp-clock{width:clamp(110px,11vw,150px);height:clamp(110px,11vw,150px)}
+.pp-case .c-face{stroke:rgba(244,243,238,.28)}
+.pp-case .clock-time{font-size:clamp(44px,5vw,72px)}
+.pp-case .clock-label{letter-spacing:.12em}
+@media (max-width:760px){.pp-case .pp-night.tem-ceu .night-list{padding:4px 16px;border-radius:18px}.pp-case .night-list li{grid-template-columns:62px 1fr;gap:10px}}
