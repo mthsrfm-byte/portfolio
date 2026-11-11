@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'SERA_VERSION', '3.16.1' );
+define( 'SERA_VERSION', '3.17.0' );
 
 require_once get_template_directory() . '/inc/i18n.php';
 require_once get_template_directory() . '/inc/i18n/customizer-pt.php';
@@ -26,6 +26,7 @@ require_once get_template_directory() . '/inc/importer-notice.php';
 require_once get_template_directory() . '/inc/blocks.php';
 require_once get_template_directory() . '/inc/starter-content.php';
 require_once get_template_directory() . '/inc/copy-pack.php';
+require_once get_template_directory() . '/inc/paperplane.php';
 
 /**
  * Asset version: SERA_VERSION in production, file mtime while SCRIPT_DEBUG is on.
@@ -109,6 +110,7 @@ function sera_mockup_prefixes( $slug ) {
 		'ac-'          => array( 'ac' ),
 		'bastidores'   => array( 'nb' ),
 		'nb-'          => array( 'nb' ),
+		'paperplane'   => array( 'pp' ),
 	);
 	foreach ( $map as $prefix => $out ) {
 		if ( 0 === strpos( $slug, $prefix ) ) {
@@ -129,16 +131,27 @@ add_action(
 		$is_case = sera_is_case_page();
 		$post    = $is_case ? get_queried_object() : null;
 		$content = $post ? (string) $post->post_content : '';
+		// Paperplane Studio has its own layout and assets (inc/paperplane.php): none of the case CSS/JS below.
+		$is_pp = $is_case && sera_is_paperplane( $post ? $post->ID : 0 );
+		if ( $is_pp ) {
+			$is_case = false;
+		}
 
 		wp_enqueue_style( 'sera-main', $uri . '/assets/css/main.css', array(), sera_asset_ver( 'assets/css/main.css' ) );
 
-		$needs_mockups = is_front_page() || $is_case || ( is_singular() && has_block( 'sera/mockup' ) );
+		$needs_mockups = is_front_page() || $is_case || ( ! $is_pp && is_singular() && has_block( 'sera/mockup' ) );
 		if ( $needs_mockups ) {
 			wp_enqueue_style( 'sera-mockups', $uri . '/assets/css/mockups.css', array( 'sera-main' ), sera_asset_ver( 'assets/css/mockups.css' ) );
 			// Real-screenshot frames + pair-card sliders (Research Hub hero is on the home page too).
 			wp_enqueue_style( 'sera-shots', $uri . '/assets/css/shots.css', array( 'sera-mockups' ), sera_asset_ver( 'assets/css/shots.css' ) );
 			// Lume screens in code (home card + case).
 			wp_enqueue_style( 'sera-lume-ui', $uri . '/assets/css/lume-ui.css', array( 'sera-mockups' ), sera_asset_ver( 'assets/css/lume-ui.css' ) );
+			// Paperplane card (home, and the "next case" thumbnail on the case before it).
+			wp_enqueue_style( 'sera-case-pp-card', $uri . '/assets/css/cases/pp.css', array( 'sera-mockups' ), sera_asset_ver( 'assets/css/cases/pp.css' ) );
+		}
+
+		if ( $is_pp ) {
+			sera_pp_enqueue();
 		}
 
 		if ( $is_case ) {
@@ -157,7 +170,7 @@ add_action(
 			wp_enqueue_script( 'sera-case-js', $uri . '/assets/js/case.js', array(), sera_asset_ver( 'assets/js/case.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
 		}
 
-		if ( is_singular() && preg_match( '/(rh|lm)-shots-/', $content ? $content : (string) get_post_field( 'post_content', get_queried_object_id() ) ) ) {
+		if ( ! $is_pp && is_singular() && preg_match( '/(rh|lm)-shots-/', $content ? $content : (string) get_post_field( 'post_content', get_queried_object_id() ) ) ) {
 			wp_enqueue_script( 'sera-shots', $uri . '/assets/js/shots.js', array(), sera_asset_ver( 'assets/js/shots.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
 		}
 

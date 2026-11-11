@@ -286,7 +286,7 @@ html.at-end .case-toc{opacity:0;pointer-events:none}
 .stat.is-word b{font-size:clamp(30px,3.1vw,46px);line-height:1;letter-spacing:-.03em}
 
 /* next case (page.php): the next case's accent as a left border + a small hero thumbnail */
-.next-case.is-pg{--ca:#FF0A8C}.next-case.is-rh{--ca:#FF009B}.next-case.is-wu{--ca:#FFDD00}.next-case.is-wb{--ca:#F8D63E}.next-case.is-fm{--ca:#FF8A89}.next-case.is-ac{--ca:#1F4FE0}.next-case.is-nb{--ca:#FF3B00}
+.next-case.is-pg{--ca:#FF0A8C}.next-case.is-rh{--ca:#FF009B}.next-case.is-wu{--ca:#FFDD00}.next-case.is-wb{--ca:#F8D63E}.next-case.is-fm{--ca:#FF8A89}.next-case.is-ac{--ca:#1F4FE0}.next-case.is-nb{--ca:#FF3B00}.next-case.is-pp{--ca:#C9D46A}
 .next-case{border-left:4px solid var(--ca,var(--accent))}
 .next-case.has-thumb{display:grid;grid-template-columns:minmax(0,1fr) 220px;gap:28px;align-items:center}
 .next-thumb{position:relative;height:160px;border-radius:16px;overflow:hidden;pointer-events:none;background:var(--bg-2);contain:layout paint}

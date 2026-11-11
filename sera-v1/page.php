@@ -16,7 +16,13 @@ while ( have_posts() ) :
 	if ( sera_is_case( $id ) ) :
 		$visual = sera_case_visual( $id );
 		$chips  = sera_case_chips( $id );
+		$is_pp  = function_exists( 'sera_is_paperplane' ) && sera_is_paperplane( $id );
 		?>
+		<?php if ( $is_pp ) : ?>
+			<?php // Paperplane Studio: its own layout (the block content is the text version, for SEO and llms.txt). ?>
+			<?php get_template_part( 'template-parts/cases/paperplane' ); ?>
+			<div <?php post_class( 'case pp-next' ); ?>>
+		<?php else : ?>
 		<article <?php post_class( 'case' ); ?>>
 			<header class="case-hero">
 				<div class="wrap">
@@ -43,6 +49,7 @@ while ( have_posts() ) :
 			<div class="case-content">
 				<?php the_content(); ?>
 			</div>
+		<?php endif; ?>
 
 			<?php
 			// Next case: the following portfolio page by order (loops back to the first).
@@ -53,13 +60,14 @@ while ( have_posts() ) :
 				// Accent + thumbnail from the next case's hero mockup (visual slug → case prefix).
 				$next_visual = (string) get_post_meta( $next, '_sera_visual', true );
 				$next_prefix = '';
-				foreach ( array( 'pagaleve' => 'pg', 'research-hub' => 'rh', 'western-union' => 'wu', 'wu-' => 'wu', 'will-bank' => 'wb', 'fatal-model' => 'fm', 'fm-' => 'fm', 'acordo-certo' => 'ac', 'ac-' => 'ac', 'bastidores' => 'nb', 'nb-' => 'nb' ) as $k => $v ) {
+				foreach ( array( 'pagaleve' => 'pg', 'research-hub' => 'rh', 'western-union' => 'wu', 'wu-' => 'wu', 'will-bank' => 'wb', 'fatal-model' => 'fm', 'fm-' => 'fm', 'acordo-certo' => 'ac', 'ac-' => 'ac', 'bastidores' => 'nb', 'nb-' => 'nb', 'paperplane' => 'pp' ) as $k => $v ) {
 					if ( 0 === strpos( $next_visual, $k ) ) {
 						$next_prefix = $v;
 						break;
 					}
 				}
-				$next_thumb = ( $next_visual && 'image' !== $next_visual && function_exists( 'sera_render_mockup' ) ) ? sera_render_mockup( $next_visual ) : '';
+				// The Paperplane page doesn't load the mockup CSS, so its "next case" has no thumbnail.
+				$next_thumb = ( ! $is_pp && $next_visual && 'image' !== $next_visual && function_exists( 'sera_render_mockup' ) ) ? sera_render_mockup( $next_visual ) : '';
 				?>
 				<div class="wrap">
 					<?php // A div, not a link, wraps the thumbnail: the recreated screens contain inert <a> tags that would split an outer anchor. ?>
@@ -74,7 +82,11 @@ while ( have_posts() ) :
 					</div>
 				</div>
 			<?php endif; ?>
+		<?php if ( $is_pp ) : ?>
+			</div>
+		<?php else : ?>
 		</article>
+		<?php endif; ?>
 		<?php
 	else :
 		?>

@@ -1,0 +1,138 @@
+{
+ "reservaN": [
+  " · reserva até N",
+  " · holds up to N"
+ ],
+ "leitorN": [
+  "preço estimado, reserva até N créditos",
+  "estimated price, holds up to N credits"
+ ],
+ "desenhar": [
+  "Desenhar",
+  "Draw"
+ ],
+ "desenhando": [
+  "Desenhando",
+  "Drawing"
+ ],
+ "consentimento": [
+  "O clique é o consentimento: a reserva sai só agora.",
+  "The click is the consent: the hold only happens now."
+ ],
+ "gerarTomada": [
+  "Gerar tomada",
+  "Generate take"
+ ],
+ "tentarDeNovo": [
+  "Tentar de novo",
+  "Try again"
+ ],
+ "novoTake": [
+  "Novo take",
+  "New take"
+ ],
+ "aprovado": [
+  "Aprovado",
+  "Approved"
+ ],
+ "paraAprovar": [
+  "Para aprovar",
+  "To approve"
+ ],
+ "aprovar": [
+  "Aprovar",
+  "Approve"
+ ],
+ "verDeNovo": [
+  "Ver de novo",
+  "Watch again"
+ ],
+ "take10": [
+  "Take #1.0",
+  "Take #1.0"
+ ],
+ "quadroVira": [
+  "O quadro aprovado é o primeiro quadro do vídeo.",
+  "The approved frame is the first frame of the video."
+ ],
+ "basicoPct": [
+  "% Básico",
+  "% Basic"
+ ],
+ "reservados": [
+  "24 créditos reservados",
+  "24 credits held"
+ ],
+ "tomadaPronta": [
+  "Tomada pronta",
+  "Take ready"
+ ],
+ "falhou": [
+  "O gerador falhou. Os créditos voltaram.",
+  "The generator failed. The credits came back."
+ ],
+ "semSaldo": [
+  "Faltam 14 créditos. <b>Nada foi gasto.</b>",
+  "14 credits short. <b>Nothing was spent.</b>"
+ ],
+ "compra": [
+  "+500 créditos no saldo",
+  "+500 credits in the balance"
+ ],
+ "resposta": [
+  "Separei a cena 3 em cinco tomadas: abre no plano geral do vagão e fecha no close da Lia.",
+  "I split scene 3 into five takes: it opens on a wide shot of the carriage and closes on a close-up of Lia."
+ ],
+ "acentoLimao": [
+  "--accent volta ao limão: botões, selos e progresso.",
+  "--accent back to lime: buttons, badges and progress."
+ ],
+ "acentoOutro": [
+  "--accent e --lime-* em {v}: o botão principal, os selos e a barra de progresso acompanham.",
+  "--accent and --lime-* in {v}: the main button, the badges and the progress bar follow."
+ ],
+ "cantoZero": [
+  "--r-* em zero: tudo reto.",
+  "--r-* at zero: everything square."
+ ],
+ "cantoPadrao": [
+  "--r-* no padrão.",
+  "--r-* at the default."
+ ],
+ "cantoMais": [
+  "--r-* multiplicado: cartões e campos arredondam.",
+  "--r-* multiplied: cards and fields round off."
+ ],
+ "temaClaro": [
+  "data-theme=\"light\": os mesmos tokens, papel claro.",
+  "data-theme=\"light\": the same tokens, light paper."
+ ],
+ "temaEscuro": [
+  "data-theme=\"dark\": os mesmos tokens, papel carbono.",
+  "data-theme=\"dark\": the same tokens, carbon paper."
+ ],
+ "fonteMono": [
+  "--body em Geist Mono: o estúdio inteiro troca de voz.",
+  "--body in Geist Mono: the whole studio changes its voice."
+ ],
+ "fonteGeist": [
+  "--body em Geist, a fonte do produto.",
+  "--body in Geist, the product’s typeface."
+ ],
+ "escolha": [
+  "Escolha acento, canto, tema ou fonte. A prévia ao lado é o estúdio de verdade.",
+  "Pick an accent, corner, theme or font. The preview alongside is the real studio."
+ ],
+ "padrao": [
+  "Tudo de volta ao padrão da Dobra.",
+  "Everything back to the Dobra default."
+ ],
+ "padraoFim": [
+  "De volta ao padrão. Agora é com você.",
+  "Back to the default. Now it’s your turn."
+ ],
+ "nomes": [
+  "{\"menta\":\"menta\",\"pessego\":\"pêssego\",\"lilas\":\"lilás\",\"ceu\":\"céu\"}",
+  "{\"menta\":\"mint\",\"pessego\":\"peach\",\"lilas\":\"lilac\",\"ceu\":\"sky\"}"
+ ]
+}

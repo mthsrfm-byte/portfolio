@@ -1,0 +1,90 @@
+/* Paperplane Studio: card mockup (home, "next case"). The studio home in static HTML/CSS: carbon paper,
+   lime accent (#F7FF9E, always with dark text). The case page has its own assets in assets/cases/paperplane/. */
+.stage-pp{background:radial-gradient(70% 60% at 72% 22%,rgba(247,255,158,.16),transparent 62%),radial-gradient(120% 100% at 18% 100%,#1D231B 0%,#0F100E 70%)}
+.sera-mockup-block:has(.stage-pp){--sbg:#0F100E}
+.stage-pp .brand-chip{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);color:#F1F0EB}
+.pp-chip-mark{display:grid;place-items:center;width:20px;height:20px;border-radius:6px;background:#F7FF9E;color:#111110}
+.pp-chip-mark svg{width:13px;height:13px}
+.stage-pp .browser-frame{background:#0F100E;box-shadow:0 40px 80px -30px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.08)}
+.stage-pp .browser-bar{background:#161A14;border-bottom-color:rgba(255,255,255,.06)}
+.stage-pp .browser-bar .dots i,.stage-pp .browser-bar .dots i:nth-child(2),.stage-pp .browser-bar .dots i:nth-child(3){background:#3A3F36}
+.stage-pp .browser-bar .url{background:#0F120D;color:#A3A29A}
+.case-card .stage-pp .ac-hero-stage .browser{--bs:.4}
+@media (max-width:1100px){.case-card .stage-pp .ac-hero-stage .browser{--bs:.36}}
+@media (max-width:860px){.case-card .stage-pp .ac-hero-stage .browser{--bs:.34}}
+@media (max-width:560px){.case-card .stage-pp .ac-hero-stage .browser{--bs:.23}}
+
+/* Desktop screen (1280 wide inside the browser frame) */
+.ppk{display:grid;grid-template-columns:232px 1fr;height:760px;background:#0F100E;color:#F1F0EB;font-family:"Geist",system-ui,sans-serif;text-align:left}
+.ppk p{margin:0}
+.ppk-side{display:flex;flex-direction:column;gap:2px;padding:18px 14px;border-right:1px solid #222320;background:#0C0D0B}
+.ppk-proj{display:flex;align-items:center;gap:10px;margin-bottom:16px;font-size:14px;line-height:1.15}
+.ppk-proj small{display:block;margin-top:3px;font:500 9.5px "Geist Mono",monospace;letter-spacing:.1em;color:#8B8A84}
+.ppk-logo{display:grid;place-items:center;flex:none;width:30px;height:30px;border-radius:8px;background:#F7FF9E;color:#111110}
+.ppk-logo svg{width:17px;height:17px}
+.ppk-g{margin:14px 8px 6px!important;font:500 9.5px "Geist Mono",monospace;letter-spacing:.12em;color:#8B8A84}
+.ppk-side ul{list-style:none;margin:0;padding:0}
+.ppk-side li{display:flex;align-items:center;gap:10px;height:30px;padding:0 8px;border-radius:7px;font-size:13.5px;color:#C9C8C2}
+.ppk-side li i{width:14px;height:14px;border:1.5px solid #6E6E73;border-radius:4px}
+.ppk-side li.is-next{background:#1E1F1C;color:#F1F0EB}
+.ppk-side li.is-next i{border-color:#F7FF9E}
+.ppk-saldo{display:flex;align-items:center;gap:8px;margin-top:auto;padding:10px;border:1px solid #2B2C28;border-radius:10px;font-size:12px;color:#C9C8C2}
+.ppk-ring{width:18px;height:18px;border-radius:50%;border:2.5px solid #2B2C28;border-top-color:#F7FF9E;border-right-color:#F7FF9E}
+.ppk-main{padding:18px 26px;min-width:0}
+.ppk-top{display:flex;justify-content:space-between;align-items:center;gap:20px}
+.ppk-search{width:300px;height:34px;padding:0 14px;border:1px solid #2B2C28;border-radius:9px;font-size:12.5px;line-height:32px;color:#8B8A84}
+.ppk-next{display:inline-block;height:34px;padding:0 16px;border-radius:9px;background:#F7FF9E;color:#111110;font-size:13px;font-weight:600;line-height:34px}
+.ppk-kicker{margin-top:30px!important;font-size:12.5px;color:#C9C8C2}
+.ppk-h{margin-top:4px!important;font-size:34px;font-weight:500;letter-spacing:-.02em}
+.ppk-sub{margin-top:4px!important;font-size:13px;color:#8B8A84}
+.ppk-row{display:grid;grid-template-columns:1.1fr 1fr;gap:16px;margin-top:22px}
+.ppk-row-2{grid-template-columns:1.3fr 1fr;margin-top:16px}
+.ppk-card{position:relative;padding:18px;border:1px solid #2B2C28;border-radius:14px;background:#151614;overflow:hidden}
+.ppk-cont{display:grid;grid-template-columns:1fr 170px;gap:16px;align-items:center;background:linear-gradient(135deg,#2A2E1C,#151614 60%);border-color:#4A5020}
+.ppk-tag{display:inline-block;padding:3px 7px;border-radius:5px;background:#0C0D0B;font:500 9.5px "Geist Mono",monospace;letter-spacing:.08em;color:#C9C8C2}
+.ppk-ct{margin-top:12px!important;font-size:24px;font-weight:500;line-height:1.08;letter-spacing:-.02em}
+.ppk-cs{margin-top:8px!important;font-size:12px;color:#C9C8C2}
+.ppk-btn{display:inline-block;margin-top:16px;height:36px;padding:0 16px;border-radius:9px;background:#F1F0EB;color:#111110;font-size:13px;font-weight:600;line-height:36px}
+.ppk-art{position:relative;height:118px;border-radius:9px;background:linear-gradient(180deg,#1A2240,#2B2C28 70%,#3A3128);overflow:hidden}
+.ppk-win{position:absolute;top:18px;width:30px;height:40px;border-radius:4px;background:linear-gradient(180deg,#8FA8FF,#3A4A7A);opacity:.7}
+.ppk-win:nth-child(1){left:14px}.ppk-win:nth-child(2){left:56px}.ppk-win:nth-child(3){left:98px}
+.ppk-fig{position:absolute;left:60%;bottom:0;width:28px;height:70px;border-radius:14px 14px 4px 4px;background:linear-gradient(180deg,#E2A254,#4A4A4D 30%,#222320)}
+.ppk-ct2{display:flex;align-items:center;gap:8px;font-size:13.5px;color:#F1F0EB}
+.ppk-big{margin-top:10px!important;font-size:22px;color:#8B8A84}
+.ppk-big b{font-size:44px;font-weight:500;letter-spacing:-.03em;color:#F1F0EB}
+.ppk-big small{margin-left:6px;font-size:11.5px}
+.ppk-sq{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin-top:12px}
+.ppk-sq i{height:26px;border-radius:4px;border:1px solid #2B2C28}
+.ppk-sq i.on{background:#F7FF9E;border-color:#F7FF9E}
+.ppk-groups{display:flex;gap:18px;margin-top:14px;font-size:11.5px;color:#8B8A84}
+.ppk-groups b{font-size:17px;font-weight:500;color:#F1F0EB}
+.ppk-li{display:grid;grid-template-columns:44px 1fr 110px 74px;align-items:center;gap:12px;margin-top:12px!important;font-size:13px}
+.ppk-li i{height:26px;border-radius:5px;background:linear-gradient(135deg,#2C3760,#151614)}
+.ppk-li span{color:#8B8A84}
+.ppk-li em{justify-self:end;padding:2px 7px;border:1px solid #3A3A3D;border-radius:5px;font:500 9.5px "Geist Mono",monospace;font-style:normal;color:#C9C8C2}
+.ppk-li:nth-of-type(2) em{background:#F7FF9E;border-color:#F7FF9E;color:#111110}
+.ppk-pill{margin-left:auto;padding:2px 7px;border-radius:5px;background:#F7FF9E;color:#111110;font:500 9.5px "Geist Mono",monospace;letter-spacing:.06em}
+.ppk-min{margin-top:10px!important;font-size:34px;font-weight:500;letter-spacing:-.02em}
+.ppk-min small{font-size:12px;color:#8B8A84}
+.ppk-bar{height:3px;margin-top:10px;border-radius:3px;background:#2B2C28}
+.ppk-bar i{display:block;width:25%;height:100%;border-radius:3px;background:#F7FF9E}
+.ppk-fine{margin-top:10px!important;font-size:11.5px;color:#8B8A84}
+
+/* Phone screen (393 x 852 inside the device) */
+.ppk-screen{background:#0F100E}
+.ppk-m{position:absolute;inset:54px 0 0;padding:10px 18px;color:#F1F0EB;font-family:"Geist",system-ui,sans-serif;text-align:left}
+.ppk-m p{margin:0}
+.ppk-m-top{display:flex;align-items:center;gap:10px;font-size:14px}
+.ppk-m-top .ppk-next{margin-left:auto;height:30px;line-height:30px;padding:0 12px;font-size:12px}
+.ppk-m .ppk-kicker{margin-top:22px!important}
+.ppk-m .ppk-h{font-size:30px}
+.ppk-m-cont{display:block;margin-top:16px;padding:14px}
+.ppk-m-cont .ppk-art{height:150px}
+.ppk-m-cont .ppk-ct{font-size:22px}
+.ppk-m .ppk-prog{margin-top:12px}
+.ppk-m .ppk-sq i{height:22px}
+.ppk-island{position:absolute;left:18px;right:18px;bottom:28px;display:flex;align-items:center;gap:14px;height:54px;padding:0 10px;border-radius:999px;background:rgba(30,31,28,.92);border:1px solid #2B2C28}
+.ppk-island span.is-on{height:36px;padding:0 14px;border-radius:999px;background:#F1F0EB;color:#111110;font-size:13px;font-weight:600;line-height:36px}
+.ppk-island i{width:20px;height:20px;border:1.5px solid #8B8A84;border-radius:6px}
+.ppk-ori{display:grid;place-items:center;margin-left:auto;width:38px;height:38px;border-radius:50%;background:#F7FF9E;color:#111110}
+.ppk-ori svg{width:18px;height:18px}

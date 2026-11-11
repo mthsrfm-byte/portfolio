@@ -1,6 +1,6 @@
 === Sera v.1 ===
 Contributors: matheusserafim
-Stable tag: 3.16.0
+Stable tag: 3.17.0
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
@@ -11,7 +11,7 @@ Portfolio theme for Matheus Serafim.
 == Como funciona ==
 
 1. Aparência › Temas › Adicionar novo › Enviar tema: suba sera-v1.zip e ative.
-   Na ativação o tema cria a categoria "portfolio" e os 8 cases como RASCUNHO.
+   Na ativação o tema cria a categoria "portfolio" e os 9 cases como RASCUNHO.
 2. Aparência › Sera · Cases: importe/publique os cases (um a um ou todos).
    Cada case vira uma Página com URL própria:
      /combina-antes/
@@ -22,6 +22,7 @@ Portfolio theme for Matheus Serafim.
      /research-hub/
      /lume/
      /bastidores-redesign/
+     /paperplane-studio/
    (Configurações › Links permanentes: use "Nome do post".)
    Se o CliniClik já foi importado antes, use "Tirar da Home" na mesma tela
    (ele vira rascunho e sai da categoria portfolio; nada é apagado).
@@ -55,6 +56,11 @@ Rascunhos aparecem na Home só para você (logado), com a etiqueta "Rascunho".
 da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
+
+= 3.17.0 =
+* Case novo: Paperplane Studio (/paperplane-studio/ e /pt/paperplane-studio/), EN + PT. Layout próprio (template-parts/cases/paperplane.php) com as telas reais do estúdio em iframes carregados sob demanda; arquivos em assets/cases/paperplane/ (GSAP local, sem CDN), carregados só nessa página. O conteúdo em blocos é a versão em texto (SEO, llms.txt).
+* Card da Home e miniatura do "próximo case": mockup "paperplane" em HTML/CSS (assets/css/cases/pp.css). Imagem de compartilhamento em assets/og/paperplane-studio.jpg.
+* Depois do deploy: Aparência › Sera · Cases › Paperplane Studio › "Importar e publicar" (ou "Importar e publicar todos"). Para mudar a posição na Home: Personalizar › Sera · Home › Cases.
 
 = 3.16.1 =
 * Experiência no mobile: título sem encolher, texto de apoio alinhado à esquerda embaixo do título, cabeçalho sem fixar.

@@ -1,0 +1,26 @@
+/* Avião de papel do Paperplane (porte da animação da chamada final da home, #comecar).
+   Cores por variáveis; ponha-as no container (ou num ancestral) para trocar de fundo.
+   Fundo claro (padrão) e escuro: [data-theme="dark"], .pp-aviao-escuro ou prefers-color-scheme (sem data-theme="light"). */
+.pp-aviao-area{
+  --aviao-tinta:#1A1A1A;      /* contorno do avião (site: --ink) */
+  --aviao-rastro:#1A1A1A;     /* pontinhos do rastro (site: --ink, opacidade .4 abaixo) */
+  --aviao-asa-1:#FFFFFF;      /* faces claras da dobra (site: .pf1) */
+  --aviao-asa-2:#D9DAD6;      /* face sombreada da dobra (site: .pf2) */
+  --aviao-tamanho:54px;       /* site: 54px */
+  position:relative;overflow:hidden;isolation:isolate;
+}
+:root[data-theme="dark"] .pp-aviao-area,.pp-aviao-area.pp-aviao-escuro,[data-theme="dark"] .pp-aviao-area{
+  --aviao-tinta:#F1F0EB;--aviao-rastro:#F1F0EB;--aviao-asa-1:#0C0D0B;--aviao-asa-2:#2B2C28}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) .pp-aviao-area:not(.pp-aviao-claro){
+    --aviao-tinta:#F1F0EB;--aviao-rastro:#F1F0EB;--aviao-asa-1:#0C0D0B;--aviao-asa-2:#2B2C28}
+}
+/* site: .fly-trail (z-index 1, abaixo do texto, que fica em z-index 2) */
+.pp-aviao-trilha{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:visible}
+.pp-aviao-trilha path{fill:none;stroke:var(--aviao-rastro);stroke-opacity:.4;stroke-width:1.5;stroke-linecap:round;stroke-dasharray:.1 8}
+.pp-aviao-trilha path.pp-aviao-guia{stroke:none}
+/* site: .fly-plane (z-index 3, acima do texto) */
+.pp-aviao-aviao{position:absolute;left:0;top:0;width:var(--aviao-tamanho);height:var(--aviao-tamanho);z-index:3;pointer-events:none;will-change:transform;opacity:0}
+.pp-aviao-aviao svg{width:100%;height:100%;overflow:visible;display:block}
+.pp-aviao-aviao .pf1{fill:var(--aviao-asa-1)}
+.pp-aviao-aviao .pf2{fill:var(--aviao-asa-2)}

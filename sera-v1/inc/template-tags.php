@@ -256,6 +256,7 @@ function sera_mockups() {
 		'lume-flow'         => 'Pagaleve · Lume · A sessão do participante (7 telas, em código)',
 		'lm-shots-setup'    => 'Pagaleve · Lume · Slider: área do designer no computador e no celular',
 		'lm-findings'       => 'Pagaleve · Lume · Achados no computador e no celular',
+		'paperplane'        => 'Paperplane Studio · Início (computador + celular), em código',
 	);
 }
 
