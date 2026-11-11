@@ -57,6 +57,11 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.33.0 =
+* Back to top mais liso: o voo roda como animação na GPU, as animações da página pausam durante o trajeto e, em páginas longas, só as duas pontas são sobrevoadas de verdade (o miolo passa como uma folha de papel lisa, sem faixa em branco por falta de pintura).
+* Barra de rolagem da página: trilho de papel e polegar fino em tinta.
+* Duas cobrinhas, uma de cada lado da página: corpo curto que sobe serpenteando do rodapé ao topo e deixa um rastro leve.
+
 = 3.32.2 =
 * Aviso de direitos reservados: o tema deixa de se declarar GPL; LICENSE e README na raiz do repositório proíbem cópia e reutilização.
 

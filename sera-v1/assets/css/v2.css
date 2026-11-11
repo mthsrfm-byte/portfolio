@@ -111,12 +111,27 @@ html.is-v2 .site-footer .footer-mail:hover .ico{transform:translate(3px,-3px)}
 .v2-wm svg path{stroke:rgba(239,238,232,.16);stroke-width:.3;vector-effect:none}
 @media (max-width:640px){.v2-wm{display:none}}
 
-/* 3.32 · back to top "vista aérea": the stage behind the shrinking page (see V2.flyTop) */
+/* 3.33 · barra de rolagem da página: trilho de papel, polegar em tinta, fino e arredondado (em vez do
+   trilho escuro que o navegador pintava com a cor do canvas). Firefox usa as propriedades padrão. */
+html.is-v2::-webkit-scrollbar{width:11px;height:11px}
+html.is-v2::-webkit-scrollbar-track{background:var(--bg)}
+html.is-v2::-webkit-scrollbar-thumb{background:rgba(17,17,16,.22);background-clip:padding-box;border:3px solid transparent;border-radius:999px;min-height:48px}
+html.is-v2::-webkit-scrollbar-thumb:hover{background-color:rgba(17,17,16,.42)}
+html.is-v2::-webkit-scrollbar-thumb:active{background-color:rgba(17,17,16,.6)}
+html.is-v2::-webkit-scrollbar-corner{background:var(--bg)}
+@supports not selector(::-webkit-scrollbar){html.is-v2{scrollbar-width:thin;scrollbar-color:rgba(17,17,16,.3) var(--bg)}}
+
+/* 3.32 · back to top "vista aérea": the stage behind the shrinking page (see V2.flyTop).
+   3.33 · two mazes with one snake each, a paper sheet over the page while it hops the middle of long
+   pages, and every CSS animation of the page paused during the flight. */
 .v2-fly{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:var(--bg-2)}
-.v2-fly-in{position:absolute;inset:0;will-change:transform}
-.v2-fly-maze{color:rgba(17,17,16,.17);will-change:transform}
+.v2-fly-in,.v2-fly-drift{position:absolute;inset:0;will-change:transform}
+.v2-fly-maze{color:rgba(17,17,16,.17)}
+.v2-fly-maze .mz-snake{opacity:.2}
+.v2-fly-veil{position:fixed;left:0;top:0;z-index:5;pointer-events:none;background:var(--bg);opacity:0;transform-origin:0 0;will-change:transform,opacity}
 html.is-flying body::before{display:none}
 html.is-flying .case-toc,html.is-flying .cv2-pill,html.is-flying .cv2-toc{visibility:hidden!important}
+html.is-flying body *,html.is-flying body *::before,html.is-flying body *::after{animation-play-state:paused!important}
 
 @media (prefers-reduced-motion:reduce){
   html.is-v2 .site-header::before,html.is-v2 .site-header::after{transition:none}
