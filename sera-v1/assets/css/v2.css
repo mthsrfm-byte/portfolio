@@ -122,13 +122,26 @@ html.is-v2::-webkit-scrollbar-corner{background:var(--bg)}
 @supports not selector(::-webkit-scrollbar){html.is-v2{scrollbar-width:thin;scrollbar-color:rgba(17,17,16,.3) var(--bg)}}
 
 /* 3.32 · back to top "vista aérea": the stage behind the shrinking page (see V2.flyTop).
-   3.33 · two mazes with one snake each, a paper sheet over the page while it hops the middle of long
-   pages, and every CSS animation of the page paused during the flight. */
+   3.33 · one snake per side and every CSS animation of the page paused during the flight. */
 .v2-fly{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:var(--bg-2)}
 .v2-fly-in,.v2-fly-drift{position:absolute;inset:0;will-change:transform}
 .v2-fly-maze{color:rgba(17,17,16,.17)}
-.v2-fly-maze .mz-snake{opacity:.2}
-.v2-fly-veil{position:fixed;left:0;top:0;z-index:5;pointer-events:none;background:var(--bg);opacity:0;transform-origin:0 0;will-change:transform,opacity}
+.v2-fly-maze .mz-snake{opacity:.22}
+.v2-fly-maze .mz-a,.v2-fly-maze .mz-b-ring{display:none}
+.v2-fly-maze .mz-b{display:block;transition:none}
+.v2-fly-maze.is-fill .mz-top{display:none}
+/* 3.34 · the veil over long pages is a skeleton of the page: paper sheet + dark bands, media blocks, text bars */
+.v2-fly-veil{position:fixed;inset:0;z-index:5;overflow:hidden;pointer-events:none;opacity:0;will-change:opacity}
+.v2-fly-sheet{position:absolute;left:0;top:0;background:var(--bg);transform-origin:0 0;will-change:transform}
+.v2-fly-sk{position:absolute;left:0;top:0;width:0;height:0;transform-origin:0 0;will-change:transform}
+.v2-fly-sk i{position:absolute;display:block;border-radius:2px}
+.v2-fly-sk .sk-dark{background:#111110;border-radius:0}
+.v2-fly-sk .sk-media{background:rgba(17,17,16,.075)}
+.v2-fly-sk .sk-media.on-dark{background:rgba(239,238,232,.09)}
+.v2-fly-sk .sk-head{background:rgba(17,17,16,.34)}
+.v2-fly-sk .sk-head.on-dark{background:rgba(239,238,232,.42)}
+.v2-fly-sk .sk-text{background:rgba(17,17,16,.13)}
+.v2-fly-sk .sk-text.on-dark{background:rgba(239,238,232,.17)}
 html.is-flying body::before{display:none}
 html.is-flying .case-toc,html.is-flying .cv2-pill,html.is-flying .cv2-toc{visibility:hidden!important}
 html.is-flying body *,html.is-flying body *::before,html.is-flying body *::after{animation-play-state:paused!important}
