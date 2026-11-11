@@ -57,6 +57,9 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.31.0 =
+* Paperplane, noite no celular: o sol fica solto sobre o céu escurecido (sem caixa), sol + hora + cartão centrados na tela, com véu escuro fixo para a legibilidade nunca depender da foto. Painel e trilha ficam num contêiner próprio: as notas viram a linha de chegada e o painel sobe com elas, sem passar por cima.
+
 = 3.30.1 =
 * Paperplane, "Sem saldo": as partículas paradas sobre o botão ficam verdes e translúcidas (voltam à cor normal ao sair) e a interação toda ficou ~30% mais rápida.
 
