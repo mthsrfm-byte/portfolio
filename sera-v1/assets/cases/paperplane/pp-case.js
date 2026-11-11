@@ -988,7 +988,12 @@
     // De seção em seção: a home descansa no topo de cada uma e só anda no meio do trecho, sem parar no meio do caminho.
     const suave = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t) }
     function alvoY(p) {
-      if (!secoes) return 0
+      if (!secoes) {
+        // celular: a home de desktop não carrega; os capítulos seguem o progresso direto
+        const k = Math.min(caps.length - 1, Math.floor(p * caps.length))
+        caps.forEach((c, j) => c.classList.toggle('is-on', j === k))
+        return 0
+      }
       const max = Math.max(0, altura - 720)
       const marcos = caps.map((c, i) => { const v = topoDe(c.dataset.sec); return v == null ? (i ? null : 0) : Math.min(v, max) })
       const validos = marcos.map((v, i) => (v == null ? marcos.slice(0, i).filter((x) => x != null).pop() || 0 : v))
@@ -1021,7 +1026,7 @@
     if (mc) mc.aoFicarPronta(() => { try { mc.janela.postMessage({ type: 'medir' }, '*') } catch (e) {} })
     if (reduz) { caps.forEach((c) => c.classList.add('is-on')); return () => removeEventListener('message', ouvir) }
     sec.classList.add('is-pin')
-    const st = ScrollTrigger.create({ trigger: sec, start: 'top top', end: () => '+=' + Math.round(innerHeight * 4.5), pin: true, anticipatePin: 1, onUpdate: (s) => { prog = s.progress; enviar(false) } })
+    const st = ScrollTrigger.create({ trigger: sec, start: 'top top', end: () => '+=' + Math.round(innerHeight * (innerWidth <= 760 ? 2.6 : 4.5)), pin: true, anticipatePin: 1, onUpdate: (s) => { prog = s.progress; enviar(false) } })
     return () => { st.kill(); sec.classList.remove('is-pin'); removeEventListener('message', ouvir) }
   }
 
@@ -1056,9 +1061,9 @@
     }
     let atual = itens[0]
     const escolher = () => {
-      const linha = innerHeight * 0.6
+      const linha = innerHeight * 0.6, topos = toposNaTela(itens)
       let e = itens[0]
-      itens.forEach((li) => { if (li.getBoundingClientRect().top <= linha) e = li })
+      itens.forEach((li, k) => { if (topos[k] <= linha) e = li })
       if (e !== atual) { atual = e; definir(e) }
     }
     definir(itens[0])
@@ -1073,6 +1078,20 @@
    * quando o céu clareia. Com movimento reduzido fica a 3ª foto parada (o fundo em CSS), sem canvas.
    */
   const HORAS_DAS_FOTOS = [5, 7, 9, 12]
+  /* Topo de cada item na tela sem ler layout na rolagem: mede a posição na página uma vez por refresh do ScrollTrigger
+     (a seção do relógio não é presa) e depois só subtrai scrollY. Antes cada quadro lia getBoundingClientRect logo
+     depois de escrever --claro/--veu, o que forçava layout. */
+  let toposSujos = true
+  const toposCache = new Map()
+  ScrollTrigger.addEventListener('refreshInit', () => { toposSujos = true })
+  addEventListener('resize', () => { toposSujos = true }, { passive: true })
+  function toposNaTela(lista) {
+    if (toposSujos) { toposCache.clear(); toposSujos = false }
+    let abs = toposCache.get(lista)
+    if (!abs) { const y = scrollY; abs = lista.map((li) => li.getBoundingClientRect().top + y); toposCache.set(lista, abs) }
+    const y = scrollY
+    return abs.map((t) => t - y)
+  }
   // Entre essas horas o céu clareia aos poucos: véu, cor do texto e fundo do relógio se misturam (--claro de 0 a 1), sem virada seca.
   const CLAREIA_DE = 8.6, CLAREIA_ATE = 10.4
   function setCeu(fotos, relogio) {
@@ -1112,7 +1131,7 @@
     // A hora anda junto com o relógio: entre o horário de um item e o do próximo, pela posição deles na linha de leitura.
     const itens = $$('.night-list li', n)
     const horaContinua = () => {
-      const linha = innerHeight * 0.6, topos = itens.map((li) => li.getBoundingClientRect().top)
+      const linha = innerHeight * 0.6, topos = toposNaTela(itens)
       if (topos[0] > linha) return 5
       let i = 0
       while (i < itens.length - 1 && topos[i + 1] <= linha) i++
@@ -1253,11 +1272,15 @@
       irPara(i + vai)
     }
     // sem roda: a rolagem da página nunca move a linha; só o arraste
-    gsap.ticker.add(bordas)
+    // Só no ticker enquanto a linha está na tela: fora dela o ticker do GSAP pode dormir (iPhone agradece).
+    let noTicker = false
+    const io = new IntersectionObserver((es) => { const v = es[es.length - 1].isIntersecting; if (v === noTicker) return; noTicker = v; if (v) gsap.ticker.add(bordas); else gsap.ticker.remove(bordas) })
+    io.observe(vp)
+    bordas()
     const ro = new ResizeObserver(() => { limite = minX(); d.applyBounds({ minX: limite, maxX: 0 }); gsap.set(trilho, { x: prender(Number(gsap.getProperty(trilho, 'x'))) }); d.update(); peloMeio() })
     ro.observe(vp)
     focar(itens[0])
-    return () => { gsap.ticker.remove(bordas); vp.removeEventListener('wheel', roda); if (ant) ant.removeEventListener('click', cliqueAnt); if (prox) prox.removeEventListener('click', cliqueProx); ro.disconnect(); d.kill(); trilho.removeEventListener('click', bloquear, true); trilho.removeEventListener('focusin', foco); vp.style.overflow = ''; gsap.set(trilho, { clearProps: 'transform' }) }
+    return () => { io.disconnect(); gsap.ticker.remove(bordas); vp.removeEventListener('wheel', roda); if (ant) ant.removeEventListener('click', cliqueAnt); if (prox) prox.removeEventListener('click', cliqueProx); ro.disconnect(); d.kill(); trilho.removeEventListener('click', bloquear, true); trilho.removeEventListener('focusin', foco); vp.style.overflow = ''; gsap.set(trilho, { clearProps: 'transform' }) }
   }
 
   /* ---------- Fecho: o avião novo pousa nos botões (só se aviao.js existir; sem ele, nada solto na tela) ---------- */

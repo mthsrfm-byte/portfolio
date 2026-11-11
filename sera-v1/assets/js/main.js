@@ -496,7 +496,17 @@
 			} ).observe( h );
 		}
 		var rt;
+		var lastW = window.innerWidth;
+		var lastFs = getComputedStyle( h ).fontSize;
 		window.addEventListener( 'resize', function () {
+			// The title reflows only with width or its (svh-based) font size; iOS toolbar show/hide changes
+			// neither, so skip the re-layout then.
+			var fs = getComputedStyle( h ).fontSize;
+			if ( window.innerWidth === lastW && fs === lastFs ) {
+				return;
+			}
+			lastW = window.innerWidth;
+			lastFs = fs;
 			clearTimeout( rt );
 			rt = setTimeout( layout, 150 );
 		} );
