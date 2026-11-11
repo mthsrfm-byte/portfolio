@@ -624,7 +624,7 @@
       const W = m.clientWidth, H = m.clientHeight, gap = W * 0.018
       // Grade centrada na mesa, com cartões de proporção fixa (nada de janela esticada e vazia).
       const cel = innerWidth <= 760
-      let cw = (W * (cel ? 0.84 : 0.86) - gap * 2) / 3, ch = cel ? (H * 0.88 - gap) / 2 : Math.min((H * 0.86 - gap) / 2, cw * 0.66)
+      let cw = (W * (cel ? 0.92 : 0.86) - gap * 2) / 3, ch = cel ? (H * 0.9 - gap) / 2 : Math.min((H * 0.86 - gap) / 2, cw * 0.66)
       if (!cel && ch < cw * 0.66) cw = Math.min(cw, ch / 0.5)
       const gw = cw * 3 + gap * 2, gh = ch * 2 + gap
       const area = { x: (W - gw) / 2, y: (H - gh) / 2, w: gw, h: gh }

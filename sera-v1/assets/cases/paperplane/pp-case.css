@@ -813,3 +813,15 @@ html:not(.js) .pp-case .night-list li,html:not(.js) .pp-case .night-notes,html:n
 .pp-case .tese-ia::after{content:"";display:inline-block;width:.55em;height:1.05em;margin-left:.18em;vertical-align:-.16em;background:var(--lime);animation:pp-cursor 1.05s steps(1) infinite}
 @keyframes pp-cursor{50%{opacity:0}}
 @media (prefers-reduced-motion:reduce){.pp-case .tese-ia::after{animation:none}}
+/* Mesa no celular: quadrada, janelas mais largas e menos altas, barras mais legíveis */
+@media (max-width:760px){
+.pp-case .pp-mesa{aspect-ratio:1/1;border-radius:20px}
+.pp-case .jan{border-radius:8px}
+.pp-case .jan-bar{gap:3px;padding:0 6px}
+.pp-case .jan-bar i{width:5px;height:5px}
+.pp-case .jan-bar span{margin-left:3px}
+.pp-case .jan-c{padding:7px 7px 8px}
+.pp-case .pp-notif{width:86%;right:7%;top:3%;padding:9px 11px;border-radius:18px}
+.pp-case .pp-notif-app{width:32px;height:32px;border-radius:8px;font-size:15px}
+.pp-case .pp-notif-topo,.pp-case .pp-notif-msg,.pp-case .pp-notif-valor{font-size:12px}
+}
