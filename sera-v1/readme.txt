@@ -57,6 +57,10 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.28.1 =
+* Paperplane, dez etapas (desktop/tablet): o texto de apoio abre e fecha com altura real (grid 0fr → 1fr) numa curva longa, e o texto aparece um instante depois. Sai o "pá, pá, pá" do max-height.
+* Paperplane, botão "Draw" no celular: o "· reserva até N" não abre mais para os lados (estourava o card).
+
 = 3.28.0 =
 * Home, cards do Selected work: título bem maior e com linhas cheias (desktop até 76px, tablet e celular maiores), ocupando o espaço do card. A linha de cima fica só com ano e papel resumido; a empresa sai (já está no selo da imagem).
 * Research Hub: imagens com ?v= da versão, para o navegador não mostrar a versão antiga em cache (a que ainda tinha contagem de pesquisas).
