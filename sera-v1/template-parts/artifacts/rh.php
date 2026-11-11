@@ -16,7 +16,7 @@ if ( ! function_exists( 'sera_rh_img' ) ) {
 	function sera_rh_img( $file, $alt, $w, $h, $class = '' ) {
 		return sprintf(
 			'<img src="%s" alt="%s" width="%d" height="%d" loading="lazy" decoding="async"%s>',
-			esc_url( get_template_directory_uri() . '/assets/img/rh/' . $file ),
+			esc_url( get_template_directory_uri() . '/assets/img/rh/' . $file . '?v=' . SERA_VERSION ),
 			esc_attr( $alt ),
 			(int) $w,
 			(int) $h,

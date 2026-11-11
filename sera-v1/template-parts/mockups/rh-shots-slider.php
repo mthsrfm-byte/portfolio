@@ -15,7 +15,7 @@ if ( ! function_exists( 'sera_rh_shot_img' ) ) {
 	 * @param string $file File name inside assets/img/rh/.
 	 */
 	function sera_rh_shot_url( $file ) {
-		return esc_url( get_template_directory_uri() . '/assets/img/rh/' . $file );
+		return esc_url( get_template_directory_uri() . '/assets/img/rh/' . $file . '?v=' . SERA_VERSION );
 	}
 
 	/**

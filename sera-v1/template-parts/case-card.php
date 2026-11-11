@@ -19,7 +19,15 @@ $is_live = 'publish' === get_post_status( $id );
 	<?php endif; ?>
 	<div class="case-visual" aria-hidden="true"><?php echo $visual; // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
 	<div class="case-body">
-		<?php echo sera_case_meta_html( $id ); // phpcs:ignore ?>
+		<?php
+		// Card: sem o nome da empresa (já está no selo da imagem); só ano e o papel resumido (antes do primeiro "·" ou ",").
+		$sera_year = get_post_meta( $id, '_sera_year', true );
+		$sera_role = trim( preg_split( '/\s+·\s+|,\s+/u', (string) get_post_meta( $id, '_sera_role', true ) )[0] );
+		$sera_meta = array_filter( array( $sera_year ? '<span class="cm-year">' . esc_html( $sera_year ) . '</span>' : '', $sera_role ? '<span class="cm-role">' . esc_html( $sera_role ) . '</span>' : '' ) );
+		if ( $sera_meta ) {
+			echo '<div class="case-meta case-meta--card">' . implode( '<span class="sep" aria-hidden="true"></span>', $sera_meta ) . '</div>'; // phpcs:ignore WordPress.Security.EscapeOutput
+		}
+		?>
 		<h3 class="case-title"><span class="ct-long"><?php echo esc_html( sera_case_headline( $id ) ); ?></span><span class="ct-short"><?php echo esc_html( get_the_title( $id ) ); ?></span></h3>
 		<?php if ( has_excerpt( $id ) ) : ?>
 			<p class="case-summary"><?php echo esc_html( get_the_excerpt( $id ) ); ?></p>
