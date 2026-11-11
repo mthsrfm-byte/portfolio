@@ -774,3 +774,6 @@ html:not(.js) .pp-case .night-list li,html:not(.js) .pp-case .night-notes,html:n
 .pp-case .clock-label{color:#D6D7D3!important;opacity:1}
 .pp-case .c-face{stroke:rgba(244,243,238,.35)}
 @media (max-width:760px){.pp-case .night-clock{background:rgba(10,12,16,.82);backdrop-filter:blur(10px)}}
+/* Fecho: o avião entra pela borda esquerda da tela, então a área não pode cortar nada */
+.pp-case [data-aviao-pouso].pp-aviao-area{overflow:visible}
+.pp-case:has([data-aviao-pouso]){overflow-x:clip}
