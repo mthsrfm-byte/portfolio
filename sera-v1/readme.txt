@@ -57,6 +57,10 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.28.0 =
+* Home, cards do Selected work: título bem maior e com linhas cheias (desktop até 76px, tablet e celular maiores), ocupando o espaço do card. A linha de cima fica só com ano e papel resumido; a empresa sai (já está no selo da imagem).
+* Research Hub: imagens com ?v= da versão, para o navegador não mostrar a versão antiga em cache (a que ainda tinha contagem de pesquisas).
+
 = 3.27.0 =
 * Paperplane no celular, noite de curadoria em modo palco: um painel preso (sticky nativo) com o arco largo, a hora e um único item, o da hora do sol; a rolagem passa por uma trilha vazia. Sol e item mostrado nunca divergem. Desktop e tablet seguem com a coluna do arco e a lista.
 * Paperplane: ScrollTrigger com ignoreMobileResize, para a barra do Safari aparecendo/sumindo não recalcular os pins no meio da rolagem (a página "pulava").
