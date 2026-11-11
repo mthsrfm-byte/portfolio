@@ -57,6 +57,9 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.21.7 =
+* Hero dos cases no celular (Bastidores, Acordo Certo, Lume, Research Hub): só o iPhone, maior e centralizado; sai o navegador ilegível.
+
 = 3.21.6 =
 * Western Union: gráfico de releases ganha um desenho próprio para celular (mais estreito, rótulos maiores e quebrados em duas linhas). Desktop igual.
 
