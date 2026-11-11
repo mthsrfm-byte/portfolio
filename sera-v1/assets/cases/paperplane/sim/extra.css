@@ -21,3 +21,4 @@ html.sim-tema,html.sim-tema body,html.sim-tema *{transition:background-color .6s
 /* Tira "Episódio · 5 quadros": na captura a cena atual abraça a tira inteira e o anel vira um retângulo em volta dela;
    aqui a tira fica sem o anel (a cena atual já é a única da tira). */
 .v2-strip-s.on{box-shadow:none!important}
+.rt2-hint{display:none!important}
