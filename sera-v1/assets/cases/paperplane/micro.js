@@ -227,7 +227,7 @@
   }
 
   /** Vai até um lugar, espera lá e, quando liberada, volta para casa: nada foi gasto (particulas.ts). */
-  function idaEVolta({ de, ate, cores, controle, ordem, atrasoS = 0, duracaoS = 0.55, duracaoVoltaS = duracaoS, r = 1.8, curvaIda, aoChegar, aoVoltar }) {
+  function idaEVolta({ de, ate, cores, controle, ordem, atrasoS = 0, duracaoS = 0.55, duracaoVoltaS = duracaoS, r = 1.8, curvaIda, aoChegar, aoVoltar, corParada }) {
     curvaIda = curvaIda || curvaDoToken('--ease-pouso')
     const curvaVolta = curvaDoToken('--ease-in-out'), arco = aleatorio(-46, -28)
     let fase = 'ida', tempo = -atrasoS, tempoVolta = 0
@@ -242,13 +242,13 @@
           p.x = de.x + (ate.x - de.x) * q
           p.y = de.y + (ate.y - de.y) * q + Math.sin(k * Math.PI) * arco
           p.a = Math.min(1, k * 6)
-          if (k >= 1) { fase = 'parada'; if (aoChegar) aoChegar() }
+          if (k >= 1) { fase = 'parada'; if (corParada) { p.cor = corParada.nucleo; p.halo = corParada.halo; p.a = corParada.a } if (aoChegar) aoChegar() }
           return true
         }
         if (fase === 'parada') {
           p.rastro.length = 0
           p.y = ate.y + Math.sin(performance.now() / 260 + ate.x) * 0.6
-          if (controle.voltar) { fase = 'volta'; tempoVolta = -(controle.atrasoDaVolta ? controle.atrasoDaVolta(ordem) : 0) }
+          if (controle.voltar) { if (corParada) { p.cor = cores.nucleo; p.halo = cores.halo; p.a = 1 } fase = 'volta'; tempoVolta = -(controle.atrasoDaVolta ? controle.atrasoDaVolta(ordem) : 0) }
           return true
         }
         tempoVolta += dt
@@ -616,10 +616,10 @@
     const suave = textoDaCurva('--ease-quieto', botao)
     let atual = 0
     const encher = (alvo, ms) => { const de = atual; atual = alvo; return fill.animate([{ transform: `scaleX(${de})` }, { transform: `scaleX(${alvo})` }], { duration: ms, easing: suave, fill: 'forwards' }) }
-    marca.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 400, easing: 'ease-out', fill: 'forwards' })
+    marca.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 280, easing: 'ease-out', fill: 'forwards' })
     const numero = numeroDoSaldo(saldo)
     const apagado = numero && numero.animate ? numero.animate([{ opacity: 1 }, { opacity: 0.4 }], { duration: 350, easing: 'ease-in-out', fill: 'forwards' }) : null
-    const N = 8, controle = { voltar: false, atrasoDaVolta: (ordem) => ordem * 0.06 }
+    const N = 8, controle = { voltar: false, atrasoDaVolta: (ordem) => ordem * 0.042 }
     const curva = curvaDoToken('--ease-suave', botao)
     let chegaram = 0, voltaram = 0
     await new Promise((pronto) => {
@@ -627,13 +627,13 @@
         const k = (i + 1) / N
         const ate = { x: caixa.x - caixa.w / 2 + caixa.w * fracao * k, y: caixa.y + aleatorio(-caixa.h * 0.18, caixa.h * 0.18) }
         campo.adicionar(idaEVolta({
-          de: casa, ate, cores, controle, ordem: N - 1 - i, atrasoS: 0.08 + i * 0.07, duracaoS: 0.6, duracaoVoltaS: 0.55, r: 1.7, curvaIda: curva,
+          de: casa, ate, cores, controle, ordem: N - 1 - i, atrasoS: 0.06 + i * 0.05, duracaoS: 0.42, duracaoVoltaS: 0.39, r: 1.7, curvaIda: curva, corParada: { nucleo: 'rgba(110,150,40,.55)', halo: 'rgba(160,200,60,.22)', a: 0.85 },
           aoChegar: () => {
             chegaram++
-            encher(fracao * chegaram / N, 260)
+            encher(fracao * chegaram / N, 180)
             if (chegaram < N) return
-            esperar(160).then(() => { if (botao.isConnected) balancar(botao) })
-            esperar(ESPERA_ANTES_DE_VOLTAR_MS + 200).then(() => { controle.voltar = true; encher(0, 900) })
+            esperar(110).then(() => { if (botao.isConnected) balancar(botao) })
+            esperar(Math.round((ESPERA_ANTES_DE_VOLTAR_MS + 200) * 0.7)).then(() => { controle.voltar = true; encher(0, 630) })
           },
           aoVoltar: () => {
             if (++voltaram < N) return
