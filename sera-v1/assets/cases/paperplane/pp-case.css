@@ -873,3 +873,39 @@ html:not(.js) .pp-case .night-list li,html:not(.js) .pp-case .night-notes,html:n
 }
 @media (max-width:899px) and (prefers-reduced-motion:reduce){.pp-case .etapas.is-pin .etapas-lista li{transition:none}}
 .pp-case .pp-hero-in.pp-aviao-area{overflow:visible}
+
+/* 3.26 · Noite: sol em arco no lugar do mostrador, com contraste fixo em todas as horas.
+   Nenhuma cor de texto ou de fundo muda com a hora: o texto fica sempre claro sobre vidro escuro;
+   só o sol anda, e o céu da foto muda por trás do vidro. */
+.pp-case .pp-night .pp-clock{display:none!important}
+.pp-case .pp-night{--p:calc((var(--h,5) - 5) / 7);--sky-ink:#F4F3EE!important;--sky-ink-2:#D6D7D3!important;--sky-line:rgba(244,243,238,.18)!important;transition:none!important}
+.pp-case .pp-arco{position:relative;width:clamp(220px,24vw,300px);aspect-ratio:200/80}
+.pp-case .pp-arco svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.pp-case .pp-arco path{fill:none;stroke:rgba(244,243,238,.42);stroke-width:1.2;stroke-dasharray:2 5;vector-effect:non-scaling-stroke}
+.pp-case .arco-sol{position:absolute;width:16px;height:16px;margin:-8px 0 0 -8px;border-radius:50%;background:var(--lime);
+  box-shadow:0 0 0 5px rgba(247,255,158,.16),0 0 26px 8px rgba(247,255,158,.32);
+  left:calc(2% + var(--p) * 96%);top:calc((76 - 224 * var(--p) * (1 - var(--p))) / 80 * 100%);
+  transition:left .7s cubic-bezier(.33,1,.68,1),top .7s cubic-bezier(.33,1,.68,1)}
+.pp-case .arco-ini,.pp-case .arco-fim{position:absolute;bottom:-18px;font:500 10.5px var(--mono);letter-spacing:.06em;color:#D6D7D3}
+.pp-case .arco-ini{left:0}
+.pp-case .arco-fim{right:0}
+.pp-case .pp-night .clock-time{margin-top:30px;color:#F4F3EE!important}
+.pp-case .pp-night .clock-label{color:#D6D7D3!important}
+/* lista: vidro escuro firme e cores fixas; itens fora de foco continuam legíveis (≥ 4.5:1) */
+.pp-case .pp-night.tem-ceu .night-list{background:rgba(10,13,20,.74)!important}
+.pp-case .pp-night .night-list li,.js .pp-case .pp-night .night-list li{opacity:1!important;color:#D2D3CF;transition:none}
+.pp-case .pp-night .night-list li b{color:#E9E8E2}
+.pp-case .pp-night .night-list li.is-on{color:#F4F3EE}
+.pp-case .pp-night .night-list li.is-on b{color:#FFFFFF}
+.pp-case .pp-night .night-list time{color:#D2D3CF}
+.pp-case .pp-night .night-list li.is-on time{color:var(--lime)}
+.pp-case .pp-night .night-notes,.pp-case .pp-night .night-notes p{color:#E4E3DC!important;text-shadow:none}
+.pp-case .pp-night .night-notes{padding:16px clamp(18px,2.4vw,32px);border-radius:18px;background:rgba(10,13,20,.74);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.pp-case .arco-ini,.pp-case .arco-fim{bottom:-22px}
+@media (max-width:760px){
+.pp-case .pp-night .pp-arco{width:78px;flex:none}
+.pp-case .pp-night .arco-sol{width:10px;height:10px;margin:-5px 0 0 -5px;box-shadow:0 0 0 3px rgba(247,255,158,.16),0 0 12px 4px rgba(247,255,158,.3)}
+.pp-case .pp-night .arco-ini,.pp-case .pp-night .arco-fim{display:none}
+.pp-case .pp-night .clock-time{margin-top:0!important}
+}
+@media (prefers-reduced-motion:reduce){.pp-case .arco-sol{transition:none}}
