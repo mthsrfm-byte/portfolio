@@ -4,7 +4,7 @@ Stable tag: 3.20.1
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
-License: GPLv2 or later
+License: Proprietary. All rights reserved
 
 Portfolio theme for Matheus Serafim.
 
@@ -56,6 +56,9 @@ Rascunhos aparecem na Home só para você (logado), com a etiqueta "Rascunho".
 da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
+
+= 3.32.2 =
+* Aviso de direitos reservados: o tema deixa de se declarar GPL; LICENSE e README na raiz do repositório proíbem cópia e reutilização.
 
 = 3.32.1 =
 * Approach no celular e tablet em uma coluna: os itens 01 e 03 não têm mais o fio vertical à direita; só os fios horizontais.
