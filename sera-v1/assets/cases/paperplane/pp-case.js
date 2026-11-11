@@ -241,9 +241,8 @@
     molduras.forEach((m) => {
       const ap = m.frame && m.el.closest('.aparelho'); if (!ap) return
       if (!m.visivel && m.corDe === m.frame) return // fora da tela: já tem cor; só reamostra quando visível
-      m.corDe = m.frame
       try { seguro(m.frame.contentDocument) } catch (e) {}
-      try { const d = m.frame.contentDocument, w = d.documentElement.clientWidth, h = d.documentElement.clientHeight; const t = corEm(d, w / 2, 2), b = corEm(d, 4, h - 2); if (t) ap.style.setProperty('--ap-topo', t); if (b) ap.style.setProperty('--ap-base', b) } catch (e) {}
+      try { const d = m.frame.contentDocument, w = d.documentElement.clientWidth, h = d.documentElement.clientHeight; const t = corEm(d, w / 2, 2), b = corEm(d, 4, h - 2); if (t) { ap.style.setProperty('--ap-topo', t); m.corDe = m.frame } if (b) ap.style.setProperty('--ap-base', b) } catch (e) {}
     })
   }, 1500)
 

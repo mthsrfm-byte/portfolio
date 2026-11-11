@@ -133,3 +133,5 @@ html.is-v2 .site-header{--pill-r:max(8px,calc(max(var(--gutter),(100% - var(--wr
   html.is-v2 .site-header{--pill-r:8px}
   html.is-v2 .site-header>.wrap{padding-left:calc(var(--gutter) + 10px);padding-right:calc(var(--gutter) + 3px)}
 }
+/* sem fio de progresso no menu */
+html.is-v2 .site-header::after{display:none}
