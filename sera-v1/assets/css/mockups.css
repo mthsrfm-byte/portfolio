@@ -578,8 +578,12 @@
 @media (max-width:560px){
   .ac-hero-stage .browser{--bs:.24}
   .ac-hero-stage .device{--s:.26;margin-left:-40px}
-  .ac-compare .browser{--bs:.26}
+  .ac-compare{padding:16px}
+  .ac-compare .col{min-width:0}
+  .ac-compare .browser{--bs:.25}
 }
+@media (max-width:400px){.ac-compare .browser{--bs:.225}}
+@media (max-width:340px){.ac-compare .browser{--bs:.195}}
 /* full-page browsers on small screens: crop to 720 px of scaled height, fade, and a "View full page" button (injected by case.js) */
 .browser-more{display:none;align-items:center;gap:8px;margin-top:12px;height:38px;padding:0 14px;border-radius:999px;border:1px solid #CFCDC4;background:var(--surface,#fff);color:var(--ink,#111);font:500 13px/1 "Geist",system-ui,sans-serif;cursor:pointer}
 .browser-more .ico{width:14px;height:14px}

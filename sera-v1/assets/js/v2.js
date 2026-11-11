@@ -509,6 +509,14 @@
 
 	/* ---- header: reading progress on the pill (CSS scroll timeline where supported, else here) ---- */
 	var header = document.querySelector( '.site-header' );
+	// dark tint as a real element: iOS Safari does not always repaint a backdrop-filtered ::before
+	// when only its background changes, which left light text on a light pill over dark sections.
+	if ( header && ! header.querySelector( '.v2-pill-tint' ) ) {
+		var tint = document.createElement( 'span' );
+		tint.className = 'v2-pill-tint';
+		tint.setAttribute( 'aria-hidden', 'true' );
+		header.insertBefore( tint, header.firstChild );
+	}
 	var cssProgress = window.CSS && CSS.supports && CSS.supports( 'animation-timeline: scroll()' );
 	if ( header && ( ! cssProgress || V2.reduce() ) ) {
 		var lastP = -1;

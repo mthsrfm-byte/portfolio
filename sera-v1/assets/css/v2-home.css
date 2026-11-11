@@ -153,6 +153,8 @@ html.is-v2 .xp-row:first-child .when::after{content:"";position:absolute;left:0;
 }
 @media (max-width:860px){
   html.is-v2 .xp-row::after{top:36px}
+  /* single column: indent the copy so the timeline line runs beside it, not through it */
+  html.is-v2 .xp-row>*{padding-left:26px}
 }
 
 /* ---------- about ---------- */
@@ -172,4 +174,9 @@ html.is-v2 .about-list .k{font-variant-numeric:tabular-nums}
 
 @media (max-width:860px){
   html.is-v2 .hero-maze{color:rgba(17,17,16,.1)}
+}
+
+/* mobile work head: the intro line stays hidden (main.css) — v2 display:-webkit-box was bringing it back over the cards */
+@media (max-width:860px){
+  html.is-v2 .work-head p{display:none}
 }

@@ -46,6 +46,8 @@ html.is-v2 .site-header.is-scrolled::after{opacity:.9}
 @keyframes v2-progress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 html.is-v2 .read-progress{display:none}
 /* over dark blocks the pill turns ink: light hairline, light text, inverted CTA */
+html.is-v2 .site-header>.v2-pill-tint{position:absolute;inset:10px var(--pill-r) 10px var(--pill-l);border-radius:999px;z-index:-1;pointer-events:none;background:rgba(22,22,20,.86);opacity:0;transition:opacity .45s var(--v2-ease)}
+html.is-v2 .site-header.v2-dark.is-scrolled>.v2-pill-tint{opacity:1}
 html.is-v2 .site-header .brand,html.is-v2 .site-header .brand-name,html.is-v2 .site-header .lang-trigger,html.is-v2 .site-header .lang-chev,html.is-v2 .site-header .menu-toggle,html.is-v2 .site-header>.wrap>.header-actions>.btn-dark{transition:color .55s var(--v2-ease),background-color .55s var(--v2-ease),border-color .55s var(--v2-ease),transform .2s var(--ease)}
 html.is-v2 .site-header.v2-dark{color:#EFEEE8}
 html.is-v2 .site-header.v2-dark::before{background:rgba(22,22,20,.72);box-shadow:0 0 0 1px rgba(239,238,232,.13),inset 0 1px 0 rgba(239,238,232,.06),0 14px 34px -22px rgba(0,0,0,.5);-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%)}
@@ -68,6 +70,7 @@ html.is-v2 .primary-nav a::after{bottom:1px;transition:transform var(--v2-d2) va
 @media (max-width:860px){
   html.is-v2 .site-header{--pill-l:8px;--pill-r:8px}
   html.is-v2 .site-header::before{inset:8px 8px;border-radius:18px}
+  html.is-v2 .site-header>.v2-pill-tint{inset:8px 8px;border-radius:18px}
   html.is-v2 .site-header::after{bottom:8px}
   /* the open menu sheet is light glass: keep its links ink whatever the pill does */
   html.is-v2 .site-header.v2-dark .primary-nav{color:var(--ink)}
