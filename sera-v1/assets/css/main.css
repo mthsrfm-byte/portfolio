@@ -863,3 +863,11 @@ html.deck-on .deck-before,html.deck-on .deck-after{scroll-snap-align:start;scrol
   .hb-foot{grid-template-columns:1fr;gap:24px}
   .hb-av li span{display:none}
 }
+
+/* v3.16.1 · Experience head on mobile: plain section head (no pin, no shrink), intro left-aligned under the title */
+@media (max-width:860px){
+  .xp-head{position:relative;top:auto;height:auto;min-height:0;padding:0 0 24px;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:12px}
+  .xp-head h2,.xp-head p{scale:none!important;opacity:1!important}
+  .xp-head p{display:block;max-width:none;text-align:left;font-size:16px;-webkit-line-clamp:unset;overflow:visible}
+  .xp-head::after{opacity:1}
+}
