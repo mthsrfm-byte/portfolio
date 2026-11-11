@@ -842,3 +842,9 @@ html:not(.js) .pp-case .night-list li,html:not(.js) .pp-case .night-notes,html:n
 .site-header .brand svg,.site-header .lang-trigger,.site-header .menu-toggle,.site-header .btn-dark{transition:filter .35s ease,background-color .35s ease,color .35s ease,border-color .35s ease}
 .site-header.hdr-escuro .read-progress{background:var(--lime,#F7FF9E)}
 .pp-case .pp-night.tem-ceu .night-list{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+/* celular: os quatro rostos em 2×2, maiores */
+@media (max-width:760px){
+.pp-case .rostos{grid-template-columns:repeat(2,1fr);gap:5px}
+.pp-case .rostos li{aspect-ratio:4/3}
+.pp-case .rostos li img{object-position:50% 18%}
+}
