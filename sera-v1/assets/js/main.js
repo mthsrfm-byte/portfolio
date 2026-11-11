@@ -1263,9 +1263,11 @@
 		}
 		e.preventDefault();
 		if ( 'top' === id ) {
-			// back to top: native smooth scroll; our glide gets cut off by pinned sections and the iOS toolbar
+			// back to top: vista aérea (v2.js); native smooth scroll when it does not run
 			stop();
-			window.scrollTo( { top: 0, behavior: window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches ? 'auto' : 'smooth' } );
+			if ( ! ( window.V2 && window.V2.flyTop && window.V2.flyTop() ) ) {
+				window.scrollTo( { top: 0, behavior: window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches ? 'auto' : 'smooth' } );
+			}
 			if ( history.pushState ) {
 				history.pushState( null, '', '#top' );
 			}
@@ -1683,6 +1685,10 @@
 			return;
 		}
 		e.preventDefault();
+		// 3.32 · vista aérea (v2.js); short trips and reduced motion keep the plain scroll
+		if ( window.V2 && window.V2.flyTop && window.V2.flyTop() ) {
+			return;
+		}
 		window.scrollTo( { top: 0, behavior: window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches ? 'auto' : 'smooth' } );
 	} );
 } )();

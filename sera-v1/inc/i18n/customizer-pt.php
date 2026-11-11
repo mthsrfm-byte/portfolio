@@ -25,7 +25,7 @@ function sera_fields_pt() {
 		'hero_title_2'    => 'e construo a IA que coloca eles no ar.',
 		'hero_lede'       => 'Onze anos em produto, sete em fintech: Nubank, will bank, Western Union e Pagaleve. Pesquisa, design e construção, com IA em cada etapa.',
 		'hero_photo_alt'  => 'Selfie com lente olho de peixe de Matheus Serafim à noite em Shibuya, Tóquio',
-		'hero_role'       => 'Product Design Lead · hoje na Pagaleve',
+		'hero_role'       => 'Product Designer & Builder · Hoje na Pagaleve',
 		'hero_status_note' => 'CLT ou PJ',
 		'hero_freela'     => 'Aceitando projetos freela',
 		'hero_freela_note' => 'por projeto',

@@ -710,6 +710,158 @@
 		}
 		V2.magnet( footer.querySelectorAll( '.footer-mail' ), 5 );
 	}
+
+	/* ---- 3.32 · back to top, "vista aérea": the page jumps to the top at once (so no scroll-linked
+	   animation ever plays backwards) while <body> is transformed to keep showing the footer; then the
+	   camera pulls back over a maze, flies up along the page and dives into the hero. One rAF loop, only
+	   transforms. Returns false when it does not run (reduced motion, short trips) so the caller scrolls. */
+	var flying = false;
+	function sst( x ) {
+		x = V2.clamp( x, 0, 1 );
+		return x * x * x * ( x * ( 6 * x - 15 ) + 10 );
+	}
+	V2.flyTop = function () {
+		if ( flying ) {
+			return true;
+		}
+		var body = document.body;
+		var vh = window.innerHeight;
+		var vw = root.clientWidth;
+		var y0 = window.scrollY;
+		if ( V2.reduce() || ! root.classList.contains( 'is-v2' ) || y0 < vh * 1.5 ) {
+			return false;
+		}
+		flying = true;
+		var mobile = vw < 861;
+		var k = V2.clamp( 2.4 * vh / root.scrollHeight, mobile ? 0.3 : 0.24, 0.42 ); // farthest zoom
+		var lnk = Math.log( k );
+		var travel = k * y0;
+		var dur = V2.clamp( 1500 + travel / vh * 70, 1600, 2300 );
+
+		// the stage: a paper layer with the maze, behind <body> (a child of <html>, so it is not transformed)
+		var cell = mobile ? 22 : 28;
+		var shift = Math.round( Math.min( travel * 0.3, vh * 0.55 ) ); // how far the maze drifts (parallax)
+		var cols = Math.ceil( vw / cell ) + 1;
+		var rows = Math.ceil( ( vh + shift ) / cell ) + 1;
+		var stage = document.createElement( 'div' );
+		stage.className = 'v2-fly';
+		stage.setAttribute( 'aria-hidden', 'true' );
+		var inner = document.createElement( 'div' );
+		inner.className = 'v2-fly-in';
+		var host = document.createElement( 'div' );
+		host.className = 'v2-maze v2-fly-maze';
+		host.style.width = cols * cell + 'px';
+		host.style.height = rows * cell + 'px';
+		host.style.left = Math.round( ( vw - cols * cell ) / 2 ) + 'px';
+		host.style.top = -shift + 'px';
+		inner.appendChild( host );
+		stage.appendChild( inner );
+		root.appendChild( stage );
+		// the route climbs from where the button was (bottom right) to the top
+		var mz = V2.maze( host, { cols: cols, rows: rows, cell: 10, scale: cell / 10, solPx: 1.7, seed: 2017,
+			start: [ Math.round( cols * 0.72 ), rows - 3 ] } );
+		mz.solveTo( Math.round( cols * 0.86 ), 2, true );
+		var sol = host.querySelector( '.mz-sol' );
+		sol.style.strokeDasharray = '1 1';
+		sol.style.strokeDashoffset = '1';
+
+		// no input while flying, and no scroll news for the rest of the page: it has already settled on
+		// its top state (see below) and would otherwise measure the transformed <body>
+		var KEYS = { ' ': 1, PageUp: 1, PageDown: 1, Home: 1, End: 1, ArrowUp: 1, ArrowDown: 1 };
+		function block( e ) {
+			if ( 'keydown' === e.type && ! KEYS[ e.key ] ) {
+				return;
+			}
+			if ( e.cancelable ) {
+				e.preventDefault();
+			}
+			e.stopImmediatePropagation();
+		}
+		var EV = [ 'wheel', 'touchmove', 'keydown', 'scroll' ];
+
+		// Jump first, untransformed. The real scroll event (next frame, or a few frames later where the
+		// browser applies scrollTo asynchronously) reaches every listener before ours, registered last;
+		// their rAF-gated updates are therefore queued before start() and run first in that frame, on the
+		// real top state. start() then transforms <body> before anything is painted: no flash of the top.
+		var armed = false;
+		var armT = 0;
+		function go() {
+			if ( armed ) {
+				return;
+			}
+			armed = true;
+			clearTimeout( armT );
+			window.removeEventListener( 'scroll', onJump );
+			requestAnimationFrame( start );
+		}
+		function onJump() {
+			if ( window.scrollY <= 0 ) {
+				go();
+			}
+		}
+		window.addEventListener( 'scroll', onJump );
+		armT = setTimeout( go, 400 );
+		root.style.scrollBehavior = 'auto';
+		try {
+			window.scrollTo( { top: 0, left: 0, behavior: 'instant' } );
+		} catch ( err ) {
+			window.scrollTo( 0, 0 );
+		}
+		function start( now ) {
+			EV.forEach( function ( t ) {
+				window.addEventListener( t, block, { passive: false, capture: true } );
+			} );
+			root.classList.add( 'is-flying' );
+			body.style.transformOrigin = '0 0';
+			body.style.willChange = 'transform';
+			body.style.outline = ( 1 / k ).toFixed( 1 ) + 'px solid rgba(17,17,16,.14)';
+			frame( now );
+		}
+
+		var t0 = 0;
+		function done() {
+			body.style.transform = '';
+			body.style.transformOrigin = '';
+			body.style.willChange = '';
+			body.style.outline = '';
+			root.style.scrollBehavior = '';
+			root.classList.remove( 'is-flying' );
+			EV.forEach( function ( t ) {
+				window.removeEventListener( t, block, { capture: true } );
+			} );
+			mz.destroy();
+			root.removeChild( stage );
+			flying = false;
+			// anything that reads positions on scroll settles on the real top state
+			window.dispatchEvent( new Event( 'scroll' ) );
+			if ( V2.remeasure ) {
+				V2.remeasure();
+			}
+		}
+		function frame( now ) {
+			if ( ! t0 ) {
+				t0 = now;
+			}
+			var p = V2.clamp( ( now - t0 ) / dur, 0, 1 );
+			if ( window.scrollY > 0 ) {
+				window.scrollTo( 0, 0 );
+			}
+			var zf = sst( p / 0.4 ) * sst( ( 1 - p ) / 0.4 ); // 0 near · 1 far
+			var s = Math.exp( lnk * zf );
+			var ec = sst( ( p - 0.1 ) / 0.8 ); // camera: footer → top
+			var cy = vh / 2 + y0 * ( 1 - ec );
+			body.style.transform = 'translate3d(' + ( vw / 2 * ( 1 - s ) ).toFixed( 2 ) + 'px,' + ( vh / 2 - s * cy ).toFixed( 2 ) + 'px,0) scale(' + s.toFixed( 5 ) + ')';
+			inner.style.transform = 'scale(' + ( 1.16 - 0.16 * zf ).toFixed( 4 ) + ')';
+			host.style.transform = 'translate3d(0,' + ( shift * ec ).toFixed( 2 ) + 'px,0)';
+			sol.style.strokeDashoffset = ( 1 - sst( ( p - 0.06 ) / 0.8 ) ).toFixed( 4 );
+			if ( p < 1 ) {
+				requestAnimationFrame( frame );
+			} else {
+				done();
+			}
+		}
+		return true;
+	};
 } )();
 
 /* 3.24 · menu "troca lenta": a pílula escurece sobre blocos escuros e clareia sobre os claros, com uma
@@ -760,6 +912,10 @@
 		}
 	}
 	function remeasure() {
+		// 3.32 · not while the page flies back to the top (the <body> is transformed); V2.flyTop calls again after
+		if ( document.documentElement.classList.contains( 'is-flying' ) ) {
+			return;
+		}
 		clearTimeout( mt );
 		mt = setTimeout( function () {
 			measure();
@@ -768,6 +924,7 @@
 	}
 	measure();
 	window.V2.onScroll( check );
+	window.V2.remeasure = remeasure;
 	window.addEventListener( 'load', remeasure );
 	var lastW = window.innerWidth;
 	window.addEventListener( 'resize', function () {
