@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'SERA_VERSION', '3.20.1' );
+define( 'SERA_VERSION', '3.21.0' );
 
 require_once get_template_directory() . '/inc/i18n.php';
 require_once get_template_directory() . '/inc/i18n/customizer-pt.php';
@@ -174,6 +174,18 @@ add_action(
 			wp_enqueue_script( 'sera-shots', $uri . '/assets/js/shots.js', array(), sera_asset_ver( 'assets/js/shots.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
 		}
 
+		// Camada v2 (refino visual): carrega depois de tudo, com escopo em html.is-v2.
+		wp_enqueue_style( 'sera-v2', $uri . '/assets/css/v2.css', array( 'sera-main' ), sera_asset_ver( 'assets/css/v2.css' ) );
+		wp_enqueue_script( 'sera-v2', $uri . '/assets/js/v2.js', array( 'sera-main' ), sera_asset_ver( 'assets/js/v2.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
+		if ( is_front_page() ) {
+			wp_enqueue_style( 'sera-v2-home', $uri . '/assets/css/v2-home.css', array( 'sera-v2' ), sera_asset_ver( 'assets/css/v2-home.css' ) );
+			wp_enqueue_script( 'sera-v2-home', $uri . '/assets/js/v2-home.js', array( 'sera-v2', 'sera-case-js' ), sera_asset_ver( 'assets/js/v2-home.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
+		}
+		if ( $is_case ) {
+			wp_enqueue_style( 'sera-v2-case', $uri . '/assets/css/v2-case.css', array( 'sera-v2', 'sera-case' ), sera_asset_ver( 'assets/css/v2-case.css' ) );
+			wp_enqueue_script( 'sera-v2-case', $uri . '/assets/js/v2-case.js', array( 'sera-v2', 'sera-case-js' ), sera_asset_ver( 'assets/js/v2-case.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
+		}
+
 		if ( sera_skip_core_block_css() ) {
 			wp_dequeue_style( 'wp-block-library' );
 			wp_dequeue_style( 'wp-block-library-theme' );
@@ -263,9 +275,9 @@ add_filter(
 		$out = preg_replace( '/\s*lang="[^"]*"/', '', $out );
 		$out = trim( $out . ' lang="' . ( sera_is_pt() ? 'pt-BR' : 'en' ) . '"' );
 		if ( false === strpos( $out, 'class=' ) ) {
-			$out .= ' class="no-js"';
+			$out .= ' class="no-js is-v2"';
 		} else {
-			$out = preg_replace( '/class="([^"]*)"/', 'class="$1 no-js"', $out, 1 );
+			$out = preg_replace( '/class="([^"]*)"/', 'class="$1 no-js is-v2"', $out, 1 );
 		}
 		return $out;
 	}
