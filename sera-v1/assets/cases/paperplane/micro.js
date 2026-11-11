@@ -131,7 +131,9 @@
     host.append(canvas)
     const ctx = canvas.getContext('2d')
     let particulas = [], rodando = false, ultimo = 0, quadro = 0
-    const origem = () => (opcoes.fixo ? { left: 0, top: 0 } : host.getBoundingClientRect())
+    // Campo fixo: as partículas vivem em coordenadas da página, então rolar a tela leva elas junto com o conteúdo.
+    let baseX = scrollX, baseY = scrollY
+    const origem = () => { if (!opcoes.fixo) return host.getBoundingClientRect(); if (!rodando) { baseX = scrollX; baseY = scrollY } return { left: baseX - scrollX, top: baseY - scrollY } }
     const caixaDoRetangulo = (r) => {
       const o = origem()
       return { x: r.left - o.left + r.width / 2, y: r.top - o.top + r.height / 2, w: r.width, h: r.height, l: r.left - o.left, t: r.top - o.top }
@@ -174,10 +176,11 @@
     }
     function desenhar(agora) {
       const dt = Math.min(PASSO_MAXIMO_S, (agora - ultimo) / 1000); ultimo = agora
-      if (ctx) ctx.clearRect(0, 0, campo.w, campo.h)
+      const d = devicePixelRatio || 1
+      if (ctx) { ctx.setTransform(d, 0, 0, d, 0, 0); ctx.clearRect(0, 0, campo.w, campo.h); if (opcoes.fixo) ctx.setTransform(d, 0, 0, d, (baseX - scrollX) * d, (baseY - scrollY) * d) }
       particulas = particulas.filter((p) => { const viva = p.passo(dt); if (viva) pintar(p); return viva })
       if (particulas.length) quadro = requestAnimationFrame(desenhar)
-      else { rodando = false; if (ctx) ctx.clearRect(0, 0, campo.w, campo.h) }
+      else { rodando = false; if (ctx) { ctx.setTransform(devicePixelRatio || 1, 0, 0, devicePixelRatio || 1, 0, 0); ctx.clearRect(0, 0, campo.w, campo.h) } }
     }
     return campo
   }
