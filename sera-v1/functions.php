@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'SERA_VERSION', '3.32.1' );
+define( 'SERA_VERSION', '3.32.2' );
 
 require_once get_template_directory() . '/inc/i18n.php';
 require_once get_template_directory() . '/inc/i18n/customizer-pt.php';
