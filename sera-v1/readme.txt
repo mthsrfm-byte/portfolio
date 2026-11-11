@@ -1,6 +1,6 @@
 === Sera v.1 ===
 Contributors: matheusserafim
-Stable tag: 3.19.7
+Stable tag: 3.19.8
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
@@ -56,6 +56,9 @@ Rascunhos aparecem na Home só para você (logado), com a etiqueta "Rascunho".
 da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
+
+= 3.19.8 =
+* Paperplane: cabeçalho escuro só quando o fundo da página é preto.
 
 = 3.19.7 =
 * Paperplane: logo branco no cabeçalho escuro.
