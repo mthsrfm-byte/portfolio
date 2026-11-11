@@ -509,7 +509,12 @@
    * dependem linearmente das âncoras (y1, y2, m); refazemos a mesma curva aqui, medimos o y dela no x do pouso e
    * deslocamos as âncoras pela diferença, para a curva terminar exatamente ao lado da última palavra.
    */
-  function pousoNoClique() { return pousoAoLado($('.pp-hero-in'), $('.pp-hero-title'), $('#kw')) }
+  function pousoNoClique() {
+    const p = pousoAoLado($('.pp-hero-in'), $('.pp-hero-title'), $('#kw'))
+    // o avião do hero nasce na borda da tela, fora da coluna (como o do fim da página)
+    if (p && p.ancoras) p.ancoras.x0 = -$('.pp-hero-in').getBoundingClientRect().left - 90
+    return p
+  }
   /** Âncoras para o avião pousar logo à direita do fim de `alvo` (texto ou botão), voando pela faixa de `titulo`. */
   function pousoAoLado(area, titulo, alvo) {
     const caixa = area.getBoundingClientRect(), tt = titulo.getBoundingClientRect()

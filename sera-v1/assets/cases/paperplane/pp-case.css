@@ -872,3 +872,4 @@ html:not(.js) .pp-case .night-list li,html:not(.js) .pp-case .night-notes,html:n
 .pp-case .etapas.is-pin .etapas-lista li p{max-height:none;opacity:1;margin-top:6px;transition:none}
 }
 @media (max-width:899px) and (prefers-reduced-motion:reduce){.pp-case .etapas.is-pin .etapas-lista li{transition:none}}
+.pp-case .pp-hero-in.pp-aviao-area{overflow:visible}

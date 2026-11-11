@@ -57,6 +57,9 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.25.1 =
+* Paperplane, hero: o avião entra pela borda da tela (como o do fim da página), não mais pela margem da coluna, que cortava a entrada.
+
 = 3.25.0 =
 * Home, Selected work: sem a faixa morta entre o título fixo e o cartão. O cartão para logo abaixo do título, o anterior encolhe e some em vez de subir por trás (acabam as sombras empilhadas nas laterais) e a borda do título vira um degradê curto.
 
