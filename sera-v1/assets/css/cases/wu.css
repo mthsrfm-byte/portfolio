@@ -102,3 +102,9 @@
   .art-wu-journey .wujr-foot b{display:block}
 }/* PT: "A maioria" stays on one line in the audit number (EN "Most" is one word) */
 .art-wu-audit .audit-num b:lang(pt){font-size:clamp(64px,8.4vw,128px);white-space:nowrap}
+/* release chart: phone gets its own narrower drawing so labels read at real size */
+.wu-rel-m{display:none}
+@media (max-width:640px){
+  .wu-rel-d{display:none}
+  .wu-rel-m{display:block;width:100%;height:auto}
+}

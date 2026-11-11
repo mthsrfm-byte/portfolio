@@ -57,6 +57,9 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.21.6 =
+* Western Union: gráfico de releases ganha um desenho próprio para celular (mais estreito, rótulos maiores e quebrados em duas linhas). Desktop igual.
+
 = 3.21.5 =
 * Próximo case: a miniatura escala pela largura real do quadro (v2-case.js) e preenche certo em celular, tablet e desktop; em telas de toque fica no tamanho cheio.
 
