@@ -1,6 +1,6 @@
 === Sera v.1 ===
 Contributors: matheusserafim
-Stable tag: 3.18.1
+Stable tag: 3.18.2
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
@@ -56,6 +56,14 @@ Rascunhos aparecem na Home só para você (logado), com a etiqueta "Rascunho".
 da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
+
+= 3.18.2 =
+* Paperplane: notificação do banco fictício (Lowfield) com a frase de cartão estourado; tese centralizada sem rótulo.
+* Paperplane: hover do card 03 contido no estágio; tipografia da Dobra em lista com amostras.
+* Paperplane: scroll da home dentro da moldura mais suave; céu com contraste garantido na virada; linha dos 23 dias com botões, índice e roda do mouse.
+* Paperplane: avião entra pela borda esquerda e pousa ao lado do botão principal.
+* Home: card do Paperplane com frames reais do estúdio e selo em Geist.
+* Textos do case revisados (inglês e português).
 
 = 3.18.1 =
 * Paperplane: notificação ocupa a largura toda da mesa no modo sem JS e com movimento reduzido (no celular o texto não estoura mais).

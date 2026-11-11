@@ -963,26 +963,36 @@
       const max = Math.max(0, altura - 720)
       const marcos = caps.map((c, i) => { const v = topoDe(c.dataset.sec); return v == null ? (i ? null : 0) : Math.min(v, max) })
       const validos = marcos.map((v, i) => (v == null ? marcos.slice(0, i).filter((x) => x != null).pop() || 0 : v))
-      const n = validos.length - 1, t = p * n, i = Math.min(n - 1, Math.floor(t)), f = suave(0.3, 0.7, t - i)
+      const n = validos.length - 1, t = p * n, i = Math.min(n - 1, Math.floor(t)), f = suave(0.12, 0.88, t - i)
       const atual = Math.min(n, Math.round(i + f))
       caps.forEach((c, k) => c.classList.toggle('is-on', k === atual))
       return validos[i] + (validos[i + 1] - validos[i]) * f
     }
+    let vis = 0, suavizando = 0
+    function aplicar(forca) {
+      const y = Math.round(alvoY(vis))
+      const w = m.janela
+      if (w && (forca || y !== ultimoY)) { ultimoY = y; w.postMessage({ type: 'scrollTo', y, instant: !!forca }, '*') }
+      const wc = mc && mc.janela
+      if (wc && alturaCel) { const yc = Math.round(Math.min(1, vis) * Math.max(0, alturaCel - 844)); if (forca || yc !== ultimoYc) { ultimoYc = yc; wc.postMessage({ type: 'scrollTo', y: yc, instant: !!forca }, '*') } }
+    }
+    // Inércia: a moldura persegue o progresso com uma fração por quadro, em vez de saltar a cada rolagem.
+    function passo() {
+      suavizando = 0
+      vis += (prog - vis) * 0.09
+      if (Math.abs(prog - vis) < 0.0005) vis = prog
+      aplicar(false)
+      if (vis !== prog) suavizando = requestAnimationFrame(passo)
+    }
     function enviar(forca) {
-      cancelAnimationFrame(pedido)
-      pedido = requestAnimationFrame(() => {
-        const y = Math.round(alvoY(prog))
-        const w = m.janela
-        if (w && (forca || y !== ultimoY)) { ultimoY = y; w.postMessage({ type: 'scrollTo', y, instant: !!forca }, '*') }
-        const wc = mc && mc.janela
-        if (wc && alturaCel) { const yc = Math.round(Math.min(1, prog * 1.6) * Math.max(0, alturaCel - 844)); if (forca || yc !== ultimoYc) { ultimoYc = yc; wc.postMessage({ type: 'scrollTo', y: yc, instant: !!forca }, '*') } }
-      })
+      if (forca) { vis = prog; cancelAnimationFrame(suavizando); aplicar(true); return }
+      if (!suavizando) suavizando = requestAnimationFrame(passo)
     }
     m.aoFicarPronta(() => { try { m.janela.postMessage({ type: 'medir' }, '*') } catch (e) {} })
     if (mc) mc.aoFicarPronta(() => { try { mc.janela.postMessage({ type: 'medir' }, '*') } catch (e) {} })
     if (reduz) { caps.forEach((c) => c.classList.add('is-on')); return () => removeEventListener('message', ouvir) }
     sec.classList.add('is-pin')
-    const st = ScrollTrigger.create({ trigger: sec, start: 'top top', end: () => '+=' + Math.round(innerHeight * 2.5), pin: true, anticipatePin: 1, onUpdate: (s) => { prog = s.progress; enviar(false) } })
+    const st = ScrollTrigger.create({ trigger: sec, start: 'top top', end: () => '+=' + Math.round(innerHeight * 4.5), pin: true, anticipatePin: 1, onUpdate: (s) => { prog = s.progress; enviar(false) } })
     return () => { st.kill(); sec.classList.remove('is-pin'); removeEventListener('message', ouvir) }
   }
 
@@ -1085,6 +1095,7 @@
       hora = horaContinua()
       const t = gsap.utils.clamp(0, 1, (hora - CLAREIA_DE) / (CLAREIA_ATE - CLAREIA_DE))
       n.style.setProperty('--claro', (t * t * (3 - 2 * t)).toFixed(3))
+      n.style.setProperty('--veu', (4 * t * (1 - t) * 0.45).toFixed(3)) // no meio da virada o véu escurece mais, para o texto manter contraste
       n.style.setProperty('--noite', String(gsap.utils.clamp(0, 1, (8 - hora) / 3)))
       pedir()
     }
@@ -1155,6 +1166,7 @@
       emFoco = it
       itens.forEach((x) => x.classList.toggle('is-on', x === it))
       cheio.style.setProperty('--cheio', it.offsetLeft + 'px')
+      atualizarNav()
     }
     // Em foco: o marco mais perto do primeiro terço da janela.
     const peloMeio = () => {
@@ -1170,10 +1182,52 @@
     trilho.addEventListener('click', bloquear, true)
     const foco = (e) => { const it = itens.find((c) => c.contains(e.target)); if (!it) return; vp.scrollLeft = 0; focar(it); gsap.to(trilho, { x: prender(-(it.offsetLeft - Math.min(vp.clientWidth * 0.33, 420) + pad())), duration: reduzido() ? 0 : 0.45, ease: 'power3.out', onUpdate: () => d.update() }) }
     trilho.addEventListener('focusin', foco)
+    // Controles: setas, índice com um ponto por marco, roda do mouse (um marco por gesto, sem prender a rolagem da página) e pistas de borda.
+    const ant = $('.dias-ant'), prox = $('.dias-prox'), indice = $('.dias-indice')
+    const idxAtual = () => Math.max(0, itens.indexOf(emFoco))
+    const irPara = (i) => {
+      const it = itens[Math.max(0, Math.min(itens.length - 1, i))]
+      focar(it)
+      gsap.to(trilho, { x: prender(-(it.offsetLeft - Math.min(vp.clientWidth * 0.33, 420) + pad())), duration: reduzido() ? 0 : 0.6, ease: 'power3.out', onUpdate: () => d.update() })
+    }
+    const pontos = itens.map((it, i) => {
+      const li = document.createElement('li'), b = document.createElement('button')
+      b.type = 'button'; b.className = 'dias-ponto'; b.setAttribute('aria-label', (i + 1) + ' / ' + itens.length)
+      b.addEventListener('click', () => irPara(i))
+      li.appendChild(b); indice.appendChild(li); return b
+    })
+    function bordas() {
+      const x = Number(gsap.getProperty(trilho, 'x')), max = minX()
+      vp.classList.toggle('pode-esquerda', x < -4)
+      vp.classList.toggle('pode-direita', x > max + 4)
+      if (ant) ant.disabled = idxAtual() <= 0
+      if (prox) prox.disabled = idxAtual() >= itens.length - 1
+    }
+    function atualizarNav() {
+      const i = idxAtual()
+      pontos.forEach((b, k) => { b.classList.toggle('is-on', k === i); b.setAttribute('aria-current', k === i ? 'true' : 'false') })
+      bordas()
+    }
+    const cliqueAnt = () => irPara(idxAtual() - 1), cliqueProx = () => irPara(idxAtual() + 1)
+    if (ant) ant.addEventListener('click', cliqueAnt)
+    if (prox) prox.addEventListener('click', cliqueProx)
+    let acumulado = 0, esfriou = 0
+    const roda = (e) => {
+      if (Math.abs(e.deltaY) < Math.abs(e.deltaX) || !e.deltaY) return
+      const vai = e.deltaY > 0 ? 1 : -1, i = idxAtual()
+      if (vai > 0 ? i >= itens.length - 1 : i <= 0) return // nas pontas a página volta a rolar normalmente
+      e.preventDefault()
+      acumulado += e.deltaY
+      if (Math.abs(acumulado) < 60 || Date.now() < esfriou) return
+      acumulado = 0; esfriou = Date.now() + 450
+      irPara(i + vai)
+    }
+    vp.addEventListener('wheel', roda, { passive: false })
+    gsap.ticker.add(bordas)
     const ro = new ResizeObserver(() => { d.applyBounds({ minX: minX(), maxX: 0 }); gsap.set(trilho, { x: prender(Number(gsap.getProperty(trilho, 'x'))) }); d.update(); peloMeio() })
     ro.observe(vp)
     focar(itens[0])
-    return () => { ro.disconnect(); d.kill(); trilho.removeEventListener('click', bloquear, true); trilho.removeEventListener('focusin', foco); vp.style.overflow = ''; gsap.set(trilho, { clearProps: 'transform' }) }
+    return () => { gsap.ticker.remove(bordas); vp.removeEventListener('wheel', roda); if (ant) ant.removeEventListener('click', cliqueAnt); if (prox) prox.removeEventListener('click', cliqueProx); ro.disconnect(); d.kill(); trilho.removeEventListener('click', bloquear, true); trilho.removeEventListener('focusin', foco); vp.style.overflow = ''; gsap.set(trilho, { clearProps: 'transform' }) }
   }
 
   /* ---------- Fecho: o avião novo pousa nos botões (só se aviao.js existir; sem ele, nada solto na tela) ---------- */
@@ -1181,7 +1235,7 @@
     const ctas = $('[data-aviao-pouso]')
     if (!ctas || reduz || !temAviao()) return
     // Pousa ao lado do último botão, voando pela faixa do título do fecho.
-    const voar = () => { let pouso = {}; try { pouso = pousoAoLado(ctas, $('.pp-chapter-title', ctas), $('.pp-ctas .pp-cta:last-child', ctas)) } catch (e) {} try { window.PPAviao.voar(ctas, pouso) } catch (e) {} }
+    const voar = () => { let pouso = {}; try { pouso = pousoAoLado(ctas, $('.pp-chapter-title', ctas), $('.pp-ctas .pp-cta:last-child', ctas)) } catch (e) {} try { window.PPAviao.voar(ctas, Object.assign({}, pouso, { borda: true, alvo: $('.pp-ctas .pp-cta:first-child', ctas), duracao: 5800 })) } catch (e) {} }
     ScrollTrigger.create({ trigger: ctas, start: 'top 60%', once: true, onEnter: voar })
   }
 })()

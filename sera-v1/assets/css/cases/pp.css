@@ -88,3 +88,9 @@
 .ppk-island i{width:20px;height:20px;border:1.5px solid #8B8A84;border-radius:6px}
 .ppk-ori{display:grid;place-items:center;margin-left:auto;width:38px;height:38px;border-radius:50%;background:#F7FF9E;color:#111110}
 .ppk-ori svg{width:18px;height:18px}
+
+/* Card da home: frames reais do estúdio no lugar das formas, e o selo "Paperplane Studio" na fonte do logo (Geist). */
+.ppk-art img{display:block;width:100%;height:100%;object-fit:cover}
+.stage-pp .brand-chip{font-family:"Geist",system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;height:38px;padding:0 15px 0 7px;gap:10px}
+.stage-pp .pp-chip-mark{width:26px;height:26px;border-radius:8px}
+.stage-pp .pp-chip-mark svg{width:15px;height:15px}
