@@ -57,6 +57,9 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.35.0 =
+* Selected work: o título de cada card diminui só o necessário para caber, em qualquer idioma e largura; o botão "Read case" não é mais cortado pela borda do card.
+
 = 3.34.1 =
 * Back to top: a página não termina mais fora do topo quando o clique vem junto com rolagem (inércia do trackpad, roda do mouse ou toque). A entrada fica bloqueada desde o clique e a posição é mantida no topo durante todo o voo.
 
