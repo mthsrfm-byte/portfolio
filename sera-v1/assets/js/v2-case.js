@@ -606,4 +606,20 @@
 		layout();
 		frame();
 	} );
+
+	/* next-case thumbnail: the 760x553 card is scaled to the frame's real width, so it always fills it
+	   (fixed per-breakpoint scales left gaps on wide phones and tablets) */
+	var nc = document.querySelector( '.next-case.has-thumb' );
+	var nt = nc && nc.querySelector( '.next-thumb' );
+	if ( nt && window.ResizeObserver ) {
+		var fit = function () {
+			var w = nt.offsetWidth;
+			if ( w ) {
+				nc.style.setProperty( '--nt-w', w + 'px' );
+				nc.style.setProperty( '--nt-s', ( w / 760 ).toFixed( 5 ) );
+			}
+		};
+		new ResizeObserver( fit ).observe( nt );
+		fit();
+	}
 } )();

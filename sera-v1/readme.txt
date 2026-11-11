@@ -57,6 +57,9 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.21.5 =
+* Próximo case: a miniatura escala pela largura real do quadro (v2-case.js) e preenche certo em celular, tablet e desktop; em telas de toque fica no tamanho cheio.
+
 = 3.21.4 =
 * Piscadas no iPhone: o grão das seções escuras (home, cases, rodapé, céu do Paperplane) era um SVG com feTurbulence recalculado ao vivo, e às vezes com mix-blend-mode. O Safari redesenhava isso na rolagem e o conteúdo por cima piscava. Agora é PNG pré-renderizado (assets/img/grain-*.png), sem blend.
 
