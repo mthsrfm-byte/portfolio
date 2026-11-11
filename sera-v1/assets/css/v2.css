@@ -13,7 +13,7 @@ html.is-v2{
   --v2-paper-hair:rgba(239,238,232,.12);
   --v2-accent-lt:color-mix(in srgb,var(--accent) 62%,#fff);
   /* light specks for the dark sections */
-  --v2-grain-lt:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .96 0 0 0 0 .95 0 0 0 0 .92 0 0 0 1.6 -.62'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.1'/%3E%3C/svg%3E");
+  --v2-grain-lt:url("../img/grain-light.png");
 }
 
 /* ---------- selection + focus ---------- */

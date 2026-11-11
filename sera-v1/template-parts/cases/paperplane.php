@@ -539,7 +539,7 @@ defined( 'ABSPATH' ) || exit;
   </div>
 
   <div class="pp-night" style="--h:0">
-    <div class="night-sky" aria-hidden="true"><i class="pp-stars"></i><svg class="grao" width="100%" height="100%"><filter id="pp-grao-f"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 0 0.5  0 0 0 .55 0"/></filter><rect width="100%" height="100%" filter="url(#pp-grao-f)"/></svg></div>
+    <div class="night-sky" aria-hidden="true"><i class="pp-stars"></i><i class="grao"></i></div>
     <div class="pp-wide night-grid">
       <div class="night-clock">
         <div class="pp-clock" aria-hidden="true">

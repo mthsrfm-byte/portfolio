@@ -57,6 +57,9 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.21.4 =
+* Piscadas no iPhone: o grão das seções escuras (home, cases, rodapé, céu do Paperplane) era um SVG com feTurbulence recalculado ao vivo, e às vezes com mix-blend-mode. O Safari redesenhava isso na rolagem e o conteúdo por cima piscava. Agora é PNG pré-renderizado (assets/img/grain-*.png), sem blend.
+
 = 3.21.3 =
 * Paperplane: cabeçalho escuro também com a classe do case (hdr-escuro), que a camada v2 cobria com a pílula clara.
 * Paperplane no celular: no máximo 2 telas (iframes) vivas por vez; com 6 o iOS derrubava a aba e a página recarregava no meio da rolagem.
