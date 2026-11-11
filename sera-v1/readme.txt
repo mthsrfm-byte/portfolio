@@ -57,6 +57,9 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.30.1 =
+* Paperplane, "Sem saldo": as partículas paradas sobre o botão ficam verdes e translúcidas (voltam à cor normal ao sair) e a interação toda ficou ~30% mais rápida.
+
 = 3.30.0 =
 * Home, labirinto: o caminho ficou vivo. Anda mais rápido e com ritmo variado, pausa pouco (0,35–1,25 s), tem rastro mais longo e abre um anel a cada chegada. No celular o caminho agora aparece e passeia pelo labirinto inteiro, discreto atrás do texto.
 * Paperplane: "Simple outside, advanced inside." vira "Effortless to use, serious under the hood." (PT: "Fácil de usar, sério por baixo do capô."), também no índice e na linha do tempo. Rodar Aparência › Sera · Cases › "Importar e publicar todos".
