@@ -188,3 +188,15 @@ html.is-v2 .hb-av li+li{border-top:1px solid var(--v2-hair)}
 html.is-v2 .hb-av li i{width:7px;height:7px;background:var(--ink);box-shadow:0 0 0 3px rgba(17,17,16,.08)}
 html.is-v2 .hb-av li.is-freela i{background:transparent;box-shadow:inset 0 0 0 1.5px var(--ink)}
 html.is-v2 .hb-av li.is-freela i::after{display:none}
+
+/* 3.25 · deck do Selected work sem "faixa morta": o cartão encostava 20–32px abaixo do fio, e o anterior
+   subia 10px por trás, aparecendo cortado e com sombras empilhadas nas laterais. Agora: o cartão para
+   logo abaixo do título, o anterior encolhe e some (sem subir), e a borda de baixo do título é um degradê
+   curto em vez de um corte seco. */
+html.is-v2 .cases{--stack-top:calc(var(--adm) + var(--hdr) + var(--wh) + 14px)}
+@media (max-width:560px){html.is-v2 .cases{--stack-top:calc(var(--adm) + var(--hdr) + var(--wh) + 6px)}}
+html.is-v2 .cases>.case-card{translate:none;opacity:calc(1 - var(--cover,0) * var(--cover,0));box-shadow:0 -10px 24px -18px rgba(17,17,16,.22)}
+html.is-v2 .cases>.case-card:first-child{box-shadow:none}
+html.is-v2 .work-head::before{bottom:-14px;background:linear-gradient(var(--bg) calc(100% - 14px),rgba(245,244,239,0))}
+html.is-v2 .work-head.is-stuck::after{bottom:4px}
+@media (prefers-reduced-motion:reduce){html.is-v2 .cases>.case-card{opacity:1}}

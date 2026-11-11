@@ -57,6 +57,9 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.25.0 =
+* Home, Selected work: sem a faixa morta entre o título fixo e o cartão. O cartão para logo abaixo do título, o anterior encolhe e some em vez de subir por trás (acabam as sombras empilhadas nas laterais) e a borda do título vira um degradê curto.
+
 = 3.24.0 =
 * Menu 03 "troca lenta": a pílula volta a escurecer sobre blocos escuros (Approach, zonas escuras do Paperplane, painéis em largura total), agora com transição de 0,9 s por uma camada de opacidade. Detecção leve em v2.js (só os blocos escuros, medidos no carregamento/redimensionamento). Mantém botões de 12px e paddings de 3.23.
 * Barra de status do iPhone acompanha o menu (meta theme-color clara/escura).
