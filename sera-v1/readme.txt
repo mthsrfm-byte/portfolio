@@ -57,6 +57,9 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.32.1 =
+* Approach no celular e tablet em uma coluna: os itens 01 e 03 não têm mais o fio vertical à direita; só os fios horizontais.
+
 = 3.32.0 =
 * Back to top em "vista aérea": a página pula para o topo escondida, encolhe sobre um labirinto (o mesmo do hero, com a rota azul subindo do rodapé ao topo), voa até o começo e mergulha no hero. Nenhuma animação de scroll roda de trás para frente. Com movimento reduzido ou a menos de uma tela e meia do topo, segue a rolagem simples.
 * Linha de cargo do topo: "Product Designer & Builder · Now at Pagaleve" (pt: "Hoje na Pagaleve"); quem tinha o texto antigo salvo no Personalizar é atualizado sozinho.
