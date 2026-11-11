@@ -237,8 +237,11 @@
     st.textContent = out.join('\n'); d.head.appendChild(st); d.__seguro = d.styleSheets.length
   }
   setInterval(() => {
+    if (document.hidden) return
     molduras.forEach((m) => {
       const ap = m.frame && m.el.closest('.aparelho'); if (!ap) return
+      if (!m.visivel && m.corDe === m.frame) return // fora da tela: já tem cor; só reamostra quando visível
+      m.corDe = m.frame
       try { seguro(m.frame.contentDocument) } catch (e) {}
       try { const d = m.frame.contentDocument, w = d.documentElement.clientWidth, h = d.documentElement.clientHeight; const t = corEm(d, w / 2, 2), b = corEm(d, 4, h - 2); if (t) ap.style.setProperty('--ap-topo', t); if (b) ap.style.setProperty('--ap-base', b) } catch (e) {}
     })
@@ -1223,8 +1226,9 @@
       b.addEventListener('click', () => irPara(i))
       li.appendChild(b); indice.appendChild(li); return b
     })
+    let limite = minX() // medido no resize (ResizeObserver abaixo); ler a cada quadro forçava layout
     function bordas() {
-      const x = Number(gsap.getProperty(trilho, 'x')), max = minX()
+      const x = Number(gsap.getProperty(trilho, 'x')), max = limite
       vp.classList.toggle('pode-esquerda', x < -4)
       vp.classList.toggle('pode-direita', x > max + 4)
       if (ant) ant.disabled = idxAtual() <= 0
@@ -1251,7 +1255,7 @@
     }
     // sem roda: a rolagem da página nunca move a linha; só o arraste
     gsap.ticker.add(bordas)
-    const ro = new ResizeObserver(() => { d.applyBounds({ minX: minX(), maxX: 0 }); gsap.set(trilho, { x: prender(Number(gsap.getProperty(trilho, 'x'))) }); d.update(); peloMeio() })
+    const ro = new ResizeObserver(() => { limite = minX(); d.applyBounds({ minX: limite, maxX: 0 }); gsap.set(trilho, { x: prender(Number(gsap.getProperty(trilho, 'x'))) }); d.update(); peloMeio() })
     ro.observe(vp)
     focar(itens[0])
     return () => { gsap.ticker.remove(bordas); vp.removeEventListener('wheel', roda); if (ant) ant.removeEventListener('click', cliqueAnt); if (prox) prox.removeEventListener('click', cliqueProx); ro.disconnect(); d.kill(); trilho.removeEventListener('click', bloquear, true); trilho.removeEventListener('focusin', foco); vp.style.overflow = ''; gsap.set(trilho, { clearProps: 'transform' }) }
@@ -1294,5 +1298,6 @@
   }
   const pedir = () => { if (!raf) raf = requestAnimationFrame(ver) }
   // Sem ouvir o scroll (forçar layout a cada quadro travava a rolagem suave): checa 4x por segundo, fora do caminho da rolagem.
-  setInterval(() => { if (!document.hidden) pedir() }, 250); pedir()
+  // O resultado não é usado (menu fixo em vidro claro desde 3.22.0): roda uma vez, sem o intervalo de 4x/s que forçava layout.
+  pedir()
 })()
