@@ -439,3 +439,46 @@ var V2_CASE_ICONS = {
 	// 5. CTAs: restrained magnetic pull
 	V2.magnet( $$( '.hero-ctas .btn' ), 6 );
 } )();
+
+/* 3.35 · Selected work: a card has a fixed height, so a long headline (the Portuguese ones above all)
+   used to push the "Read case" button out of the card. Each title now steps its size down, only as far
+   as needed, until everything in the card's text column fits. Runs again when fonts load or the window
+   changes size. */
+( function () {
+	'use strict';
+	var cards = [].slice.call( document.querySelectorAll( '.cases > .case-card' ) );
+	if ( ! cards.length ) {
+		return;
+	}
+	function fit() {
+		cards.forEach( function ( card ) {
+			var body = card.querySelector( '.case-body' );
+			var title = card.querySelector( '.case-title' );
+			if ( ! body || ! title ) {
+				return;
+			}
+			title.style.fontSize = '';
+			if ( body.scrollHeight - body.clientHeight <= 1 ) {
+				return;
+			}
+			var base = parseFloat( getComputedStyle( title ).fontSize ) || 0;
+			for ( var f = 0.94; base && f >= 0.52; f -= 0.06 ) {
+				title.style.fontSize = ( base * f ).toFixed( 1 ) + 'px';
+				if ( body.scrollHeight - body.clientHeight <= 1 ) {
+					break;
+				}
+			}
+		} );
+	}
+	var t = 0;
+	function later() {
+		clearTimeout( t );
+		t = setTimeout( fit, 120 );
+	}
+	fit();
+	window.addEventListener( 'load', fit );
+	window.addEventListener( 'resize', later );
+	if ( document.fonts && document.fonts.ready ) {
+		document.fonts.ready.then( fit );
+	}
+} )();
