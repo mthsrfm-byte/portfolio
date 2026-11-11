@@ -1,6 +1,6 @@
 === Sera v.1 ===
 Contributors: matheusserafim
-Stable tag: 3.18.2
+Stable tag: 3.18.3
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
@@ -56,6 +56,11 @@ Rascunhos aparecem na Home só para você (logado), com a etiqueta "Rascunho".
 da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
+
+= 3.18.3 =
+* Paperplane: cards de regra contidos (o hover dos botões não passa para o card vizinho).
+* Paperplane: noite com contraste medido (13:1 no pior horário); lista de horários sobre painel escuro fixo.
+* Paperplane: virada do hero para a frase mais gradual (janelas de animação mais longas).
 
 = 3.18.2 =
 * Paperplane: notificação do banco fictício (Lowfield) com a frase de cartão estourado; tese centralizada sem rótulo.

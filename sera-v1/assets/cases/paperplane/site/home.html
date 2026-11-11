@@ -2815,7 +2815,7 @@ function heroF(now){
   const tilt=lerp(ph?10:16,0,a);
   const y0=lerp(top0+(1-intro)*80,Math.max(70,(h-sh)/2),a);
   /* platô final: o player cobre a frase e depois escorrega para baixo, revelando-a */
-  const b=eio(seg(p,.34,.62)),c=eio(seg(p,.7,.86));
+  const b=eio(seg(p,.28,.70)),c=eio(seg(p,.64,.94));
   const capH=cap.offsetHeight,capTop=Math.max(ph?72:84,h*(ph?.16:.12));cap.style.top=capTop+'px';
   const fit=Math.min(w*(ph?.94:.8)/sw,(h-(ph?140:150))/sh);
   const mid=Math.min((h-sh*fit)/2,capTop-14);

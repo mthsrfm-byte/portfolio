@@ -258,7 +258,7 @@ html:not(.js) .pp-case .etapas-lista p,.pp-case .etapas.sem-pin .etapas-lista p{
 .pp-case .etapas.is-pin .etapas-lista{margin-top:14px}
 }
 .pp-case .pp-deck{display:grid;gap:18px;background:none}
-.pp-case .pp-regra{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center;padding:clamp(24px,3.6vw,48px);border-radius:28px;background:var(--surface);border:1px solid var(--line);box-shadow:0 -24px 50px -34px rgba(0,0,0,.7);overflow:hidden}
+.pp-case .pp-regra{position:relative;overflow:hidden;isolation:isolate;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center;padding:clamp(24px,3.6vw,48px);border-radius:28px;background:var(--surface);border:1px solid var(--line);box-shadow:0 -24px 50px -34px rgba(0,0,0,.7);overflow:hidden}
 .pp-case .pp-regra::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(60% 80% at 100% 0%,color-mix(in srgb,var(--lime) 7%,transparent),transparent 70%)}
 .pp-case .regra--inv .regra-txt{order:2}
 .pp-case .regra--inv::before{background:radial-gradient(60% 80% at 0% 0%,color-mix(in srgb,var(--lime) 7%,transparent),transparent 70%)}
@@ -754,8 +754,11 @@ html:not(.js) .pp-case .night-list li,html:not(.js) .pp-case .night-notes,html:n
 .pp-case .db-previa[data-tema="claro"] .db-pecas{background:#F3F1EA;border-color:#E2E0D8}
 .pp-case .db-previa[data-tema="claro"] .db-rot{color:#6B6963}
 .pp-case .pp-night.tem-ceu,.pp-case .pp-night.ceu-parado{--sky-ink:#F6F5F0;--sky-ink-2:#E4E3DC;--sky-line:rgba(255,255,255,.3)}
-.pp-case .pp-night.tem-ceu{--sky-ink:color-mix(in srgb,#111110 calc(var(--claro,0) * 100%),#F1F0EB);--sky-ink-2:color-mix(in srgb,#22211E calc(var(--claro,0) * 100%),#C9CBCD);--sky-line:color-mix(in srgb,rgba(17,17,16,.32) calc(var(--claro,0) * 100%),#2E3540)}
+.pp-case .pp-night.tem-ceu{--sky-ink:#F1F0EB;--sky-ink-2:#C9CBCD;--sky-line:#2E3540}
 .pp-case .pp-night.tem-ceu .c-face{stroke:var(--sky-ink-2)}
-@media (max-width:760px){.pp-case .pp-night.tem-ceu .night-clock{background:color-mix(in srgb,#0A0D14 90%,transparent)}
+@media (max-width:760px){.pp-case .pp-night.tem-ceu .night-clock{background:rgba(10,13,20,.8);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 .pp-case .pp-night.tem-ceu .night-clock{background:color-mix(in srgb,#F5F4EF calc(var(--claro,0) * 94%),color-mix(in srgb,var(--sky-top) 92%,transparent))}
 }
+
+/* Noite: a lista fica sobre um painel escuro fixo, então o texto mantém contraste em qualquer horário (o céu troca por baixo). */
+.pp-case .pp-night.tem-ceu .night-list{background:rgba(10,13,20,.8);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:20px;padding:0 clamp(18px,2.4vw,32px)}
