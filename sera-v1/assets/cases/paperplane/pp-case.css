@@ -500,8 +500,8 @@ html:not(.js) .pp-case .etapas-lista p,.pp-case .etapas.sem-pin .etapas-lista p{
 }
 .pp-case .pp-leque{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:center;gap:clamp(8px,2vw,28px);max-width:var(--cel-w);margin:0 auto;padding:clamp(8px,2vw,24px) 0 8px}
 .pp-case .pp-cel{position:relative;margin:0;transition:filter .6s ease}
-.pp-case .cel-esq{transform:translateX(3%) rotate(-2.5deg) scale(.92);z-index:1}
-.pp-case .cel-dir{transform:translateX(-3%) rotate(2.5deg) scale(.92);z-index:1}
+.pp-case .cel-esq{width:92%;justify-self:end;z-index:1}
+.pp-case .cel-dir{width:92%;justify-self:start;z-index:1}
 .pp-case .cel-meio{z-index:2;transform:scale(1.04)}
 .pp-case .pp-cel::before{content:"";position:absolute;inset:-8% -14%;z-index:-1;border-radius:50%;background:radial-gradient(closest-side,rgba(245,244,239,.0),transparent);transition:background .6s ease}
 .pp-case .pp-cel:has(.aparelho[data-tema="claro"])::before{background:radial-gradient(closest-side,rgba(245,244,239,.30),rgba(245,244,239,.08) 60%,transparent)}
@@ -525,8 +525,8 @@ html:not(.js) .pp-case .etapas-lista p,.pp-case .etapas.sem-pin .etapas-lista p{
 .pp-case .ind>span:last-child{font-size:13.5px;color:#CFCEC7}
 .pp-case .indices-cap{grid-column:1/-1;text-align:center;font-size:12px!important;padding:6px 0 0}
 @media (max-width:700px){.pp-case .pp-leque{gap:4px;padding:6px 0}
-.pp-case .cel-esq{transform:translateX(8%) rotate(-3deg) scale(.88)}
-.pp-case .cel-dir{transform:translateX(-8%) rotate(3deg) scale(.88)}
+.pp-case .cel-esq{width:88%}
+.pp-case .cel-dir{width:88%}
 .pp-case .cel-n{width:20px;height:20px;margin-left:-10px;font-size:10px}
 .pp-case .notas-cel{gap:6px}
 .pp-case .notas-cel b{font-size:13.5px}
@@ -974,3 +974,5 @@ html:not(.js) .pp-case .night-list li,html:not(.js) .pp-case .night-notes,html:n
 .pp-case .night-palco .night-notes{margin-top:24px!important}
 }
 @media (max-width:760px){.pp-case .night-palco .arco-ini,.pp-case .night-palco .arco-fim{bottom:-20px!important}.pp-case .night-palco .clock-time{margin-top:18px!important}}
+/* 3.36 · fim do case: nada escuro aparece como fio abaixo do Próximo case */
+.pp-next{position:relative;z-index:2;background:var(--bg);box-shadow:0 6px 0 var(--bg)}
