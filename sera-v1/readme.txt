@@ -57,6 +57,11 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.34.0 =
+* Labirinto: a cabeça do caminho agora é quadrada (no hero e no back to top).
+* Back to top: as cobrinhas sobem coladas na página, uma de cada lado, e saem pelo topo; nada fica parado esperando lá em cima.
+* Back to top em páginas longas (cases): em vez da folha em branco, o miolo vira um esqueleto da própria página (faixas escuras, blocos no lugar das telas, barras no lugar dos textos) e volta a ser a página real ao chegar no topo.
+
 = 3.33.0 =
 * Back to top mais liso: o voo roda como animação na GPU, as animações da página pausam durante o trajeto e, em páginas longas, só as duas pontas são sobrevoadas de verdade (o miolo passa como uma folha de papel lisa, sem faixa em branco por falta de pintura).
 * Barra de rolagem da página: trilho de papel e polegar fino em tinta.

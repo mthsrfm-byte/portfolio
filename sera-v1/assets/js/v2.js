@@ -206,8 +206,10 @@
 		sol.style.strokeWidth = sw;
 		snake.style.strokeWidth = sw;
 		var head = el( 'g', {}, svg2 );
-		var ring = el( 'circle', { class: 'mz-b-ring', r: s * 0.16, cx: 0, cy: 0 }, head );
-		var dot = el( 'circle', { class: 'mz-b', r: s * 0.16, cx: 0, cy: 0 }, head );
+		// 3.34 · square head (and square pulse), like the start marker
+		var hq = s * 0.15;
+		var ring = el( 'rect', { class: 'mz-b-ring', x: -hq, y: -hq, width: hq * 2, height: hq * 2 }, head );
+		var dot = el( 'rect', { class: 'mz-b', x: -hq, y: -hq, width: hq * 2, height: hq * 2 }, head );
 		var cxy = function ( c ) {
 			var cx = c % cols;
 			return [ ( cx + 0.5 ) * s, ( ( c - cx ) / cols + 0.5 ) * s ];
@@ -737,8 +739,8 @@
 		var k = V2.clamp( 2.4 * vh / docH, mobile ? 0.3 : 0.24, 0.42 ); // farthest zoom
 		var lnk = Math.log( k );
 		var real = k * y0; // on-screen travel if the camera flew over the whole page
-		// 3.33 · long pages: only the two ends are flown over for real; the middle is hopped behind a plain
-		// paper sheet (the "veil"), so the browser never has to paint the whole page in one second
+		// 3.33 · long pages: only the two ends are flown over for real; the middle is hopped behind a skeleton
+		// of the page (the "veil"), so the browser never has to paint the whole page in one second
 		var hop = real > vh * 3.2;
 		var V = hop ? vh * 2.6 : real;
 		var dur = Math.round( V2.clamp( 1450 + V / vh * 130, 1600, 1900 ) );
@@ -747,8 +749,9 @@
 		// of <html>, so it is not transformed with the page
 		var cell = mobile ? 22 : 28;
 		var shift = Math.round( Math.min( V * 0.3, vh * 0.55 ) ); // how far the mazes drift (parallax)
+		var EX = 4; // rows above the screen: the snakes leave through the top, nothing waits up there
 		var cols = Math.ceil( vw / 2 / cell ) + 1;
-		var rows = Math.ceil( ( vh + shift ) / cell ) + 1;
+		var rows = Math.ceil( ( vh + shift ) / cell ) + 1 + EX;
 		function div( cls, parent ) {
 			var n = document.createElement( 'div' );
 			n.className = cls;
@@ -761,31 +764,99 @@
 		var stage = div( 'v2-fly' );
 		var inner = div( 'v2-fly-in', stage );
 		var drift = div( 'v2-fly-drift', inner );
-		// one snake per side: it climbs from the bottom, next to the page, to the top
-		var snakes = [ 0, 1 ].map( function ( side ) {
-			var host = div( 'v2-maze v2-fly-maze', drift );
-			host.style.width = cols * cell + 'px';
+		// Each side is three mazes in a row, counted from the centre: one hidden behind the page, a
+		// narrow strip right beside it where the snake lives (so it stays close to the page instead of
+		// wandering to the corners), and the rest out to the edge.
+		var gap = Math.max( 1, Math.floor( k * vw / 2 / cell ) );
+		var strip = Math.min( mobile ? 5 : 8, Math.max( 3, cols - gap ) );
+		var mazes = [];
+		function piece( side, from, n, seed, snake ) {
+			if ( n < 1 ) {
+				return null;
+			}
+			var host = div( 'v2-maze v2-fly-maze' + ( snake ? '' : ' is-fill' ), drift );
+			host.style.width = n * cell + 'px';
 			host.style.height = rows * cell + 'px';
-			host.style.left = Math.round( side ? vw / 2 : vw / 2 - cols * cell ) + 'px';
-			host.style.top = -shift + 'px';
-			var near = side ? 0.3 : 0.7; // the column next to the page
-			var mz = V2.maze( host, { cols: cols, rows: rows, cell: 10, scale: cell / 10, solPx: 1.7, seed: side ? 2017 : 1309,
-				start: [ Math.round( ( cols - 1 ) * near ), rows - 3 ] } );
-			mz.solveTo( Math.round( ( cols - 1 ) * ( 1 - near ) ), 2, true );
+			host.style.left = Math.round( side ? vw / 2 + from * cell : vw / 2 - ( from + n ) * cell ) + 'px';
+			host.style.top = -( shift + EX * cell ) + 'px';
+			var mid = Math.floor( n / 2 );
+			var mz = V2.maze( host, { cols: n, rows: rows, cell: 10, scale: cell / 10, solPx: 1.8, seed: seed, inner: true, start: [ mid, rows - 2 ] } );
+			mazes.push( mz );
+			if ( ! snake ) {
+				return null;
+			}
+			mz.solveTo( mid, 0, true );
 			var sol = host.querySelector( '.mz-sol' ); // the body of the snake
-			var trail = host.querySelector( '.mz-snake' ); // the faint line it leaves behind
-			var dot = host.querySelector( '.mz-b' );
+			var trail = host.querySelector( '.mz-snake' ); // the faint tail behind it
 			trail.setAttribute( 'd', sol.getAttribute( 'd' ) );
 			trail.setAttribute( 'pathLength', '1' );
-			sol.style.strokeDasharray = '0 2';
-			trail.style.strokeDasharray = '0 2';
-			return { mz: mz, sol: sol, trail: trail, head: mobile || ! dot ? null : dot.parentNode, len: mobile ? 0 : sol.getTotalLength() };
+			sol.style.strokeDasharray = '0 3';
+			trail.style.strokeDasharray = '0 3';
+			return { sol: sol, trail: trail, head: host.querySelector( '.mz-b' ).parentNode, len: sol.getTotalLength() };
+		}
+		var snakes = [];
+		[ 0, 1 ].forEach( function ( side ) {
+			piece( side, 0, gap, 4001 + side, false );
+			snakes.push( piece( side, gap, strip, side ? 2017 : 1309, true ) );
+			piece( side, gap + strip, cols - gap - strip, 5003 + side, false );
 		} );
-		var veil = hop ? div( 'v2-fly-veil' ) : null;
 		root.appendChild( stage );
-		if ( veil ) {
-			veil.style.width = vw + 'px';
-			veil.style.height = vh + 'px';
+
+		// 3.34 · long pages: while the middle is hopped, a skeleton of the page itself (dark bands, media
+		// as blocks, text as bars, at their real positions) stands in for it. Only the two stretches that
+		// are actually seen are built, each in the coordinates of its own half of the flight.
+		var veil = null, sheet = null, skA = null, skB = null;
+		if ( hop ) {
+			veil = div( 'v2-fly-veil' );
+			sheet = div( 'v2-fly-sheet', veil );
+			sheet.style.width = vw + 'px';
+			sheet.style.height = vh + 'px';
+			skA = div( 'v2-fly-sk', veil );
+			skB = div( 'v2-fly-sk', veil );
+			var span = ( vh + V / k ) / 2; // document px kept at each end
+			var DARK = '#approach, .site-footer, .pp-zone[data-theme="dark"], .cv2-bleed, .art-panel.art-dark, .impact, .pp-night, [data-header-tone="dark"]';
+			var MEDIA = 'figure, .mockup-stage, .device-frame, .browser-frame, .art-panel, .art, .pp-wide, img, video, iframe, canvas';
+			var count = 0;
+			var put = function ( n, cls, radius ) {
+				if ( count > 700 ) {
+					return;
+				}
+				var r = n.getBoundingClientRect();
+				if ( r.width < 8 || r.height < 6 || r.right < 0 || r.left > vw ) {
+					return;
+				}
+				var top = r.top + y0;
+				var c = top + r.height / 2;
+				var g = c > docH - span ? skA : ( c < span ? skB : null );
+				if ( ! g ) {
+					return;
+				}
+				var b = document.createElement( 'i' );
+				b.className = cls;
+				b.style.cssText = 'left:' + ( r.left * k ).toFixed( 1 ) + 'px;top:' + ( top * k ).toFixed( 1 ) + 'px;width:' + ( r.width * k ).toFixed( 1 ) + 'px;height:' + ( r.height * k ).toFixed( 1 ) + 'px' + ( radius ? ';border-radius:' + radius : '' );
+				g.appendChild( b );
+				count++;
+			};
+			var each = function ( sel, fn ) {
+				[].forEach.call( document.querySelectorAll( sel ), fn );
+			};
+			each( DARK, function ( n ) {
+				if ( ! n.parentElement.closest( DARK ) ) {
+					put( n, 'sk-dark', n.classList.contains( 'site-footer' ) ? ( 36 * k ).toFixed( 1 ) + 'px ' + ( 36 * k ).toFixed( 1 ) + 'px 0 0' : '' );
+				}
+			} );
+			each( 'main :is(' + MEDIA + ')', function ( n ) {
+				if ( ! n.parentElement.closest( MEDIA ) ) {
+					put( n, n.closest( DARK ) ? 'sk-media on-dark' : 'sk-media', ( 14 * k ).toFixed( 1 ) + 'px' );
+				}
+			} );
+			each( 'main :is(h1,h2,h3,p,li), .site-footer :is(h2,p,a)', function ( n ) {
+				if ( n.closest( MEDIA ) || ( 'LI' === n.tagName && n.querySelector( 'p,h3' ) ) ) {
+					return;
+				}
+				var h = /^H/.test( n.tagName );
+				put( n, ( h ? 'sk-head' : 'sk-text' ) + ( n.closest( DARK ) ? ' on-dark' : '' ), '' );
+			} );
 			root.appendChild( veil );
 		}
 
@@ -806,7 +877,7 @@
 			return { s: s, tx: vw / 2 * ( 1 - s ), ty: ty, zf: zf, e: e };
 		}
 		var N = 80;
-		var kBody = [], kVeil = [], kIn = [], kDrift = [];
+		var kBody = [], kSheet = [], kVeil = [], kA = [], kB = [], kIn = [], kDrift = [];
 		function sample( p, top ) {
 			var c = cam( p, top );
 			kBody.push( { offset: p, transform: 'translate3d(' + c.tx.toFixed( 2 ) + 'px,' + c.ty.toFixed( 2 ) + 'px,0) scale(' + c.s.toFixed( 5 ) + ')' } );
@@ -816,14 +887,21 @@
 				// the sheet sits exactly on the page's on-screen rectangle
 				var t = Math.max( -2, c.ty );
 				var b = Math.min( vh + 2, c.ty + c.s * docH );
-				kVeil.push( { offset: p, opacity: ( sst( ( p - 0.16 ) / 0.16 ) * sst( ( 0.84 - p ) / 0.16 ) ).toFixed( 3 ),
-					transform: 'translate3d(' + c.tx.toFixed( 2 ) + 'px,' + t.toFixed( 2 ) + 'px,0) scale(' + c.s.toFixed( 5 ) + ',' + ( Math.max( 0, b - t ) / vh ).toFixed( 5 ) + ')' } );
+				kSheet.push( { offset: p, transform: 'translate3d(' + c.tx.toFixed( 2 ) + 'px,' + t.toFixed( 2 ) + 'px,0) scale(' + c.s.toFixed( 5 ) + ',' + ( Math.max( 0, b - t ) / vh ).toFixed( 5 ) + ')' } );
+				kVeil.push( { offset: p, opacity: ( sst( ( p - 0.26 ) / 0.1 ) * sst( ( 0.74 - p ) / 0.1 ) ).toFixed( 3 ) } );
 			}
 		}
 		for ( var i = 0; i <= N; i++ ) {
 			sample( i / N, hop && i > N / 2 );
 			if ( hop && i === N / 2 ) {
-				sample( 0.5, true ); // same offset twice: the hop, hidden by the sheet
+				sample( 0.5, true ); // same offset twice: the hop, hidden by the skeleton
+			}
+			if ( hop ) {
+				// each skeleton group follows its own half of the flight all the way, so nothing jumps
+				[ [ kA, false ], [ kB, true ] ].forEach( function ( g ) {
+					var c = cam( i / N, g[ 1 ] );
+					g[ 0 ].push( { offset: i / N, transform: 'translate3d(' + c.tx.toFixed( 2 ) + 'px,' + c.ty.toFixed( 2 ) + 'px,0) scale(' + ( c.s / k ).toFixed( 5 ) + ')' } );
+				} );
 			}
 		}
 
@@ -891,8 +969,8 @@
 			EV.forEach( function ( t ) {
 				window.removeEventListener( t, block, { capture: true } );
 			} );
-			snakes.forEach( function ( sn ) {
-				sn.mz.destroy();
+			mazes.forEach( function ( mz ) {
+				mz.destroy();
 			} );
 			root.removeChild( stage );
 			if ( veil ) {
@@ -905,25 +983,28 @@
 				V2.remeasure();
 			}
 		}
-		// the snakes: a body of fixed length that slithers up its route and leaves a faint trail; the
-		// only per-frame work on the main thread (two dash offsets and a dot each)
-		var LEN = 0.2;
+		// the snakes: a short body with a square head and a faint, longer tail slither up the strip and
+		// out through the top; the only per-frame work on the main thread
+		var LEN = 0.16, TAIL = 0.42;
 		function slither() {
 			if ( ended ) {
 				return;
 			}
 			var p = V2.clamp( ( main.currentTime || 0 ) / dur, 0, 1 );
-			var h = sst( ( p - 0.03 ) / 0.8 ) * ( 1 + LEN );
+			var h = sst( ( p - 0.02 ) / 0.8 ) * ( 1 + TAIL );
 			var head = Math.min( 1, h );
-			var tail = Math.max( 0, h - LEN );
 			snakes.forEach( function ( sn ) {
-				sn.sol.style.strokeDasharray = Math.max( 0, head - tail ).toFixed( 4 ) + ' 2';
-				sn.sol.style.strokeDashoffset = ( -tail ).toFixed( 4 );
-				sn.trail.style.strokeDasharray = head.toFixed( 4 ) + ' 2';
-				if ( sn.head ) {
-					var pt = sn.sol.getPointAtLength( head * sn.len );
-					sn.head.setAttribute( 'transform', 'translate(' + pt.x.toFixed( 2 ) + ' ' + pt.y.toFixed( 2 ) + ')' );
+				if ( ! sn ) {
+					return;
 				}
+				var t1 = V2.clamp( h - LEN, 0, 1 );
+				var t2 = V2.clamp( h - TAIL, 0, 1 );
+				sn.sol.style.strokeDasharray = ( head - t1 ).toFixed( 4 ) + ' 3';
+				sn.sol.style.strokeDashoffset = ( -t1 ).toFixed( 4 );
+				sn.trail.style.strokeDasharray = ( head - t2 ).toFixed( 4 ) + ' 3';
+				sn.trail.style.strokeDashoffset = ( -t2 ).toFixed( 4 );
+				var pt = sn.sol.getPointAtLength( head * sn.len );
+				sn.head.setAttribute( 'transform', 'translate(' + pt.x.toFixed( 2 ) + ' ' + pt.y.toFixed( 2 ) + ')' );
 			} );
 			requestAnimationFrame( slither );
 		}
@@ -939,7 +1020,7 @@
 			main = body.animate( kBody, o );
 			anims = [ main, inner.animate( kIn, o ), drift.animate( kDrift, o ) ];
 			if ( veil ) {
-				anims.push( veil.animate( kVeil, o ) );
+				anims.push( veil.animate( kVeil, o ), sheet.animate( kSheet, o ), skA.animate( kA, o ), skB.animate( kB, o ) );
 			}
 			main.onfinish = done;
 			endT = setTimeout( done, dur + 600 );
