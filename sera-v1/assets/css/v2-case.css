@@ -281,3 +281,6 @@ html.is-v2 body:not(.is-pp) .next-thumb .mockup-stage:not(:has(.ac-hero-stage))>
 html.is-v2 body:not(.is-pp) .next-case:not([class*=" is-"]):has(.next-link[href*="/lume"]){--ca:#FF009B}
 /* touch screens never hover: show the thumbnail at full size instead of the resting .86 */
 @media (hover:none){html.is-v2 body:not(.is-pp) .next-thumb{transform:none}}
+/* the phone always sits in front of the browser in the thumbnail */
+html.is-v2 body:not(.is-pp) .next-thumb .ac-hero-stage>.browser{z-index:1!important}
+html.is-v2 body:not(.is-pp) .next-thumb .ac-hero-stage>.device{z-index:2!important}
