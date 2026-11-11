@@ -44,6 +44,15 @@
     ]
   }
 
+  // Modo borda: o avião entra pela borda esquerda da tela, sobe um pouco, planeia e pousa ao lado do botão (opcoes.alvo).
+  function trajetoBorda(inst, w, h) {
+    var r = inst.el.getBoundingClientRect(), a = inst.opcoes.alvo
+    var xs = -r.left - 90, ys = h * 0.66, xe = w * 0.9, ye = h * 0.45
+    if (a) { var ar = a.getBoundingClientRect(); xe = ar.right - r.left + 22; ye = ar.top - r.top + ar.height * 0.42 }
+    var dx = xe - xs, lift = Math.min(h * 0.24, 150)
+    return 'M ' + xs + ' ' + ys + ' C ' + (xs + dx * 0.32) + ' ' + (ys - lift) + ', ' + (xs + dx * 0.7) + ' ' + (ye - lift * 0.35) + ', ' + xe + ' ' + ye
+  }
+
   function criar(el, opcoes) {
     var o = opcoes || {}
     var inst = {
@@ -75,12 +84,12 @@
     if (w === inst.w && h === inst.h && inst.len) return
     inst.w = w; inst.h = h
     inst.metade = (inst.aviao.offsetWidth || 54) / 2
-    inst.guia.setAttribute('d', trajetos(w, h, inst.opcoes.ancoras)[inst.passada])
+    inst.guia.setAttribute('d', inst.opcoes.borda ? trajetoBorda(inst, w, h) : trajetos(w, h, inst.opcoes.ancoras)[inst.passada])
     inst.len = inst.guia.getTotalLength()
     // adaptação: a passada do site sai pela direita do container; aqui o avião pousa antes, perto da borda direita.
     var alvoX = w * (inst.opcoes.pousoX != null ? inst.opcoes.pousoX : 0.9)
     var fim = inst.len, passo = 4
-    if (inst.pouso) {
+    if (inst.pouso && !inst.opcoes.borda) {
       for (var d = inst.len * 0.5; d <= inst.len; d += passo) { if (inst.guia.getPointAtLength(d).x >= alvoX) { fim = d; break } }
     }
     inst.lenFinal = fim
@@ -102,7 +111,7 @@
     var a = Math.atan2(pt2.y - pt.y, pt2.x - pt.x) * 180 / Math.PI
     var d = 1.05 + Math.sin(t * Math.PI * 2) * 0.12 // site: respira entre 0,93 e 1,17 do tamanho
     var m = inst.metade
-    inst.aviao.style.opacity = 1
+    inst.aviao.style.opacity = inst.opcoes.borda ? Math.min(1, t / 0.07) : 1
     inst.aviao.style.transform = 'translate3d(' + (pt.x - m) + 'px,' + (pt.y - m) + 'px,0) rotate(' + a + 'deg) scale(' + d + ')'
     // rastro: os últimos 320 px percorridos (site: flyTrailMask). Depois do pouso a cauda alcança o avião e some.
     var ini = Math.max(0, L - Math.min(L, RASTRO_MAX))

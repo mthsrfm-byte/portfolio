@@ -106,9 +106,8 @@ defined( 'ABSPATH' ) || exit;
 </div>
 
 <!-- ============ TESE ============ -->
-<section class="pp-thesis" aria-labelledby="tese-t">
+<section class="pp-thesis" aria-label="<?php echo esc_attr( sera_t( 'The thesis', 'A tese' ) ); ?>">
   <div class="pp-wide">
-    <p class="pp-kicker" id="tese-t"><?php sera_e( 'The thesis', 'A tese' ); ?></p>
     <p class="pp-thesis-line"><?php sera_e( 'AI wrote the code. The vision, the scope and every detail that makes Paperplane feel simple and well finished came from my decisions.', 'A IA escreveu o código. A visão, o escopo e cada detalhe que faz o Paperplane parecer simples e bem acabado saíram das minhas decisões.' ); ?></p>
   </div>
 </section>
@@ -133,7 +132,7 @@ defined( 'ABSPATH' ) || exit;
         <div class="jan jan-4" style="--x:5%;--y:52%;--r:3deg;--w:32%"><div class="jan-bar"><i></i><i></i><i></i><span>editor</span></div><div class="jan-c"><div class="pp-clipes"><i style="--w:18%"></i><i style="--w:31%"></i><i style="--w:9%"></i><i style="--w:24%"></i><i style="--w:14%"></i></div><div class="pp-clipes clipes-2"><i style="--w:40%"></i><i style="--w:12%"></i></div><span class="jan-selo"><?php sera_e( 'clip_final_v3_this_time.mp4', 'clipe_final_v3_agora_vai.mp4' ); ?></span></div></div>
         <div class="jan jan-5" style="--x:39%;--y:50%;--r:-3deg;--w:27%"><div class="jan-bar"><?php sera_e( '<i></i><i></i><i></i><span>spending sheet</span>', '<i></i><i></i><i></i><span>planilha de gastos</span>' ); ?></div><div class="jan-c"><table class="pp-plan"><thead><tr><th><?php sera_e( 'scene', 'cena' ); ?></th><th><?php sera_e( 'how much?', 'quanto foi?' ); ?></th></tr></thead><tbody><tr><td>1</td><td>?</td></tr><tr><td>2</td><td>?</td></tr><tr><td>3</td><td>?</td></tr></tbody></table></div></div>
         <div class="jan jan-6" style="--x:68%;--y:54%;--r:2deg;--w:30%"><div class="jan-bar"><?php sera_e( '<i></i><i></i><i></i><span>prompt in English</span>', '<i></i><i></i><i></i><span>prompt em inglês</span>' ); ?></div><div class="jan-c"><p class="prompt">a woman with short hair, same as before, PLEASE same face</p></div></div>
-        <div class="pp-notif" role="note"><span class="pp-notif-app" aria-hidden="true">P</span><span class="pp-notif-corpo"><span class="pp-notif-topo"><b><?php sera_e( 'Paperplane Bank', 'Banco Paperplane' ); ?></b><time><?php sera_e( 'now', 'agora' ); ?></time></span><span class="pp-notif-msg"><?php sera_e( 'Your statement is ready', 'Sua fatura fechou' ); ?></span><span class="pp-notif-valor"><?php sera_e( 'R$ 48,730.00', 'R$ 48.730,00' ); ?></span></span></div>
+        <div class="pp-notif" role="note"><span class="pp-notif-app" aria-hidden="true">L</span><span class="pp-notif-corpo"><span class="pp-notif-topo"><b>Lowfield</b><time><?php sera_e( 'now', 'agora' ); ?></time></span><span class="pp-notif-msg"><?php sera_e( 'Oops, looks like you maxed out your card buying credits this month.', 'Ops, parece que você estourou o cartão comprando créditos esse mês.' ); ?></span><span class="pp-notif-valor"><?php sera_e( 'R$ 48,730.00', 'R$ 48.730,00' ); ?></span></span></div>
       </div>
       <div class="mesa-estudio">
         <div class="pp-browser">
@@ -401,14 +400,11 @@ defined( 'ABSPATH' ) || exit;
       </div>
       <div class="db-bloco">
         <span class="db-k"><?php sera_e( 'Type', 'Tipo' ); ?></span>
-        <div class="db-tipo">
-          <span class="db-aa" aria-hidden="true">Aa</span>
-          <ul>
-            <li><b class="f-display">Bricolage Grotesque</b><span><?php sera_e( 'Titles', 'Títulos' ); ?></span></li>
-            <li><b class="f-sans">Geist</b><span><?php sera_e( 'Body copy', 'Texto corrido' ); ?></span></li>
-            <li><b class="f-mono">Geist Mono</b><span><?php sera_e( 'Labels and tokens', 'Rótulos e tokens' ); ?></span></li>
-          </ul>
-        </div>
+        <ul class="db-fontes">
+          <li><span class="db-aa f-display" aria-hidden="true">Aa</span><b class="f-display"><?php echo 'Bricolage Grotesque'; ?></b><span class="db-papel"><?php sera_e( 'Titles', 'Títulos' ); ?></span></li>
+          <li><span class="db-aa f-sans" aria-hidden="true">Aa</span><b class="f-sans">Geist</b><span class="db-papel"><?php sera_e( 'Body copy', 'Texto corrido' ); ?></span></li>
+          <li><span class="db-aa f-mono" aria-hidden="true">Aa</span><b class="f-mono">Geist Mono</b><span class="db-papel"><?php sera_e( 'Labels and tokens', 'Rótulos e tokens' ); ?></span></li>
+        </ul>
       </div>
     </div>
     <div class="db-previa palco" data-tema="escuro" data-tema-segue>
@@ -570,7 +566,7 @@ defined( 'ABSPATH' ) || exit;
   </div>
 
   <div class="pp-days">
-    <div class="pp-wide days-head"><span class="pp-art-label"><?php sera_e( 'The 23 days', 'Os 23 dias' ); ?></span><span class="dias-dica"><svg class="ico" aria-hidden="true"><use href="#pp-i-arrastar"/></svg><?php sera_e( 'Drag', 'Arraste' ); ?></span></div>
+    <div class="pp-wide days-head"><span class="pp-art-label"><?php sera_e( 'The 23 days', 'Os 23 dias' ); ?></span><span class="dias-dica"><svg class="ico" aria-hidden="true"><use href="#pp-i-arrastar"/></svg><?php sera_e( 'Drag, use the arrows or the wheel', 'Arraste, use as setas ou a roda' ); ?></span></div>
     <div class="days-viewport">
       <div class="days-trilho">
         <i class="days-fio" aria-hidden="true"><i class="days-fio-cheio"></i></i>
@@ -589,6 +585,11 @@ defined( 'ABSPATH' ) || exit;
           <li tabindex="0" style="--d:12" class="is-key"><span class="dia-marca" aria-hidden="true"><svg class="ico"><use href="#pp-i-check"/></svg></span><span class="dia-n"><?php sera_e( 'Day 23', 'Dia 23' ); ?></span><?php sera_e( '<b>Finish</b>', '<b>Acabamento</b>' ); ?><p><?php sera_e( 'PDF boards, subtitles, markers and the episode pack.', 'Prancha em PDF, legendas, marcadores e pacote do episódio.' ); ?></p><time datetime="2026-11-10">10/11</time></li>
         </ol>
       </div>
+    </div>
+    <div class="pp-wide dias-nav">
+      <button type="button" class="dias-seta dias-ant" aria-label="<?php echo esc_attr( sera_t( 'Previous milestone', 'Marco anterior' ) ); ?>"><svg class="ico" aria-hidden="true"><use href="#pp-i-seta"/></svg></button>
+      <ol class="dias-indice" aria-label="<?php echo esc_attr( sera_t( 'Go to a milestone', 'Ir para um marco' ) ); ?>"></ol>
+      <button type="button" class="dias-seta dias-prox" aria-label="<?php echo esc_attr( sera_t( 'Next milestone', 'Próximo marco' ) ); ?>"><svg class="ico" aria-hidden="true"><use href="#pp-i-seta"/></svg></button>
     </div>
   </div>
 

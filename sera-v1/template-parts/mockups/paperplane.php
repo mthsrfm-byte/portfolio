@@ -45,7 +45,7 @@ ob_start();
 					<p class="ppk-cs">Aprovar 3A · “Lia entra no vagão vazio, molhada de chuva”</p>
 					<span class="ppk-btn">Abrir tomada 3A →</span>
 				</div>
-				<div class="ppk-art" aria-hidden="true"><i class="ppk-win"></i><i class="ppk-win"></i><i class="ppk-win"></i><i class="ppk-fig"></i></div>
+				<div class="ppk-art"><img src="<?php echo esc_url( get_template_directory_uri() . '/assets/cases/paperplane/site/media/cp-2-anime.webp' ); ?>" width="551" height="315" alt="" loading="lazy" decoding="async"></div>
 			</div>
 			<div class="ppk-card ppk-prog">
 				<p class="ppk-ct2">Progresso do episódio</p>
@@ -81,7 +81,7 @@ ob_start();
 	<p class="ppk-kicker">Boa madrugada · Projeto aberto</p>
 	<p class="ppk-h">O último trem</p>
 	<div class="ppk-card ppk-cont ppk-m-cont">
-		<div class="ppk-art" aria-hidden="true"><i class="ppk-win"></i><i class="ppk-win"></i><i class="ppk-win"></i><i class="ppk-fig"></i></div>
+		<div class="ppk-art"><img src="<?php echo esc_url( get_template_directory_uri() . '/assets/cases/paperplane/site/media/cel-1.webp' ); ?>" width="409" height="234" alt="" loading="lazy" decoding="async"></div>
 		<p class="ppk-ct">Continuar de onde parei</p>
 		<span class="ppk-btn">Abrir tomada 3A →</span>
 	</div>
