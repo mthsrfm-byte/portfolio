@@ -287,12 +287,18 @@ var V2_CASE_ICONS = {
 		hero.insertBefore( host, hero.firstChild );
 		maze = V2.maze( host, opts( seed ) );
 		maze.mobile = mobile;
-		maze.end = mobile ? null : end;
+		// mobile: no clear band, so the path roams the whole maze, faint behind the text
+		maze.end = mobile ? [ Math.max( 1, Math.floor( cols * 0.25 ) ), Math.min( rows - 2, 4 ) ] : end;
 	}
 	var mazeStarted = false;
 	var heroVisible = true;
 	function wanderOpts() {
-		return { allowed: allowedFn, len: 11, speed: 1.3, seed: 29, firstWait: 1600 };
+		// livelier: faster walks at a varying pace, short pauses, a longer tail and a ring on each arrival
+		var mob = maze && maze.mobile;
+		return { allowed: allowedFn, len: mob ? 14 : 18, speed: mob ? 2.4 : 3, seed: 29, firstWait: 700, vary: true, pulse: true,
+			rest: function ( r ) {
+				return 350 + r() * 900;
+			} };
 	}
 	function startMaze() {
 		if ( mazeStarted ) {

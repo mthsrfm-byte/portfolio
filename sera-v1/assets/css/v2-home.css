@@ -212,3 +212,11 @@ html.is-v2 .work-head.is-stuck::after{bottom:4px}
 @media (max-width:640px){
   html.is-v2 .cases>.case-card .case-title{font-size:min(clamp(26px,7.6vw,32px),4.4svh);line-height:1.04;text-wrap:pretty}
 }
+
+/* 3.30 · labirinto vivo também no celular: caminho e cabeça visíveis, discretos atrás do texto */
+@media (max-width:860px){
+  html.is-v2 .hero-maze .mz-snake,html.is-v2 .hero-maze .mz-sol{opacity:.6}
+  html.is-v2 .hero-maze .mz-b{display:block;opacity:.8}
+  html.is-v2 .hero-maze .mz-b-ring{display:block}
+  html.is-v2 .hero-maze .mz-flood{opacity:.12}
+}

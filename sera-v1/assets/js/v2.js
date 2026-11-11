@@ -390,6 +390,14 @@
 				wd.last = now;
 				var j = wd.j;
 				if ( j.pos >= j.to - 0.001 ) {
+					// arrival: a soft ring opens around the head once
+					if ( ! j.arrived ) {
+						j.arrived = true;
+						if ( opt.pulse && ring.animate ) {
+							ring.style.display = '';
+							ring.animate( [ { opacity: 0.55, transform: 'scale(1)' }, { opacity: 0, transform: 'scale(3.2)' } ], { duration: 900, easing: 'cubic-bezier(.22,1,.36,1)' } );
+						}
+					}
 					// resting between walks
 					wd.wait -= dt * 1000;
 					if ( wd.wait <= 0 || wd.queued ) {
@@ -417,13 +425,14 @@
 							wd.gather = null;
 							startJourney( p );
 						}
-						wd.wait = 1600 + r() * 2200;
+						wd.wait = opt.rest ? opt.rest( r ) : 1600 + r() * 2200;
+						wd.pace = opt.vary ? 0.75 + r() * 0.7 : 1;
 					}
 				} else {
 					// constant calm pace, eased in and out over the first / last cell
 					j.t += dt;
 					var remain = ( j.to - j.pos ) / s;
-					var v = speed * Math.max( 0.12, Math.min( 1, j.t / 0.8, Math.sqrt( remain / 1.1 ) ) );
+					var v = speed * ( wd.pace || 1 ) * Math.max( 0.12, Math.min( 1, j.t / 0.8, Math.sqrt( remain / 1.1 ) ) );
 					j.pos = Math.min( j.to, j.pos + v * s * dt );
 					// the visible length settles to L during the first walk
 					if ( wd.win !== L ) {
