@@ -620,14 +620,15 @@
       return () => m.classList.remove('estatico')
     }
     m.classList.remove('estatico')
-    const colunaDe = (i) => i % 3, linhaDe = (i) => (i < 3 ? 0 : 1)
+    // No celular a grade vira 2×3 (cartões largos o bastante para ler); no desktop segue 3×2.
+    const cel = () => innerWidth <= 760
+    const colunaDe = (i) => (cel() ? i % 2 : i % 3), linhaDe = (i) => (cel() ? Math.floor(i / 2) : (i < 3 ? 0 : 1))
     const geo = () => {
-      const W = m.clientWidth, H = m.clientHeight, gap = W * 0.018
+      const W = m.clientWidth, H = m.clientHeight, c = cel(), gap = c ? W * 0.035 : W * 0.018
       // Grade centrada na mesa, com cartões de proporção fixa (nada de janela esticada e vazia).
-      const cel = innerWidth <= 760
-      let cw = (W * (cel ? 0.92 : 0.86) - gap * 2) / 3, ch = cel ? (H * 0.9 - gap) / 2 : Math.min((H * 0.86 - gap) / 2, cw * 0.66)
-      if (!cel && ch < cw * 0.66) cw = Math.min(cw, ch / 0.5)
-      const gw = cw * 3 + gap * 2, gh = ch * 2 + gap
+      let cw = c ? (W * 0.9 - gap) / 2 : (W * 0.86 - gap * 2) / 3, ch = c ? Math.min((H * 0.9 - gap * 2) / 3, cw * 1.1) : Math.min((H * 0.86 - gap) / 2, cw * 0.66)
+      if (!c && ch < cw * 0.66) cw = Math.min(cw, ch / 0.5)
+      const gw = c ? cw * 2 + gap : cw * 3 + gap * 2, gh = c ? ch * 3 + gap * 2 : ch * 2 + gap
       const area = { x: (W - gw) / 2, y: (H - gh) / 2, w: gw, h: gh }
       m.style.setProperty('--grade-x', area.x + 'px'); m.style.setProperty('--grade-y', area.y + 'px')
       return { gap, area, cw, ch }
@@ -646,10 +647,11 @@
       .to({}, { duration: 1.4 })
       .to(notif, { autoAlpha: 0, y: -4, duration: 0.2, ease: 'sair' })
     tl.to({}, { duration: 0.3 })
-    const esq = [jan[0], jan[3]], dir = [jan[2], jan[5]], meioC = jan[1], meioB = jan[4]
-    tl.to(esq, { rotationY: 90, transformOrigin: () => { const g = geo(); return `${g.cw + g.gap / 2}px 50%` }, '--sombra': 0.5, duration: 0.45, ease: 'power2.in' })
+    const c2 = cel()
+    const esq = c2 ? [jan[0], jan[2], jan[4]] : [jan[0], jan[3]], dir = c2 ? [jan[1], jan[3], jan[5]] : [jan[2], jan[5]], meioC = c2 ? [] : jan[1], meioB = c2 ? [] : jan[4]
+    tl.to(esq, { rotationY: 90, transformOrigin: () => { const g = geo(); return c2 ? `${g.cw}px 50%` : `${g.cw + g.gap / 2}px 50%` }, '--sombra': 0.5, duration: 0.45, ease: 'power2.in' })
       .set(esq, { autoAlpha: 0 })
-      .to(dir, { rotationY: -90, transformOrigin: () => `${-geo().gap / 2}px 50%`, '--sombra': 0.5, duration: 0.45, ease: 'power2.in' }, '<0.12')
+      .to(dir, { rotationY: -90, transformOrigin: () => (c2 ? '0px 50%' : `${-geo().gap / 2}px 50%`), '--sombra': 0.5, duration: 0.45, ease: 'power2.in' }, '<0.12')
       .set(dir, { autoAlpha: 0 })
       .to(meioC, { rotationX: -90, transformOrigin: () => { const g = geo(); return `50% ${g.ch + g.gap / 2}px` }, '--sombra': 0.45, duration: 0.42, ease: 'power2.in' }, '>-0.02')
       .set(meioC, { autoAlpha: 0 })
