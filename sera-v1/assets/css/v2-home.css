@@ -131,7 +131,7 @@ html.is-v2 #approach .principle .proof{margin-top:auto;padding-top:18px;border-t
   html.is-v2 #approach .principle:hover .n{color:var(--v2-accent-lt)}
 }
 @media (max-width:900px){
-  html.is-v2 #approach .principle,html.is-v2 #approach .principle:nth-child(even){padding:32px 0;border-right:0}
+  html.is-v2 #approach .principle,html.is-v2 #approach .principle:nth-child(odd),html.is-v2 #approach .principle:nth-child(even){padding:32px 0;border-right:0}
 }
 
 /* ---------- experience ---------- */
