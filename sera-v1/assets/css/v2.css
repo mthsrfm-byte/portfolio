@@ -1,0 +1,119 @@
+/* ==========================================================================
+   Sera v2 · shared layer (home + every case page)
+   Tokens, floating header pill + reading hairline (dark-aware), footer wordmark,
+   maze motif, focus / selection. Everything is scoped under html.is-v2.
+   ========================================================================== */
+
+html.is-v2{
+  --v2-ease:cubic-bezier(.2,.7,.1,1);
+  --v2-ease-out:cubic-bezier(.16,1,.3,1);
+  --v2-d1:240ms;--v2-d2:480ms;--v2-d3:900ms;
+  --v2-hair:rgba(17,17,16,.1);
+  --v2-hair-2:rgba(17,17,16,.16);
+  --v2-paper-hair:rgba(239,238,232,.12);
+  --v2-accent-lt:color-mix(in srgb,var(--accent) 62%,#fff);
+  /* light specks for the dark sections */
+  --v2-grain-lt:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .96 0 0 0 0 .95 0 0 0 0 .92 0 0 0 1.6 -.62'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.1'/%3E%3C/svg%3E");
+}
+
+/* ---------- selection + focus ---------- */
+html.is-v2 ::selection{background:var(--ink);color:var(--bg)}
+html.is-v2 .site-footer ::selection{background:#EFEEE8;color:var(--ink)}
+html.is-v2 :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+html.is-v2 .site-footer :focus-visible{outline-color:var(--v2-accent-lt)}
+
+/* ---------- header: transparent at rest, a floating pill once the page moves ----------
+   ::before (theme's glass bar) becomes the pill; ::after (theme's hairline) becomes the
+   reading-progress line on the pill's bottom edge. Header height never changes. The inner row is
+   the theme's flex row, so an extra small element (e.g. a chapter label) fits between nav and EN. */
+html.is-v2 .site-header{--pill-l:max(8px,calc(max(var(--gutter),(100% - var(--wrap)) / 2 + var(--gutter)) - 22px));--pill-r:max(8px,calc(max(var(--gutter),(100% - var(--wrap)) / 2 + var(--gutter)) - 8px));transition:color .55s var(--v2-ease)}
+html.is-v2 .site-header::before{
+  inset:10px var(--pill-r) 10px var(--pill-l);border-radius:999px;
+  background:rgba(245,244,239,.94);
+  box-shadow:0 0 0 1px var(--v2-hair),0 1px 0 rgba(255,255,255,.7) inset,0 14px 34px -22px rgba(17,17,16,.32);
+  -webkit-backdrop-filter:blur(14px) saturate(160%);backdrop-filter:blur(14px) saturate(160%);
+  opacity:0;transform:translateY(-6px) scale(1.012);
+  transition:opacity var(--v2-d2) var(--v2-ease),transform var(--v2-d3) var(--v2-ease-out),background-color .55s var(--v2-ease),box-shadow .55s var(--v2-ease)}
+html.is-v2 .site-header.is-scrolled::before{opacity:1;transform:none}
+html.is-v2 .site-header::after{
+  top:auto;bottom:10px;left:calc(var(--pill-l) + 30px);right:calc(var(--pill-r) + 30px);height:1px;
+  background:var(--accent);box-shadow:none;border-radius:1px;
+  transform-origin:0 50%;transform:scaleX(var(--v2-p,0));opacity:0;transition:opacity var(--v2-d2) var(--v2-ease),background-color .55s var(--v2-ease)}
+html.is-v2 .site-header.is-scrolled::after{opacity:.9}
+@supports (animation-timeline:scroll()){
+  html.is-v2 .site-header::after{animation:v2-progress linear both;animation-timeline:scroll(root block)}
+}
+@keyframes v2-progress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+html.is-v2 .read-progress{display:none}
+/* over dark blocks the pill turns ink: light hairline, light text, inverted CTA */
+html.is-v2 .site-header .brand,html.is-v2 .site-header .brand-name,html.is-v2 .site-header .lang-trigger,html.is-v2 .site-header .lang-chev,html.is-v2 .site-header .menu-toggle,html.is-v2 .site-header>.wrap>.header-actions>.btn-dark{transition:color .55s var(--v2-ease),background-color .55s var(--v2-ease),border-color .55s var(--v2-ease),transform .2s var(--ease)}
+html.is-v2 .site-header.v2-dark{color:#EFEEE8}
+html.is-v2 .site-header.v2-dark::before{background:rgba(22,22,20,.72);box-shadow:0 0 0 1px rgba(239,238,232,.13),inset 0 1px 0 rgba(239,238,232,.06),0 14px 34px -22px rgba(0,0,0,.5);-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%)}
+html.is-v2 .site-header.v2-dark::after{background:var(--v2-accent-lt)}
+html.is-v2 .site-header.v2-dark .brand{color:#EFEEE8}
+html.is-v2 .site-header.v2-dark .brand-name{color:#A2A09A;border-left-color:rgba(239,238,232,.16)}
+html.is-v2 .site-header.v2-dark .lang-trigger{color:#EFEEE8;border-color:rgba(239,238,232,.2)}
+html.is-v2 .site-header.v2-dark .lang-trigger:hover{border-color:rgba(239,238,232,.6)}
+html.is-v2 .site-header.v2-dark .lang-chev{color:#A2A09A}
+html.is-v2 .site-header.v2-dark .menu-toggle{color:#EFEEE8;border-color:rgba(239,238,232,.2)}
+html.is-v2 .site-header.v2-dark .header-actions>.btn-dark{background:#EFEEE8;color:var(--ink)}
+html.is-v2 .site-header.v2-dark .header-actions>.btn-dark:hover{background:#fff}
+@media (min-width:861px){
+  html.is-v2 .site-header .primary-nav ul{transition:color .55s var(--v2-ease)}
+  html.is-v2 .site-header.v2-dark .primary-nav ul{color:#CFCDC6}
+  html.is-v2 .site-header.v2-dark .primary-nav a:hover{color:#fff}
+}
+/* the nav underline grows from the left and settles a hair lower */
+html.is-v2 .primary-nav a::after{bottom:1px;transition:transform var(--v2-d2) var(--v2-ease-out)}
+@media (max-width:860px){
+  html.is-v2 .site-header{--pill-l:8px;--pill-r:8px}
+  html.is-v2 .site-header::before{inset:8px 8px;border-radius:18px}
+  html.is-v2 .site-header::after{bottom:8px}
+  /* the open menu sheet is light glass: keep its links ink whatever the pill does */
+  html.is-v2 .site-header.v2-dark .primary-nav{color:var(--ink)}
+}
+
+/* ---------- maze motif ---------- */
+.v2-maze{position:absolute;pointer-events:none;overflow:visible}
+.v2-maze svg{position:absolute;inset:0;display:block;width:100%;height:100%;overflow:visible}
+.v2-maze .mz-top{will-change:transform}
+.v2-maze .mz-walls{fill:none;stroke:currentColor;stroke-width:1;stroke-linecap:square;vector-effect:non-scaling-stroke}
+.v2-maze .mz-flood{fill:none;stroke:var(--accent);stroke-width:1;stroke-linecap:round;vector-effect:non-scaling-stroke;opacity:.22;transition:opacity 1.2s var(--v2-ease)}
+.v2-maze .mz-flood.is-fading{opacity:0}
+.v2-maze .mz-sol{fill:none;stroke:var(--accent);stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1 1;stroke-dashoffset:1}
+.v2-maze .mz-snake{fill:none;stroke:var(--accent);stroke-linecap:round;stroke-linejoin:round}
+.v2-maze .mz-a{fill:var(--bg);stroke:var(--accent);stroke-width:1.2;vector-effect:non-scaling-stroke}
+.v2-maze .mz-b{fill:var(--accent);opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.2);transition:opacity .3s,transform .6s var(--v2-ease-out)}
+.v2-maze .mz-b-ring{fill:none;stroke:var(--accent);stroke-width:1;vector-effect:non-scaling-stroke;opacity:0;transform-box:fill-box;transform-origin:center}
+.v2-maze.is-solved .mz-b{opacity:1;transform:none}
+.v2-maze.is-solved .mz-b-ring{animation:v2-ring 2.6s var(--v2-ease-out) .1s 2}
+@keyframes v2-ring{0%{opacity:.7;transform:scale(1)}100%{opacity:0;transform:scale(3.2)}}
+
+/* ---------- footer ---------- */
+html.is-v2 .site-footer{position:relative;overflow:hidden;isolation:isolate}
+html.is-v2 .site-footer::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:var(--v2-grain-lt);background-size:180px 180px;opacity:.9}
+html.is-v2 .site-footer>.wrap{position:relative;z-index:1}
+html.is-v2 .site-footer .footer-mail{position:relative;border-bottom-color:transparent}
+html.is-v2 .site-footer .footer-mail::before,html.is-v2 .site-footer .footer-mail::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:rgba(255,255,255,.28)}
+html.is-v2 .site-footer .footer-mail::after{background:#fff;transform:scaleX(0);transform-origin:100% 50%;transition:transform .7s var(--v2-ease-out)}
+html.is-v2 .site-footer .footer-mail:hover::after{transform:scaleX(1);transform-origin:0 50%}
+html.is-v2 .site-footer .footer-mail .ico{transition:transform var(--v2-d2) var(--v2-ease-out)}
+html.is-v2 .site-footer .footer-mail:hover .ico{transform:translate(3px,-3px)}
+
+/* the maze wordmark: a background layer in the right half of the dark area, bleeding off the edge,
+   faded toward the left so the title, the email and the bottom row stay clean on top */
+.v2-wm{position:absolute;z-index:0;right:-4vw;bottom:-3%;width:min(64vw,1100px);pointer-events:none;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 55%);mask-image:linear-gradient(90deg,transparent 0%,#000 55%)}
+.v2-wm svg{display:block;width:100%;height:auto;color:rgba(239,238,232,.045);transform:translateY(calc(var(--v2-wm,0) * 6%))}
+.v2-wm svg path{stroke:rgba(239,238,232,.16);stroke-width:.3;vector-effect:none}
+@media (max-width:640px){.v2-wm{display:none}}
+
+@media (prefers-reduced-motion:reduce){
+  html.is-v2 .site-header::before,html.is-v2 .site-header::after{transition:none}
+  html.is-v2 .site-header::after{animation:none}
+  .v2-wm svg{transform:none}
+  .v2-maze .mz-sol{stroke-dasharray:none;stroke-dashoffset:0}
+}
+html.is-v2 .v2-mag{transition-property:transform,background,border-color,color,translate;transition-duration:.2s,.2s,.2s,.2s,.7s;transition-timing-function:var(--ease),ease,ease,ease,var(--v2-ease-out)}
+
+@media (max-width:860px){.v2-maze .mz-a,.v2-maze .mz-b,.v2-maze .mz-b-ring{display:none}}
