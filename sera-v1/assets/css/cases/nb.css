@@ -176,3 +176,6 @@
   .nb-ds-grid .sw{grid-template-columns:repeat(2,minmax(0,1fr))}
   .nb-ds-grid .sw span{height:64px}
 }
+@media (max-width:340px){
+  .nb-ds-grid .brand .nb-brand b{font-size:26px}
+}

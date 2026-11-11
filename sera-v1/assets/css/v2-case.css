@@ -225,6 +225,9 @@ html.cv2-mode-pill.is-v2 body:not(.is-pp) .cv2-pill{
   overflow:hidden;opacity:0;visibility:hidden;transform:translateY(10px);
   transition:opacity .24s var(--cv2-ease),transform .48s var(--cv2-out),visibility 0s .24s}
 html.cv2-mode-pill.cv2-inrange.is-v2 body:not(.is-pp) .cv2-pill,html.cv2-mode-pill.cv2-toc-open.is-v2 body:not(.is-pp) .cv2-pill{opacity:1;visibility:visible;transform:none;transition:opacity .3s var(--cv2-ease),transform .48s var(--cv2-out),visibility 0s}
+@media (max-width:860px){
+  html.cv2-mode-pill.cv2-inrange.cv2-reading:not(.cv2-toc-open).is-v2 body:not(.is-pp) .cv2-pill{opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .24s var(--cv2-ease),transform .48s var(--cv2-out),visibility 0s .24s}
+}
 html.is-v2 body:not(.is-pp) .cv2-pill .n{flex:none;color:var(--case-text);font-variant-numeric:tabular-nums}
 html.is-v2 body:not(.is-pp) .cv2-pill .t{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 html.cv2-mode-pill.is-v2 body:not(.is-pp) .cv2-toc{

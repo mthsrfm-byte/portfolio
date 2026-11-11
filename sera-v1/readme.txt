@@ -57,6 +57,12 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.21.2 =
+* Research Hub: imagem do hero sem contagem de pesquisas, pessoas e insights.
+* Experience (will bank): "5M+" vira "milhões de clientes ativos".
+* Cases no celular: a pílula de capítulo some enquanto se lê para baixo e volta ao rolar para cima.
+* Bastidores: marca do design system cabe em 320px.
+
 = 3.21.1 =
 * Celular: cabeçalho escuro sobre seções escuras volta a funcionar no iPhone (camada de tinta real em vez de trocar o fundo do ::before com blur).
 * Home: texto de apoio do "Selected work" não aparece mais por cima dos cards; linha da timeline de Experience passa ao lado do texto.
