@@ -492,6 +492,7 @@
 	var ticking = false;
 	var lastIdx = -2;
 	var lastRange = null;
+	var lastY = window.scrollY;
 	var swapT = 0;
 	function setLabel( idx ) {
 		var cur = kickers[ Math.max( 0, idx ) ];
@@ -543,6 +544,12 @@
 				idx = i;
 				break;
 			}
+		}
+		// the pill sits over the text: tuck it away while reading down, bring it back on scroll up
+		var sy = window.scrollY;
+		if ( Math.abs( sy - lastY ) > 8 ) {
+			doc.classList.toggle( 'cv2-reading', sy > lastY );
+			lastY = sy;
 		}
 		var endTop = nextCase ? nextCase.getBoundingClientRect().top : content.getBoundingClientRect().bottom;
 		var inRange = idx >= 0 && endTop > vh * 0.75;
