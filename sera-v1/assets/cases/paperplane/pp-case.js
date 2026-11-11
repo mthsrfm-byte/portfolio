@@ -360,6 +360,9 @@
   const { gsap, ScrollTrigger, SplitText, CustomEase, MotionPathPlugin, DrawSVGPlugin, Draggable, PPMicro: M, PPSims } = window
   if (!gsap || !ScrollTrigger) { unboot(); return }
   gsap.registerPlugin(ScrollTrigger, SplitText, CustomEase, MotionPathPlugin, DrawSVGPlugin, Draggable)
+  // iPhone: a barra do Safari aparece/some e muda a altura da janela; sem isto o ScrollTrigger recalcula todos
+  // os pins no meio da rolagem e a página "pula" para outro lugar.
+  ScrollTrigger.config({ ignoreMobileResize: true })
   CustomEase.create('studio', 'M0,0 C0.16,1 0.3,1 1,1')
   CustomEase.create('quieto', 'M0,0 C0.33,1 0.68,1 1,1')
   CustomEase.create('pouso', 'M0,0 C0.2,1.25 0.4,1 1,1')
@@ -1058,14 +1061,34 @@
       itens.forEach((x) => x.classList.toggle('is-on', x === li))
     }
     let atual = itens[0]
-    const escolher = () => {
+    let escolher = () => {
       const linha = innerHeight * 0.6, topos = toposNaTela(itens)
       let e = itens[0]
       itens.forEach((li, k) => { if (topos[k] <= linha) e = li })
       if (e !== atual) { atual = e; definir(e) }
     }
+    // 3.27 · celular: "palco" — arco, hora e um item por vez ficam presos (sticky nativo, sem pin do GSAP) enquanto
+    // a rolagem passa por uma trilha vazia; a hora do sol e o item mostrado são sempre a mesma.
+    const lista = $('.night-list', n)
+    const palco = matchMedia('(max-width: 760px)').matches && !reduzido() && lista
+    if (palco) {
+      n.classList.add('night-palco')
+      // arco, hora e item num painel só (o item entra no painel do relógio), para os dois nunca se separarem
+      const painel = $('.night-clock', n)
+      if (painel && lista.parentNode !== painel) painel.append(lista)
+      let trilha = $('.night-trilha', n)
+      if (!trilha) { trilha = document.createElement('div'); trilha.className = 'night-trilha'; trilha.setAttribute('aria-hidden', 'true'); (painel || lista).after(trilha) }
+      const prog = () => { const lb = lista.getBoundingClientRect().bottom, tr = trilha.getBoundingClientRect(); return gsap.utils.clamp(0, 1, (lb - tr.top) / Math.max(1, tr.height)) }
+      n.__horaPalco = () => 5 + prog() * 7
+      escolher = () => {
+        const i = Math.min(itens.length - 1, Math.floor(prog() * itens.length))
+        if (itens[i] !== atual) { atual = itens[i]; definir(itens[i]) }
+      }
+    }
     definir(itens[0])
-    const relogio = ScrollTrigger.create({ trigger: $('.night-list', n), start: 'top 60%', end: 'bottom 60%', refreshPriority: -1, onUpdate: escolher, onRefresh: escolher, onLeave: escolher, onLeaveBack: escolher })
+    const relogio = palco
+      ? ScrollTrigger.create({ trigger: n, start: 'top bottom', end: 'bottom top', refreshPriority: -1, onUpdate: escolher, onRefresh: escolher })
+      : ScrollTrigger.create({ trigger: lista, start: 'top 60%', end: 'bottom 60%', refreshPriority: -1, onUpdate: escolher, onRefresh: escolher, onLeave: escolher, onLeaveBack: escolher })
     if (PPSims && PPSims.quadrosDoCeu) { const q = PPSims.quadrosDoCeu(); if (q.length) setCeu(q, relogio) }
   }
 
@@ -1129,6 +1152,7 @@
     // A hora anda junto com o relógio: entre o horário de um item e o do próximo, pela posição deles na linha de leitura.
     const itens = $$('.night-list li', n)
     const horaContinua = () => {
+      if (n.__horaPalco) return n.__horaPalco()
       const linha = innerHeight * 0.6, topos = toposNaTela(itens)
       if (topos[0] > linha) return 5
       let i = 0

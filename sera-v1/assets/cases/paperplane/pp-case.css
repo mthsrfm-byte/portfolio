@@ -909,3 +909,26 @@ html:not(.js) .pp-case .night-list li,html:not(.js) .pp-case .night-notes,html:n
 .pp-case .pp-night .clock-time{margin-top:0!important}
 }
 @media (prefers-reduced-motion:reduce){.pp-case .arco-sol{transition:none}}
+
+/* 3.27 · Noite no celular, modo palco: um painel preso com o arco largo, a hora e um único item
+   (o da hora do sol). A rolagem passa por uma trilha vazia; sticky nativo, sem pin. Cores fixas. */
+@media (max-width:760px){
+.pp-case .night-palco .night-grid{display:block}
+.pp-case .night-palco .night-clock,.pp-case .night-palco.tem-ceu .night-clock{position:sticky;top:var(--header-h);z-index:3;display:grid!important;grid-template-columns:1fr auto;align-items:end;gap:6px 12px;
+  padding:16px var(--gutter) 18px!important;border-bottom:1px solid rgba(244,243,238,.08)}
+.pp-case .night-palco .pp-arco{grid-column:1/-1;width:100%!important;height:auto;aspect-ratio:200/58;margin-bottom:6px}
+.pp-case .night-palco .arco-sol{width:14px!important;height:14px!important;margin:-7px 0 0 -7px!important;box-shadow:0 0 0 4px rgba(247,255,158,.16),0 0 20px 6px rgba(247,255,158,.32)!important}
+.pp-case .night-palco .arco-ini,.pp-case .night-palco .arco-fim{display:block!important;bottom:-4px}
+.pp-case .night-palco .arco-ini{left:-2px}
+.pp-case .night-palco .arco-fim{right:-2px}
+.pp-case .night-palco .clock-time{font-size:40px!important}
+.pp-case .night-palco .clock-label{margin:0!important;align-self:center}
+.pp-case .night-palco .night-list,.pp-case .night-palco.tem-ceu .night-list{grid-column:1/-1;display:grid;margin-top:12px;padding:18px!important;min-height:170px;border-radius:16px;
+  background:rgba(244,243,238,.05)!important;border:1px solid rgba(244,243,238,.1)!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;text-shadow:none}
+.pp-case .night-palco .night-list li{grid-area:1/1;padding:0!important;border:0!important;opacity:0!important;transform:translateY(8px);visibility:hidden;font-size:16.5px!important;line-height:1.5;
+  transition:opacity .4s cubic-bezier(.33,1,.68,1),transform .5s cubic-bezier(.33,1,.68,1),visibility 0s .4s}
+.pp-case .night-palco .night-list li.is-on{opacity:1!important;transform:none;visibility:visible;transition-delay:.06s,.06s,0s}
+.pp-case .night-palco .night-list li time{display:inline-block;margin-bottom:8px}
+.pp-case .night-palco .night-trilha{height:calc(8 * 42svh)}
+.pp-case .night-palco .night-notes{margin-top:0}
+}
