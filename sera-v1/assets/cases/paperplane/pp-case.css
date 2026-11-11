@@ -932,3 +932,21 @@ html:not(.js) .pp-case .night-list li,html:not(.js) .pp-case .night-notes,html:n
 .pp-case .night-palco .night-trilha{height:calc(8 * 42svh)}
 .pp-case .night-palco .night-notes{margin-top:0}
 }
+
+/* 3.28.1 · dez etapas (desktop/tablet): o texto de apoio abre e fecha com altura real (grid 0fr → 1fr) numa curva
+   longa, e o texto aparece um instante depois; antes max-height + margem davam um "pá, pá, pá" seco */
+@media (min-width:900px){
+.pp-case .etapas-lista li{display:grid;grid-template-rows:auto 0fr;transition:grid-template-rows .7s cubic-bezier(.22,1,.36,1),border-color .5s ease}
+.pp-case .etapas-lista li.is-active{grid-template-rows:auto 1fr}
+.pp-case .etapas-lista p{min-height:0;max-height:none!important;margin:0!important;overflow:hidden;opacity:0;transform:translateY(-6px);
+  transition:opacity .3s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.pp-case .etapas-lista li.is-active p{opacity:1;transform:none;transition:opacity .55s ease .18s,transform .7s cubic-bezier(.22,1,.36,1) .12s}
+.pp-case .etapas-lista p::before{content:"";display:block;height:6px}
+.pp-case .et-b{transition:color .5s ease}
+}
+@media (min-width:900px) and (prefers-reduced-motion:reduce){.pp-case .etapas-lista li,.pp-case .etapas-lista p{transition:none}}
+/* 3.28.1 · botão "Draw" no celular: o "· reserva até N" abria para os lados e estourava o card; no celular ele não abre */
+@media (max-width:560px){
+.pp-case .art-botao .reserva{display:none}
+.pp-case .art-botao .pp-btn{max-width:100%;flex-wrap:wrap;justify-content:center}
+}
