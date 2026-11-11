@@ -1967,3 +1967,8 @@
 .wbs-ml{display:flex;justify-content:space-between;margin-top:10px;font-size:12.5px;color:#2B2A26}
 .wbs-ml b{font-weight:700}
 .wbs-sec{margin-top:26px}
+/* case hero on phones: only the iPhone, bigger and centred (the desktop browser is unreadable at this size) */
+@media (max-width:640px){
+  .case-hero-visual .ac-hero-stage>.browser{display:none}
+  .case-hero-visual .ac-hero-stage>.device{--s:.48;margin:56px 0 0}
+}
