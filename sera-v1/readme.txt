@@ -57,6 +57,10 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.27.0 =
+* Paperplane no celular, noite de curadoria em modo palco: um painel preso (sticky nativo) com o arco largo, a hora e um único item, o da hora do sol; a rolagem passa por uma trilha vazia. Sol e item mostrado nunca divergem. Desktop e tablet seguem com a coluna do arco e a lista.
+* Paperplane: ScrollTrigger com ignoreMobileResize, para a barra do Safari aparecendo/sumindo não recalcular os pins no meio da rolagem (a página "pulava").
+
 = 3.26.0 =
 * Paperplane, noite de curadoria: sol em arco no lugar do mostrador (05 → 12), posição só por CSS a partir de --h. Contraste fixo em todas as horas: texto sempre claro sobre vidro escuro (lista e notas), sem trocar cor de texto/fundo com a hora. Medido: texto secundário ≥ 7:1 das 05 às 12.
 
