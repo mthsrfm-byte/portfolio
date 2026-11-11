@@ -108,7 +108,7 @@ defined( 'ABSPATH' ) || exit;
 <!-- ============ TESE ============ -->
 <section class="pp-thesis" aria-label="<?php echo esc_attr( sera_t( 'The thesis', 'A tese' ) ); ?>">
   <div class="pp-wide">
-    <p class="pp-thesis-line"><?php sera_e( 'AI wrote the code. The vision, the scope and every detail that makes Paperplane feel simple and well finished came from my decisions.', 'A IA escreveu o código. A visão, o escopo e cada detalhe que faz o Paperplane parecer simples e bem acabado saíram das minhas decisões.' ); ?></p>
+    <p class="pp-thesis-line"><?php sera_e( '<span class="tese-ia">AI wrote the code.</span> Every decision that makes Paperplane feel simple and finished was mine.', '<span class="tese-ia">A IA escreveu o código.</span> Cada decisão que faz o Paperplane parecer simples e bem acabado foi minha.' ); ?></p>
   </div>
 </section>
 

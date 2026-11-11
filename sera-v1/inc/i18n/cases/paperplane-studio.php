@@ -10,7 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 $c  = sera_b_p( 'Uma frase entra, um episódio animado sai, e cada clique mostra o preço antes de acontecer. Defini o produto, o escopo e o padrão de acabamento de cada tela. Quem construiu foi uma equipe de agentes de IA, sob a minha direção, em 23 dias.', 'lead' );
-$c .= sera_b_p( 'A IA escreveu o código. A visão, o escopo e cada detalhe que faz o Paperplane parecer simples e bem acabado saíram das minhas decisões.' );
+$c .= sera_b_p( 'A IA escreveu o código. Cada decisão que faz o Paperplane parecer simples e bem acabado foi minha.' );
 $c .= sera_b_chapter( 1, 'O cenário', 'Fazer um episódio com IA hoje é dirigir com seis abas abertas e a fatura no escuro.' );
 $c .= sera_b_p( 'Quem tenta fazer animação com IA conhece a cena. Uma aba para a imagem, outra para o vídeo, outra para a voz e uma planilha para lembrar quanto já foi.', 'lead' );
 $c .= sera_b_p( 'O prompt sai em inglês, copiado de um tutorial. Cada tentativa custa, e o preço só aparece depois. O personagem que tinha cabelo curto na cena 1 volta de franja na cena 2. E o total da brincadeira chega no fim do mês, na fatura do cartão.' );

@@ -505,7 +505,7 @@ function sera_starter_cases() {
 	// Text version of the case (SEO, llms.txt, editor). The page itself is template-parts/cases/paperplane.php,
 	// generated with the real studio screens; see inc/paperplane.php.
 	$c  = sera_b_p( 'A sentence goes in, an animated episode comes out, and every click shows its price before it happens. I set the product, the scope and the finish of every screen. A team of AI agents built it under my direction, in 23 days.', 'lead' );
-	$c .= sera_b_p( 'AI wrote the code. The vision, the scope and every detail that makes Paperplane feel simple and well finished came from my decisions.' );
+	$c .= sera_b_p( 'AI wrote the code. Every decision that makes Paperplane feel simple and finished was mine.' );
 	$c .= sera_b_chapter( 1, 'The landscape', 'Making an episode with AI today means directing with six tabs open and the bill in the dark.' );
 	$c .= sera_b_p( 'Anyone who has tried to make animation with AI knows the scene. One tab for the image, another for the video, another for the voice, and a spreadsheet to remember how much has gone.', 'lead' );
 	$c .= sera_b_p( 'The prompt is written in English, copied from a tutorial. Every attempt costs money, and the price only shows up afterwards. The character with short hair in scene 1 comes back with a fringe in scene 2. And the total arrives at the end of the month, on the card statement.' );

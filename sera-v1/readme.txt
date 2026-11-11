@@ -1,6 +1,6 @@
 === Sera v.1 ===
 Contributors: matheusserafim
-Stable tag: 3.19.1
+Stable tag: 3.19.2
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
@@ -56,6 +56,9 @@ Rascunhos aparecem na Home só para você (logado), com a etiqueta "Rascunho".
 da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
+
+= 3.19.2 =
+* Paperplane: tese mais curta; "AI wrote the code." em fonte de código com cursor piscando.
 
 = 3.19.1 =
 * Paperplane: mesa mais baixa no desktop; no celular as janelas voltam a ocupar a mesa.
