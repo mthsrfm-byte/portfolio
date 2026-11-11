@@ -918,6 +918,30 @@
 			e.stopImmediatePropagation();
 		}
 		var EV = [ 'wheel', 'touchmove', 'keydown', 'scroll' ];
+		// 3.34.1 · wheel / touch / keys are blocked from the click itself (trackpad inertia keeps sending
+		// wheel events, which used to restart the smooth scroller under the flight and leave the page
+		// away from the top); scroll events only from start(), after the jump has been seen by everyone
+		var coarse = window.matchMedia( '(pointer: coarse)' ).matches;
+		function listen( t ) {
+			window.addEventListener( t, block, { passive: false, capture: true } );
+		}
+		EV.slice( 0, 3 ).forEach( listen );
+		function hold() {
+			// whatever moved the page (a late glide, touch momentum), put it back on the top
+			if ( window.scrollY > 0 ) {
+				if ( window.seraSmooth && window.seraSmooth.stop ) {
+					window.seraSmooth.stop();
+				}
+				jump();
+			}
+		}
+		function jump() {
+			try {
+				window.scrollTo( { top: 0, left: 0, behavior: 'instant' } );
+			} catch ( err ) {
+				window.scrollTo( 0, 0 );
+			}
+		}
 
 		// Jump first, untransformed. The real scroll event (next frame, or a few frames later where the
 		// browser applies scrollTo asynchronously) reaches every listener before ours, registered last;
@@ -940,13 +964,18 @@
 			}
 		}
 		window.addEventListener( 'scroll', onJump );
-		armT = setTimeout( go, 400 );
+		armT = setTimeout( function () {
+			hold();
+			go();
+		}, 400 );
 		root.style.scrollBehavior = 'auto';
-		try {
-			window.scrollTo( { top: 0, left: 0, behavior: 'instant' } );
-		} catch ( err ) {
-			window.scrollTo( 0, 0 );
+		if ( coarse ) {
+			root.style.overflow = 'hidden'; // ends touch momentum; no classic scrollbar to shift the layout here
 		}
+		if ( window.seraSmooth && window.seraSmooth.stop ) {
+			window.seraSmooth.stop();
+		}
+		jump();
 
 		var anims = [];
 		var main = null;
@@ -958,6 +987,7 @@
 			}
 			ended = true;
 			clearTimeout( endT );
+			hold();
 			anims.forEach( function ( a ) {
 				a.cancel();
 			} );
@@ -965,6 +995,12 @@
 			body.style.willChange = '';
 			body.style.outline = '';
 			root.style.scrollBehavior = '';
+			if ( coarse ) {
+				root.style.overflow = '';
+			}
+			if ( window.seraSmooth && window.seraSmooth.stop ) {
+				window.seraSmooth.stop(); // re-syncs the smooth scroller on the top
+			}
 			root.classList.remove( 'is-flying' );
 			EV.forEach( function ( t ) {
 				window.removeEventListener( t, block, { capture: true } );
@@ -990,6 +1026,7 @@
 			if ( ended ) {
 				return;
 			}
+			hold();
 			var p = V2.clamp( ( main.currentTime || 0 ) / dur, 0, 1 );
 			var h = sst( ( p - 0.02 ) / 0.8 ) * ( 1 + TAIL );
 			var head = Math.min( 1, h );
@@ -1009,9 +1046,8 @@
 			requestAnimationFrame( slither );
 		}
 		function start() {
-			EV.forEach( function ( t ) {
-				window.addEventListener( t, block, { passive: false, capture: true } );
-			} );
+			hold();
+			listen( 'scroll' );
 			root.classList.add( 'is-flying' );
 			body.style.transformOrigin = '0 0';
 			body.style.willChange = 'transform';

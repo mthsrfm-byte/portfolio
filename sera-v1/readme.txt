@@ -57,6 +57,9 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.34.1 =
+* Back to top: a página não termina mais fora do topo quando o clique vem junto com rolagem (inércia do trackpad, roda do mouse ou toque). A entrada fica bloqueada desde o clique e a posição é mantida no topo durante todo o voo.
+
 = 3.34.0 =
 * Labirinto: a cabeça do caminho agora é quadrada (no hero e no back to top).
 * Back to top: as cobrinhas sobem coladas na página, uma de cada lado, e saem pelo topo; nada fica parado esperando lá em cima.
