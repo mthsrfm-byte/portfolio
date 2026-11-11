@@ -56,6 +56,9 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.16.1 =
+* Experiência no mobile: título sem encolher, texto de apoio alinhado à esquerda embaixo do título, cabeçalho sem fixar.
+
 = 3.16.0 =
 * will bank: case reescrito em torno do Controle Temporal (EN + PT), com três carrosséis novos (faturas no tempo, antecipar parcelas, planejar compras).
 * Logo dos sliders fixo no topo e centralizado, renderizado fora do scroller.
