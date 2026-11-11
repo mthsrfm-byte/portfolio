@@ -163,7 +163,7 @@
     function quadro(agora) {
       if (inst.parado) return
       if (inst.t0 === null) inst.t0 = agora
-      medir(inst)
+      // medir() fica com o ResizeObserver: ler clientWidth aqui, depois de escrever o rastro, forçava layout a cada quadro
       var t = limitar((agora - inst.t0) / inst.duracao, 0, 1)
       if (t >= 1 && !inst.pousou) { desenhar(inst, 1, agora); pousar(agora) }
       else desenhar(inst, t, agora)

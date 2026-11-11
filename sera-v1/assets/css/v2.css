@@ -135,3 +135,8 @@ html.is-v2 .site-header{--pill-r:max(8px,calc(max(var(--gutter),(100% - var(--wr
 }
 /* sem fio de progresso no menu */
 html.is-v2 .site-header::after{display:none}
+/* paleta só de pretos, brancos e cinzas: destaque em tinta; no escuro, cinza claro */
+html.is-v2{--v2-accent-lt:#CFCDC6}
+html.is-v2 .hero-title .slot,html.is-v2 .hero-title .slot-item{color:var(--ink)!important}
+html.is-v2 .fs-win{border-bottom-color:#EFEEE8}
+html.is-v2 .footer-slot.is-jackpot .fs-machine{box-shadow:inset 0 0 0 1px #EFEEE8,0 0 22px -4px rgba(239,238,232,.45)}

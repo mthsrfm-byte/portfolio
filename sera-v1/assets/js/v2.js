@@ -646,22 +646,10 @@
 				// menu fixo em vidro claro: não troca mais de cor sobre blocos escuros (3.22.0)
 			}
 		};
-		var remeasure = function () {
-			measure();
-			check( window.scrollY );
-		};
-		remeasure();
-		window.addEventListener( 'load', remeasure );
-		var rmT;
-		var debounced = function () {
-			clearTimeout( rmT );
-			rmT = setTimeout( remeasure, 180 );
-		};
-		window.addEventListener( 'resize', debounced );
-		if ( window.ResizeObserver ) {
-			new ResizeObserver( debounced ).observe( document.body );
-		}
-		V2.onScroll( check );
+		// Menu fixo em vidro claro desde 3.22.0: o tom não muda nada, então não medimos a página inteira
+		// (getBoundingClientRect + getComputedStyle em todo 'main *') a cada resize nem checamos a cada rolagem.
+		// measure/check continuam aqui (V2._measure) caso a troca de cor volte.
+		void check;
 	}
 
 	/* ---- magnetic pull, restrained (max ~6px), fine pointers only ---- */
