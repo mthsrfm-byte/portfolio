@@ -57,6 +57,15 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.36.0 =
+* Paperplane · Universo: "Quem vive aqui" mostra só o rosto da Lia e do Dante, recortados das fichas e encaixados no quadro; o Condutor saiu.
+* Paperplane · Personagens: a miniatura "Em uso" e o avatar da Lia usam o rosto da ficha atual, centralizado.
+* Paperplane · Estilo visual: o estilo "Anime noturno" virou "Desenho 2D Rabisco", com quatro imagens novas.
+* Paperplane · Movimento: o pedido da tomada descreve a Lia correndo pela plataforma atrás do avião de papel.
+* Paperplane · Storyboard avançado: selos "REFERÊNCIA #1…#5", sem as tags "não cabe no gerador", e cada conector chega num ponto próprio do Prompt, sem se cruzar.
+* Paperplane · Celulares: os aparelhos das laterais ficam retos e sem redução por transform, então a tela não borra mais.
+* Paperplane: o fim do case não mostra mais um fio escuro abaixo do "Próximo case".
+
 = 3.35.0 =
 * Selected work: o título de cada card diminui só o necessário para caber, em qualquer idioma e largura; o botão "Read case" não é mais cortado pela borda do card.
 

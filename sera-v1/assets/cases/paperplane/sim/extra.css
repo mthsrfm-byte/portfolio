@@ -22,3 +22,4 @@ html.sim-tema,html.sim-tema body,html.sim-tema *{transition:background-color .6s
    aqui a tira fica sem o anel (a cena atual já é a única da tira). */
 .v2-strip-s.on{box-shadow:none!important}
 .rt2-hint{display:none!important}
+.un2-cast{grid-template-columns:repeat(2,minmax(0,1fr))}
