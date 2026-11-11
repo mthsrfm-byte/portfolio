@@ -57,6 +57,11 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.29.0 =
+* Paperplane, "Sem saldo": o botão vira medidor. Oito partículas saem do saldo e enchem o botão só até onde o saldo cobre (10 de 24), uma marca tracejada mostra onde precisaria chegar; segura, balança de leve, esvazia e devolve tudo. Sai o contorno de 40 pontos. Texto do card atualizado (EN/PT).
+* Paperplane, Dobra: o cartão do design system acompanha a rolagem ao lado da prévia (sticky) no desktop e no tablet.
+* Paperplane, home dentro do navegador: só o iPhone Duo, sem os quatro celulares em volta (como no site real).
+
 = 3.28.1 =
 * Paperplane, dez etapas (desktop/tablet): o texto de apoio abre e fecha com altura real (grid 0fr → 1fr) numa curva longa, e o texto aparece um instante depois. Sai o "pá, pá, pá" do max-height.
 * Paperplane, botão "Draw" no celular: o "· reserva até N" não abre mais para os lados (estourava o card).
