@@ -1240,7 +1240,7 @@
       acumulado = 0; esfriou = Date.now() + 450
       irPara(i + vai)
     }
-    vp.addEventListener('wheel', roda, { passive: false })
+    // sem roda: a rolagem da página nunca move a linha; só o arraste
     gsap.ticker.add(bordas)
     const ro = new ResizeObserver(() => { d.applyBounds({ minX: minX(), maxX: 0 }); gsap.set(trilho, { x: prender(Number(gsap.getProperty(trilho, 'x'))) }); d.update(); peloMeio() })
     ro.observe(vp)

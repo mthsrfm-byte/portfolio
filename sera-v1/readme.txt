@@ -1,6 +1,6 @@
 === Sera v.1 ===
 Contributors: matheusserafim
-Stable tag: 3.18.6
+Stable tag: 3.18.7
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
@@ -56,6 +56,9 @@ Rascunhos aparecem na Home só para você (logado), com a etiqueta "Rascunho".
 da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
+
+= 3.18.7 =
+* Paperplane: a linha dos 23 dias não anda mais com a rolagem; só com arraste.
 
 = 3.18.6 =
 * Paperplane: celulares com área segura de verdade (o app recua 34px embaixo) e a barrinha do iOS por cima do app, como no aparelho.
