@@ -138,8 +138,8 @@ html.is-v2::-webkit-scrollbar-corner{background:var(--bg)}
 .v2-fly-sk .sk-dark{background:#111110;border-radius:0}
 .v2-fly-sk .sk-media{background:rgba(17,17,16,.075)}
 .v2-fly-sk .sk-media.on-dark{background:rgba(239,238,232,.09)}
-.v2-fly-sk .sk-head{background:rgba(17,17,16,.5)}
-.v2-fly-sk .sk-head.on-dark{background:rgba(239,238,232,.62)}
+.v2-fly-sk .sk-head{background:rgba(17,17,16,.34)}
+.v2-fly-sk .sk-head.on-dark{background:rgba(239,238,232,.42)}
 .v2-fly-sk .sk-text{background:rgba(17,17,16,.13)}
 .v2-fly-sk .sk-text.on-dark{background:rgba(239,238,232,.17)}
 html.is-flying body::before{display:none}
