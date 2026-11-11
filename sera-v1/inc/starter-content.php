@@ -522,7 +522,7 @@ function sera_starter_cases() {
 	$c .= sera_b_p( '<strong>Media only comes out with a click</strong> The click is the consent, and the button carries the estimated price. I turned down an automatic mode with a spending cap because it broke this rule.' );
 	$c .= sera_b_p( '<strong>If it fails, the credit comes back</strong> The credit is held while generating and comes back if there is an error. A finished result is charged, and the interface says so plainly.' );
 	$c .= sera_b_p( '<strong>Image first, video after</strong> Every take is approved as an image before it is animated. Only the approved frame becomes the first frame of the video.' );
-	$c .= sera_b_chapter( 4, 'The redesign', 'Simple outside, advanced inside.' );
+	$c .= sera_b_chapter( 4, 'The redesign', 'Effortless to use, serious under the hood.' );
 	$c .= sera_b_p( 'Five days in, the studio was growing by accumulation and every screen had a different skeleton. On 24 October I stopped and redesigned everything around four rules, so that a first-time visitor finishes a step without opening anything and a professional still finds everything they need inside.', 'lead' );
 	$c .= sera_b_p( 'Then I cut what was intimidating. Four technical modes became a single choice: Basic or Advanced. Model names, price per second and English prompts left the screen. People write in Portuguese, mention @Maria or @take 1A, and the studio handles the rest.' );
 	$c .= sera_b_chapter( 5, 'Microinteractions', 'Every movement in the studio tells you where your money is.' );

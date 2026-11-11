@@ -57,6 +57,10 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.30.0 =
+* Home, labirinto: o caminho ficou vivo. Anda mais rápido e com ritmo variado, pausa pouco (0,35–1,25 s), tem rastro mais longo e abre um anel a cada chegada. No celular o caminho agora aparece e passeia pelo labirinto inteiro, discreto atrás do texto.
+* Paperplane: "Simple outside, advanced inside." vira "Effortless to use, serious under the hood." (PT: "Fácil de usar, sério por baixo do capô."), também no índice e na linha do tempo. Rodar Aparência › Sera · Cases › "Importar e publicar todos".
+
 = 3.29.0 =
 * Paperplane, "Sem saldo": o botão vira medidor. Oito partículas saem do saldo e enchem o botão só até onde o saldo cobre (10 de 24), uma marca tracejada mostra onde precisaria chegar; segura, balança de leve, esvazia e devolve tudo. Sai o contorno de 40 pontos. Texto do card atualizado (EN/PT).
 * Paperplane, Dobra: o cartão do design system acompanha a rolagem ao lado da prévia (sticky) no desktop e no tablet.
