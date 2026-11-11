@@ -111,6 +111,13 @@ html.is-v2 .site-footer .footer-mail:hover .ico{transform:translate(3px,-3px)}
 .v2-wm svg path{stroke:rgba(239,238,232,.16);stroke-width:.3;vector-effect:none}
 @media (max-width:640px){.v2-wm{display:none}}
 
+/* 3.32 · back to top "vista aérea": the stage behind the shrinking page (see V2.flyTop) */
+.v2-fly{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:var(--bg-2)}
+.v2-fly-in{position:absolute;inset:0;will-change:transform}
+.v2-fly-maze{color:rgba(17,17,16,.17);will-change:transform}
+html.is-flying body::before{display:none}
+html.is-flying .case-toc,html.is-flying .cv2-pill,html.is-flying .cv2-toc{visibility:hidden!important}
+
 @media (prefers-reduced-motion:reduce){
   html.is-v2 .site-header::before,html.is-v2 .site-header::after{transition:none}
   html.is-v2 .site-header::after{animation:none}

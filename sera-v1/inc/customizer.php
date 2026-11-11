@@ -21,7 +21,7 @@ function sera_fields() {
 		'hero_photo'    => array( 'hero', 'Foto', 'image', '' ),
 		'hero_photo_alt' => array( 'hero', 'Texto alternativo da foto (acessibilidade e SEO)', 'text', 'Fisheye selfie of Matheus Serafim at night in Shibuya, Tokyo' ),
 		'hero_now_logo' => array( 'hero', 'Logo da empresa atual (slug do logo; vazio para esconder)', 'text', 'pagaleve' ),
-		'hero_role'      => array( 'hero', 'Linha abaixo do nome (cargo · onde)', 'text', 'Product Design Lead · now at Pagaleve' ),
+		'hero_role'      => array( 'hero', 'Linha abaixo do nome (cargo · onde)', 'text', 'Product Designer & Builder · Now at Pagaleve' ),
 		'hero_status_note' => array( 'hero', 'Status — nota à direita', 'text', 'full-time' ),
 		'hero_freela'    => array( 'hero', 'Freela (vazio esconde)', 'text', 'Taking freelance projects' ),
 		'hero_freela_note' => array( 'hero', 'Freela — nota à direita', 'text', 'by project' ),
@@ -104,6 +104,22 @@ function sera_fields() {
 /**
  * Get a theme mod with its default.
  */
+/* 3.32 · nova linha de cargo: quem ainda tem o texto antigo salvo no Personalizar recebe o novo. */
+add_action(
+	'init',
+	function () {
+		$swap = array(
+			'sera_hero_role'    => array( 'Product Design Lead · now at Pagaleve', 'Product Designer & Builder · Now at Pagaleve' ),
+			'sera_hero_role_pt' => array( 'Product Design Lead · hoje na Pagaleve', 'Product Designer & Builder · Hoje na Pagaleve' ),
+		);
+		foreach ( $swap as $k => $p ) {
+			if ( get_theme_mod( $k ) === $p[0] ) {
+				set_theme_mod( $k, $p[1] );
+			}
+		}
+	}
+);
+
 function sera_mod( $key ) {
 	static $f = null;
 	if ( null === $f ) {

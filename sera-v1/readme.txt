@@ -57,6 +57,10 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.32.0 =
+* Back to top em "vista aérea": a página pula para o topo escondida, encolhe sobre um labirinto (o mesmo do hero, com a rota azul subindo do rodapé ao topo), voa até o começo e mergulha no hero. Nenhuma animação de scroll roda de trás para frente. Com movimento reduzido ou a menos de uma tela e meia do topo, segue a rolagem simples.
+* Linha de cargo do topo: "Product Designer & Builder · Now at Pagaleve" (pt: "Hoje na Pagaleve"); quem tinha o texto antigo salvo no Personalizar é atualizado sozinho.
+
 = 3.31.1 =
 * Home no celular: o caminho do labirinto fica só na faixa à direita do texto (mede onde termina a linha mais longa do título e do nome), sem passar por baixo das palavras.
 
