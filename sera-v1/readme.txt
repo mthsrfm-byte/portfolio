@@ -57,6 +57,14 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.21.0 =
+* Camada v2 de refino visual, por cima do tema (assets/css/v2*.css e assets/js/v2*.js, escopo html.is-v2). Para desligar tudo: tirar "is-v2" do filtro language_attributes em functions.php.
+* Geral: grão de papel, cabeçalho vira pílula flutuante ao rolar (escura sobre blocos escuros, com fio de progresso), wordmark SERAFIM de fundo no rodapé, à direita, sem aumentar o rodapé.
+* Home: labirinto atrás do hero com um caminho azul que passeia pelos corredores (clique manda ele para o ponto; parado com movimento reduzido; só paredes no celular). Título entra linha a linha e a frase cinza escurece no scroll.
+* Home, cases: cards só com título e os três pontos, cada ponto com um ícone (mapa por slug em v2-home.js); sai o parágrafo. Barra "Selected work" fixa só com título e contador. O scroll dos cards segue o do tema.
+* Home: Approach em bloco escuro de largura total; Experience com linha do tempo e ponto "now"; barras fixas com fundo sólido até o topo.
+* Cases (menos Paperplane): hero em duas colunas com as métricas à direita, capa que abre no scroll, numeral grande em cada capítulo, capítulo atual dentro do cabeçalho com lista ao clicar (pílula embaixo em telas menores), painéis escuros de largura total, bloco grande de próximo case. Cor de destaque vem da marca de cada case.
+
 = 3.20.1 =
 * Paperplane: rolagem leve de novo (o cabeçalho escuro não força layout a cada quadro; menos desfoque na noite).
 
