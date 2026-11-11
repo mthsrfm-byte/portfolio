@@ -121,7 +121,25 @@ switch ( $args['name'] ) :
 			<span class="art-title"><?php sera_e( 'The first release made it worse. We treated it as an incident.', 'O primeiro release piorou a conversão. Tratamos como incidente.' ); ?></span>
 			<div class="chart-wrap" style="margin-top:32px">
 				<div class="chart">
-					<svg viewBox="0 0 640 320" role="img" aria-label="<?php echo esc_attr( sera_t( 'Onboarding conversion: release 1 dropped sharply, release 2 climbed above the OKR target, reaching an all-time record in January 2026.', 'Conversão do onboarding: o release 1 caiu forte, o release 2 subiu acima da meta do OKR e chegou ao recorde histórico em janeiro de 2026.' ) ); ?>">
+					<?php // phone version: narrower canvas so the labels stay readable at real size ?>
+					<svg class="wu-rel-m" viewBox="0 0 340 310" role="img" aria-label="<?php echo esc_attr( sera_t( 'Onboarding conversion: release 1 dropped sharply, release 2 climbed above the OKR target, reaching an all-time record in January 2026.', 'Conversão do onboarding: o release 1 caiu forte, o release 2 subiu acima da meta do OKR e chegou ao recorde histórico em janeiro de 2026.' ) ); ?>">
+						<line x1="12" y1="112" x2="328" y2="112" stroke="#111110" stroke-dasharray="4 6" stroke-width="1.2"/>
+						<text x="14" y="102" font-size="13" fill="#6E6C66"><?php sera_e( 'OKR target', 'Meta do OKR' ); ?></text>
+						<line x1="12" y1="276" x2="328" y2="276" stroke="#E2E0D8"/>
+						<path d="M24 140 C 64 140, 84 202, 116 202 S 156 202, 182 160 S 230 116, 252 108 S 300 96, 314 92" fill="none" stroke="#111110" stroke-width="3" stroke-linecap="round"/>
+						<circle cx="116" cy="202" r="15" fill="#E5484D" opacity=".18"/><circle cx="116" cy="202" r="8" fill="#E5484D"/>
+						<circle cx="252" cy="108" r="7" fill="#111110"/>
+						<circle cx="314" cy="92" r="10" fill="#FFDD00" stroke="#111110" stroke-width="2.5"/>
+						<text x="116" y="236" text-anchor="middle" font-size="16" font-weight="600" fill="#B42318"><?php sera_e( 'Sharp dip', 'Queda forte' ); ?></text>
+						<text x="116" y="255" text-anchor="middle" font-size="13" fill="#6E6C66">Release 1</text>
+						<text x="328" y="140" text-anchor="end" font-size="13" fill="#6E6C66">Release 2</text>
+						<text x="328" y="157" text-anchor="end" font-size="13" fill="#6E6C66"><?php sera_e( 'above target', 'acima da meta' ); ?></text>
+						<text x="328" y="44" text-anchor="end" font-size="16" font-weight="600" fill="#111110"><?php sera_e( 'All-time record', 'Recorde histórico' ); ?></text>
+						<text x="328" y="63" text-anchor="end" font-size="13" fill="#6E6C66"><?php sera_e( 'Jan 2026', 'jan. 2026' ); ?></text>
+						<text x="14" y="298" font-size="13" fill="#6E6C66"><?php sera_e( 'Before', 'Antes' ); ?></text>
+						<text x="328" y="298" text-anchor="end" font-size="13" fill="#6E6C66"><?php sera_e( 'Oct 2025 → Jan 2026', 'out. 2025 → jan. 2026' ); ?></text>
+					</svg>
+					<svg class="wu-rel-d" viewBox="0 0 640 320" role="img" aria-label="<?php echo esc_attr( sera_t( 'Onboarding conversion: release 1 dropped sharply, release 2 climbed above the OKR target, reaching an all-time record in January 2026.', 'Conversão do onboarding: o release 1 caiu forte, o release 2 subiu acima da meta do OKR e chegou ao recorde histórico em janeiro de 2026.' ) ); ?>">
 						<line x1="40" y1="100" x2="620" y2="100" stroke="#111110" stroke-dasharray="4 6" stroke-width="1.2"/>
 						<text x="44" y="90" font-size="12" fill="#6E6C66"><?php sera_e( 'OKR target', 'Meta do OKR' ); ?></text>
 						<g stroke="#E2E0D8"><line x1="40" y1="280" x2="620" y2="280"/></g>
