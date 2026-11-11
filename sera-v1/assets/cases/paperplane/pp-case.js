@@ -98,8 +98,8 @@
   }
   function docDoCursor() {
     return '<!doctype html><html lang="pt-BR"><head>' + cabeca(false) +
-      '<style>html,body{margin:0;height:100%;overflow:hidden}body.pp-micro{background:var(--grao-papel),var(--fundo-pagina);display:grid;place-items:center;font-family:var(--body)}' +
-      '.fila{display:flex;gap:18px;align-items:center}</style></head>' +
+      '<style>html,body{margin:0;height:100%;overflow:hidden}body.pp-micro{background:var(--grao-papel),var(--fundo-pagina);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--body)}' +
+      '.fila{display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap;margin:auto;max-width:100%;padding:0 16px;box-sizing:border-box}</style></head>' +
       '<body class="pp-micro" data-theme="light"><div class="fila"><button type="button" class="pp-btn a">Aprovar</button><button type="button" class="pp-btn g">Editar com Origami</button><a href="#" class="pp-btn g">Ver a cena</a></div>' + rodape() + '</body></html>'
   }
   function docDaHome(chave) { return trocarMidias(extra(chave), 'site') }
@@ -609,14 +609,18 @@
       return { gap, area, cw: (area.w - gap * 2) / 3, ch: (area.h - gap) / 2 }
     }
     // A dobra anda com a leitura: a mesa fica presa enquanto as janelas se alinham, dobram e viram o estúdio.
+    // As janelas já entram na grade 3×2 (sem espalhar e reorganizar): cada uma cai no seu lugar, sem rotação.
+    const grade = {
+      left: (i) => { const g = geo(); return g.area.x + colunaDe(i) * (g.cw + g.gap) },
+      top: (i) => { const g = geo(); return g.area.y + linhaDe(i) * (g.ch + g.gap) },
+      width: () => geo().cw,
+      height: () => geo().ch,
+    }
     const tl = gsap.timeline({ defaults: { overwrite: false } })
-    tl.fromTo(jan, { autoAlpha: 0, y: -26, rotation: (i) => (i % 2 ? 7 : -7) }, { autoAlpha: 1, y: 0, rotation: (i, el) => parseFloat(getComputedStyle(el).getPropertyValue('--r')) || 0, duration: 0.6, ease: 'pouso', stagger: 0.09 })
+    tl.fromTo(jan, { autoAlpha: 0, y: -26, rotation: 0, ...grade }, { autoAlpha: 1, y: 0, rotation: 0, ...grade, duration: 0.6, ease: 'pouso', stagger: 0.09 })
       .fromTo(notif, { autoAlpha: 0, x: 30 }, { autoAlpha: 1, x: 0, duration: 0.45, ease: 'pouso' }, '+=0.2')
       .to({}, { duration: 1.4 })
       .to(notif, { autoAlpha: 0, y: -4, duration: 0.2, ease: 'sair' })
-    jan.forEach((j, i) => {
-      tl.to(j, { left: () => { const g = geo(); return g.area.x + colunaDe(i) * (g.cw + g.gap) }, top: () => { const g = geo(); return g.area.y + linhaDe(i) * (g.ch + g.gap) }, width: () => geo().cw, height: () => geo().ch, rotation: 0, duration: 0.7, ease: 'power3.inOut' }, i === 0 ? '+=0.05' : '<0.03')
-    })
     tl.to({}, { duration: 0.3 })
     const esq = [jan[0], jan[3]], dir = [jan[2], jan[5]], meioC = jan[1], meioB = jan[4]
     tl.to(esq, { rotationY: 90, transformOrigin: () => { const g = geo(); return `${g.cw + g.gap / 2}px 50%` }, '--sombra': 0.5, duration: 0.45, ease: 'power2.in' })
@@ -1089,7 +1093,8 @@
    * quando o céu clareia. Com movimento reduzido fica a 3ª foto parada (o fundo em CSS), sem canvas.
    */
   const HORAS_DAS_FOTOS = [5, 7, 9, 12]
-  const HORA_EM_QUE_O_TEXTO_ESCURECE = 9.7
+  // Entre essas horas o céu clareia aos poucos: véu, cor do texto e fundo do relógio se misturam (--claro de 0 a 1), sem virada seca.
+  const CLAREIA_DE = 8.6, CLAREIA_ATE = 10.4
   function setCeu(fotos, relogio) {
     const n = $('.pp-night'), ceu = $('.night-sky', n)
     if (!n || !ceu || !fotos || !fotos.length) return
@@ -1137,7 +1142,8 @@
     }
     const ajustar = () => {
       hora = horaContinua()
-      n.classList.toggle('claro', hora >= HORA_EM_QUE_O_TEXTO_ESCURECE)
+      const t = gsap.utils.clamp(0, 1, (hora - CLAREIA_DE) / (CLAREIA_ATE - CLAREIA_DE))
+      n.style.setProperty('--claro', (t * t * (3 - 2 * t)).toFixed(3))
       n.style.setProperty('--noite', String(gsap.utils.clamp(0, 1, (8 - hora) / 3)))
       pedir()
     }

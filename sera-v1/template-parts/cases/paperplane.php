@@ -133,7 +133,7 @@ defined( 'ABSPATH' ) || exit;
         <div class="jan jan-4" style="--x:5%;--y:52%;--r:3deg;--w:32%"><div class="jan-bar"><i></i><i></i><i></i><span>editor</span></div><div class="jan-c"><div class="pp-clipes"><i style="--w:18%"></i><i style="--w:31%"></i><i style="--w:9%"></i><i style="--w:24%"></i><i style="--w:14%"></i></div><div class="pp-clipes clipes-2"><i style="--w:40%"></i><i style="--w:12%"></i></div><span class="jan-selo"><?php sera_e( 'clip_final_v3_this_time.mp4', 'clipe_final_v3_agora_vai.mp4' ); ?></span></div></div>
         <div class="jan jan-5" style="--x:39%;--y:50%;--r:-3deg;--w:27%"><div class="jan-bar"><?php sera_e( '<i></i><i></i><i></i><span>spending sheet</span>', '<i></i><i></i><i></i><span>planilha de gastos</span>' ); ?></div><div class="jan-c"><table class="pp-plan"><thead><tr><th><?php sera_e( 'scene', 'cena' ); ?></th><th><?php sera_e( 'how much?', 'quanto foi?' ); ?></th></tr></thead><tbody><tr><td>1</td><td>?</td></tr><tr><td>2</td><td>?</td></tr><tr><td>3</td><td>?</td></tr></tbody></table></div></div>
         <div class="jan jan-6" style="--x:68%;--y:54%;--r:2deg;--w:30%"><div class="jan-bar"><?php sera_e( '<i></i><i></i><i></i><span>prompt in English</span>', '<i></i><i></i><i></i><span>prompt em inglês</span>' ); ?></div><div class="jan-c"><p class="prompt">a woman with short hair, same as before, PLEASE same face</p></div></div>
-        <div class="pp-notif" role="note"><svg class="ico" aria-hidden="true"><use href="#pp-i-doc"/></svg><?php sera_e( 'Your statement is ready.', 'Sua fatura fechou.' ); ?></div>
+        <div class="pp-notif" role="note"><span class="pp-notif-app" aria-hidden="true">P</span><span class="pp-notif-corpo"><span class="pp-notif-topo"><b><?php sera_e( 'Paperplane Bank', 'Banco Paperplane' ); ?></b><time><?php sera_e( 'now', 'agora' ); ?></time></span><span class="pp-notif-msg"><?php sera_e( 'Your statement is ready', 'Sua fatura fechou' ); ?></span><span class="pp-notif-valor"><?php sera_e( 'R$ 48,730.00', 'R$ 48.730,00' ); ?></span></span></div>
       </div>
       <div class="mesa-estudio">
         <div class="pp-browser">
@@ -220,7 +220,7 @@ defined( 'ABSPATH' ) || exit;
   <div class="pp-wide pp-deck">
     <article class="pp-regra" data-stack-card data-art="saldo">
       <div class="regra-txt">
-        <div class="regra-cab"><span class="regra-n">01</span><svg class="regra-ic" aria-hidden="true"><use href="#pp-i-relogio"/></svg></div>
+        <div class="regra-cab"><span class="regra-n">01</span></div>
         <h3><?php sera_e( 'A balance counted in minutes', 'Saldo contado em minutos' ); ?></h3>
         <p class="regra-prob"><?php sera_e( '<span>Problem</span>Credits are an abstract currency. Nobody knows whether a balance is a lot or a little.', '<span>Problema</span>Crédito é moeda abstrata. Ninguém sabe se o saldo é muito ou pouco.' ); ?></p>
         <p class="regra-dec"><?php sera_e( 'The balance says how much video it still buys, as an estimate, at the chosen quality. At zero the sentence disappears; it never shows "0 s".', 'O saldo diz quanto vídeo ainda rende, como estimativa, na qualidade escolhida. Com saldo zero a frase some, nunca mostra "0 s".' ); ?></p>
@@ -240,7 +240,7 @@ defined( 'ABSPATH' ) || exit;
     </article>
     <article class="pp-regra regra--inv" data-stack-card data-art="botao">
       <div class="regra-txt">
-        <div class="regra-cab"><span class="regra-n">02</span><svg class="regra-ic" aria-hidden="true"><use href="#pp-i-clique"/></svg></div>
+        <div class="regra-cab"><span class="regra-n">02</span></div>
         <h3><?php sera_e( 'Media only comes out with a click', 'Mídia só sai com clique' ); ?></h3>
         <p class="regra-prob"><?php sera_e( '<span>Problem</span>An assistant that generates on its own initiative spends someone else’s money.', '<span>Problema</span>Um assistente que gera por iniciativa própria gasta o dinheiro de outra pessoa.' ); ?></p>
         <p class="regra-dec"><?php sera_e( 'The click is the consent, and the button carries the estimated price. I turned down an automatic mode with a spending cap because it broke this rule.', 'O clique é o consentimento, e o botão traz o preço estimado. Recusei um modo automático com teto porque ele quebrava essa regra.' ); ?></p>
@@ -254,7 +254,7 @@ defined( 'ABSPATH' ) || exit;
     </article>
     <article class="pp-regra" data-stack-card data-art="falha">
       <div class="regra-txt">
-        <div class="regra-cab"><span class="regra-n">03</span><svg class="regra-ic" aria-hidden="true"><use href="#pp-i-desfazer"/></svg></div>
+        <div class="regra-cab"><span class="regra-n">03</span></div>
         <h3><?php sera_e( 'If it fails, the credit comes back', 'Falhou, o crédito volta' ); ?></h3>
         <p class="regra-prob"><?php sera_e( '<span>Problem</span>With AI, a request can fail at the provider. Charging for that destroys trust.', '<span>Problema</span>Em IA o pedido pode falhar no provedor. Cobrar por isso destrói a confiança.' ); ?></p>
         <p class="regra-dec"><?php sera_e( 'The credit is held while generating and comes back if there is an error. A finished result is charged, and the interface says so plainly.', 'O crédito fica reservado durante a geração e volta se der erro. Resultado concluído consome, e a interface diz isso com todas as letras.' ); ?></p>
@@ -272,7 +272,7 @@ defined( 'ABSPATH' ) || exit;
     </article>
     <article class="pp-regra regra--inv" data-stack-card data-art="quadro">
       <div class="regra-txt">
-        <div class="regra-cab"><span class="regra-n">04</span><svg class="regra-ic" aria-hidden="true"><use href="#pp-i-quadro"/></svg></div>
+        <div class="regra-cab"><span class="regra-n">04</span></div>
         <h3><?php sera_e( 'Image first, video after', 'Imagem primeiro, vídeo depois' ); ?></h3>
         <p class="regra-prob"><?php sera_e( '<span>Problem</span>Redoing a video is the most expensive way to get it wrong.', '<span>Problema</span>Refazer um vídeo é o jeito mais caro de errar.' ); ?></p>
         <p class="regra-dec"><?php sera_e( 'Every take is approved as an image before it is animated. Only the approved frame becomes the first frame of the video.', 'Cada tomada é aprovada como imagem antes de animar. Só o quadro aprovado vira o primeiro quadro do vídeo.' ); ?></p>
@@ -385,20 +385,31 @@ defined( 'ABSPATH' ) || exit;
     <p class="pp-lead pp-reveal"><?php sera_e( 'I created Dobra so the whole studio would follow one standard. Colour, spacing, corners and motion live in one place, and that is where every piece of the product is tuned and refined. When I change a choice there, the whole studio follows, and the agents speak the same language I do: I ask for <code>--accent</code> and they know where to look.', 'Criei a Dobra para o estúdio inteiro ter um padrão só. Cor, espaço, canto e movimento moram num lugar, e é por ele que cada peça do produto é ajustada e refinada. Quando mudo uma escolha ali, o estúdio inteiro acompanha, e os agentes falam a mesma língua que eu: peço <code>--accent</code>, eles sabem onde mexer.' ); ?></p>
   </div>
   <div class="pp-wide dobra-art">
-    <div class="db-painel" role="group" aria-labelledby="db-t">
-      <p class="db-t" id="db-t"><?php sera_e( 'Change one choice. The whole studio changes.', 'Mude uma escolha. O estúdio inteiro muda.' ); ?></p>
-      <div class="db-ctl" data-ctl="acento"><span class="db-k"><?php sera_e( 'Accent <code>--accent</code>', 'Acento <code>--accent</code>' ); ?></span><div class="db-ops" role="radiogroup" aria-label="<?php echo esc_attr( sera_t( 'Accent', 'Acento' ) ); ?>">
-        <button type="button" role="radio" aria-checked="true" data-v="limao" style="--c:#F7FF9E" aria-label="<?php echo esc_attr( sera_t( 'Lime', 'Limão' ) ); ?>"></button>
-        <button type="button" role="radio" aria-checked="false" data-v="menta" style="--c:#B8F5D2" aria-label="<?php echo esc_attr( sera_t( 'Mint', 'Menta' ) ); ?>"></button>
-        <button type="button" role="radio" aria-checked="false" data-v="pessego" style="--c:#FFD2A8" aria-label="<?php echo esc_attr( sera_t( 'Peach', 'Pêssego' ) ); ?>"></button>
-        <button type="button" role="radio" aria-checked="false" data-v="lilas" style="--c:#DCCBFF" aria-label="<?php echo esc_attr( sera_t( 'Lilac', 'Lilás' ) ); ?>"></button>
-        <button type="button" role="radio" aria-checked="false" data-v="ceu" style="--c:#BFE3FF" aria-label="<?php echo esc_attr( sera_t( 'Sky', 'Céu' ) ); ?>"></button>
-      </div></div>
-      <div class="db-ctl" data-ctl="canto"><span class="db-k"><?php sera_e( 'Corner <code>--r-*</code>', 'Canto <code>--r-*</code>' ); ?></span><div class="db-seg" role="radiogroup" aria-label="<?php echo esc_attr( sera_t( 'Corner', 'Canto' ) ); ?>"><button type="button" role="radio" aria-checked="false" data-v="0"><?php sera_e( 'square', 'reto' ); ?></button><button type="button" role="radio" aria-checked="true" data-v="1"><?php sera_e( 'soft', 'suave' ); ?></button><button type="button" role="radio" aria-checked="false" data-v="2.4"><?php sera_e( 'round', 'redondo' ); ?></button></div></div>
-      <div class="db-ctl" data-ctl="tema"><span class="db-k"><?php sera_e( 'Theme <code>data-theme</code>', 'Tema <code>data-theme</code>' ); ?></span><div class="db-seg" role="radiogroup" aria-label="<?php echo esc_attr( sera_t( 'Theme', 'Tema' ) ); ?>"><button type="button" role="radio" aria-checked="false" data-v="light"><?php sera_e( 'light', 'claro' ); ?></button><button type="button" role="radio" aria-checked="true" data-v="dark"><?php sera_e( 'dark', 'escuro' ); ?></button></div></div>
-      <div class="db-ctl" data-ctl="fonte"><span class="db-k"><?php sera_e( 'Font <code>--body</code>', 'Fonte <code>--body</code>' ); ?></span><div class="db-seg" role="radiogroup" aria-label="<?php echo esc_attr( sera_t( 'Font', 'Fonte' ) ); ?>"><button type="button" role="radio" aria-checked="true" data-v="geist">Geist</button><button type="button" role="radio" aria-checked="false" data-v="mono">mono</button></div></div>
-      <button type="button" class="db-zera"><?php sera_e( 'Back to the Dobra default', 'Voltar ao padrão da Dobra' ); ?></button>
-      <p class="db-leitura" aria-live="polite"></p>
+    <div class="db-sistema" role="group" aria-label="<?php echo esc_attr( sera_t( 'Dobra, the design system: logo, colour and type', 'Dobra, o design system: logo, cor e tipo' ) ); ?>">
+      <div class="db-marca">
+        <svg class="db-logo" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 4h21l7 7v25H6z" fill="#F7FF9E"/><path d="M27 4v7h7z" fill="rgba(17,17,16,.32)"/><path d="M12 19h15M12 25h10" stroke="#111110" stroke-width="2.2" stroke-linecap="round"/></svg>
+        <div><b class="db-nome">Dobra</b><span class="db-sub"><?php sera_e( 'Design system', 'Design system' ); ?></span></div>
+      </div>
+      <div class="db-bloco">
+        <span class="db-k"><?php sera_e( 'Colour', 'Cor' ); ?></span>
+        <ul class="db-cores">
+          <li><i style="--c:#F5F4EF"></i><span><?php sera_e( 'Paper', 'Papel' ); ?></span><code>--bg</code></li>
+          <li><i style="--c:#111110"></i><span><?php sera_e( 'Ink', 'Tinta' ); ?></span><code>--ink</code></li>
+          <li><i style="--c:#F7FF9E"></i><span><?php sera_e( 'Lime', 'Limão' ); ?></span><code>--accent</code></li>
+          <li><i style="--c:#181D16"></i><span><?php sera_e( 'Night', 'Noite' ); ?></span><code>--surface</code></li>
+        </ul>
+      </div>
+      <div class="db-bloco">
+        <span class="db-k"><?php sera_e( 'Type', 'Tipo' ); ?></span>
+        <div class="db-tipo">
+          <span class="db-aa" aria-hidden="true">Aa</span>
+          <ul>
+            <li><b class="f-display">Bricolage Grotesque</b><span><?php sera_e( 'Titles', 'Títulos' ); ?></span></li>
+            <li><b class="f-sans">Geist</b><span><?php sera_e( 'Body copy', 'Texto corrido' ); ?></span></li>
+            <li><b class="f-mono">Geist Mono</b><span><?php sera_e( 'Labels and tokens', 'Rótulos e tokens' ); ?></span></li>
+          </ul>
+        </div>
+      </div>
     </div>
     <div class="db-previa palco" data-tema="escuro" data-tema-segue>
       <span class="pp-art-label db-rot"><?php sera_e( 'Live preview · Storyboard', 'Prévia ao vivo · Storyboard' ); ?></span>
@@ -567,15 +578,15 @@ defined( 'ABSPATH' ) || exit;
           <li tabindex="0" style="--d:1" class="is-key"><span class="dia-marca" aria-hidden="true"><svg class="ico"><use href="#pp-i-aviao"/></svg></span><span class="dia-n"><?php sera_e( 'Day 1', 'Dia 1' ); ?></span><?php sera_e( '<b>First screen</b>', '<b>Primeira tela</b>' ); ?><p><?php sera_e( 'The prototype and the house rules for the agents.', 'O protótipo e as regras da casa para os agentes.' ); ?></p><time datetime="2026-10-19">19/10</time></li>
           <li tabindex="0" style="--d:2"><span class="dia-marca" aria-hidden="true"></span><span class="dia-n"><?php sera_e( 'Day 2', 'Dia 2' ); ?></span><?php sera_e( '<b>Storyboard as nodes</b>', '<b>Storyboard em nós</b>' ); ?><p><?php sera_e( 'Storyboard and Animation as nodes, an editor with several tracks.', 'Storyboard e Animação em nós, Montagem com várias trilhas.' ); ?></p><time datetime="2026-10-20">20/10</time></li>
           <li tabindex="0" style="--d:3"><span class="dia-marca" aria-hidden="true"></span><span class="dia-n"><?php sera_e( 'Day 3', 'Dia 3' ); ?></span><?php sera_e( '<b>Responsive</b>', '<b>Responsivo</b>' ); ?><p><?php sera_e( 'A layout that rearranges itself instead of a fixed screen.', 'Um layout que se reorganiza no lugar da tela fixa.' ); ?></p><time datetime="2026-10-21">21/10</time></li>
-          <li tabindex="0" style="--d:6" class="is-key"><span class="dia-marca" aria-hidden="true"><svg class="ico"><use href="#pp-i-camadas"/></svg></span><span class="dia-n"><?php sera_e( 'Day 6', 'Dia 6' ); ?></span><b>Redesign</b><p><?php sera_e( 'Simple outside, advanced inside, and the agents’ first night.', 'Simples por fora, avançado por dentro, e a primeira noite dos agentes.' ); ?></p><time datetime="2026-10-24">24/10</time></li>
-          <li tabindex="0" style="--d:16"><span class="dia-marca" aria-hidden="true"></span><span class="dia-n"><?php sera_e( 'Day 16', 'Dia 16' ); ?></span><?php sera_e( '<b>Origami as an agent</b>', '<b>Origami agente</b>' ); ?><p><?php sera_e( 'One step at a time, with the price on the button.', 'Um passo por vez, com o preço no botão.' ); ?></p><time datetime="2026-11-03">03/11</time></li>
-          <li tabindex="0" style="--d:17" class="is-key"><span class="dia-marca" aria-hidden="true"><svg class="ico"><use href="#pp-i-token"/></svg></span><span class="dia-n"><?php sera_e( 'Day 17', 'Dia 17' ); ?></span><?php sera_e( '<b>Dobra is born</b>', '<b>Nasce a Dobra</b>' ); ?><p><?php sera_e( 'The design system, with a page read from the code.', 'O design system, com a página que se lê do código.' ); ?></p><time datetime="2026-11-04">04/11</time></li>
-          <li tabindex="0" style="--d:18"><span class="dia-marca" aria-hidden="true"></span><span class="dia-n"><?php sera_e( 'Day 18', 'Dia 18' ); ?></span><?php sera_e( '<b>Free format</b>', '<b>Formato livre</b>' ); ?><p><?php sera_e( 'Change the episode’s format halfway through, without redoing anything.', 'Trocar o formato do episódio no meio, sem refazer nada.' ); ?></p><time datetime="2026-11-05">05/11</time></li>
-          <li tabindex="0" style="--d:19"><span class="dia-marca" aria-hidden="true"></span><span class="dia-n"><?php sera_e( 'Day 19', 'Dia 19' ); ?></span><?php sera_e( '<b>Audit</b>', '<b>Auditoria</b>' ); ?><p><?php sera_e( 'I reviewed the whole studio and closed the fixes the same day.', 'Revisei o estúdio inteiro e fechei as correções no mesmo dia.' ); ?></p><time datetime="2026-11-06">06/11</time></li>
-          <li tabindex="0" style="--d:20" class="is-key"><span class="dia-marca" aria-hidden="true"><svg class="ico"><use href="#pp-i-rumo"/></svg></span><span class="dia-n"><?php sera_e( 'Day 20', 'Dia 20' ); ?></span><?php sera_e( '<b>Basic and Advanced</b>', '<b>Básico e Avançado</b>' ); ?><p><?php sera_e( 'Paper with light and the motion personality.', 'Papel com luz e a personalidade de movimento.' ); ?></p><time datetime="2026-11-07">07/11</time></li>
-          <li tabindex="0" style="--d:21"><span class="dia-marca" aria-hidden="true"></span><span class="dia-n"><?php sera_e( 'Day 21', 'Dia 21' ); ?></span><?php sera_e( '<b>Less tech on screen</b>', '<b>Menos técnica na tela</b>' ); ?><p><?php sera_e( 'Technical details leave the interface. Shot breakdown with a guide video.', 'Detalhes técnicos saem da interface. Decupagem com vídeo-guia.' ); ?></p><time datetime="2026-11-08">08/11</time></li>
-          <li tabindex="0" style="--d:22"><span class="dia-marca" aria-hidden="true"></span><span class="dia-n"><?php sera_e( 'Day 22', 'Dia 22' ); ?></span><?php sera_e( '<b>A single prompt</b>', '<b>Um prompt só</b>' ); ?><p><?php sera_e( 'In Portuguese, with @ mentions.', 'Em português, com menções por arroba.' ); ?></p><time datetime="2026-11-09">09/11</time></li>
-          <li tabindex="0" style="--d:23" class="is-key"><span class="dia-marca" aria-hidden="true"><svg class="ico"><use href="#pp-i-check"/></svg></span><span class="dia-n"><?php sera_e( 'Day 23', 'Dia 23' ); ?></span><?php sera_e( '<b>Finish</b>', '<b>Acabamento</b>' ); ?><p><?php sera_e( 'PDF boards, subtitles, markers and the episode pack.', 'Prancha em PDF, legendas, marcadores e pacote do episódio.' ); ?></p><time datetime="2026-11-10">10/11</time></li>
+          <li tabindex="0" style="--d:4" class="is-key"><span class="dia-marca" aria-hidden="true"><svg class="ico"><use href="#pp-i-camadas"/></svg></span><span class="dia-n"><?php sera_e( 'Day 6', 'Dia 6' ); ?></span><b>Redesign</b><p><?php sera_e( 'Simple outside, advanced inside, and the agents’ first night.', 'Simples por fora, avançado por dentro, e a primeira noite dos agentes.' ); ?></p><time datetime="2026-10-24">24/10</time></li>
+          <li tabindex="0" style="--d:5"><span class="dia-marca" aria-hidden="true"></span><span class="dia-n"><?php sera_e( 'Day 16', 'Dia 16' ); ?></span><?php sera_e( '<b>Origami as an agent</b>', '<b>Origami agente</b>' ); ?><p><?php sera_e( 'One step at a time, with the price on the button.', 'Um passo por vez, com o preço no botão.' ); ?></p><time datetime="2026-11-03">03/11</time></li>
+          <li tabindex="0" style="--d:6" class="is-key"><span class="dia-marca" aria-hidden="true"><svg class="ico"><use href="#pp-i-token"/></svg></span><span class="dia-n"><?php sera_e( 'Day 17', 'Dia 17' ); ?></span><?php sera_e( '<b>Dobra is born</b>', '<b>Nasce a Dobra</b>' ); ?><p><?php sera_e( 'The design system, with a page read from the code.', 'O design system, com a página que se lê do código.' ); ?></p><time datetime="2026-11-04">04/11</time></li>
+          <li tabindex="0" style="--d:7"><span class="dia-marca" aria-hidden="true"></span><span class="dia-n"><?php sera_e( 'Day 18', 'Dia 18' ); ?></span><?php sera_e( '<b>Free format</b>', '<b>Formato livre</b>' ); ?><p><?php sera_e( 'Change the episode’s format halfway through, without redoing anything.', 'Trocar o formato do episódio no meio, sem refazer nada.' ); ?></p><time datetime="2026-11-05">05/11</time></li>
+          <li tabindex="0" style="--d:8"><span class="dia-marca" aria-hidden="true"></span><span class="dia-n"><?php sera_e( 'Day 19', 'Dia 19' ); ?></span><?php sera_e( '<b>Audit</b>', '<b>Auditoria</b>' ); ?><p><?php sera_e( 'I reviewed the whole studio and closed the fixes the same day.', 'Revisei o estúdio inteiro e fechei as correções no mesmo dia.' ); ?></p><time datetime="2026-11-06">06/11</time></li>
+          <li tabindex="0" style="--d:9" class="is-key"><span class="dia-marca" aria-hidden="true"><svg class="ico"><use href="#pp-i-rumo"/></svg></span><span class="dia-n"><?php sera_e( 'Day 20', 'Dia 20' ); ?></span><?php sera_e( '<b>Basic and Advanced</b>', '<b>Básico e Avançado</b>' ); ?><p><?php sera_e( 'Paper with light and the motion personality.', 'Papel com luz e a personalidade de movimento.' ); ?></p><time datetime="2026-11-07">07/11</time></li>
+          <li tabindex="0" style="--d:10"><span class="dia-marca" aria-hidden="true"></span><span class="dia-n"><?php sera_e( 'Day 21', 'Dia 21' ); ?></span><?php sera_e( '<b>Less tech on screen</b>', '<b>Menos técnica na tela</b>' ); ?><p><?php sera_e( 'Technical details leave the interface. Shot breakdown with a guide video.', 'Detalhes técnicos saem da interface. Decupagem com vídeo-guia.' ); ?></p><time datetime="2026-11-08">08/11</time></li>
+          <li tabindex="0" style="--d:11"><span class="dia-marca" aria-hidden="true"></span><span class="dia-n"><?php sera_e( 'Day 22', 'Dia 22' ); ?></span><?php sera_e( '<b>A single prompt</b>', '<b>Um prompt só</b>' ); ?><p><?php sera_e( 'In Portuguese, with @ mentions.', 'Em português, com menções por arroba.' ); ?></p><time datetime="2026-11-09">09/11</time></li>
+          <li tabindex="0" style="--d:12" class="is-key"><span class="dia-marca" aria-hidden="true"><svg class="ico"><use href="#pp-i-check"/></svg></span><span class="dia-n"><?php sera_e( 'Day 23', 'Dia 23' ); ?></span><?php sera_e( '<b>Finish</b>', '<b>Acabamento</b>' ); ?><p><?php sera_e( 'PDF boards, subtitles, markers and the episode pack.', 'Prancha em PDF, legendas, marcadores e pacote do episódio.' ); ?></p><time datetime="2026-11-10">10/11</time></li>
         </ol>
       </div>
     </div>

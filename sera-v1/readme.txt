@@ -1,6 +1,6 @@
 === Sera v.1 ===
 Contributors: matheusserafim
-Stable tag: 3.17.0
+Stable tag: 3.18.0
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
@@ -56,6 +56,14 @@ Rascunhos aparecem na Home só para você (logado), com a etiqueta "Rascunho".
 da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
+
+= 3.18.0 =
+* Paperplane Studio: primeiro case da Home (ordem fixada no código, mesmo com a ordem salva em Personalizar › Sera · Home › Cases).
+* Paperplane: tese com destaque próprio; mesa de janelas já nasce na grade 3×2 (sem espalhar); notificação no estilo de app bancário; ícones removidos dos cards de regra; saldo e CTA centralizados nos cards de crédito; botões do cursor centralizados.
+* Paperplane: Dobra vira logo, cores e tipografia (sem controles); linha dos 23 dias com marcos em espaçamento igual e arraste mais leve.
+* Paperplane: números animados sem recorte (68, 23); céu que clareia de forma gradual entre 08h e 10h; indicador de início do iPhone removido das telas do celular.
+* Paperplane: cursor personalizado aparece sozinho (o do sistema some na página inteira enquanto o avião está ativo).
+* Gerador do case (tools/paperplane-case): essas mudanças foram feitas direto nos arquivos gerados do tema, como o README do gerador indica para ajustes pequenos.
 
 = 3.17.0 =
 * Case novo: Paperplane Studio (/paperplane-studio/ e /pt/paperplane-studio/), EN + PT. Layout próprio (template-parts/cases/paperplane.php) com as telas reais do estúdio em iframes carregados sob demanda; arquivos em assets/cases/paperplane/ (GSAP local, sem CDN), carregados só nessa página. O conteúdo em blocos é a versão em texto (SEO, llms.txt).

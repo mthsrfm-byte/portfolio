@@ -2371,7 +2371,7 @@ const mTop=(back,body='')=>`<div class="mb-top"><span class="mb-lg">${PL}</span>
 const mOri=`<div class="mb-ori">${TS}</div>`;
 const mGrp=b=>b==='Início'?0:b==='Escrever'?1:b==='Filmar'?3:2;
 const mBar=back=>{const on=mGrp(back);return `<div class="mb-bb">${[['Início','<path d="M4 11 12 4l8 7v9h-5v-6H9v6H4z"/>',''],['Escrever',IC.idea,'3/3'],['Visualizar',IC.grid,'5/5'],['Filmar',IC.play,'1/2'],['Explorar',EXPI,''],['Buscar',SRCH,'']].map(([t,p,n],i)=>`<span class="${i===on?'on':''}"><i>${svg(p,1.8)}</i>${t}${n?`<em>${n}</em>`:''}</span>`).join('')}</div>`};
-function mob(back,body){return `<div class="mb">${SB}${mTop(back,body)}<div class="mb-body">${body}</div>${mOri}${mBar(back)}<div class="mb-home"></div></div>`}
+function mob(back,body){return `<div class="mb">${SB}${mTop(back,body)}<div class="mb-body">${body}</div>${mOri}${mBar(back)}</div>`}
 const MSCREENS=[
  mob('Escrever',`<div class="ap-step">Escrever · passo 3 de 10</div><div class="mb-title">Roteiro</div>
   <div style="display:flex;gap:6px;margin:14px 0"><span class="ap-chip">‹</span><span class="ap-chip" style="flex:1;justify-content:center">Cena 3 · Mesa 4</span><span class="ap-chip">›</span></div>
