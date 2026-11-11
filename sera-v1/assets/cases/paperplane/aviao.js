@@ -128,6 +128,7 @@
     inst.parado = true
     cancelAnimationFrame(inst.raf)
     if (inst.ro) inst.ro.disconnect()
+    if (inst.io) inst.io.disconnect()
     if (!mantemVisual) {
       inst.svgTrilha.remove(); inst.aviao.remove()
       if (!inst.estavaComClasse) inst.el.classList.remove('pp-aviao-area')
@@ -143,6 +144,8 @@
     var reduzido = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches
     medir(inst)
     if (window.ResizeObserver) { inst.ro = new ResizeObserver(function () { medir(inst) }); inst.ro.observe(el) }
+    // Fora da tela o voo segue no tempo, mas sem desenhar (nada de getPointAtLength/rastro a cada quadro à toa).
+    if (window.IntersectionObserver) { inst.io = new IntersectionObserver(function (es) { inst.fora = !es[es.length - 1].isIntersecting }); inst.io.observe(el) }
 
     function pousar(agora) {
       inst.pousou = true; inst.tPouso = agora
@@ -163,10 +166,10 @@
     function quadro(agora) {
       if (inst.parado) return
       if (inst.t0 === null) inst.t0 = agora
-      medir(inst)
+      // medir() fica com o ResizeObserver: ler clientWidth aqui, depois de escrever o rastro, forçava layout a cada quadro
       var t = limitar((agora - inst.t0) / inst.duracao, 0, 1)
       if (t >= 1 && !inst.pousou) { desenhar(inst, 1, agora); pousar(agora) }
-      else desenhar(inst, t, agora)
+      else if (!inst.fora) desenhar(inst, t, agora)
       if (inst.pousou && agora - inst.tPouso > 1100) { desenhar(inst, 1, agora); inst.raf = 0; return } // fim: avião parado, rastro apagado
       inst.raf = requestAnimationFrame(quadro)
     }

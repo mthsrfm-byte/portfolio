@@ -2,7 +2,7 @@
    Sera v.1 — case study storytelling components (shared)
    Per-case rules live in cases/<prefix>.css and are enqueued only when needed.
    ========================================================================== */
-.case-content{--ca:#3347FF;--ca-soft:#E8EBFF;--ca-ink:#111110}
+.case-content{--ca:#111110;--ca-soft:#ECEBE6;--ca-ink:#111110}
 /* reveal on case pages (class added by case.js) — .art keeps its centring transform */
 .art.reveal{transform:translate(-50%,14px)}
 .art.reveal.is-in{transform:translateX(-50%)}

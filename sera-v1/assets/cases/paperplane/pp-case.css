@@ -842,3 +842,33 @@ html:not(.js) .pp-case .night-list li,html:not(.js) .pp-case .night-notes,html:n
 .site-header .brand svg,.site-header .lang-trigger,.site-header .menu-toggle,.site-header .btn-dark{transition:filter .35s ease,background-color .35s ease,color .35s ease,border-color .35s ease}
 .site-header.hdr-escuro .read-progress{background:var(--lime,#F7FF9E)}
 .pp-case .pp-night.tem-ceu .night-list{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+/* celular: os quatro rostos em 2×2, maiores */
+@media (max-width:760px){
+.pp-case .rostos{grid-template-columns:repeat(2,1fr);gap:5px}
+.pp-case .rostos li{aspect-ratio:4/3}
+.pp-case .rostos li img{object-position:50% 18%}
+}
+/* Noite de curadoria no celular (3.23): barra fixa compacta (relógio pequeno + hora + rótulo numa linha),
+   sempre em vidro escuro (nada de faixa clara), e lista com a hora em cima do texto */
+@media (max-width:760px){
+.pp-case .pp-night .night-clock,.pp-case .pp-night.tem-ceu .night-clock{display:flex!important;align-items:center;gap:12px;margin-inline:calc(-1*var(--gutter));padding:10px var(--gutter)!important;
+  background:rgba(10,12,16,.74)!important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid rgba(244,243,238,.08);text-shadow:none}
+.pp-case .pp-night .pp-clock{width:34px!important;height:34px!important;flex:none}
+.pp-case .pp-night .clock-time{margin:0!important;font-size:26px!important;line-height:1;letter-spacing:-.03em}
+.pp-case .pp-night .clock-label{margin:0 0 0 auto!important;font-size:10px;letter-spacing:.1em;text-align:right}
+.pp-case .pp-night .night-grid{gap:20px}
+.pp-case .pp-night.tem-ceu .night-list{padding:4px 18px;border-radius:18px}
+.pp-case .pp-night .night-list li{grid-template-columns:1fr!important;gap:6px;padding:18px 0;font-size:16px;line-height:1.5}
+.pp-case .pp-night .night-list time{font-size:12px;padding-top:0}
+.pp-case .pp-night .night-list time::before{top:5px}
+.pp-case .pp-night .night-notes{font-size:14.5px}
+}
+/* Site no celular (3.23): só o iPhone, maior e centrado; o navegador de desktop ficava ilegível e
+   empurrava o celular para fora da tela durante a fixação */
+@media (max-width:760px){
+.pp-case .site-sec .site-frame{display:none}
+.pp-case .site-sec .site-telas{display:grid;justify-items:center;padding:18px 0 22px}
+.pp-case .site-sec .site-cel{display:grid;position:static;width:min(232px,58vw);margin:0 auto}
+.pp-case .site-sec.is-pin .site-grid{align-content:center;gap:14px;padding-top:calc(var(--header-h) + 4px)}
+}
+@media (max-width:760px){.pp-case .site-sec.is-pin .site-caps{min-height:118px;align-content:start}}

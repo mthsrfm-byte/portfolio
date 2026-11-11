@@ -127,3 +127,26 @@ html.is-v2 .site-header::before{background:rgba(247,246,241,.76);-webkit-backdro
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.55),0 0 0 1px rgba(21,21,19,.08),0 12px 30px -16px rgba(0,0,0,.35)}
 html.is-v2 .site-header .lang-trigger,html.is-v2 .site-header .menu-toggle{background:rgba(255,255,255,.35);border-color:rgba(21,21,19,.14)}
 html.is-v2 .site-header>.v2-pill-tint{display:none}
+/* paddings da pílula: botão da direita com a mesma folga de cima/baixo (raio concêntrico) e a marca com respiro óptico */
+html.is-v2 .site-header{--pill-r:max(8px,calc(max(var(--gutter),(100% - var(--wrap)) / 2 + var(--gutter)) - 7px))}
+@media (max-width:860px){
+  html.is-v2 .site-header{--pill-r:8px}
+  html.is-v2 .site-header>.wrap{padding-left:calc(var(--gutter) + 10px);padding-right:calc(var(--gutter) + 3px)}
+}
+/* sem fio de progresso no menu */
+html.is-v2 .site-header::after{display:none}
+/* paleta só de pretos, brancos e cinzas: destaque em tinta; no escuro, cinza claro */
+html.is-v2{--v2-accent-lt:#CFCDC6}
+html.is-v2 .hero-title .slot,html.is-v2 .hero-title .slot-item{color:var(--ink)!important}
+html.is-v2 .fs-win{border-bottom-color:#EFEEE8}
+html.is-v2 .footer-slot.is-jackpot .fs-machine{box-shadow:inset 0 0 0 1px #EFEEE8,0 0 22px -4px rgba(239,238,232,.45)}
+/* menu levemente quadrado: botões com cantos de 12px e a pílula concêntrica (12 + folga);
+   a marca com a mesma folga à esquerda que tem em cima e embaixo */
+html.is-v2 .site-header .lang-trigger,html.is-v2 .site-header .menu-toggle,html.is-v2 .site-header>.wrap>.header-actions>.btn-dark{border-radius:12px}
+html.is-v2 .site-header::before{border-radius:19px}
+html.is-v2 .site-header{--pill-l:max(8px,calc(max(var(--gutter),(100% - var(--wrap)) / 2 + var(--gutter)) - 13px))}
+@media (max-width:860px){
+  html.is-v2 .site-header::before{border-radius:23px}
+  html.is-v2 .site-header{--pill-l:8px}
+  html.is-v2 .site-header>.wrap{padding-left:calc(var(--gutter) + 7px)}
+}

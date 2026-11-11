@@ -12,7 +12,7 @@
 				{ "slug": "muted", "name": "Muted", "color": "#6E6C66" },
 				{ "slug": "bg", "name": "Background", "color": "#F5F4EF" },
 				{ "slug": "surface", "name": "Surface", "color": "#FFFFFF" },
-				{ "slug": "accent", "name": "Accent", "color": "#3347FF" }
+				{ "slug": "accent", "name": "Accent", "color": "#111110" }
 			]
 		},
 		"typography": {

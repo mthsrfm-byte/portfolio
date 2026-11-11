@@ -57,6 +57,14 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.23.0 =
+* Menu: botões levemente quadrados (12px) com a pílula concêntrica (19px desktop, 23px celular); marca com a mesma folga à esquerda que em cima/embaixo; sem fio de progresso.
+* Paleta: o azul sai do tema; destaque em tinta (#111110) e cinza claro sobre escuro. Palavra rotativa do hero em tinta.
+* Home: status de disponibilidade num bloco só, com pontos em tinta.
+* Back to top funciona no celular (o alvo #top é o cabeçalho fixo) e não é cortado no desktop.
+* Paperplane no celular: rostos em 2×2; noite de curadoria com barra fixa compacta e escura; bloco do site só com o iPhone rolando a home (pin 2,6 telas).
+* Performance: Paperplane sem layout forçado por quadro (topos em cache, linha dos 23 dias e avião pausados fora da tela), v2.js sem medir a página inteira, título do hero só refaz layout quando a largura muda. Headshot reduzido e logos quantizados sem perda visível.
+
 = 3.22.0 =
 * Menu em vidro claro fixo (opção 01): mesma pílula fosca sobre qualquer fundo, sem trocar para escuro (v2-dark e hdr-escuro desligados). Pílula e botões em cápsula completa, também no celular.
 
