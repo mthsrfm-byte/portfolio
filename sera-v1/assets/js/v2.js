@@ -728,42 +728,104 @@
 		var vh = window.innerHeight;
 		var vw = root.clientWidth;
 		var y0 = window.scrollY;
-		if ( V2.reduce() || ! root.classList.contains( 'is-v2' ) || y0 < vh * 1.5 ) {
+		if ( V2.reduce() || ! root.classList.contains( 'is-v2' ) || y0 < vh * 1.5 || ! body.animate ) {
 			return false;
 		}
 		flying = true;
+		var docH = root.scrollHeight;
 		var mobile = vw < 861;
-		var k = V2.clamp( 2.4 * vh / root.scrollHeight, mobile ? 0.3 : 0.24, 0.42 ); // farthest zoom
+		var k = V2.clamp( 2.4 * vh / docH, mobile ? 0.3 : 0.24, 0.42 ); // farthest zoom
 		var lnk = Math.log( k );
-		var travel = k * y0;
-		var dur = V2.clamp( 1500 + travel / vh * 70, 1600, 2300 );
+		var real = k * y0; // on-screen travel if the camera flew over the whole page
+		// 3.33 · long pages: only the two ends are flown over for real; the middle is hopped behind a plain
+		// paper sheet (the "veil"), so the browser never has to paint the whole page in one second
+		var hop = real > vh * 3.2;
+		var V = hop ? vh * 2.6 : real;
+		var dur = Math.round( V2.clamp( 1450 + V / vh * 130, 1600, 1900 ) );
 
-		// the stage: a paper layer with the maze, behind <body> (a child of <html>, so it is not transformed)
+		// the stage: a paper layer with two mazes (left / right of the page), behind <body>; it is a child
+		// of <html>, so it is not transformed with the page
 		var cell = mobile ? 22 : 28;
-		var shift = Math.round( Math.min( travel * 0.3, vh * 0.55 ) ); // how far the maze drifts (parallax)
-		var cols = Math.ceil( vw / cell ) + 1;
+		var shift = Math.round( Math.min( V * 0.3, vh * 0.55 ) ); // how far the mazes drift (parallax)
+		var cols = Math.ceil( vw / 2 / cell ) + 1;
 		var rows = Math.ceil( ( vh + shift ) / cell ) + 1;
-		var stage = document.createElement( 'div' );
-		stage.className = 'v2-fly';
-		stage.setAttribute( 'aria-hidden', 'true' );
-		var inner = document.createElement( 'div' );
-		inner.className = 'v2-fly-in';
-		var host = document.createElement( 'div' );
-		host.className = 'v2-maze v2-fly-maze';
-		host.style.width = cols * cell + 'px';
-		host.style.height = rows * cell + 'px';
-		host.style.left = Math.round( ( vw - cols * cell ) / 2 ) + 'px';
-		host.style.top = -shift + 'px';
-		inner.appendChild( host );
-		stage.appendChild( inner );
+		function div( cls, parent ) {
+			var n = document.createElement( 'div' );
+			n.className = cls;
+			n.setAttribute( 'aria-hidden', 'true' );
+			if ( parent ) {
+				parent.appendChild( n );
+			}
+			return n;
+		}
+		var stage = div( 'v2-fly' );
+		var inner = div( 'v2-fly-in', stage );
+		var drift = div( 'v2-fly-drift', inner );
+		// one snake per side: it climbs from the bottom, next to the page, to the top
+		var snakes = [ 0, 1 ].map( function ( side ) {
+			var host = div( 'v2-maze v2-fly-maze', drift );
+			host.style.width = cols * cell + 'px';
+			host.style.height = rows * cell + 'px';
+			host.style.left = Math.round( side ? vw / 2 : vw / 2 - cols * cell ) + 'px';
+			host.style.top = -shift + 'px';
+			var near = side ? 0.3 : 0.7; // the column next to the page
+			var mz = V2.maze( host, { cols: cols, rows: rows, cell: 10, scale: cell / 10, solPx: 1.7, seed: side ? 2017 : 1309,
+				start: [ Math.round( ( cols - 1 ) * near ), rows - 3 ] } );
+			mz.solveTo( Math.round( ( cols - 1 ) * ( 1 - near ) ), 2, true );
+			var sol = host.querySelector( '.mz-sol' ); // the body of the snake
+			var trail = host.querySelector( '.mz-snake' ); // the faint line it leaves behind
+			var dot = host.querySelector( '.mz-b' );
+			trail.setAttribute( 'd', sol.getAttribute( 'd' ) );
+			trail.setAttribute( 'pathLength', '1' );
+			sol.style.strokeDasharray = '0 2';
+			trail.style.strokeDasharray = '0 2';
+			return { mz: mz, sol: sol, trail: trail, head: mobile || ! dot ? null : dot.parentNode, len: mobile ? 0 : sol.getTotalLength() };
+		} );
+		var veil = hop ? div( 'v2-fly-veil' ) : null;
 		root.appendChild( stage );
-		// the route climbs from where the button was (bottom right) to the top
-		var mz = V2.maze( host, { cols: cols, rows: rows, cell: 10, scale: cell / 10, solPx: 1.7, seed: 2017,
-			start: [ Math.round( cols * 0.72 ), rows - 3 ] } );
-		mz.solveTo( Math.round( cols * 0.86 ), 2, true );
-		var sol = host.querySelector( '.mz-sol' );
-		sol.style.strokeDasharray = '1 1';
-		sol.style.strokeDashoffset = '1';
+		if ( veil ) {
+			veil.style.width = vw + 'px';
+			veil.style.height = vh + 'px';
+			root.appendChild( veil );
+		}
+
+		// the whole flight, sampled into keyframes: the transforms then run as compositor animations and
+		// stay smooth whatever the main thread is doing
+		function cam( p, top ) {
+			var zf = sst( p / 0.4 ) * sst( ( 1 - p ) / 0.4 ); // 0 near · 1 far
+			var s = Math.exp( lnk * zf );
+			var e = sst( ( p - 0.1 ) / 0.8 ); // climb, 0 → 1
+			var ty;
+			if ( ! hop ) {
+				ty = vh / 2 - s * ( vh / 2 + y0 * ( 1 - e ) );
+			} else if ( ! top ) {
+				ty = vh / 2 - s * ( y0 + vh / 2 ) + V * e; // anchored on the footer
+			} else {
+				ty = vh / 2 * ( 1 - s ) - V * ( 1 - e ); // anchored on the top
+			}
+			return { s: s, tx: vw / 2 * ( 1 - s ), ty: ty, zf: zf, e: e };
+		}
+		var N = 80;
+		var kBody = [], kVeil = [], kIn = [], kDrift = [];
+		function sample( p, top ) {
+			var c = cam( p, top );
+			kBody.push( { offset: p, transform: 'translate3d(' + c.tx.toFixed( 2 ) + 'px,' + c.ty.toFixed( 2 ) + 'px,0) scale(' + c.s.toFixed( 5 ) + ')' } );
+			kIn.push( { offset: p, transform: 'scale(' + ( 1.16 - 0.16 * c.zf ).toFixed( 4 ) + ')' } );
+			kDrift.push( { offset: p, transform: 'translate3d(0,' + ( shift * c.e ).toFixed( 2 ) + 'px,0)' } );
+			if ( veil ) {
+				// the sheet sits exactly on the page's on-screen rectangle
+				var t = Math.max( -2, c.ty );
+				var b = Math.min( vh + 2, c.ty + c.s * docH );
+				kVeil.push( { offset: p, opacity: ( sst( ( p - 0.16 ) / 0.16 ) * sst( ( 0.84 - p ) / 0.16 ) ).toFixed( 3 ),
+					transform: 'translate3d(' + c.tx.toFixed( 2 ) + 'px,' + t.toFixed( 2 ) + 'px,0) scale(' + c.s.toFixed( 5 ) + ',' + ( Math.max( 0, b - t ) / vh ).toFixed( 5 ) + ')' } );
+			}
+		}
+		for ( var i = 0; i <= N; i++ ) {
+			sample( i / N, hop && i > N / 2 );
+			if ( hop && i === N / 2 ) {
+				sample( 0.5, true ); // same offset twice: the hop, hidden by the sheet
+			}
+		}
 
 		// no input while flying, and no scroll news for the rest of the page: it has already settled on
 		// its top state (see below) and would otherwise measure the transformed <body>
@@ -807,20 +869,20 @@
 		} catch ( err ) {
 			window.scrollTo( 0, 0 );
 		}
-		function start( now ) {
-			EV.forEach( function ( t ) {
-				window.addEventListener( t, block, { passive: false, capture: true } );
-			} );
-			root.classList.add( 'is-flying' );
-			body.style.transformOrigin = '0 0';
-			body.style.willChange = 'transform';
-			body.style.outline = ( 1 / k ).toFixed( 1 ) + 'px solid rgba(17,17,16,.14)';
-			frame( now );
-		}
 
-		var t0 = 0;
+		var anims = [];
+		var main = null;
+		var ended = false;
+		var endT = 0;
 		function done() {
-			body.style.transform = '';
+			if ( ended ) {
+				return;
+			}
+			ended = true;
+			clearTimeout( endT );
+			anims.forEach( function ( a ) {
+				a.cancel();
+			} );
 			body.style.transformOrigin = '';
 			body.style.willChange = '';
 			body.style.outline = '';
@@ -829,8 +891,13 @@
 			EV.forEach( function ( t ) {
 				window.removeEventListener( t, block, { capture: true } );
 			} );
-			mz.destroy();
+			snakes.forEach( function ( sn ) {
+				sn.mz.destroy();
+			} );
 			root.removeChild( stage );
+			if ( veil ) {
+				root.removeChild( veil );
+			}
 			flying = false;
 			// anything that reads positions on scroll settles on the real top state
 			window.dispatchEvent( new Event( 'scroll' ) );
@@ -838,27 +905,45 @@
 				V2.remeasure();
 			}
 		}
-		function frame( now ) {
-			if ( ! t0 ) {
-				t0 = now;
+		// the snakes: a body of fixed length that slithers up its route and leaves a faint trail; the
+		// only per-frame work on the main thread (two dash offsets and a dot each)
+		var LEN = 0.2;
+		function slither() {
+			if ( ended ) {
+				return;
 			}
-			var p = V2.clamp( ( now - t0 ) / dur, 0, 1 );
-			if ( window.scrollY > 0 ) {
-				window.scrollTo( 0, 0 );
+			var p = V2.clamp( ( main.currentTime || 0 ) / dur, 0, 1 );
+			var h = sst( ( p - 0.03 ) / 0.8 ) * ( 1 + LEN );
+			var head = Math.min( 1, h );
+			var tail = Math.max( 0, h - LEN );
+			snakes.forEach( function ( sn ) {
+				sn.sol.style.strokeDasharray = Math.max( 0, head - tail ).toFixed( 4 ) + ' 2';
+				sn.sol.style.strokeDashoffset = ( -tail ).toFixed( 4 );
+				sn.trail.style.strokeDasharray = head.toFixed( 4 ) + ' 2';
+				if ( sn.head ) {
+					var pt = sn.sol.getPointAtLength( head * sn.len );
+					sn.head.setAttribute( 'transform', 'translate(' + pt.x.toFixed( 2 ) + ' ' + pt.y.toFixed( 2 ) + ')' );
+				}
+			} );
+			requestAnimationFrame( slither );
+		}
+		function start() {
+			EV.forEach( function ( t ) {
+				window.addEventListener( t, block, { passive: false, capture: true } );
+			} );
+			root.classList.add( 'is-flying' );
+			body.style.transformOrigin = '0 0';
+			body.style.willChange = 'transform';
+			body.style.outline = ( 1 / k ).toFixed( 1 ) + 'px solid rgba(17,17,16,.14)';
+			var o = { duration: dur, easing: 'linear', fill: 'both' };
+			main = body.animate( kBody, o );
+			anims = [ main, inner.animate( kIn, o ), drift.animate( kDrift, o ) ];
+			if ( veil ) {
+				anims.push( veil.animate( kVeil, o ) );
 			}
-			var zf = sst( p / 0.4 ) * sst( ( 1 - p ) / 0.4 ); // 0 near · 1 far
-			var s = Math.exp( lnk * zf );
-			var ec = sst( ( p - 0.1 ) / 0.8 ); // camera: footer → top
-			var cy = vh / 2 + y0 * ( 1 - ec );
-			body.style.transform = 'translate3d(' + ( vw / 2 * ( 1 - s ) ).toFixed( 2 ) + 'px,' + ( vh / 2 - s * cy ).toFixed( 2 ) + 'px,0) scale(' + s.toFixed( 5 ) + ')';
-			inner.style.transform = 'scale(' + ( 1.16 - 0.16 * zf ).toFixed( 4 ) + ')';
-			host.style.transform = 'translate3d(0,' + ( shift * ec ).toFixed( 2 ) + 'px,0)';
-			sol.style.strokeDashoffset = ( 1 - sst( ( p - 0.06 ) / 0.8 ) ).toFixed( 4 );
-			if ( p < 1 ) {
-				requestAnimationFrame( frame );
-			} else {
-				done();
-			}
+			main.onfinish = done;
+			endT = setTimeout( done, dur + 600 );
+			slither();
 		}
 		return true;
 	};
