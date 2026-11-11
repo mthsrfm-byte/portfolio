@@ -386,26 +386,13 @@ html:not(.js) .pp-case .etapas-lista p,.pp-case .etapas.sem-pin .etapas-lista p{
 .pp-case .mi-resposta{font-size:14.5px;line-height:1.55;color:var(--ink)}
 .pp-case .mi-ponteiro{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--ink);opacity:0;pointer-events:none;left:0;top:0}
 .pp-case .mi-tsuru{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--lime-esfera,var(--lime));box-shadow:var(--sombra-esfera,none);color:#111110}
-.pp-case .mi-curvas{margin-top:22px;padding:18px clamp(16px,2.4vw,26px);border-radius:20px;background:var(--surface);border:1px solid var(--line)}
-.pp-case .curves-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
 .pp-case .btn-ghost{height:34px;padding:0 14px;border-radius:999px;border:1px solid var(--line-strong);font-size:13.5px;color:var(--ink)}
 .pp-case .btn-ghost:hover{background:var(--surface-2)}
-.pp-case .curve-list{margin-top:10px;display:grid;grid-template-columns:1fr 1fr;column-gap:28px}
-.pp-case .curve{display:grid;grid-template-columns:120px 34px 1fr;grid-template-areas:"name cg track" "cv cg track";gap:0 14px;align-items:center;width:100%;text-align:left;padding:10px 4px;border-top:1px solid var(--line)}
-.pp-case .curve:hover{background:var(--surface-2)}
-.pp-case .curve code{grid-area:name;background:none;padding:0;font-size:12.5px}
-.pp-case .cv{grid-area:cv;font-size:12px;color:var(--muted)}
-.pp-case .cg{grid-area:cg;width:34px;height:24px;overflow:visible}
-.pp-case .cg path{fill:none;stroke:var(--ink);stroke-width:1.4}
-.pp-case .track{grid-area:track;position:relative;height:24px;border-bottom:1px dashed var(--line-strong)}
-.pp-case .track i{position:absolute;left:0;top:50%;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:var(--ink)}
 .pp-case .mi-a11y{margin-top:14px}
 @media (max-width:1000px){.pp-case .mi-grade{grid-template-columns:repeat(2,minmax(0,1fr))}
-.pp-case .curve-list{grid-template-columns:1fr}
 }
 @media (max-width:560px){.pp-case .mi-grade{grid-template-columns:1fr}
 .pp-case .mi[data-mi="cursor"],.pp-case .mi[data-mi="pensa"]{grid-column:auto}
-.pp-case .curve{grid-template-columns:1fr 34px;grid-template-areas:"name cg" "cv cg" "track track"}
 }
 .pp-case .dobra-art{display:grid;grid-template-columns:300px minmax(0,1fr);gap:clamp(20px,3vw,40px);align-items:start}
 .pp-case .db-painel{position:sticky;top:calc(var(--header-h) + 20px);padding:22px;border-radius:22px;background:var(--surface);border:1px solid var(--line);display:grid;gap:16px}
@@ -872,3 +859,16 @@ html:not(.js) .pp-case .night-list li,html:not(.js) .pp-case .night-notes,html:n
 .pp-case .site-sec.is-pin .site-grid{align-content:center;gap:14px;padding-top:calc(var(--header-h) + 4px)}
 }
 @media (max-width:760px){.pp-case .site-sec.is-pin .site-caps{min-height:118px;align-content:start}}
+/* card 04: quando o quadro vira take, o código "3C" sai e o rótulo do take ganha fundo (antes os dois se sobrepunham) */
+.pp-case .aq-cod{transition:opacity .3s}
+.pp-case .art-quadro:has(.aq-take.vivo) .aq-cod{opacity:0}
+.pp-case .aq-take.vivo .aq-tk{align-self:flex-start;padding:2px 6px;border-radius:4px;background:rgba(12,13,11,.8);position:relative;z-index:3}
+/* dez etapas no celular: as legendas ficam empilhadas no mesmo lugar e trocam com fade (antes era corte seco) */
+@media (max-width:899px){
+.pp-case .etapas.is-pin .etapas-lista{display:grid}
+.pp-case .etapas.is-pin .etapas-lista li{display:block!important;grid-area:1/1;margin-top:0!important;opacity:0;transform:translateY(10px);visibility:hidden;pointer-events:none;
+  transition:opacity .45s cubic-bezier(.33,1,.68,1),transform .55s cubic-bezier(.33,1,.68,1),visibility 0s .45s,border-color .3s}
+.pp-case .etapas.is-pin .etapas-lista li.is-active{opacity:1;transform:none;visibility:visible;pointer-events:auto;transition-delay:.08s,.08s,0s,0s}
+.pp-case .etapas.is-pin .etapas-lista li p{max-height:none;opacity:1;margin-top:6px;transition:none}
+}
+@media (max-width:899px) and (prefers-reduced-motion:reduce){.pp-case .etapas.is-pin .etapas-lista li{transition:none}}

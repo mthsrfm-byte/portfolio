@@ -702,3 +702,75 @@
 		V2.magnet( footer.querySelectorAll( '.footer-mail' ), 5 );
 	}
 } )();
+
+/* 3.24 · menu "troca lenta": a pílula escurece sobre blocos escuros e clareia sobre os claros, com uma
+   transição longa (CSS). Detecção barata: só os blocos escuros conhecidos, medidos uma vez (e de novo
+   ao mudar de tamanho); na rolagem é só comparar números. A mesma detecção pinta a barra de status. */
+( function () {
+	'use strict';
+	var header = document.querySelector( '.site-header' );
+	if ( ! header || ! window.V2 || ! document.documentElement.classList.contains( 'is-v2' ) ) {
+		return;
+	}
+	var SEL = '#approach, .site-footer, .pp-zone[data-theme="dark"], .cv2-bleed, .art-panel.art-dark, .impact, .pp-night, [data-header-tone="dark"]';
+	var meta = document.querySelector( 'meta[name="theme-color"]' );
+	var LIGHT = meta ? meta.getAttribute( 'content' ) : '#F5F4EF', DARK = '#121211';
+	var spans = [], dark = null, mt = 0;
+	function measure() {
+		var sy = window.scrollY, vw = document.documentElement.clientWidth;
+		spans = [];
+		[].slice.call( document.querySelectorAll( SEL ) ).forEach( function ( e ) {
+			var r = e.getBoundingClientRect();
+			// only blocks that run (almost) edge to edge under the pill count as a dark background
+			if ( r.height > 80 && r.width >= vw * 0.7 ) {
+				spans.push( [ r.top + sy, r.bottom + sy ] );
+			}
+		} );
+	}
+	function inDark( y ) {
+		for ( var i = 0; i < spans.length; i++ ) {
+			if ( y >= spans[ i ][ 0 ] && y < spans[ i ][ 1 ] ) {
+				return true;
+			}
+		}
+		return false;
+	}
+	function check( y ) {
+		var mid = y + 40;
+		// a small hysteresis: the new tone has to cover the pill's middle by 14px before it switches
+		var a = inDark( mid - 14 ), b = inDark( mid + 14 );
+		if ( a !== b ) {
+			return;
+		}
+		if ( a !== dark ) {
+			dark = a;
+			header.classList.toggle( 'v2-dark', a );
+			if ( meta ) {
+				meta.setAttribute( 'content', a ? DARK : LIGHT );
+			}
+		}
+	}
+	function remeasure() {
+		clearTimeout( mt );
+		mt = setTimeout( function () {
+			measure();
+			check( window.scrollY );
+		}, 200 );
+	}
+	measure();
+	window.V2.onScroll( check );
+	window.addEventListener( 'load', remeasure );
+	var lastW = window.innerWidth;
+	window.addEventListener( 'resize', function () {
+		if ( window.innerWidth !== lastW ) {
+			lastW = window.innerWidth;
+			remeasure();
+		}
+	} );
+	if ( window.ResizeObserver ) {
+		new ResizeObserver( remeasure ).observe( document.body );
+	}
+	if ( window.ScrollTrigger && window.ScrollTrigger.addEventListener ) {
+		window.ScrollTrigger.addEventListener( 'refresh', remeasure );
+	}
+} )();

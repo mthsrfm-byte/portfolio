@@ -150,3 +150,12 @@ html.is-v2 .site-header{--pill-l:max(8px,calc(max(var(--gutter),(100% - var(--wr
   html.is-v2 .site-header{--pill-l:8px}
   html.is-v2 .site-header>.wrap{padding-left:calc(var(--gutter) + 7px)}
 }
+
+/* 3.24 · menu 03 "troca lenta": volta a escurecer sobre blocos escuros, devagar (0,9 s), mantendo o
+   arredondamento e os paddings de 3.23. A cor escura vem de uma camada própria (opacidade), que o Safari repinta bem. */
+html.is-v2 .site-header>.v2-pill-tint{display:block;border-radius:19px;background:rgba(20,20,18,.8);transition:opacity .9s cubic-bezier(.4,0,.2,1)}
+@media (max-width:860px){html.is-v2 .site-header>.v2-pill-tint{inset:8px 8px;border-radius:23px}}
+html.is-v2 .site-header.v2-dark::before{background:rgba(247,246,241,.76)}
+html.is-v2 .site-header,html.is-v2 .site-header .brand,html.is-v2 .site-header .brand-name,html.is-v2 .site-header .lang-trigger,html.is-v2 .site-header .lang-chev,html.is-v2 .site-header .menu-toggle,html.is-v2 .site-header>.wrap>.header-actions>.btn-dark,html.is-v2 .site-header .primary-nav ul{transition:color .9s cubic-bezier(.4,0,.2,1),background-color .9s cubic-bezier(.4,0,.2,1),border-color .9s cubic-bezier(.4,0,.2,1)}
+html.is-v2 .site-header.v2-dark .lang-trigger,html.is-v2 .site-header.v2-dark .menu-toggle{background:rgba(255,255,255,.06);border-color:rgba(239,238,232,.18);color:#EFEEE8}
+@media (prefers-reduced-motion:reduce){html.is-v2 .site-header>.v2-pill-tint,html.is-v2 .site-header *{transition:none!important}}
