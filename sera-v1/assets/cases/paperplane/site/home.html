@@ -1112,6 +1112,8 @@ html{scrollbar-width:thin;scrollbar-color:color-mix(in srgb,var(--ink) 28%,trans
 .duo-phones{position:absolute;inset:0;z-index:2;pointer-events:none}
 /* No celular, só o iPhone duo: os outros aparelhos em volta saem. */
 @media (max-width:760px){.duo-phones{display:none}}
+/* só o iPhone Duo, como no site real: sem os quatro celulares em volta */
+.duo-phones{display:none!important}
 .duo-phones .phone{top:0;left:0;height:var(--ph,420px)}
 .duo-section .duo-copy{z-index:6}
 .duo-section .duo-stage{z-index:7}

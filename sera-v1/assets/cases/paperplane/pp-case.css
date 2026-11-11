@@ -950,3 +950,13 @@ html:not(.js) .pp-case .night-list li,html:not(.js) .pp-case .night-notes,html:n
 .pp-case .art-botao .reserva{display:none}
 .pp-case .art-botao .pp-btn{max-width:100%;flex-wrap:wrap;justify-content:center}
 }
+
+/* 3.29 · "Sem saldo": o botão vira medidor (preenchimento + marca de onde precisaria chegar) */
+.pp-case .pp-btn>.pp-medidor{position:absolute;inset:0;z-index:-1;border-radius:inherit;background:linear-gradient(90deg,rgba(17,17,16,.06),rgba(17,17,16,.16));transform:scaleX(0);transform-origin:0 50%;pointer-events:none}
+.pp-case .pp-btn>.pp-medidor-fim{position:absolute;top:22%;bottom:22%;right:0;width:0;border-right:1.5px dashed rgba(17,17,16,.45);opacity:0;pointer-events:none}
+
+/* 3.29 · Dobra: o cartão do design system acompanha a rolagem ao lado da prévia (desktop e tablet) */
+@media (min-width:761px){
+.pp-case .dobra-art{grid-template-columns:clamp(250px,26vw,300px) minmax(0,1fr)}
+.pp-case .db-sistema{position:sticky;top:calc(var(--header-h) + 24px);align-self:start}
+}

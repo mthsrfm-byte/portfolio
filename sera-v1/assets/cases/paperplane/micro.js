@@ -596,45 +596,51 @@
     })
   }
   const raioDe = (el) => parseFloat(getComputedStyle(el).borderTopLeftRadius) || 0
+  /* 3.29 · Sem saldo, redesenhado: em vez de 40 pontos em volta do botão, o próprio botão vira um medidor.
+     Poucas partículas (8) saem do saldo e entram na borda do preenchimento; a cada chegada o preenchimento
+     avança até a fração que o saldo cobre (10 de 24 ≈ 42%). Uma marca fina no fim mostra quanto faltaria.
+     O preenchimento para, o botão balança de leve, e tudo esvazia e volta ao saldo, a última primeiro. */
   async function semSaldo(saldo, botao) {
     if (preferePoucoMovimento()) return
-    const campo = campoDaPagina(), cores = coresDoCredito(botao), vaga = corDoToken('--credito-vaga', botao)
+    const campo = campoDaPagina(), cores = coresDoCredito(botao)
     campo.medir()
     const casa = saldo ? campo.caixa(saldo) : origemDeReserva(campo), caixa = campo.caixa(botao)
-    const pontos = noContorno(caixa, raioDe(botao), PONTOS_DO_CONTORNO, 5)
-    const controle = { voltar: false, atrasoDaVolta: (ordem) => ordem * 0.035 }
-    const contorno = pontos.map((v, i) => {
-      let tempo = -i * 0.009
-      const p = {
-        x: v.x, y: v.y, r: 0.8, a: 0, cor: vaga,
-        passo(dt) {
-          tempo += dt
-          if (controle.fim) { p.a -= dt * 2; return p.a > 0 }
-          if (tempo > 0) p.a = Math.min(0.3, p.a + dt * 2.2)
-          return true
-        },
-      }
-      return p
-    })
-    campo.adicionar(...contorno)
+    const tem = saldo ? (estadoDoSaldo(saldo).real || 0) : 0
+    const precoEl = botao.querySelector('[data-creditos]'), custo = Number(precoEl && precoEl.dataset.creditos) || 24
+    const fracao = limitar(tem / custo, 0.12, 0.9)
+    if (getComputedStyle(botao).position === 'static') botao.style.position = 'relative'
+    botao.style.isolation = 'isolate'
+    const fill = document.createElement('span'); fill.className = 'pp-medidor'; fill.setAttribute('aria-hidden', 'true')
+    const marca = document.createElement('span'); marca.className = 'pp-medidor-fim'; marca.setAttribute('aria-hidden', 'true')
+    botao.append(fill, marca)
+    const suave = textoDaCurva('--ease-quieto', botao)
+    let atual = 0
+    const encher = (alvo, ms) => { const de = atual; atual = alvo; return fill.animate([{ transform: `scaleX(${de})` }, { transform: `scaleX(${alvo})` }], { duration: ms, easing: suave, fill: 'forwards' }) }
+    marca.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 400, easing: 'ease-out', fill: 'forwards' })
     const numero = numeroDoSaldo(saldo)
     const apagado = numero && numero.animate ? numero.animate([{ opacity: 1 }, { opacity: 0.4 }], { duration: 350, easing: 'ease-in-out', fill: 'forwards' }) : null
+    const N = 8, controle = { voltar: false, atrasoDaVolta: (ordem) => ordem * 0.06 }
     const curva = curvaDoToken('--ease-suave', botao)
     let chegaram = 0, voltaram = 0
     await new Promise((pronto) => {
-      for (let i = 0; i < PARTICULAS_SEM_SALDO; i++) {
+      for (let i = 0; i < N; i++) {
+        const k = (i + 1) / N
+        const ate = { x: caixa.x - caixa.w / 2 + caixa.w * fracao * k, y: caixa.y + aleatorio(-caixa.h * 0.18, caixa.h * 0.18) }
         campo.adicionar(idaEVolta({
-          de: casa, ate: pontos[i], cores, controle, ordem: PARTICULAS_SEM_SALDO - 1 - i, atrasoS: 0.1 + i * 0.024, duracaoS: 0.55, duracaoVoltaS: 0.5, r: 1.9, curvaIda: curva,
+          de: casa, ate, cores, controle, ordem: N - 1 - i, atrasoS: 0.08 + i * 0.07, duracaoS: 0.6, duracaoVoltaS: 0.55, r: 1.7, curvaIda: curva,
           aoChegar: () => {
-            if (++chegaram < PARTICULAS_SEM_SALDO) return
-            if (botao.isConnected) balancar(botao)
-            esperar(ESPERA_ANTES_DE_VOLTAR_MS).then(() => { controle.voltar = true })
+            chegaram++
+            encher(fracao * chegaram / N, 260)
+            if (chegaram < N) return
+            esperar(160).then(() => { if (botao.isConnected) balancar(botao) })
+            esperar(ESPERA_ANTES_DE_VOLTAR_MS + 200).then(() => { controle.voltar = true; encher(0, 900) })
           },
           aoVoltar: () => {
-            if (++voltaram < PARTICULAS_SEM_SALDO) return
+            if (++voltaram < N) return
             if (apagado) apagado.reverse()
             if (saldo) pulsar(saldo, 1.03)
-            controle.fim = true
+            const sai = marca.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: 'forwards' })
+            sai.finished.then(() => { fill.remove(); marca.remove() }).catch(() => { fill.remove(); marca.remove() })
             pronto()
           },
         }))
