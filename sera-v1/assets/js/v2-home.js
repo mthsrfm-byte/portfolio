@@ -278,6 +278,41 @@ var V2_CASE_ICONS = {
 				}
 			}
 		}
+		if ( mobile ) {
+			// mobile: the path only lives in the strip to the right of every line of text (title, name row)
+			var textRight = 0;
+			$$( '.hero-title .w, .hero-title .slot, .hb-who b, .hb-who span span' ).concat( [ title ] ).forEach( function ( e ) {
+				[].slice.call( e.getClientRects() ).forEach( function ( r ) {
+					if ( r.width && r.right < vw - 4 ) {
+						textRight = Math.max( textRight, r.right );
+					}
+				} );
+			} );
+			var minCol = Math.min( cols - 2, Math.max( 0, Math.ceil( ( textRight - ox + 6 ) / cell ) ) );
+			allowedFn = function ( x, y ) {
+				return x >= minCol && x < cols && y >= 0 && y < rows;
+			};
+			var bestM = -Infinity;
+			var tmpM = document.createElement( 'div' );
+			for ( var sm = 1; sm <= 120; sm++ ) {
+				var mm = V2.maze( tmpM, opts( sm ) );
+				tmpM.textContent = '';
+				for ( var my = Math.floor( rows * 0.4 ); my < rows - 1; my++ ) {
+					for ( var mx = minCol; mx < cols; mx++ ) {
+						var pth = mm.route( mx, my );
+						var okm = pth.length >= 8;
+						for ( var q = 0; okm && q < pth.length; q++ ) {
+							okm = allowedFn( pth[ q ][ 0 ], pth[ q ][ 1 ] );
+						}
+						if ( okm && my - pth.length * 0.1 > bestM ) {
+							bestM = my - pth.length * 0.1;
+							seed = sm;
+							end = [ mx, my ];
+						}
+					}
+				}
+			}
+		}
 		host = document.createElement( 'div' );
 		host.className = 'v2-maze hero-maze' + ( mobile ? ' is-walls' : '' );
 		host.setAttribute( 'aria-hidden', 'true' );
@@ -287,8 +322,8 @@ var V2_CASE_ICONS = {
 		hero.insertBefore( host, hero.firstChild );
 		maze = V2.maze( host, opts( seed ) );
 		maze.mobile = mobile;
-		// mobile: no clear band, so the path roams the whole maze, faint behind the text
-		maze.end = mobile ? [ Math.max( 1, Math.floor( cols * 0.25 ) ), Math.min( rows - 2, 4 ) ] : end;
+		// mobile: the path stays in the strip right of the text (allowedFn above)
+		maze.end = end;
 	}
 	var mazeStarted = false;
 	var heroVisible = true;

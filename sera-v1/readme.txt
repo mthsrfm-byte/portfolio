@@ -57,6 +57,9 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.31.1 =
+* Home no celular: o caminho do labirinto fica só na faixa à direita do texto (mede onde termina a linha mais longa do título e do nome), sem passar por baixo das palavras.
+
 = 3.31.0 =
 * Paperplane, noite no celular: o sol fica solto sobre o céu escurecido (sem caixa), sol + hora + cartão centrados na tela, com véu escuro fixo para a legibilidade nunca depender da foto. Painel e trilha ficam num contêiner próprio: as notas viram a linha de chegada e o painel sobe com elas, sem passar por cima.
 
