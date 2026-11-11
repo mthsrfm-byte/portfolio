@@ -659,9 +659,9 @@ defined( 'ABSPATH' ) || exit;
     <p class="pp-lead pp-reveal"><?php sera_e( 'Paperplane is still in progress, and this page shows where it stands today. If you work in product, AI or animation and want to talk about how a designer gives direction to a team of agents, get in touch.', 'O Paperplane continua em andamento, e esta página mostra o estado de hoje. Se você trabalha com produto, IA ou animação e quer conversar sobre como um designer dá rumo a uma equipe de agentes, me escreve.' ); ?></p>
     <div class="pp-ctas">
       <a class="pp-cta pp-cta-lime" href="https://paperplanestudio.app" target="_blank" rel="noopener"><span class="pp-cta-in"><?php sera_e( '<span>See the home page</span><small>paperplanestudio.app</small>', '<span>Ver a home</span><small>paperplanestudio.app</small>' ); ?></span><svg class="ico" aria-hidden="true"><use href="#pp-i-externa"/></svg></a>
-      <a class="pp-cta pp-cta-line" href="https://beta.paperplanestudio.app" target="_blank" rel="noopener"><span class="pp-cta-in"><?php sera_e( '<span>Ask for beta access</span><small>beta.paperplanestudio.app</small>', '<span>Pedir acesso ao beta</span><small>beta.paperplanestudio.app</small>' ); ?></span><svg class="ico" aria-hidden="true"><use href="#pp-i-externa"/></svg></a>
+      <a class="pp-cta pp-cta-line" href="mailto:mthsrfm@gmail.com?subject=<?php echo rawurlencode( sera_t( 'Paperplane beta access', 'Acesso ao beta do Paperplane' ) ); ?>"><span class="pp-cta-in"><?php sera_e( '<span>Ask for beta access</span><small>mthsrfm@gmail.com</small>', '<span>Pedir acesso ao beta</span><small>mthsrfm@gmail.com</small>' ); ?></span><svg class="ico" aria-hidden="true"><use href="#pp-i-externa"/></svg></a>
     </div>
-    <p class="pp-cap pp-cta-note"><?php sera_e( 'The beta needs a password. The waiting list is on the home page.', 'O beta abre com senha. A lista de espera fica na home.' ); ?></p>
+    <p class="pp-cap pp-cta-note"><?php sera_e( 'The beta needs a password. Send me an email and I’ll share access.', 'O beta abre com senha. Me manda um e-mail que eu libero o acesso.' ); ?></p>
   </div>
 </section>
 </div>
