@@ -53,7 +53,7 @@ jobs:
             **/.DS_Store
 
       - name: Limpar cache de página do WordPress (Endurance / Newfold)
-        timeout-minutes: 3
+        timeout-minutes: 8
         continue-on-error: true
         env:
           S: ${{ secrets.FTP_SERVER }}
@@ -62,7 +62,7 @@ jobs:
         run: |
           sudo apt-get update -qq > /dev/null && sudo apt-get install -y -qq lftp > /dev/null
           for d in endurance-page-cache newfold-page-cache; do
-            timeout 60 lftp -d --env-password -u "$U" -e "set net:max-retries 2; set net:timeout 15; set net:reconnect-interval-base 3; set ftp:passive-mode true; set ftp:ssl-force true; set ftp:ssl-protect-data true; set ssl:verify-certificate yes; rm -r -f matheusserafim.com/wp-content/$d; bye" "$S" 2>&1 | grep -vi "pass" | tail -25; [ ${PIPESTATUS[0]} -eq 0 ] \
+            timeout 240 lftp --env-password -u "$U" -e "set net:max-retries 2; set net:timeout 15; set net:reconnect-interval-base 3; set ftp:passive-mode true; set ftp:ssl-force true; set ftp:ssl-protect-data true; set ssl:verify-certificate yes; rm -f matheusserafim.com/wp-content/$d/_index.html; rm -f matheusserafim.com/wp-content/$d/_index_ssl.html; rm -r -f matheusserafim.com/wp-content/$d; bye" "$S" 2>&1 | grep -vi "pass" | tail -25; [ ${PIPESTATUS[0]} -eq 0 ] \
               && echo "Limpo: $d" || echo "::warning::Não consegui limpar $d (pode não existir)."
           done
           echo "O cache do servidor (nginx) expira sozinho em até 2h."
