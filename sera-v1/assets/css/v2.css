@@ -69,7 +69,7 @@ html.is-v2 .site-header.v2-dark .header-actions>.btn-dark:hover{background:#fff}
 html.is-v2 .primary-nav a::after{bottom:1px;transition:transform var(--v2-d2) var(--v2-ease-out)}
 @media (max-width:860px){
   html.is-v2 .site-header{--pill-l:8px;--pill-r:8px}
-  html.is-v2 .site-header::before{inset:8px 8px;border-radius:18px}
+  html.is-v2 .site-header::before{inset:8px 8px;border-radius:999px}
   html.is-v2 .site-header>.v2-pill-tint{inset:8px 8px;border-radius:18px}
   html.is-v2 .site-header::after{bottom:8px}
   /* the open menu sheet is light glass: keep its links ink whatever the pill does */
@@ -120,3 +120,10 @@ html.is-v2 .site-footer .footer-mail:hover .ico{transform:translate(3px,-3px)}
 html.is-v2 .v2-mag{transition-property:transform,background,border-color,color,translate;transition-duration:.2s,.2s,.2s,.2s,.7s;transition-timing-function:var(--ease),ease,ease,ease,var(--v2-ease-out)}
 
 @media (max-width:860px){.v2-maze .mz-a,.v2-maze .mz-b,.v2-maze .mz-b-ring{display:none}}
+
+/* 3.22.0 · menu em vidro claro fixo: a mesma pílula fosca sobre qualquer fundo, sem trocar de cor.
+   Raio concêntrico: pílula e botões são cápsulas completas. */
+html.is-v2 .site-header::before{background:rgba(247,246,241,.76);-webkit-backdrop-filter:blur(22px) saturate(180%);backdrop-filter:blur(22px) saturate(180%);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.55),0 0 0 1px rgba(21,21,19,.08),0 12px 30px -16px rgba(0,0,0,.35)}
+html.is-v2 .site-header .lang-trigger,html.is-v2 .site-header .menu-toggle{background:rgba(255,255,255,.35);border-color:rgba(21,21,19,.14)}
+html.is-v2 .site-header>.v2-pill-tint{display:none}
