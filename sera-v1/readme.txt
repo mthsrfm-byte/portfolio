@@ -57,6 +57,9 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.21.8 =
+* Paperplane, "seis ferramentas" no celular: a mesa ocupa a altura da tela e as janelas viram grade 2×3 (antes 3×2 espremida); a dobra fecha as duas colunas para o meio. Grão da mesa em PNG, sem blend.
+
 = 3.21.7 =
 * Hero dos cases no celular (Bastidores, Acordo Certo, Lume, Research Hub): só o iPhone, maior e centralizado; sai o navegador ilegível.
 
