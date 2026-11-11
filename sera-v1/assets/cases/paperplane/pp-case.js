@@ -622,8 +622,13 @@
     const colunaDe = (i) => i % 3, linhaDe = (i) => (i < 3 ? 0 : 1)
     const geo = () => {
       const W = m.clientWidth, H = m.clientHeight, gap = W * 0.018
-      const area = { x: W * 0.08, y: H * 0.06, w: W * 0.84, h: H * 0.88 }
-      return { gap, area, cw: (area.w - gap * 2) / 3, ch: (area.h - gap) / 2 }
+      // Grade centrada na mesa, com cartões de proporção fixa (nada de janela esticada e vazia).
+      let cw = (W * 0.86 - gap * 2) / 3, ch = Math.min((H * 0.86 - gap) / 2, cw * 0.66)
+      if (ch < cw * 0.66) cw = Math.min(cw, ch / 0.5)
+      const gw = cw * 3 + gap * 2, gh = ch * 2 + gap
+      const area = { x: (W - gw) / 2, y: (H - gh) / 2, w: gw, h: gh }
+      m.style.setProperty('--grade-x', area.x + 'px'); m.style.setProperty('--grade-y', area.y + 'px')
+      return { gap, area, cw, ch }
     }
     // A dobra anda com a leitura: a mesa fica presa enquanto as janelas se alinham, dobram e viram o estúdio.
     // As janelas já entram na grade 3×2 (sem espalhar e reorganizar): cada uma cai no seu lugar, sem rotação.

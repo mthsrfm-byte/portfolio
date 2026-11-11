@@ -1,6 +1,6 @@
 === Sera v.1 ===
 Contributors: matheusserafim
-Stable tag: 3.18.9
+Stable tag: 3.19.0
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
@@ -56,6 +56,9 @@ Rascunhos aparecem na Home só para você (logado), com a etiqueta "Rascunho".
 da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
+
+= 3.19.0 =
+* Paperplane: mesa de janelas cabe na tela, grade centrada com cartões de proporção fixa; notificação no estilo iOS, agora do Lowfield Bank / Banco Lowfield.
 
 = 3.18.9 =
 * Paperplane: dobra da noite refinada (vidro leve, trilho de horas, hora ativa em limão, relógio menor).
