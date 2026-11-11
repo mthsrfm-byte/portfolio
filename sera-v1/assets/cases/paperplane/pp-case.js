@@ -1263,3 +1263,33 @@
     ScrollTrigger.create({ trigger: ctas, start: 'top 60%', once: true, onEnter: voar })
   }
 })()
+
+/* Menu escuro: quando o que passa por baixo do topo é escuro, o cabeçalho vira vidro escuro com texto claro. */
+;(function () {
+  const h = document.querySelector('.site-header')
+  if (!h || !document.querySelector('.pp-case')) return
+  const lum = (c) => { const m = c.match(/[\d.]+/g); if (!m || (m[3] !== undefined && +m[3] < 0.4)) return null; return (0.2126 * m[0] + 0.7152 * m[1] + 0.0722 * m[2]) / 255 }
+  let raf = 0
+  const ver = () => {
+    raf = 0
+    const y = h.getBoundingClientRect().bottom + 6
+    let escuro = false
+    const pts = [innerWidth * 0.25, innerWidth * 0.5, innerWidth * 0.75]
+    let votos = 0
+    pts.forEach((x) => {
+      let n = document.elementFromPoint(x, y)
+      while (n && n !== document.documentElement) {
+        if (n.closest && n.closest('.site-header')) { n = null; break }
+        const st = getComputedStyle(n)
+        const l = lum(st.backgroundColor)
+        if (l !== null) { if (l < 0.35) votos++; break }
+        if (st.backgroundImage && st.backgroundImage !== 'none' && n.matches('.night-sky,.pp-night')) { votos++; break }
+        n = n.parentElement
+      }
+    })
+    escuro = votos >= 2
+    h.classList.toggle('hdr-escuro', escuro)
+  }
+  const pedir = () => { if (!raf) raf = requestAnimationFrame(ver) }
+  addEventListener('scroll', pedir, { passive: true }); addEventListener('resize', pedir); setInterval(pedir, 800); pedir()
+})()

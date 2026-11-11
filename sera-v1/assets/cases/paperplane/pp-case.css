@@ -825,3 +825,14 @@ html:not(.js) .pp-case .night-list li,html:not(.js) .pp-case .night-notes,html:n
 .pp-case .pp-notif-app{width:32px;height:32px;border-radius:8px;font-size:15px}
 .pp-case .pp-notif-topo,.pp-case .pp-notif-msg,.pp-case .pp-notif-valor{font-size:12px}
 }
+/* Cabeçalho escuro sobre as dobras escuras: vidro fumê com desfoque forte e texto claro */
+.site-header{transition:color .35s ease}
+.site-header.hdr-escuro{--hdr-bg:rgba(12,13,11,.58);color:#F1F0EB}
+.site-header.hdr-escuro::before{-webkit-backdrop-filter:blur(24px) saturate(160%) brightness(.85);backdrop-filter:blur(24px) saturate(160%) brightness(.85)}
+.site-header.hdr-escuro::after{background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.1) 12%,rgba(255,255,255,.1) 88%,rgba(255,255,255,0));box-shadow:none;opacity:1}
+.site-header.hdr-escuro .brand,.site-header.hdr-escuro .brand-name,.site-header.hdr-escuro .primary-nav a,.site-header.hdr-escuro .lang-trigger,.site-header.hdr-escuro .menu-toggle{color:#F1F0EB}
+.site-header.hdr-escuro .brand-name{color:rgba(241,240,235,.7)}
+.site-header.hdr-escuro .brand svg{filter:invert(1) brightness(1.05)}
+.site-header.hdr-escuro .lang-trigger,.site-header.hdr-escuro .menu-toggle{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.16)}
+.site-header.hdr-escuro .btn-dark{background:var(--lime,#F7FF9E);color:#111110;border-color:transparent}
+.site-header .brand svg,.site-header .lang-trigger,.site-header .menu-toggle,.site-header .btn-dark{transition:filter .35s ease,background-color .35s ease,color .35s ease,border-color .35s ease}
