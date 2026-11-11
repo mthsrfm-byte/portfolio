@@ -1,6 +1,6 @@
 === Sera v.1 ===
 Contributors: matheusserafim
-Stable tag: 3.18.0
+Stable tag: 3.18.1
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
@@ -56,6 +56,9 @@ Rascunhos aparecem na Home só para você (logado), com a etiqueta "Rascunho".
 da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
+
+= 3.18.1 =
+* Paperplane: notificação ocupa a largura toda da mesa no modo sem JS e com movimento reduzido (no celular o texto não estoura mais).
 
 = 3.18.0 =
 * Paperplane Studio: primeiro case da Home (ordem fixada no código, mesmo com a ordem salva em Personalizar › Sera · Home › Cases).
