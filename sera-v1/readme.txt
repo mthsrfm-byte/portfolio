@@ -57,6 +57,11 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.21.1 =
+* Celular: cabeçalho escuro sobre seções escuras volta a funcionar no iPhone (camada de tinta real em vez de trocar o fundo do ::before com blur).
+* Home: texto de apoio do "Selected work" não aparece mais por cima dos cards; linha da timeline de Experience passa ao lado do texto.
+* Cases: miniatura do próximo case cabe em 360px; Antes/Depois (Acordo Certo, Bastidores) cabe no cartão; legenda com link não quebra em coluna; grade RFM do Fatal Model cabe em 360px.
+
 = 3.21.0 =
 * Camada v2 de refino visual, por cima do tema (assets/css/v2*.css e assets/js/v2*.js, escopo html.is-v2). Para desligar tudo: tirar "is-v2" do filtro language_attributes em functions.php.
 * Geral: grão de papel, cabeçalho vira pílula flutuante ao rolar (escura sobre blocos escuros, com fio de progresso), wordmark SERAFIM de fundo no rodapé, à direita, sem aumentar o rodapé.
