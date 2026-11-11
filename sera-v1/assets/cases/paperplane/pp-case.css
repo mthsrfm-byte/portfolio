@@ -837,3 +837,4 @@ html:not(.js) .pp-case .night-list li,html:not(.js) .pp-case .night-notes,html:n
 .site-header.hdr-escuro .btn-dark{background:var(--lime,#F7FF9E);color:#111110;border-color:transparent}
 .site-header .brand svg,.site-header .lang-trigger,.site-header .menu-toggle,.site-header .btn-dark{transition:filter .35s ease,background-color .35s ease,color .35s ease,border-color .35s ease}
 .site-header.hdr-escuro .read-progress{background:var(--lime,#F7FF9E)}
+.pp-case .pp-night.tem-ceu .night-list{backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}

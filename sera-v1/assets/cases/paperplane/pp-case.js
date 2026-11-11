@@ -241,7 +241,7 @@
       try { seguro(m.frame.contentDocument) } catch (e) {}
       try { const d = m.frame.contentDocument, w = d.documentElement.clientWidth, h = d.documentElement.clientHeight; const t = corEm(d, w / 2, 2), b = corEm(d, 4, h - 2); if (t) ap.style.setProperty('--ap-topo', t); if (b) ap.style.setProperty('--ap-base', b) } catch (e) {}
     })
-  }, 700)
+  }, 1500)
 
   function registrar(el) {
     if (el.__moldura) return el.__moldura
@@ -1290,5 +1290,6 @@
     h.classList.toggle('hdr-escuro', escuro)
   }
   const pedir = () => { if (!raf) raf = requestAnimationFrame(ver) }
-  addEventListener('scroll', pedir, { passive: true }); addEventListener('resize', pedir); setInterval(pedir, 800); pedir()
+  // Sem ouvir o scroll (forçar layout a cada quadro travava a rolagem suave): checa 4x por segundo, fora do caminho da rolagem.
+  setInterval(() => { if (!document.hidden) pedir() }, 250); pedir()
 })()

@@ -1,6 +1,6 @@
 === Sera v.1 ===
 Contributors: matheusserafim
-Stable tag: 3.20.0
+Stable tag: 3.20.1
 Requires at least: 6.4
 Tested up to: 6.8
 Requires PHP: 7.4
@@ -56,6 +56,9 @@ Rascunhos aparecem na Home só para você (logado), com a etiqueta "Rascunho".
 da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
+
+= 3.20.1 =
+* Paperplane: rolagem leve de novo (o cabeçalho escuro não força layout a cada quadro; menos desfoque na noite).
 
 = 3.20.0 =
 * Paperplane: partículas das animações acompanham a rolagem e não vazam por cima de outras seções.
