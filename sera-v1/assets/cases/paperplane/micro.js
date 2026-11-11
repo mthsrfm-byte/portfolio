@@ -1112,6 +1112,11 @@
    * (realce na forma do elemento, que cede até 2 px); no movimento rápido deixa o rastro de voo. Devolve destruir().
    */
   function cursorBolinha(opcoes = {}) {
+    if (!document.getElementById('pp-cursor-unico')) {
+      const estilo = document.createElement('style'); estilo.id = 'pp-cursor-unico'
+      estilo.textContent = 'html.pp-cursor-ativo, html.pp-cursor-ativo * { cursor: none !important }'
+      document.head.append(estilo)
+    }
     const raiz = opcoes.raiz || document.body
     const comMouse = matchMedia('(pointer: fine) and (hover: hover)')
     const doSistema = matchMedia('(forced-colors: active), (prefers-contrast: more)')
@@ -1147,7 +1152,8 @@
     let escondido = null, ultimoAlvo = null
     const ligado = () => !!opcoes.sempre || (comMouse.matches && !doSistema.matches)
     const devolverCursor = () => { if (escondido) { escondido.el.style.cursor = escondido.antes; escondido = null } }
-    const mostrar = (sim) => { if (sim !== visivel) { visivel = sim; el.classList.toggle('on', sim) } }
+    // Enquanto o avião está no lugar, o cursor do sistema some na página inteira (não só no elemento sob o ponteiro).
+    const mostrar = (sim) => { if (sim !== visivel) { visivel = sim; el.classList.toggle('on', sim); document.documentElement.classList.toggle('pp-cursor-ativo', sim) } }
     const caixaDe = (alvo) => { const r = alvo.getBoundingClientRect(), d = alvo === elementoQueCede ? cedido : { x: 0, y: 0 }; return { x: r.left - d.x, y: r.top - d.y, w: r.width, h: r.height } }
     const ehItemDeLista = (alvo) => !!alvo.closest('[role="listbox"],[role="menu"],[role="option"],[role="menuitem"],[role="menuitemradio"],[role="menuitemcheckbox"],[role="tablist"]')
     const podeCeder = (alvo) => !ehItemDeLista(alvo) && (alvo.matches('.pp-btn') || getComputedStyle(alvo).translate === 'none')
@@ -1318,6 +1324,7 @@
         removeEventListener('blur', esconder); removeEventListener('resize', aoRedimensionar)
         comMouse.removeEventListener('change', esconder); doSistema.removeEventListener('change', esconder)
         cancelAnimationFrame(quadro); devolverCursor(); soltarElemento(); camada.remove()
+        document.documentElement.classList.remove('pp-cursor-ativo')
       },
     }
   }

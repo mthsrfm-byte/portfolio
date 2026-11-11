@@ -98,8 +98,8 @@
   }
   function docDoCursor() {
     return '<!doctype html><html lang="pt-BR"><head>' + cabeca(false) +
-      '<style>html,body{margin:0;height:100%;overflow:hidden}body.pp-micro{background:var(--grao-papel),var(--fundo-pagina);display:grid;place-items:center;font-family:var(--body)}' +
-      '.fila{display:flex;gap:18px;align-items:center}</style></head>' +
+      '<style>html,body{margin:0;height:100%;overflow:hidden}body.pp-micro{background:var(--grao-papel),var(--fundo-pagina);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--body)}' +
+      '.fila{display:flex;gap:18px;align-items:center;justify-content:center;flex-wrap:wrap;margin:auto;max-width:100%;padding:0 16px;box-sizing:border-box}</style></head>' +
       '<body class="pp-micro" data-theme="light"><div class="fila"><button type="button" class="pp-btn a">Aprovar</button><button type="button" class="pp-btn g">Editar com Origami</button><a href="#" class="pp-btn g">Ver a cena</a></div>' + rodape() + '</body></html>'
   }
   function docDaHome(chave) { return trocarMidias(extra(chave), 'site') }
@@ -373,7 +373,6 @@
     preco()
     comparador()
     micro()
-    dobra()
     noite()
     contrato()
     curvas()
@@ -609,14 +608,18 @@
       return { gap, area, cw: (area.w - gap * 2) / 3, ch: (area.h - gap) / 2 }
     }
     // A dobra anda com a leitura: a mesa fica presa enquanto as janelas se alinham, dobram e viram o estúdio.
+    // As janelas já entram na grade 3×2 (sem espalhar e reorganizar): cada uma cai no seu lugar, sem rotação.
+    const grade = {
+      left: (i) => { const g = geo(); return g.area.x + colunaDe(i) * (g.cw + g.gap) },
+      top: (i) => { const g = geo(); return g.area.y + linhaDe(i) * (g.ch + g.gap) },
+      width: () => geo().cw,
+      height: () => geo().ch,
+    }
     const tl = gsap.timeline({ defaults: { overwrite: false } })
-    tl.fromTo(jan, { autoAlpha: 0, y: -26, rotation: (i) => (i % 2 ? 7 : -7) }, { autoAlpha: 1, y: 0, rotation: (i, el) => parseFloat(getComputedStyle(el).getPropertyValue('--r')) || 0, duration: 0.6, ease: 'pouso', stagger: 0.09 })
+    tl.fromTo(jan, { autoAlpha: 0, y: -26, rotation: 0, ...grade }, { autoAlpha: 1, y: 0, rotation: 0, ...grade, duration: 0.6, ease: 'pouso', stagger: 0.09 })
       .fromTo(notif, { autoAlpha: 0, x: 30 }, { autoAlpha: 1, x: 0, duration: 0.45, ease: 'pouso' }, '+=0.2')
       .to({}, { duration: 1.4 })
       .to(notif, { autoAlpha: 0, y: -4, duration: 0.2, ease: 'sair' })
-    jan.forEach((j, i) => {
-      tl.to(j, { left: () => { const g = geo(); return g.area.x + colunaDe(i) * (g.cw + g.gap) }, top: () => { const g = geo(); return g.area.y + linhaDe(i) * (g.ch + g.gap) }, width: () => geo().cw, height: () => geo().ch, rotation: 0, duration: 0.7, ease: 'power3.inOut' }, i === 0 ? '+=0.05' : '<0.03')
-    })
     tl.to({}, { duration: 0.3 })
     const esq = [jan[0], jan[3]], dir = [jan[2], jan[5]], meioC = jan[1], meioB = jan[4]
     tl.to(esq, { rotationY: 90, transformOrigin: () => { const g = geo(); return `${g.cw + g.gap / 2}px 50%` }, '--sombra': 0.5, duration: 0.45, ease: 'power2.in' })
@@ -939,64 +942,6 @@
     if (todas) todas.addEventListener('click', () => linhas.forEach((l, i) => setTimeout(() => tocar(l), reduzido() ? 0 : i * 110)))
   }
 
-  /* ================= 06 DOBRA: o painel muda variáveis no :root dos iframes ================= */
-  function dobra() {
-    const painel = $('.db-painel')
-    if (!painel || !PPSims) return
-    const alvos = $$('.db-previa .sim').map((el) => el.__moldura).filter(Boolean)
-    const leitura = $('.db-leitura', painel)
-    const ACENTOS = { limao: null, menta: '#B8F5D2', pessego: '#FFD2A8', lilas: '#DCCBFF', ceu: '#BFE3FF' }
-    const RAIOS = { '--r-xs': 2, '--r-tag': 3, '--r-sm': 4, '--r-card': 6, '--r-md': 8, '--r-panel': 10, '--r-lg': 16 }
-    const PADRAO = { acento: 'limao', canto: '1', tema: 'dark', fonte: 'geist' }
-    const previa = $('.db-previa')
-    const est = { ...PADRAO }
-    function vars() {
-      const v = {}
-      const c = ACENTOS[est.acento]
-      for (const k of ['--accent', '--lime-300', '--lime-400']) v[k] = c
-      v['--lime-50'] = c ? `color-mix(in srgb, ${c} 40%, #fff)` : null
-      v['--lime-100'] = c ? `color-mix(in srgb, ${c} 70%, #fff)` : null
-      v['--lime-500'] = c ? `color-mix(in srgb, ${c} 80%, #000)` : null
-      const f = Number(est.canto)
-      for (const [k, b] of Object.entries(RAIOS)) v[k] = f === 1 ? null : b * f + 'px'
-      const mono = '"Geist Mono",ui-monospace,Menlo,monospace'
-      v['--body'] = est.fonte === 'mono' ? mono : null
-      v['--display'] = est.fonte === 'mono' ? mono : null
-      return v
-    }
-    function aplicar(motivo) {
-      const v = vars()
-      alvos.forEach((m) => { m.vars = v; const w = m.janela; if (w && w.__sim) { w.__sim.vars(v); w.__sim.tema(est.tema) } })
-      if (previa) previa.dataset.tema = est.tema === 'light' ? 'claro' : 'escuro'
-
-      $$('.db-ctl', painel).forEach((ctl) => $$('[role="radio"]', ctl).forEach((b) => b.setAttribute('aria-checked', String(b.dataset.v === est[ctl.dataset.ctl]))))
-      if (motivo) leitura.textContent = motivo
-    }
-    alvos.forEach((m) => m.aoFicarPronta(() => aplicar()))
-    const textos = {
-      acento: (v) => v === 'limao' ? T.acentoLimao : T.acentoOutro.replace('{v}', nomeDoAcento(v)),
-      canto: (v) => (v === '0' ? T.cantoZero : v === '1' ? T.cantoPadrao : T.cantoMais),
-      tema: (v) => (v === 'light' ? T.temaClaro : T.temaEscuro),
-      fonte: (v) => (v === 'mono' ? T.fonteMono : T.fonteGeist),
-    }
-    let assumiu = false
-    $$('.db-ctl', painel).forEach((ctl) => ctl.addEventListener('click', (e) => {
-      const b = e.target.closest('[role="radio"]'); if (!b) return
-      assumiu = true
-      est[ctl.dataset.ctl] = b.dataset.v
-      aplicar(textos[ctl.dataset.ctl](b.dataset.v))
-    }))
-    $('.db-zera', painel).addEventListener('click', () => { assumiu = true; Object.assign(est, PADRAO); aplicar(T.padrao) })
-    aplicar(T.escolha)
-    if (reduzido()) return
-    ScrollTrigger.create({ trigger: '.dobra-art', start: 'top 55%', once: true, onEnter: async () => {
-      const passos = [['acento', 'menta'], ['canto', '2.4'], ['tema', 'light'], ['fonte', 'mono'], ['acento', 'pessego']]
-      for (const [k, v] of passos) { await esperar(1700); if (assumiu) return; est[k] = v; aplicar(textos[k](v)) }
-      await esperar(2200); if (assumiu) return
-      Object.assign(est, PADRAO); aplicar(T.padraoFim)
-    } })
-  }
-
   /* ================= 07 SITE: a home rola de verdade dentro da moldura ================= */
   function site(reduz) {
     const sec = $('.site-sec'), simEl = $('.sim[data-tipo="site"]'), celEl = $('.sim[data-tipo="siteCel"]')
@@ -1089,7 +1034,8 @@
    * quando o céu clareia. Com movimento reduzido fica a 3ª foto parada (o fundo em CSS), sem canvas.
    */
   const HORAS_DAS_FOTOS = [5, 7, 9, 12]
-  const HORA_EM_QUE_O_TEXTO_ESCURECE = 9.7
+  // Entre essas horas o céu clareia aos poucos: véu, cor do texto e fundo do relógio se misturam (--claro de 0 a 1), sem virada seca.
+  const CLAREIA_DE = 8.6, CLAREIA_ATE = 10.4
   function setCeu(fotos, relogio) {
     const n = $('.pp-night'), ceu = $('.night-sky', n)
     if (!n || !ceu || !fotos || !fotos.length) return
@@ -1137,7 +1083,8 @@
     }
     const ajustar = () => {
       hora = horaContinua()
-      n.classList.toggle('claro', hora >= HORA_EM_QUE_O_TEXTO_ESCURECE)
+      const t = gsap.utils.clamp(0, 1, (hora - CLAREIA_DE) / (CLAREIA_ATE - CLAREIA_DE))
+      n.style.setProperty('--claro', (t * t * (3 - 2 * t)).toFixed(3))
       n.style.setProperty('--noite', String(gsap.utils.clamp(0, 1, (8 - hora) / 3)))
       pedir()
     }

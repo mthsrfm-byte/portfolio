@@ -136,8 +136,12 @@ function sera_case_query( $args = array() ) {
  * Case order chosen in Personalizar › Sera · Home › Cases (page slugs, comma-separated).
  */
 function sera_case_order() {
-	$raw = (string) sera_mod( 'cases_order' );
-	return array_values( array_filter( array_map( 'sanitize_title', explode( ',', $raw ) ) ) );
+	$raw   = (string) sera_mod( 'cases_order' );
+	$slugs = array_values( array_filter( array_map( 'sanitize_title', explode( ',', $raw ) ) ) );
+	// Paperplane Studio é o case de destaque: sempre o primeiro da Home, mesmo com a ordem salva antes.
+	$slugs = array_values( array_diff( $slugs, array( 'paperplane-studio' ) ) );
+	array_unshift( $slugs, 'paperplane-studio' );
+	return $slugs;
 }
 
 /**
