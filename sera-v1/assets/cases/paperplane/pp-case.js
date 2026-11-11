@@ -1078,7 +1078,12 @@
       if (painel && lista.parentNode !== painel) painel.append(lista)
       let trilha = $('.night-trilha', n)
       if (!trilha) { trilha = document.createElement('div'); trilha.className = 'night-trilha'; trilha.setAttribute('aria-hidden', 'true'); (painel || lista).after(trilha) }
-      const prog = () => { const lb = lista.getBoundingClientRect().bottom, tr = trilha.getBoundingClientRect(); return gsap.utils.clamp(0, 1, (lb - tr.top) / Math.max(1, tr.height)) }
+      // 3.31 · pista: painel + trilha num contêiner próprio; o painel fica preso só dentro dela, então as notas
+      // (logo depois) são a linha de chegada: o painel sobe junto, nunca passa por cima delas.
+      let pista = $('.night-pista', n)
+      if (!pista && painel) { pista = document.createElement('div'); pista.className = 'night-pista'; painel.before(pista); pista.append(painel, trilha) }
+      const alvo = painel || lista
+      const prog = () => { const p = (pista || trilha).getBoundingClientRect(), h = alvo.offsetHeight; return gsap.utils.clamp(0, 1, (HEADER - p.top) / Math.max(1, p.height - h)) }
       n.__horaPalco = () => 5 + prog() * 7
       escolher = () => {
         const i = Math.min(itens.length - 1, Math.floor(prog() * itens.length))

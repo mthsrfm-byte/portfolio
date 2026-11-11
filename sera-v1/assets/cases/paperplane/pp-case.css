@@ -960,3 +960,17 @@ html:not(.js) .pp-case .night-list li,html:not(.js) .pp-case .night-notes,html:n
 .pp-case .dobra-art{grid-template-columns:clamp(250px,26vw,300px) minmax(0,1fr)}
 .pp-case .db-sistema{position:sticky;top:calc(var(--header-h) + 24px);align-self:start}
 }
+
+/* 3.31 · Noite no celular: o sol fica solto sobre o céu escurecido (sem caixa), sol + hora + cartão
+   centrados na tela; as notas viram a linha de chegada (o painel sobe com elas, não passa por cima). */
+@media (max-width:760px){
+.pp-case .night-palco .night-veu{display:block!important}
+.pp-case .night-palco .night-veu::before{opacity:1!important;background:rgba(8,10,14,.62)!important}
+.pp-case .night-palco .night-veu::after{display:none}
+.pp-case .night-palco .night-clock,.pp-case .night-palco.tem-ceu .night-clock{background:transparent!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;border:0!important;
+  height:calc(100svh - var(--header-h));align-content:center;padding:8px var(--gutter) 24px!important;margin-inline:0!important}
+.pp-case .night-palco .night-list,.pp-case .night-palco.tem-ceu .night-list{background:rgba(10,13,20,.78)!important;-webkit-backdrop-filter:blur(10px)!important;backdrop-filter:blur(10px)!important;min-height:150px;align-content:center}
+.pp-case .night-palco .night-trilha{height:calc(8 * 38svh)}
+.pp-case .night-palco .night-notes{margin-top:24px!important}
+}
+@media (max-width:760px){.pp-case .night-palco .arco-ini,.pp-case .night-palco .arco-fim{bottom:-20px!important}.pp-case .night-palco .clock-time{margin-top:18px!important}}
