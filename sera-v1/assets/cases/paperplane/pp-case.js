@@ -227,9 +227,18 @@
 
   /* Status bar e faixa inferior do celular com a mesma cor do topo/base do app (iframe da mesma origem). */
   const corEm = (doc, x, y) => { let n = doc.elementFromPoint(x, y); while (n && n.nodeType === 1) { const c = doc.defaultView.getComputedStyle(n).backgroundColor; if (c && c !== 'transparent' && !/rgba\([^)]*,\s*0\)$/.test(c)) return c; n = n.parentElement } return null }
+  // Área segura do iPhone: o app já usa env(safe-area-inset-bottom); no iframe ela vale 0, então reescrevemos com 34px.
+  const seguro = (d) => {
+    if (!d || !d.head || d.__seguro === d.styleSheets.length) return
+    const out = []
+    for (const sh of d.styleSheets) { let rs; try { rs = sh.cssRules } catch (e) { continue } for (const r of rs) if (r.cssText.includes('safe-area-inset-bottom')) out.push(r.cssText.replace(/env\(\s*safe-area-inset-bottom\s*(,[^)]*)?\)/g, '34px')) }
+    let st = d.getElementById('pp-seguro'); if (!st) { st = d.createElement('style'); st.id = 'pp-seguro' }
+    st.textContent = out.join('\n'); d.head.appendChild(st); d.__seguro = d.styleSheets.length
+  }
   setInterval(() => {
     molduras.forEach((m) => {
       const ap = m.frame && m.el.closest('.aparelho'); if (!ap) return
+      try { seguro(m.frame.contentDocument) } catch (e) {}
       try { const d = m.frame.contentDocument, w = d.documentElement.clientWidth, h = d.documentElement.clientHeight; const t = corEm(d, w / 2, 2), b = corEm(d, 4, h - 2); if (t) ap.style.setProperty('--ap-topo', t); if (b) ap.style.setProperty('--ap-base', b) } catch (e) {}
     })
   }, 700)

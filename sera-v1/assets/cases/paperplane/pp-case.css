@@ -497,9 +497,8 @@ html:not(.js) .pp-case .etapas-lista p,.pp-case .etapas.sem-pin .etapas-lista p{
 .pp-case .st-icones svg{height:2.9cqi;width:auto;fill:currentColor}
 .pp-case .st-icones svg:last-child{height:3.1cqi}
 .pp-case .st-icones .bat-borda{fill:none;stroke:currentColor;stroke-width:1.1;opacity:.5}
-.pp-case .aparelho-tela{position:relative;border-radius:0;overflow:hidden;background:var(--ap-fundo);isolation:isolate;transition:background-color .6s ease}
-.pp-case .aparelho-inicio{position:relative;display:block;aspect-ratio:390/30;border-radius:0 0 11% 11%/0 0 97% 97%;background:var(--ap-base,var(--ap-fundo));transition:background-color .6s ease}
-.pp-case .aparelho-inicio::before{content:"";position:absolute;left:35%;right:35%;top:42%;height:4px;border-radius:999px;background:var(--ap-tinta);opacity:.7}
+.pp-case .aparelho-tela{position:relative;border-radius:0 0 11% 11%/0 0 5% 5%;overflow:hidden;background:var(--ap-fundo);isolation:isolate;transition:background-color .6s ease}
+.pp-case .aparelho-inicio{position:absolute;left:35%;right:35%;bottom:calc(3.4% + 1.1%);height:4px;border-radius:999px;background:var(--ap-tinta);opacity:.75;z-index:3;pointer-events:none;transition:background-color .6s ease}
 .pp-case .aparelho .sim{display:block}
 .pp-case .cel-frase{max-width:22ch;margin-inline:auto;text-align:center;font-family:var(--display);font-weight:500;font-stretch:92%;font-size:clamp(28px,3.2vw,46px);line-height:1.08;letter-spacing:-.03em;color:var(--ink);text-wrap:balance}
 .pp-case #celular .pp-col{width:min(1000px,100% - 2*var(--gutter))}
