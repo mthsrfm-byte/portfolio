@@ -18,7 +18,8 @@
   const decod = new TextDecoder()
   const texto = (b64) => decod.decode(Uint8Array.from(atob(b64), (c) => c.charCodeAt(0)))
   const reduzido = () => matchMedia('(prefers-reduced-motion: reduce)').matches
-  const LIMITE_VIVAS = 6
+  // No celular cada iframe é um documento inteiro em 3x; com 6 vivos o iOS derruba a aba e a página recarrega sozinha.
+  const LIMITE_VIVAS = matchMedia('(max-width: 860px)').matches ? 2 : 6
 
   /* ---------- recursos ---------- */
   const cacheTexto = new Map()

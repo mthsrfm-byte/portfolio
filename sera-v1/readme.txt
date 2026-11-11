@@ -57,6 +57,10 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.21.3 =
+* Paperplane: cabeçalho escuro também com a classe do case (hdr-escuro), que a camada v2 cobria com a pílula clara.
+* Paperplane no celular: no máximo 2 telas (iframes) vivas por vez; com 6 o iOS derrubava a aba e a página recarregava no meio da rolagem.
+
 = 3.21.2 =
 * Research Hub: imagem do hero sem contagem de pesquisas, pessoas e insights.
 * Experience (will bank): "5M+" vira "milhões de clientes ativos".
