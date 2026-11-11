@@ -373,7 +373,6 @@
     preco()
     comparador()
     micro()
-    dobra()
     noite()
     contrato()
     curvas()
@@ -941,64 +940,6 @@
     }
     const todas = $('.curves-all')
     if (todas) todas.addEventListener('click', () => linhas.forEach((l, i) => setTimeout(() => tocar(l), reduzido() ? 0 : i * 110)))
-  }
-
-  /* ================= 06 DOBRA: o painel muda variáveis no :root dos iframes ================= */
-  function dobra() {
-    const painel = $('.db-painel')
-    if (!painel || !PPSims) return
-    const alvos = $$('.db-previa .sim').map((el) => el.__moldura).filter(Boolean)
-    const leitura = $('.db-leitura', painel)
-    const ACENTOS = { limao: null, menta: '#B8F5D2', pessego: '#FFD2A8', lilas: '#DCCBFF', ceu: '#BFE3FF' }
-    const RAIOS = { '--r-xs': 2, '--r-tag': 3, '--r-sm': 4, '--r-card': 6, '--r-md': 8, '--r-panel': 10, '--r-lg': 16 }
-    const PADRAO = { acento: 'limao', canto: '1', tema: 'dark', fonte: 'geist' }
-    const previa = $('.db-previa')
-    const est = { ...PADRAO }
-    function vars() {
-      const v = {}
-      const c = ACENTOS[est.acento]
-      for (const k of ['--accent', '--lime-300', '--lime-400']) v[k] = c
-      v['--lime-50'] = c ? `color-mix(in srgb, ${c} 40%, #fff)` : null
-      v['--lime-100'] = c ? `color-mix(in srgb, ${c} 70%, #fff)` : null
-      v['--lime-500'] = c ? `color-mix(in srgb, ${c} 80%, #000)` : null
-      const f = Number(est.canto)
-      for (const [k, b] of Object.entries(RAIOS)) v[k] = f === 1 ? null : b * f + 'px'
-      const mono = '"Geist Mono",ui-monospace,Menlo,monospace'
-      v['--body'] = est.fonte === 'mono' ? mono : null
-      v['--display'] = est.fonte === 'mono' ? mono : null
-      return v
-    }
-    function aplicar(motivo) {
-      const v = vars()
-      alvos.forEach((m) => { m.vars = v; const w = m.janela; if (w && w.__sim) { w.__sim.vars(v); w.__sim.tema(est.tema) } })
-      if (previa) previa.dataset.tema = est.tema === 'light' ? 'claro' : 'escuro'
-
-      $$('.db-ctl', painel).forEach((ctl) => $$('[role="radio"]', ctl).forEach((b) => b.setAttribute('aria-checked', String(b.dataset.v === est[ctl.dataset.ctl]))))
-      if (motivo) leitura.textContent = motivo
-    }
-    alvos.forEach((m) => m.aoFicarPronta(() => aplicar()))
-    const textos = {
-      acento: (v) => v === 'limao' ? T.acentoLimao : T.acentoOutro.replace('{v}', nomeDoAcento(v)),
-      canto: (v) => (v === '0' ? T.cantoZero : v === '1' ? T.cantoPadrao : T.cantoMais),
-      tema: (v) => (v === 'light' ? T.temaClaro : T.temaEscuro),
-      fonte: (v) => (v === 'mono' ? T.fonteMono : T.fonteGeist),
-    }
-    let assumiu = false
-    $$('.db-ctl', painel).forEach((ctl) => ctl.addEventListener('click', (e) => {
-      const b = e.target.closest('[role="radio"]'); if (!b) return
-      assumiu = true
-      est[ctl.dataset.ctl] = b.dataset.v
-      aplicar(textos[ctl.dataset.ctl](b.dataset.v))
-    }))
-    $('.db-zera', painel).addEventListener('click', () => { assumiu = true; Object.assign(est, PADRAO); aplicar(T.padrao) })
-    aplicar(T.escolha)
-    if (reduzido()) return
-    ScrollTrigger.create({ trigger: '.dobra-art', start: 'top 55%', once: true, onEnter: async () => {
-      const passos = [['acento', 'menta'], ['canto', '2.4'], ['tema', 'light'], ['fonte', 'mono'], ['acento', 'pessego']]
-      for (const [k, v] of passos) { await esperar(1700); if (assumiu) return; est[k] = v; aplicar(textos[k](v)) }
-      await esperar(2200); if (assumiu) return
-      Object.assign(est, PADRAO); aplicar(T.padraoFim)
-    } })
   }
 
   /* ================= 07 SITE: a home rola de verdade dentro da moldura ================= */

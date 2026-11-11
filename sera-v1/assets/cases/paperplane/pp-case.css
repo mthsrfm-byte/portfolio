@@ -181,6 +181,7 @@ html:not(.js) .pp-case .pp-zone[data-theme="dark"]{--bg:#11140F;--surface:#181D1
 .pp-case .pp-plan td+td{font-family:var(--mono);color:#9A4B00}
 .pp-case .prompt{font:500 12px/1.45 var(--mono);color:#4A4843}
 .pp-case .pp-notif{position:absolute;right:2.5%;top:3%;display:flex;align-items:center;gap:12px;width:min(300px,58%);padding:12px 14px;border-radius:18px;background:rgba(28,29,26,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#F1F0EB;box-shadow:0 22px 44px -16px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.06);z-index:5}
+html:not(.js) .pp-case .pp-notif,.pp-case .pp-mesa.estatico .pp-notif{width:auto}
 .pp-case .pp-notif-app{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:10px;background:var(--lime);color:#111110;font:600 19px/1 var(--display)}
 .pp-case .pp-notif-corpo{display:grid;gap:3px;min-width:0;flex:1}
 .pp-case .pp-notif-topo{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font:500 10.5px/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:#A3A29A}

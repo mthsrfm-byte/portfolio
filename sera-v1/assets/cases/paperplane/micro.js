@@ -1324,6 +1324,7 @@
         removeEventListener('blur', esconder); removeEventListener('resize', aoRedimensionar)
         comMouse.removeEventListener('change', esconder); doSistema.removeEventListener('change', esconder)
         cancelAnimationFrame(quadro); devolverCursor(); soltarElemento(); camada.remove()
+        document.documentElement.classList.remove('pp-cursor-ativo')
       },
     }
   }
