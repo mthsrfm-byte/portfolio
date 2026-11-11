@@ -1056,7 +1056,14 @@
 			stop();
 		}
 	}, { passive: true } );
-	window.addEventListener( 'resize', stop, { passive: true } );
+	// only a width change cancels a glide (iOS toolbar show/hide changes just the height)
+	var glideW = window.innerWidth;
+	window.addEventListener( 'resize', function () {
+		if ( window.innerWidth !== glideW ) {
+			glideW = window.innerWidth;
+			stop();
+		}
+	}, { passive: true } );
 	[ 'keydown', 'mousedown', 'touchstart' ].forEach( function ( ev ) {
 		window.addEventListener( ev, function ( e ) {
 			// Keyboard scrolling and scrollbar drags are native: hand over immediately.
@@ -1245,6 +1252,15 @@
 			return;
 		}
 		e.preventDefault();
+		if ( 'top' === id ) {
+			// back to top: native smooth scroll; our glide gets cut off by pinned sections and the iOS toolbar
+			stop();
+			window.scrollTo( { top: 0, behavior: window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches ? 'auto' : 'smooth' } );
+			if ( history.pushState ) {
+				history.pushState( null, '', '#top' );
+			}
+			return;
+		}
 		var pad = parseFloat( getComputedStyle( root ).scrollPaddingTop ) || ( px( '--adm' ) + ( px( '--hdr' ) || 80 ) );
 		var y = ( 'top' === id || ( el && el.classList.contains( 'site-header' ) ) ) ? 0 : el.getBoundingClientRect().top + window.scrollY - pad;
 		glide( y );
@@ -1647,3 +1663,16 @@
 		ro.observe( v );
 	} );
 }() );
+
+/* Back to top everywhere (touch devices skip the smooth-scroll module above). The #top target is the
+   sticky header, so the native anchor jump does nothing; scroll to 0 instead. */
+( function () {
+	document.addEventListener( 'click', function ( e ) {
+		var a = e.target.closest && e.target.closest( 'a[href="#top"]' );
+		if ( ! a || e.defaultPrevented ) {
+			return;
+		}
+		e.preventDefault();
+		window.scrollTo( { top: 0, behavior: window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches ? 'auto' : 'smooth' } );
+	} );
+} )();
