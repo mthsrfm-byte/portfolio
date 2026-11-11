@@ -1041,6 +1041,15 @@
       l.setAttribute('x1', 60 + Math.sin(a) * 48); l.setAttribute('y1', 60 - Math.cos(a) * 48); l.setAttribute('x2', 60 + Math.sin(a) * 53); l.setAttribute('y2', 60 - Math.cos(a) * 53)
       ticks.appendChild(l)
     }
+    // 3.26 · sol em arco no lugar do mostrador: da madrugada (05) ao meio-dia (12); posição só por CSS a partir de --h
+    const mostrador = $('.pp-clock', n)
+    if (mostrador && !$('.pp-arco', n)) {
+      const arco = document.createElement('div')
+      arco.className = 'pp-arco'
+      arco.setAttribute('aria-hidden', 'true')
+      arco.innerHTML = '<svg viewBox="0 0 200 80" preserveAspectRatio="none"><path d="M4 76 Q100 -36 196 76"/></svg><span class="arco-sol"></span><span class="arco-ini">05</span><span class="arco-fim">12</span>'
+      mostrador.after(arco)
+    }
     const hora = $('.clock-time', n), itens = $$('.night-list li', n)
     const definir = (li) => {
       const h = Number(li.dataset.h)

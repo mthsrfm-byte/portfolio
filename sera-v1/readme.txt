@@ -57,6 +57,9 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.26.0 =
+* Paperplane, noite de curadoria: sol em arco no lugar do mostrador (05 → 12), posição só por CSS a partir de --h. Contraste fixo em todas as horas: texto sempre claro sobre vidro escuro (lista e notas), sem trocar cor de texto/fundo com a hora. Medido: texto secundário ≥ 7:1 das 05 às 12.
+
 = 3.25.1 =
 * Paperplane, hero: o avião entra pela borda da tela (como o do fim da página), não mais pela margem da coluna, que cortava a entrada.
 
