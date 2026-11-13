@@ -66,7 +66,7 @@ function sera_seo_image() {
 			return array( $src[0], $src[1], $src[2], get_post_mime_type( $custom ) );
 		}
 	}
-	return array( $uri . 'home.jpg', 1200, 630, 'image/jpeg' );
+	return array( $uri . 'home.jpg?v=' . SERA_VERSION, 1200, 630, 'image/jpeg' ); // ?v= makes WhatsApp/LinkedIn fetch the new file.
 }
 
 /**

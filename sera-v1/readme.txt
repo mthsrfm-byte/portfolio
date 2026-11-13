@@ -57,6 +57,9 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.36.3 =
+* Prévia de link: nova imagem da home (logo grande em fundo escuro), no lugar da que mostrava o título antigo.
+
 = 3.36.2 =
 * Prévia de link: título e descrição da home mais curtos, sem cortar no WhatsApp e no Google, alinhados com o título atual do site (EN e PT).
 
