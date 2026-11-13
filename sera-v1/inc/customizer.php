@@ -89,8 +89,8 @@ function sera_fields() {
 		'about_img_4' => array( 'about', 'Foto do hover da curiosidade 4 (opcional)', 'image', '' ),
 		'about_chips' => array( 'about', 'Formação (separada por ponto e vírgula)', 'text', 'B.A. Organisational Communication, UnB; UX/UI Specialisation, EBAC; Design Leadership · Design Systems & Ops' ),
 		// SEO.
-		'seo_title'       => array( 'seo', 'Título da Home no Google e nas prévias de link', 'text', 'Matheus Serafim — Product Design Lead who builds with AI | Fintech, BNPL & Credit' ),
-		'seo_description' => array( 'seo', 'Descrição da Home (aparece no Google e no WhatsApp; ~155 caracteres)', 'textarea', 'Product design lead in Brazil, 11 years in product, 7 in fintech. I design the product and build the AI tools around it. Open to Staff, Lead and Manager roles.' ),
+		'seo_title'       => array( 'seo', 'Título da Home no Google e nas prévias de link', 'text', 'Matheus Serafim · Product Designer & Builder in fintech' ),
+		'seo_description' => array( 'seo', 'Descrição da Home (aparece no Google e no WhatsApp; ~155 caracteres)', 'textarea', 'I design money products people come back to and build the AI that ships them. 11 years in product, 7 in fintech. Open to Lead and Design Manager roles.' ),
 		'seo_image'       => array( 'seo', 'Imagem de prévia da Home (1200×630; vazio usa a padrão do tema)', 'image', '' ),
 		// Contact.
 		'contact_title'   => array( 'contact', 'Título', 'text', 'If you’re building a product that moves people’s money,' ),

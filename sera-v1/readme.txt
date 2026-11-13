@@ -57,6 +57,9 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.36.2 =
+* Prévia de link: título e descrição da home mais curtos, sem cortar no WhatsApp e no Google, alinhados com o título atual do site (EN e PT).
+
 = 3.36.1 =
 * Idioma: o botão de trocar idioma voltou a funcionar. O cache da hospedagem guardava a página em português no endereço da inglesa; agora cada idioma fica no seu endereço e o cache antigo é limpo uma vez.
 

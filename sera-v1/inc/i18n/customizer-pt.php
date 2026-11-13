@@ -85,8 +85,8 @@ function sera_fields_pt() {
 		),
 		'about_chips'     => 'Bacharelado em Comunicação Organizacional, UnB; Especialização em UX/UI, EBAC; Liderança em Design · Design Systems & Ops',
 		// SEO.
-		'seo_title'       => 'Matheus Serafim — Product Design Lead que constrói com IA | Fintech, BNPL e Crédito',
-		'seo_description' => 'Product design lead no Brasil, 11 anos em produto, 7 em fintech. Desenho o produto e construo as ferramentas de IA em volta dele. Aberto a vagas Staff, Lead e Manager.',
+		'seo_title'       => 'Matheus Serafim · Product Designer & Builder em fintech',
+		'seo_description' => 'Desenho produtos financeiros que as pessoas usam de novo e construo a IA que coloca eles no ar. 11 anos em produto, 7 em fintech. Aberto a vagas de liderança.',
 		// Contact.
 		'contact_title'   => 'Se você constrói algo que movimenta o dinheiro das pessoas,',
 		'contact_title_2' => 'vamos conversar.',
