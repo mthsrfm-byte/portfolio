@@ -77,15 +77,36 @@ add_action(
 );
 
 /**
- * One-off: throw away the page cache that was saved under the wrong language.
+ * Never build an http:// address for this site when its home is https.
+ *
+ * WordPress picks the scheme of theme, plugin and include URLs from the current request. A page
+ * rendered for a request it did not see as secure got http:// stylesheets and scripts, the host's
+ * page cache kept that copy, and browsers then blocked every asset on the https page.
+ */
+add_filter(
+	'set_url_scheme',
+	function ( $url ) {
+		static $https = null;
+		if ( null === $https ) {
+			$https = 'https' === wp_parse_url( get_option( 'home' ), PHP_URL_SCHEME );
+		}
+		if ( $https && 0 === strpos( $url, 'http://' ) ) {
+			$url = 'https://' . substr( $url, 7 );
+		}
+		return $url;
+	}
+);
+
+/**
+ * One-off: throw away the page cache that was saved with the wrong language or http:// assets.
  */
 add_action(
 	'init',
 	function () {
-		if ( 'done-3.36.1' === get_option( 'sera_cache_lang_fix' ) ) {
+		if ( 'done-3.36.4' === get_option( 'sera_cache_lang_fix' ) ) {
 			return;
 		}
-		update_option( 'sera_cache_lang_fix', 'done-3.36.1', false );
+		update_option( 'sera_cache_lang_fix', 'done-3.36.4', false );
 		do_action( 'epc_purge' );
 		$dir = WP_CONTENT_DIR . '/endurance-page-cache';
 		if ( ! is_dir( $dir ) || ! class_exists( 'RecursiveDirectoryIterator' ) ) {

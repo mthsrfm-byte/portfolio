@@ -57,6 +57,9 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.36.4 =
+* Correção urgente: a home ficou sem estilo porque o cache guardou uma cópia com CSS e JS em http://, que o navegador bloqueia em página https. Os endereços do tema agora saem sempre em https e o cache é limpo uma vez.
+
 = 3.36.3 =
 * Prévia de link: nova imagem da home (logo grande em fundo escuro), no lugar da que mostrava o título antigo.
 
