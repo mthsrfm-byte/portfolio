@@ -57,6 +57,9 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Changelog ==
 
+= 3.36.1 =
+* Idioma: o botão de trocar idioma voltou a funcionar. O cache da hospedagem guardava a página em português no endereço da inglesa; agora cada idioma fica no seu endereço e o cache antigo é limpo uma vez.
+
 = 3.36.0 =
 * Paperplane · Universo: "Quem vive aqui" mostra só o rosto da Lia e do Dante, recortados das fichas e encaixados no quadro; o Condutor saiu.
 * Paperplane · Personagens: a miniatura "Em uso" e o avatar da Lia usam o rosto da ficha atual, centralizado.

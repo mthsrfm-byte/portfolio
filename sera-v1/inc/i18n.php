@@ -60,6 +60,52 @@ function sera_i18n_detect() {
 sera_i18n_detect();
 
 /**
+ * Put the real /pt/... address back once WordPress has resolved the page.
+ *
+ * The host's page cache names its files after REQUEST_URI when the page finishes. With the
+ * prefix still stripped, the Portuguese page was saved as the cache of the English address,
+ * so "/" served Portuguese to everyone and the switcher looked dead.
+ */
+add_action(
+	'parse_request',
+	function () {
+		if ( ! empty( $GLOBALS['sera_pt_uri'] ) ) {
+			$_SERVER['REQUEST_URI'] = $GLOBALS['sera_pt_uri'];
+		}
+	},
+	1
+);
+
+/**
+ * One-off: throw away the page cache that was saved under the wrong language.
+ */
+add_action(
+	'init',
+	function () {
+		if ( 'done-3.36.1' === get_option( 'sera_cache_lang_fix' ) ) {
+			return;
+		}
+		update_option( 'sera_cache_lang_fix', 'done-3.36.1', false );
+		do_action( 'epc_purge' );
+		$dir = WP_CONTENT_DIR . '/endurance-page-cache';
+		if ( ! is_dir( $dir ) || ! class_exists( 'RecursiveDirectoryIterator' ) ) {
+			return;
+		}
+		try {
+			$it = new RecursiveIteratorIterator( new RecursiveDirectoryIterator( $dir, FilesystemIterator::SKIP_DOTS ) );
+			foreach ( $it as $f ) {
+				if ( $f->isFile() && '_index.html' === $f->getFilename() ) {
+					@unlink( $f->getPathname() ); // phpcs:ignore
+				}
+			}
+		} catch ( Exception $e ) {
+			return;
+		}
+	},
+	99
+);
+
+/**
  * Current front-end language: 'en' or 'pt'.
  */
 function sera_lang() {
