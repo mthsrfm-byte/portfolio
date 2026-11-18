@@ -456,6 +456,7 @@ const asciiMat = new THREE.ShaderMaterial({ uniforms: { ...qU, tGlyph: { value: 
 /* ---------- load + split the bust ---------- */
 const nose = new THREE.Vector3(0, 0.26, 0.1);
 const skinMat = new THREE.MeshBasicMaterial({ color: 0xB88468, side: THREE.DoubleSide });
+const faceMeshes = [];
 const parts = []; let H = 0.393, center = new THREE.Vector3(0, 0.2, 0), faceMesh = null;
 function bytes(b64) { const s = atob(b64), u = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) u[i] = s.charCodeAt(i); return u.buffer; }
 const ready = new Promise(resolve => {
@@ -471,7 +472,7 @@ const ready = new Promise(resolve => {
       (torso ? rig : pivot).attach(m);
       if (!m.geometry.attributes.normal) m.geometry.computeVertexNormals();
       m.updateMatrix();
-      if (/rosto/.test(m.name)) faceMesh = m;
+      if (/rosto/.test(m.name)) { faceMeshes.push(m); faceMesh = faceMesh || m; }
       const orig = m.material;
       const own = { uM: { value: m.matrix.clone() }, uOff: { value: m.parent.position.clone() },
         uMap: { value: orig.map || null }, uHasMap: { value: orig.map ? 1 : 0 }, uCut: { value: orig.alphaTest || 0 }, uColor: { value: orig.color ? orig.color.clone() : col(0x999999) } };
@@ -506,8 +507,9 @@ const ready = new Promise(resolve => {
       frameF.chin = .5 - (chinY - center.y - 0.02) * 0.95 / H; frameF.cap = .5 - (H / 2 - 0.02) * 0.95 / H; }
     // head centre and nose tip, in rig space, for the choreography
     const hbx = new THREE.Box3().setFromObject(pivot); hbx.getCenter(U.uHeadC.value); U.uHeadC.value.y -= 0.01;
-    if (faceMesh) { const pa = faceMesh.geometry.attributes.position, t3 = new THREE.Vector3(); let bz = -1e9;
-      for (let i = 0; i < pa.count; i += 3) { t3.fromBufferAttribute(pa, i).applyMatrix4(faceMesh.matrix).add(faceMesh.parent.position); if (t3.z > bz) { bz = t3.z; nose.copy(t3); } } }
+    { const t3 = new THREE.Vector3(); let bz = -1e9;
+      faceMeshes.forEach(fm => { const pa = fm.geometry.attributes.position;
+        for (let i = 0; i < pa.count; i += 3) { t3.fromBufferAttribute(pa, i).applyMatrix4(fm.matrix).add(fm.parent.position); if (t3.z > bz) { bz = t3.z; nose.copy(t3); } } }); }
     resolve();
   };
   loader.load(CV.model, done, undefined, () => cvRoot.classList.add('cv-fallback'));
@@ -743,6 +745,7 @@ function renderScroll(P) {
   U.uToH.value = sm(.2, .96, P); U.uInkMix.value = sm(.04, .3, P);
   const formed = P > .965;
   hdrEl.classList.toggle('logo-on', formed);
+  hdrEl.classList.toggle('cv-flying', !formed && P > .02);
   if (formed) sim.formed = true;
   rig.updateMatrixWorld(true); U.uRigWorld.value.copy(rig.matrixWorld);
   drawMeshes('photo');
@@ -768,6 +771,7 @@ function renderRebuild(k) {
 }
 function simTick(now) {
   if (!SCROLL_SIM) return false;
+  hdrEl.classList.remove('cv-flying');
   // scroll speed (px/s, negative going up), smoothed
   const dt = Math.max(1, now - (sim.lastT || now - 16)); const v = (window.scrollY - sim.lastY) / dt * 1000;
   sim.vel += (v - sim.vel) * .35; sim.lastY = window.scrollY; sim.lastT = now;

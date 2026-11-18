@@ -18,7 +18,7 @@
 	--cw:calc(var(--lw) / 2 - var(--bh) * .2 - 20px);
 	--hw:calc(var(--lw) / 2 - var(--bh) * .12 - 20px);
 	--rowB:44px;
-	--cv-paper:#EEEBE3;--cv-ink:#111110;--cv-ink-2:#3B3A36;--cv-teal:#0B5F63;
+	--cv-paper:var(--bg,#F5F4EF);--cv-ink:#111110;--cv-ink-2:#3B3A36;--cv-teal:#0B5F63;
 	position:relative;height:var(--hh);overflow-x:clip;overflow-y:visible;color:var(--cv-ink)
 }
 #cover *{box-sizing:border-box}
@@ -26,7 +26,8 @@
 #cover .cap{font:400 13px/1.5 var(--mono);letter-spacing:.16em;text-transform:uppercase}
 
 /* the floor is drawn three times; each copy is blurred a little more and kept only where it sits further away: depth of field */
-#cover .grid3d{position:absolute;left:0;right:0;bottom:0;height:72%;z-index:0;pointer-events:none;overflow:hidden}
+#cover .grid3d{position:absolute;left:0;right:0;bottom:0;height:72%;z-index:0;pointer-events:none;overflow:hidden;
+	-webkit-mask-image:linear-gradient(to top,transparent 0%,#000 26%);mask-image:linear-gradient(to top,transparent 0%,#000 26%)}
 #cover .grid3d .fl{position:absolute;left:-30%;right:-30%;top:0;bottom:0}
 #cover .grid3d .pl{position:absolute;inset:0;
 	background-image:linear-gradient(rgba(17,17,16,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(17,17,16,.12) 1px,transparent 1px);background-size:84px 84px;background-position:center bottom;
@@ -43,7 +44,7 @@
 #cover canvas.bust.is-ready{opacity:1}
 #cover .cv-lab{display:none!important}
 
-#cover .frame{position:absolute;z-index:3;top:0;bottom:0;left:50%;width:var(--lw);transform:translateX(-50%);pointer-events:none}
+#cover .frame{position:absolute;z-index:4;top:0;bottom:0;left:50%;width:var(--lw);transform:translateX(-50%);pointer-events:none}
 #cover .frame a{pointer-events:auto}
 #cover .cl{position:absolute;z-index:2;width:var(--cw)}
 #cover .cl h2{margin:0 0 8px;font-size:clamp(18px,calc(var(--cw) / 8.5),52px);color:var(--cv-ink)}
@@ -77,8 +78,7 @@
 	#cover .cl p{display:none}
 	#cover .cv-btn{min-height:46px;margin-top:14px;padding:0 20px;font-size:12.5px}
 	/* the shirt melts into the paper so the cover lines always read */
-	#cover::after{content:"";position:absolute;left:0;right:0;bottom:0;height:50%;z-index:2;pointer-events:none;
-		background:linear-gradient(to top,rgba(238,235,227,.97) 0%,rgba(238,235,227,.82) 40%,rgba(238,235,227,0) 100%)}
+	#cover::after{height:50%;background:linear-gradient(to top,var(--cv-paper) 0%,color-mix(in srgb,var(--cv-paper) 84%,transparent) 40%,transparent 100%)}
 }
 @media (max-aspect-ratio:4/5) and (min-width:600px) and (min-height:900px),(max-width:760px) and (min-width:600px) and (min-height:900px){#cover{--pH:66px}#cover .cl p{display:block;margin:8px 0 0;font-size:14px;max-width:none}}
 @media (max-aspect-ratio:4/5) and (max-height:700px),(max-width:760px) and (max-height:700px){#cover .cv-btn{min-height:42px;margin-top:10px}}
@@ -100,6 +100,13 @@
 	#cover .cv-btn{min-height:40px;margin-top:10px;padding:0 16px;font-size:11.5px}
 }
 
+/* the cover melts into the page: the shirt and the floor fade into the paper, so the next section starts on clean ground */
+#cover::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:clamp(90px,20%,220px);z-index:3;pointer-events:none;
+	background:linear-gradient(to top,var(--cv-paper) 0%,color-mix(in srgb,var(--cv-paper) 72%,transparent) 45%,transparent 100%)}
+/* what follows the cover: the logo strip, with air proportional to the logo's stroke and no hard rule on top */
+#cover + .hero-scope .hero-logos-only{padding-top:0}
+#cover + .hero-scope .hero-logos-only .logos{margin-top:calc(var(--u-out,clamp(40px,5vw,72px)));border-top-color:transparent}
+
 /* no model (load failed): the cover still reads as a cover */
 #cover.cv-fallback canvas.bust{display:none}
 
@@ -107,7 +114,7 @@
 html.cv-on .site-header .brand svg{opacity:0;transition:opacity .25s linear}
 html.cv-on .site-header.logo-on .brand svg{opacity:1}
 /* while the dots fly into the header its glass stays clear, so they read */
-html.cv-on .site-header:not(.logo-on)::before,html.cv-on .site-header:not(.logo-on)>.v2-pill-tint{opacity:0!important}
+html.cv-on .site-header.cv-flying::before,html.cv-on .site-header.cv-flying>.v2-pill-tint{opacity:0!important}
 
 /* multiplayer cursors in the header (desktop with a mouse only) */
 .site-header .mp-host{position:relative}
