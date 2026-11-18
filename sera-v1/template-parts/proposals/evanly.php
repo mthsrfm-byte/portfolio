@@ -17,6 +17,19 @@ $sera_fin   = sera_prop_money( $sera_t['finalPaymentCents'] );
 $sera_rate  = sera_prop_money( $sera_t['additionalHourlyRateCents'] );
 $sera_first = $p['contact']['first'];
 $sera_until = $until ? gmdate( 'j F Y', strtotime( $until ) ) : '';
+// Estimated kickoff: the first Monday at least two business days after acceptance (or today).
+$sera_kick_from = $accepted ? strtotime( (string) get_post_meta( $accepted->ID, 'createdAtUtc', true ) ) : time();
+$sera_kick_ts   = $sera_kick_from;
+for ( $sera_n = 0; $sera_n < 2; ) {
+	$sera_kick_ts += DAY_IN_SECONDS;
+	if ( (int) gmdate( 'N', $sera_kick_ts ) < 6 ) {
+		++$sera_n;
+	}
+}
+while ( 1 !== (int) gmdate( 'N', $sera_kick_ts ) ) {
+	$sera_kick_ts += DAY_IN_SECONDS;
+}
+$sera_kick = gmdate( 'j M', $sera_kick_ts );
 
 $sera_faq = array(
 	array( 'How do revisions work?', 'Revisions and adjustments are agreed in our calls and async check-ins. I gather them into one shared list of changes, and the sprint includes up to two rounds of fine-tuning against that list.' ),
@@ -48,6 +61,20 @@ $sera_errors = array(
 $sera_err_a = ( isset( $sera_errors[ $flag ] ) && 0 !== strpos( $flag, 'e-q-' ) ) ? $sera_errors[ $flag ] : '';
 $sera_err_q = ( isset( $sera_errors[ $flag ] ) && 0 === strpos( $flag, 'e-q-' ) ) ? $sera_errors[ $flag ] : '';
 
+// Deliverable icons (24px grid, 1.5 stroke). Drawn for these items; no lightning icon anywhere.
+$sera_icons = array(
+	'audit'    => '<rect x="3" y="4" width="14" height="11" rx="2"/><path d="M6 8h6M6 11h4"/><circle cx="16.5" cy="16.5" r="3.5"/><path d="M19 19l2.5 2.5"/>',
+	'compare'  => '<path d="M4 20V10M9 20V5M15 20v-7M20 20V8"/><path d="M3 20h18"/>',
+	'compass'  => '<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
+	'priority' => '<path d="M4 7h9M4 12h7M4 17h9"/><path d="M18 19V6M15 9l3-3 3 3"/>',
+	'blocks'   => '<rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="4"/><rect x="3" y="13" width="18" height="8" rx="1.5"/>',
+	'swatch'   => '<path d="M3.5 18l3.5-11 3.5 11M4.8 14h4.4"/><circle cx="16.5" cy="7.5" r="3"/><circle cx="16.5" cy="16.5" r="3"/>',
+	'book'     => '<path d="M12 6.5C10 5 7 4.5 3.5 5v13c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5z"/><path d="M12 6.5v13"/>',
+	'growth'   => '<rect x="3" y="4" width="18" height="14" rx="2"/><path d="M7 14l3-3 2.5 2L17 8.5"/><path d="M14 8.5h3v3"/><path d="M9 21h6"/>',
+	'code'     => '<path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 5l-3 14"/>',
+	'handoff'  => '<path d="M3 8l7-4 7 4v8l-7 4-7-4z"/><path d="M3 8l7 4 7-4M10 12v8"/><path d="M17 15h4M19 13l2 2-2 2"/>',
+);
+
 $sera_stages = array(
 	array(
 		'n'     => '01',
@@ -56,7 +83,7 @@ $sera_stages = array(
 		'title' => 'Product & Competitive Assessment',
 		'text'  => 'Understand the existing financing experience, review relevant competitors, and identify high-impact opportunities to improve usability and differentiate Evanly.',
 		'how'   => 'I start with the product as it is today, financing screens first, seen from the side of developers and of funders: the main flow, points of friction, hierarchy, how clearly financial information reads, and how consistent components and messages are. Alongside, a small set of direct and adjacent competitors, chosen with you, compared for strengths, gaps and practical openings. Experience attributes such as clarity, trust, efficiency and consistency come out of this as hypotheses to validate, not conclusions.',
-		'gets'  => array( 'Focused UX assessment', 'Competitive insights', 'Experience principles', 'Prioritised recommendations' ),
+		'gets'  => array( array( 'audit', 'Focused UX assessment' ), array( 'compare', 'Competitive insights' ), array( 'compass', 'Experience principles' ), array( 'priority', 'Prioritised recommendations' ) ),
 		'check' => 'We confirm the focus before moving on.',
 	),
 	array(
@@ -66,7 +93,7 @@ $sera_stages = array(
 		'title' => 'Design & Brand Foundations',
 		'text'  => "Build a lightweight, reusable design system and brand hub around the product’s actual needs: essential design tokens, core components, visual principles and tone of voice.",
 		'how'   => 'What already works stays. On top of it: primitive and semantic tokens for colour, type, spacing, radius and states; the components the chosen flow needs; basic accessibility rules. A compact brand hub records personality, visual principles, tone of voice and microcopy examples, connected to the code when access allows.',
-		'gets'  => array( 'Starter design system', 'Reusable visual foundations', 'Concise brand guidelines' ),
+		'gets'  => array( array( 'blocks', 'Starter design system' ), array( 'swatch', 'Reusable visual foundations' ), array( 'book', 'Concise brand guidelines' ) ),
 		'check' => 'You approve the direction.',
 	),
 	array(
@@ -76,7 +103,7 @@ $sera_stages = array(
 		'title' => 'Product Refinement & Implementation',
 		'text'  => 'Apply those foundations to the financing screens you mentioned. Refine the interface and key user flows, improve priority website and product copy, and implement the agreed changes while preserving what already works.',
 		'how'   => 'Functional logic, data and architecture stay as they are. Hierarchy, legibility, navigation, states and visual consistency improve where the assessment points. Changes go into the code directly when access and stack allow, ideally as a reviewable branch or pull request, and never into production without your approval. Affected paths, responsive layouts and relevant regressions are tested.',
-		'gets'  => array( 'Prioritised financing experience improvements', 'Implementation within the agreed technical scope', 'A concise handoff and next-cycle recommendations' ),
+		'gets'  => array( array( 'growth', 'Prioritised financing experience improvements' ), array( 'code', 'Implementation within the agreed technical scope' ), array( 'handoff', 'A concise handoff and next-cycle recommendations' ) ),
 		'check' => 'Final demo and delivery.',
 	),
 );
@@ -201,7 +228,7 @@ $sera_styles = array( 'assets/css/mockups.css', 'assets/css/cases/wb.css', 'asse
 			</figure>
 
 			<div class="p-build" data-build-scroll>
-				<figure class="p-bld" data-building aria-label="Illustration: an apartment building that is surveyed, given a foundation and structure, then finished, as you scroll through the three stages.">
+				<figure class="p-bld" data-building aria-label="Illustration: a single-storey laundromat is surveyed, then cleared for a foundation and a concrete podium, and finished as a building with 48 homes and a new laundromat on the ground floor, as you scroll through the three stages.">
 					<div class="p-bld-stage">
 						<svg class="p-bld-lines" aria-hidden="true" focusable="false">
 							<line data-line="assess"></line><line data-line="found"></line><line data-line="refine"></line>
@@ -211,6 +238,7 @@ $sera_styles = array( 'assets/css/mockups.css', 'assets/css/cases/wb.css', 'asse
 						<span class="p-bld-tag is-found" data-tag="found"><i aria-hidden="true">02</i>Foundations</span>
 						<span class="p-bld-tag is-right" data-tag="refine"><i aria-hidden="true">03</i>Refinement</span>
 						<span class="p-bld-prog" aria-hidden="true"><i></i><i></i><i></i></span>
+						<span class="p-bld-homes" data-homes aria-hidden="true">From a laundromat to 48 homes</span>
 					</div>
 				</figure>
 			<ol class="p-stages">
@@ -229,7 +257,7 @@ $sera_styles = array( 'assets/css/mockups.css', 'assets/css/cases/wb.css', 'asse
 							<h4 class="p-label">Deliverables</h4>
 							<ul>
 								<?php foreach ( $sera_s['gets'] as $sera_g ) : ?>
-									<li><?php echo esc_html( $sera_g ); ?></li>
+									<li><span class="p-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><?php echo $sera_icons[ $sera_g[0] ]; // phpcs:ignore WordPress.Security.EscapeOutput -- fixed SVG paths. ?></svg></span><span><?php echo esc_html( $sera_g[1] ); ?></span></li>
 								<?php endforeach; ?>
 							</ul>
 							<p class="p-stage-check"><span class="p-label">Checkpoint</span> <?php echo esc_html( $sera_s['check'] ); ?></p>
@@ -405,40 +433,58 @@ $sera_styles = array( 'assets/css/mockups.css', 'assets/css/cases/wb.css', 'asse
 				<p class="p-fine">Accepting doesn&rsquo;t charge anything. It records your confirmation of this proposal (version <?php echo esc_html( $p['version'] ); ?>); it isn&rsquo;t a digital signature.</p>
 			</div>
 
-			<div class="p-accept-box">
-				<div class="p-done<?php echo $accepted ? ' is-on' : ''; ?>" data-done tabindex="-1"<?php echo $accepted ? '' : ' hidden'; ?>>
-					<span class="p-done-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
-					<p class="p-done-title" role="status">Thank you, <?php echo esc_html( $sera_first ); ?>. Your acceptance has been recorded.</p>
-					<p>I&rsquo;ll be in touch to confirm the kickoff and payment details.</p>
-					<?php if ( $accepted ) : ?>
-						<p class="p-fine">Accepted on <?php echo esc_html( gmdate( 'j F Y, H:i', strtotime( (string) get_post_meta( $accepted->ID, 'createdAtUtc', true ) ) ) ); ?> UTC · version <?php echo esc_html( (string) get_post_meta( $accepted->ID, 'version', true ) ); ?></p>
-					<?php endif; ?>
-				</div>
-
+			<div class="p-accept-side">
+				<div class="p-flip<?php echo $accepted ? ' is-flipped is-static' : ''; ?>" data-flip>
+					<div class="p-flip-front p-accept-box"<?php echo $accepted ? ' aria-hidden="true" inert' : ''; ?>>
 				<?php if ( ! $accepted && ! $expired ) : ?>
-				<form class="p-form" method="post" action="<?php echo esc_url( $url ); ?>#accept" data-prop-form="accept" novalidate>
-					<input type="hidden" name="sera_action" value="accept">
-					<input type="hidden" name="token" value="<?php echo esc_attr( $csrf ); ?>">
-					<input type="hidden" name="version" value="<?php echo esc_attr( $p['version'] ); ?>">
-					<p class="p-form-err" role="alert" data-err><?php echo esc_html( $sera_err_a ); ?></p>
-					<div class="p-field">
-						<label for="acc-name">Full name</label>
-						<input id="acc-name" name="name" type="text" autocomplete="name" maxlength="120" required value="<?php echo esc_attr( $p['contact']['name'] ); ?>"<?php echo 'e-name' === $flag ? ' aria-invalid="true"' : ''; ?>>
+						<form class="p-form" method="post" action="<?php echo esc_url( $url ); ?>#accept" data-prop-form="accept" novalidate>
+							<input type="hidden" name="sera_action" value="accept">
+							<input type="hidden" name="token" value="<?php echo esc_attr( $csrf ); ?>">
+							<input type="hidden" name="version" value="<?php echo esc_attr( $p['version'] ); ?>">
+							<p class="p-form-err" role="alert" data-err><?php echo esc_html( $sera_err_a ); ?></p>
+							<div class="p-field">
+								<label for="acc-name">Full name</label>
+								<input id="acc-name" name="name" type="text" autocomplete="name" maxlength="120" required value="<?php echo esc_attr( $p['contact']['name'] ); ?>"<?php echo 'e-name' === $flag ? ' aria-invalid="true"' : ''; ?>>
+							</div>
+							<div class="p-field">
+								<label for="acc-email">Work email</label>
+								<input id="acc-email" name="email" type="email" autocomplete="email" maxlength="190" required value="<?php echo esc_attr( $p['contact']['email'] ); ?>"<?php echo 'e-email' === $flag ? ' aria-invalid="true"' : ''; ?>>
+							</div>
+							<div class="p-check">
+								<input id="acc-confirm" name="confirm" type="checkbox" value="1" required<?php echo 'e-confirm' === $flag ? ' aria-invalid="true"' : ''; ?>>
+								<label for="acc-confirm">I confirm that I&rsquo;m authorised to accept this proposal on behalf of <?php echo esc_html( $p['client'] ); ?>, including the <?php echo esc_html( $sera_price ); ?> USD investment, payment terms and agreed-scope approach described above.</label>
+							</div>
+							<div class="p-actions">
+								<button class="p-btn p-btn-ink p-btn-lg" type="submit"><span class="p-btn-label">Accept proposal</span></button>
+								<a class="p-btn p-btn-line p-btn-lg" href="#questions" data-open-questions aria-controls="questions">I have questions</a>
+							</div>
+						</form>
+						<?php endif; ?>
+<?php if ( $expired && ! $accepted ) : ?>
+						<p class="p-valid is-over">This proposal is no longer open for acceptance. Send me a message below and I&rsquo;ll prepare an updated one.</p>
+<?php endif; ?>
 					</div>
-					<div class="p-field">
-						<label for="acc-email">Work email</label>
-						<input id="acc-email" name="email" type="email" autocomplete="email" maxlength="190" required value="<?php echo esc_attr( $p['contact']['email'] ); ?>"<?php echo 'e-email' === $flag ? ' aria-invalid="true"' : ''; ?>>
+					<div class="p-flip-back" data-done tabindex="-1"<?php echo $accepted ? '' : ' aria-hidden="true"'; ?>>
+						<div class="vip" data-vip>
+							<span class="vip-shine" aria-hidden="true"></span><span class="vip-glare" aria-hidden="true"></span>
+							<div class="vip-in">
+								<div class="vip-row vip-top"><span class="vip-k">Evanly &times; Serafim</span>
+									<svg class="vip-mark" viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M6 40h34M10 40V16l13-6 13 6v24M23 10v30M15 20h4M27 20h4M15 27h4M27 27h4M15 34h4M27 34h4"/></svg></div>
+								<div><span class="vip-line" aria-hidden="true"></span><p class="vip-nm" data-vip-name><?php echo esc_html( $accepted ? (string) get_post_meta( $accepted->ID, 'name', true ) : $p['contact']['name'] ); ?></p><p class="vip-k vip-sub">Founding partner &middot; Product Foundation Sprint</p></div>
+								<div class="vip-row"><span class="vip-k">Pass No. 001</span><span class="vip-kick"><span class="vip-k">Estimated kickoff</span><span class="vip-k vip-date" data-vip-kick><?php echo esc_html( $sera_kick ); ?></span></span></div>
+							</div>
+						</div>
+						<div class="p-done-text">
+							<p class="p-done-title" role="status"><span class="p-done-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span data-done-title><?php echo $accepted ? 'Thank you, ' . esc_html( $sera_first ) . '. Your acceptance has been recorded.' : ''; ?></span></p>
+							<p class="p-done-lede">I&rsquo;ll be in touch to confirm the kickoff and payment details.</p>
+							<dl class="p-done-meta">
+								<div><dt>Accepted</dt><dd data-done-when><?php echo $accepted ? esc_html( gmdate( 'j M Y, H:i', strtotime( (string) get_post_meta( $accepted->ID, 'createdAtUtc', true ) ) ) ) . ' UTC' : ''; ?></dd></div>
+								<div><dt>Investment</dt><dd><?php echo esc_html( $sera_price ); ?> USD</dd></div>
+								<div><dt>Proposal</dt><dd>Version <?php echo esc_html( $p['version'] ); ?></dd></div>
+							</dl>
+						</div>
 					</div>
-					<div class="p-check">
-						<input id="acc-confirm" name="confirm" type="checkbox" value="1" required<?php echo 'e-confirm' === $flag ? ' aria-invalid="true"' : ''; ?>>
-						<label for="acc-confirm">I confirm that I&rsquo;m authorised to accept this proposal on behalf of <?php echo esc_html( $p['client'] ); ?>, including the <?php echo esc_html( $sera_price ); ?> USD investment, payment terms and agreed-scope approach described above.</label>
-					</div>
-					<div class="p-actions">
-						<button class="p-btn p-btn-ink p-btn-lg" type="submit"><span class="p-btn-label">Accept proposal</span></button>
-						<a class="p-btn p-btn-line p-btn-lg" href="#questions" data-open-questions aria-controls="questions">I have questions</a>
-					</div>
-				</form>
-				<?php endif; ?>
+				</div>
 
 				<div class="p-questions<?php echo $accepted ? ' is-after' : ''; ?>" id="questions" data-questions tabindex="-1">
 					<h3 class="p-h4">What would you like to discuss?</h3>
@@ -475,7 +521,7 @@ $sera_styles = array( 'assets/css/mockups.css', 'assets/css/cases/wb.css', 'asse
 			</header>
 			<div class="p-faq-list">
 				<?php foreach ( $sera_faq as $sera_i => $sera_q ) : ?>
-					<details class="p-faq-item"<?php echo 0 === $sera_i ? ' open' : ''; ?>>
+					<details class="p-faq-item" name="faq"<?php echo 0 === $sera_i ? ' open' : ''; ?>>
 						<summary><span class="p-faq-q"><?php echo esc_html( $sera_q[0] ); ?></span><span class="p-faq-ico" aria-hidden="true"></span></summary>
 						<div class="p-faq-a"><p><?php echo $sera_q[1]; // phpcs:ignore WordPress.Security.EscapeOutput -- fixed copy built above. ?></p></div>
 					</details>

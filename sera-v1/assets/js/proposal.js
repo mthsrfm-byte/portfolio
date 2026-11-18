@@ -277,7 +277,41 @@
       });
     }
 
+    // FAQ: one answer open at a time (native via name="faq"; this covers older browsers).
+    $$('.p-faq-item').forEach(function (d) {
+      d.addEventListener('toggle', function () {
+        if (d.open) { $$('.p-faq-item').forEach(function (o) { if (o !== d && o.open) { o.open = false; } }); }
+      });
+    });
+
+    wirePass();
     $$('[data-prop-form="accept"], [data-prop-form="question"]').forEach(wireForm);
+  }
+
+  // First Monday at least two business days away (matches the server's estimate).
+  function kickoff() {
+    var d = new Date(), n = 2;
+    while (n > 0) { d.setDate(d.getDate() + 1); if (d.getDay() % 6) { n--; } }
+    while (d.getDay() !== 1) { d.setDate(d.getDate() + 1); }
+    return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+  }
+
+  // The pass catches the light under the pointer.
+  function wirePass() {
+    var vip = $('[data-vip]');
+    if (!vip || reduce || !(window.matchMedia && window.matchMedia('(hover: hover)').matches)) { return; }
+    vip.addEventListener('pointermove', function (e) {
+      var r = vip.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      vip.style.setProperty('--ry', ((x - 0.5) * 14).toFixed(2) + 'deg');
+      vip.style.setProperty('--rx', ((0.5 - y) * 10).toFixed(2) + 'deg');
+      vip.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+      vip.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+    });
+    vip.addEventListener('pointerleave', function () {
+      vip.style.setProperty('--rx', '0deg'); vip.style.setProperty('--ry', '0deg');
+      vip.style.setProperty('--mx', '30%'); vip.style.setProperty('--my', '30%');
+    });
   }
 
   function wireForm(form) {
@@ -328,11 +362,26 @@
           return;
         }
         if (kind === 'accept') {
-          var done = $('[data-done]');
-          form.remove();
-          done.hidden = false;
-          done.classList.add('is-on', 'is-new');
-          done.focus();
+          // Saved on the server: the form card turns over and becomes the pass.
+          var flip = $('[data-flip]'), back = $('[data-done]'), front = $('.p-flip-front');
+          var who = $('[name="name"]', form).value.trim();
+          var nm = $('[data-vip-name]');
+          if (nm && who) { nm.textContent = who; }
+          var kick = $('[data-vip-kick]');
+          if (kick) { kick.textContent = kickoff(); }
+          var first = (who.split(/\s+/)[0]) || 'Alex';
+          var title = $('[data-done-title]');
+          if (title) { title.textContent = 'Thank you, ' + first + '. Your acceptance has been recorded.'; }
+          var when = $('[data-done-when]');
+          if (when) {
+            var now = new Date();
+            when.textContent = now.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }) + ', ' +
+              now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: 'UTC' }) + ' UTC';
+          }
+          if (front) { front.setAttribute('aria-hidden', 'true'); front.setAttribute('inert', ''); }
+          if (back) { back.removeAttribute('aria-hidden'); }
+          if (flip) { flip.classList.add('is-flipped'); }
+          setTimeout(function () { if (back) { back.focus({ preventScroll: true }); } }, reduce ? 0 : 1100);
           var cta = $('.p-bar-cta');
           if (cta) { cta.textContent = 'Accepted'; }
           var qs = $('[data-questions]');

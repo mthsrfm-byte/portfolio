@@ -21,6 +21,7 @@ function disabled( $on ) { echo $on ? ' disabled' : ''; }
 function get_template_directory() { return $GLOBALS['theme']; }
 function get_template_directory_uri() { return 'THEME'; }
 function get_post_meta() { return ''; }
+define( 'DAY_IN_SECONDS', 86400 );
 function home_url( $p = '' ) { return 'https://matheusserafim.com' . $p; }
 function sanitize_key( $k ) { return preg_replace( '/[^a-z0-9_\-]/', '', strtolower( (string) $k ) ); }
 function wp_parse_args( $a, $d = array() ) { return array_merge( (array) $d, (array) $a ); }
