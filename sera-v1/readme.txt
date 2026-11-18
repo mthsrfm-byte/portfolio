@@ -80,6 +80,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.38.1 =
+* Proposta: novo cronograma. Etapa 1 nos dias 1 e 2, etapa 2 nos dias 3 a 5, etapa 3 nos dias 6 a 10.
+
 = 3.38.0 =
 * Proposta: prédio em traço feito em three.js no topo (montado da fundação pra cima, com as 3 etapas do sprint). three.js 0.149 (MIT) fica no tema em assets/js/lib, sem CDN.
 * Proposta: "Why work with me?" com as capas reais dos cases (will bank, Pagaleve, Acordo Certo), animadas como na home; cada card abre o case numa aba nova.

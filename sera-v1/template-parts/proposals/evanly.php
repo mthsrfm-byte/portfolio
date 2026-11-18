@@ -36,7 +36,7 @@ $sera_stages = array(
 	array(
 		'n'     => '01',
 		'id'    => 'assess',
-		'days'  => 'Days 1 to 3',
+		'days'  => 'Days 1 and 2',
 		'title' => 'Product & Competitive Assessment',
 		'text'  => 'Understand the existing financing experience, review relevant competitors, and identify high-impact opportunities to improve usability and differentiate Evanly.',
 		'how'   => 'I start with the product as it is today, financing screens first, seen from the side of developers and of funders: the main flow, points of friction, hierarchy, how clearly financial information reads, and how consistent components and messages are. Alongside, a small set of direct and adjacent competitors, chosen with you, compared for strengths, gaps and practical openings. Experience attributes such as clarity, trust, efficiency and consistency come out of this as hypotheses to validate, not conclusions.',
@@ -46,7 +46,7 @@ $sera_stages = array(
 	array(
 		'n'     => '02',
 		'id'    => 'found',
-		'days'  => 'Days 4 to 6',
+		'days'  => 'Days 3 to 5',
 		'title' => 'Design & Brand Foundations',
 		'text'  => "Build a lightweight, reusable design system and brand hub around the product’s actual needs: essential design tokens, core components, visual principles and tone of voice.",
 		'how'   => 'What already works stays. On top of it: primitive and semantic tokens for colour, type, spacing, radius and states; the components the chosen flow needs; basic accessibility rules. A compact brand hub records personality, visual principles, tone of voice and microcopy examples, connected to the code when access allows.',
@@ -56,7 +56,7 @@ $sera_stages = array(
 	array(
 		'n'     => '03',
 		'id'    => 'refine',
-		'days'  => 'Days 7 to 10',
+		'days'  => 'Days 6 to 10',
 		'title' => 'Product Refinement & Implementation',
 		'text'  => 'Apply those foundations to the financing screens you mentioned. Refine the interface and key user flows, improve priority website and product copy, and implement the agreed changes while preserving what already works.',
 		'how'   => 'Functional logic, data and architecture stay as they are. Hierarchy, legibility, navigation, states and visual consistency improve where the assessment points. Changes go into the code directly when access and stack allow, ideally as a reviewable branch or pull request, and never into production without your approval. Affected paths, responsive layouts and relevant regressions are tested.',
@@ -179,7 +179,7 @@ $sera_styles = array( 'assets/css/mockups.css', 'assets/css/cases/wb.css', 'asse
 			</header>
 
 			<figure class="p-ruler" aria-labelledby="ruler-cap">
-				<figcaption class="screen-reader-text" id="ruler-cap">Illustrative schedule across ten business days: stage 1 on days 1 to 3, stage 2 on days 4 to 6, stage 3 on days 7 to 10, with a short checkpoint every day.</figcaption>
+				<figcaption class="screen-reader-text" id="ruler-cap">Illustrative schedule across ten business days: stage 1 on days 1 and 2, stage 2 on days 3 to 5, stage 3 on days 6 to 10, with a short checkpoint every day.</figcaption>
 				<ol class="p-ruler-days" aria-hidden="true">
 					<?php for ( $sera_d = 1; $sera_d <= 10; $sera_d++ ) : ?>
 						<li><span class="p-day-word">Day </span><?php echo (int) $sera_d; ?></li>
@@ -192,7 +192,7 @@ $sera_styles = array( 'assets/css/mockups.css', 'assets/css/cases/wb.css', 'asse
 				</div>
 				<div class="p-ruler-ticks" aria-hidden="true">
 					<?php for ( $sera_d = 1; $sera_d <= 10; $sera_d++ ) : ?>
-						<i<?php echo in_array( $sera_d, array( 3, 6, 10 ), true ) ? ' class="is-gate"' : ''; ?>></i>
+						<i<?php echo in_array( $sera_d, array( 2, 5, 10 ), true ) ? ' class="is-gate"' : ''; ?>></i>
 					<?php endfor; ?>
 				</div>
 				<p class="p-ruler-key" aria-hidden="true"><span class="p-key-dot"></span>Daily checkpoint <span class="p-key-dot is-gate"></span>Stage checkpoint</p>
