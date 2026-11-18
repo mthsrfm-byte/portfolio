@@ -80,6 +80,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.40.3 =
+* Proposta: o preço entra caractere por caractere, do desfocado para o nítido, devagar; depois USD, a frase de preço fixo e a divisão 50/50.
+
 = 3.40.2 =
 * Proposta: sem a etiqueta preta e sem a barra de progresso no desenho; no celular o prédio ficou 35% menor e as etiquetas mais compactas; mais espaço entre o passe de metal e a confirmação.
 

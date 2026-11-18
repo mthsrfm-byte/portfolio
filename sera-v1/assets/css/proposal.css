@@ -314,6 +314,14 @@ ul,ol{list-style:none}
 .p-invest-meta li{padding:6px 12px;border:1px solid rgba(239,238,232,.2);border-radius:999px;font-size:14px;color:var(--on-night)}
 .p-price{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 18px;line-height:.86}
 .p-price-num{font-family:var(--display);font-weight:560;font-stretch:78%;font-size:clamp(84px,14vw,196px);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+/* the price comes into focus one character at a time, slowly (first time it is seen) */
+.p-dig{display:inline-block}
+.js .p-price .p-dig{opacity:0;filter:blur(18px);transform:translateY(.12em) scale(1.04);transition:opacity 1.3s var(--ease),filter 1.6s cubic-bezier(.22,.61,.2,1),transform 1.6s var(--ease);transition-delay:calc(.25s + var(--i) * .18s)}
+.js .p-price.is-in .p-dig{opacity:1;filter:blur(0);transform:none}
+.js .p-price .p-price-cur,.js .p-invest-price .p-price-sub,.js .p-invest-price .p-split{opacity:0;filter:blur(6px);transition:opacity 1s var(--ease),filter 1s var(--ease)}
+.js .p-price.is-in .p-price-cur{opacity:1;filter:none;transition-delay:1.4s}
+.js .p-invest-price.is-in .p-price-sub{opacity:1;filter:none;transition-delay:1.7s}
+.js .p-invest-price.is-in .p-split{opacity:1;filter:none;transition-delay:2s}
 .p-price-cur{font-family:var(--mono);font-size:clamp(16px,1.6vw,20px);color:var(--on-night-2)}
 .p-price-sub{margin-top:18px;color:var(--on-night-2)}
 .p-split{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:40px}
@@ -533,6 +541,7 @@ ul,ol{list-style:none}
   .js .p-ruler-stage,.js .p-ruler-stage>*{transform:none;opacity:1}
   .js .p-deck .p-card{transform:none;opacity:1}
   .js .p-note [data-focus]>*{opacity:1;filter:none;transform:none}
+  .js .p-price .p-dig,.js .p-price .p-price-cur,.js .p-invest-price .p-price-sub,.js .p-invest-price .p-split{opacity:1;filter:none;transform:none}
   .p-flip-inner,.p-flip.is-flipped .p-flip-inner{rotate:none!important;animation:none!important}
   .p-flip-back{transform:none}
 }

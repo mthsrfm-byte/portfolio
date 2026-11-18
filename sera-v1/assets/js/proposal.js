@@ -241,6 +241,21 @@
       fio.observe(el);
     });
 
+    // The price comes into focus digit by digit, once, when most of it is on screen.
+    var price = $('[data-price]');
+    if (price) {
+      var box = price.closest('.p-invest-price');
+      var showPrice = function () { price.classList.add('is-in'); if (box) { box.classList.add('is-in'); } };
+      if (reduce || !('IntersectionObserver' in window)) {
+        showPrice();
+      } else {
+        var pio = new IntersectionObserver(function (en) {
+          if (en[0].isIntersecting) { showPrice(); pio.disconnect(); }
+        }, { threshold: 0.6 });
+        pio.observe(price);
+      }
+    }
+
     // Token demo.
     var demo = $('[data-prop-demo]');
     if (demo) {

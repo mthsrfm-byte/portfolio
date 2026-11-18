@@ -333,7 +333,12 @@ $sera_styles = array( 'assets/css/mockups.css', 'assets/css/cases/wb.css', 'asse
 				</ul>
 			</div>
 			<div class="p-invest-price">
-				<p class="p-price"><span class="p-price-num"><?php echo esc_html( $sera_price ); ?></span> <span class="p-price-cur">USD</span></p>
+				<p class="p-price" data-price><span class="p-price-num" role="img" aria-label="<?php echo esc_attr( $sera_price ); ?> US dollars"><?php
+				// One span per character, so the price can come into focus digit by digit.
+				foreach ( preg_split( '//u', $sera_price, -1, PREG_SPLIT_NO_EMPTY ) as $sera_ci => $sera_ch ) {
+					printf( '<span class="p-dig" aria-hidden="true" style="--i:%d">%s</span>', (int) $sera_ci, esc_html( $sera_ch ) );
+				}
+				?></span> <span class="p-price-cur" aria-hidden="true">USD</span></p>
 				<p class="p-price-sub">One-time investment, fixed price.</p>
 				<div class="p-split" role="list" aria-label="Payment schedule">
 					<div class="p-split-part" role="listitem">
