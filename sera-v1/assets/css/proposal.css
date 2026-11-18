@@ -147,7 +147,7 @@ ul,ol{list-style:none}
 .p-note{padding:var(--sec) 0 0}
 .p-note-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.2fr);gap:32px clamp(32px,6vw,96px);align-items:start}
 .p-note-who{display:flex;align-items:center;gap:16px;position:sticky;top:110px}
-.p-note-who img{width:64px;height:64px;border-radius:50%;object-fit:cover;filter:grayscale(1) contrast(1.05);background:var(--paper-2)}
+.p-note-who img{width:64px;height:64px;border-radius:50%;object-fit:cover;background:var(--paper-2)}
 .p-note-who figcaption{display:grid;font-size:15px;line-height:1.35}
 .p-note-who figcaption span{color:var(--muted);font-size:14px}
 .p-note-body{max-width:62ch;font-size:clamp(18px,1.55vw,21px);line-height:1.55;color:var(--ink-2)}

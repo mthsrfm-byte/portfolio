@@ -551,7 +551,7 @@ function sera_prop_render( $tpl, $vars ) {
 		return get_template_directory_uri() . '/' . $rel . '?ver=' . rawurlencode( sera_asset_ver( $rel ) );
 	};
 	$vars['logo']  = function_exists( 'sera_brand_logo' ) ? sera_brand_logo() : '';
-	$vars['photo'] = get_template_directory_uri() . '/assets/img/headshot.webp';
+	$vars['photo'] = get_template_directory_uri() . '/assets/img/proposal-photo.webp';
 	extract( $vars ); // phpcs:ignore WordPress.PHP.DontExtract
 	include get_template_directory() . '/template-parts/proposals/' . $tpl . '.php';
 }

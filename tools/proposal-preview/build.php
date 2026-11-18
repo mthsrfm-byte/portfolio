@@ -27,7 +27,7 @@ $p        = require $theme . '/inc/proposals/' . $key . '.php';
 $p['key'] = $key;
 $asset    = function ( $rel ) { return 'ASSET:' . $rel; };
 $logo     = file_get_contents( $theme . '/assets/img/logo-serafim.svg' );
-$photo    = 'data:image/webp;base64,' . base64_encode( file_get_contents( $theme . '/assets/img/headshot.webp' ) );
+$photo    = 'data:image/webp;base64,' . base64_encode( file_get_contents( $theme . '/assets/img/proposal-photo.webp' ) );
 $url      = '#';
 
 function render( $file, $vars ) {

@@ -80,6 +80,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.37.1 =
+* Proposta: foto nova, colorida.
+
 = 3.37.0 =
 * Nova página privada de proposta comercial em /comercial/evenly (alias /comercial/evanly): código de 4 dígitos checado no servidor, limite de tentativas, sessão assinada de 2h, aceite e perguntas gravados com notificação por e-mail, tela Ferramentas › Propostas. O resto do site não muda.
 
