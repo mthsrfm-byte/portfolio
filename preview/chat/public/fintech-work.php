@@ -19,7 +19,7 @@ if (!defined('CHAT_PREVIEW') || empty($authorised)) { http_response_code(404); e
           </div>
           <div class="work-text"><span id="work-will-brand" class="work-brand">will bank</span>
             <h3 id="work-will-title">See the next bill before buying.</h3>
-            <p>I designed a simulator that showed how a purchase would change each monthly bill. Customers in the rollout group opened fewer support tickets than the control group.</p>
+            <p>I designed a simulator that showed how a purchase would change each monthly bill. The rollout group opened <strong>fewer support tickets</strong> than the control group.</p>
             <span class="work-link">Read the case <?php icon('external'); ?></span>
           </div>
         </a>
@@ -35,7 +35,7 @@ if (!defined('CHAT_PREVIEW') || empty($authorised)) { http_response_code(404); e
           </div>
           <div class="work-text"><span id="work-wu-brand" class="work-brand">Western Union</span>
             <h3 id="work-wu-title">Catch the ID error at the camera.</h3>
-            <p>Rejected photos revealed that people were sending the front of their ID twice. I gave each side its own capture step. The redesigned onboarding reached record conversion.</p>
+            <p>People were sending the front of their ID twice. I gave each side its own capture step. The new onboarding reached <strong>record conversion</strong>.</p>
             <span class="work-link">Read the case <?php icon('external'); ?></span>
           </div>
         </a>
@@ -49,7 +49,7 @@ if (!defined('CHAT_PREVIEW') || empty($authorised)) { http_response_code(404); e
           </div>
           <div class="work-text"><span id="work-ac-brand" class="work-brand">Acordo Certo</span>
             <h3 id="work-ac-title">Earn trust before asking for an ID.</h3>
-            <p>I led the research and design direction. We showed how debt negotiation worked upfront and used our Atlas design system across the site. Conversion rose 15% on the homepage and landing pages.</p>
+            <p>I led a redesign that showed the negotiation steps upfront. We built the pages with our Atlas design system. Homepage and landing page <strong>conversion rose 15%</strong>.</p>
             <span class="work-link">Read the case <?php icon('external'); ?></span>
           </div>
         </a>

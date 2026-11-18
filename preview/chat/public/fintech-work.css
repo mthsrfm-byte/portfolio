@@ -17,6 +17,7 @@
 .work-brand { font: 540 10px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: #51564c; }
 .work-text h3 { font: 540 clamp(23px, 2vw, 32px)/1.08 var(--sans); letter-spacing: -.058em; margin: 8px 0 10px; text-wrap: balance; }
 .work-text p { color: #4a5049; font-size: clamp(14px, 1.07vw, 16px); line-height: 1.5; }
+.work-text p strong { color: #242924; font-weight: 605; }
 .work-link, .work-return { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 560; }
 .work-link { margin-top: auto; padding-top: 19px; color: var(--blue); }
 .work-link .icon { width: 15px; height: 15px; transition: transform .2s ease; }
@@ -34,11 +35,11 @@
 /* Excerpts from the portfolio's bill simulator, two-sided ID capture and Atlas components. */
 .art-bill { background: #ffdb56; color: #1b2019; }
 .will-logo { height: 18px; }
-.bill-sheet { position: absolute; left: 13%; top: 34%; width: 68%; padding: 4% 5%; border-radius: 9px; background: #fffdf5; box-shadow: 1px 6px 22px #6d51122c; transform: rotate(-6deg); }
+.bill-sheet { position: absolute; left: 13%; top: 31%; width: 68%; padding: 3% 5%; border-radius: 9px; background: #fffdf5; box-shadow: 1px 6px 22px #6d51122c; transform: rotate(-6deg); }
 .bill-sheet > b, .atlas-copy small { display: block; font: 550 clamp(9px,2.7cqw,13px)/1.2 var(--sans); }
 .bill-value { margin-top: 4px; font: 600 clamp(19px,6.5cqw,30px)/1 var(--sans); letter-spacing: -.06em; }
 .bill-sub { margin-top: 3px; font: 500 clamp(8px,2.2cqw,12px)/1.2 var(--sans); color: #58594f; }
-.bill-months { display: flex; align-items: flex-end; gap: 7%; height: clamp(34px,12cqw,53px); margin-top: 6px; }
+.bill-months { display: flex; align-items: flex-end; gap: 7%; height: clamp(23px,7cqw,35px); margin-top: 4px; }
 .bill-months span { display: flex; flex-direction: column; justify-content: flex-end; gap: 2px; width: 23%; height: 100%; font: 10px/1 var(--mono); }
 .bill-months i { height: 70%; background: #38392d; border-top: 6px solid #ffd327; border-radius: 3px 3px 0 0; transform-origin: bottom; }
 .bill-months span:nth-child(2) i { height: 59%; }
@@ -84,6 +85,16 @@
   .work-text p { font-size: 14px; line-height: 1.45; }
   .work-link { padding-top: 12px; }
   .work-controls:not([hidden]) { display: flex; }
+}
+@media (max-width: 400px) and (max-height: 680px) {
+  .fintech-wrap { padding-block: 21px 10px; }
+  .fintech-head { margin-bottom: 15px; }
+  .fintech-head p { display: none; }
+  .work-art { height: 116px; }
+  .work-text { padding: 13px 15px; }
+  .work-text h3 { font-size: 22px; }
+  .work-text p { line-height: 1.4; }
+  .work-foot { padding-top: 7px; }
 }
 @media (prefers-reduced-motion: no-preference) {
   .work-seen .bill-months i { animation: bill-rise .75s cubic-bezier(.18,.76,.3,1) both; }
