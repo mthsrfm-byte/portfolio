@@ -80,6 +80,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.40.2 =
+* Proposta: sem a etiqueta preta e sem a barra de progresso no desenho; no celular o prédio ficou 35% menor e as etiquetas mais compactas; mais espaço entre o passe de metal e a confirmação.
+
 = 3.40.1 =
 * Proposta: giro do formulário para o passe de metal refeito (um objeto 3D só, giro e leve elevação em curvas suaves, sem engasgo). Depois do aceite, o formulário de perguntas some.
 

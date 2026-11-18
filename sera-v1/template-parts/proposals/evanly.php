@@ -237,8 +237,6 @@ $sera_styles = array( 'assets/css/mockups.css', 'assets/css/cases/wb.css', 'asse
 						<span class="p-bld-tag" data-tag="assess"><i aria-hidden="true">01</i>Assessment</span>
 						<span class="p-bld-tag is-found" data-tag="found"><i aria-hidden="true">02</i>Foundations</span>
 						<span class="p-bld-tag is-right" data-tag="refine"><i aria-hidden="true">03</i>Refinement</span>
-						<span class="p-bld-prog" aria-hidden="true"><i></i><i></i><i></i></span>
-						<span class="p-bld-homes" data-homes aria-hidden="true">From a laundromat to 48 homes</span>
 					</div>
 				</figure>
 			<ol class="p-stages">

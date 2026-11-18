@@ -291,7 +291,6 @@
   };
   var spans = { assess: [0, 0.3], found: [0.3, 0.6], refine: [0.6, 1.01] };
   var svg = host.querySelector('.p-bld-lines');
-  var homes = host.querySelector('[data-homes]');
   var tags = {};
   Object.keys(anchors).forEach(function (k) {
     tags[k] = { el: host.querySelector('[data-tag="' + k + '"]'), line: svg && svg.querySelector('[data-line="' + k + '"]'), dot: svg && svg.querySelector('[data-dot="' + k + '"]') };
@@ -351,7 +350,6 @@
     camera.lookAt(0.4, lookY, 0.6);
     renderer.render(scene, camera);
     host.style.setProperty('--bp', p.toFixed(3));
-    if (homes) { homes.classList.toggle('is-on', p > 0.95); }
 
     var sr = stageEl.getBoundingClientRect();
     Object.keys(anchors).forEach(function (k) {
