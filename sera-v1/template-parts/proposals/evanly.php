@@ -64,6 +64,57 @@ $sera_stages = array(
 		'check' => 'Final demo and delivery.',
 	),
 );
+$sera_logo = function ( $file ) {
+	$path = get_template_directory() . '/assets/logos/' . $file;
+	return file_exists( $path ) ? (string) file_get_contents( $path ) : ''; // phpcs:ignore WordPress.WP.AlternativeFunctions
+};
+$sera_proof = array(
+	array(
+		'logo'  => 'will-bank.svg',
+		'brand' => 'will bank',
+		'area'  => 'Credit card',
+		'title' => 'A credit card bill you can plan around',
+		'text'  => 'A back-end migration became a product shift: a real-time open bill, past and future bills in the app, and early instalment payments with a discount.',
+		'tag'   => 'Financial clarity',
+		'slug'  => 'will-bank-switching-the-brain',
+	),
+	array(
+		'logo'  => 'western-union.svg',
+		'brand' => 'Western Union',
+		'area'  => 'Digital account',
+		'title' => 'Onboarding that stops the error before it happens',
+		'text'  => 'An audit of rejected documents showed where people got stuck. The redesign prevented it, with Compliance reviewing every change.',
+		'tag'   => 'Trust',
+		'slug'  => 'western-union-onboarding',
+	),
+	array(
+		'logo'  => 'pagaleve.svg',
+		'brand' => 'Pagaleve',
+		'area'  => 'Payment plans',
+		'title' => 'Reschedule a payment before it&rsquo;s late',
+		'text'  => 'Customers agree on a new due date ahead of time, and AI agents decide who sees the offer. It went from hackathon pitch to production.',
+		'tag'   => 'Payments',
+		'slug'  => 'combina-antes',
+	),
+	array(
+		'logo'  => 'acordo-certo.svg',
+		'brand' => 'Acordo Certo',
+		'area'  => 'Debt renegotiation',
+		'title' => 'A homepage that feels safe to people in debt',
+		'text'  => 'Strategy, research and direction for a redesign built on our own design system, with a company-wide vision workshop along the way.',
+		'tag'   => 'Design system',
+		'slug'  => 'acordo-certo-homepage',
+	),
+	array(
+		'logo'  => '',
+		'brand' => 'Paperplane Studio',
+		'area'  => 'Design + build',
+		'title' => 'From idea to a working product, every screen finished',
+		'text'  => 'I set the product, the scope and the finish of every screen, and directed the AI agents that built it. Now in closed beta.',
+		'tag'   => 'Design + build',
+		'slug'  => 'paperplane-studio',
+	),
+);
 ?><!doctype html>
 <html lang="en" class="no-js">
 <head>
@@ -88,6 +139,7 @@ $sera_stages = array(
 			<a href="#collaboration">Collaboration</a>
 			<a href="#investment">Investment</a>
 			<a href="#scope">Scope</a>
+			<a href="#work">Work</a>
 		</nav>
 		<a class="p-btn p-btn-ink p-btn-sm p-bar-cta" href="#accept"><?php echo $accepted ? 'Accepted' : 'Review and accept'; ?></a>
 	</div>
@@ -233,7 +285,7 @@ $sera_stages = array(
 		</div>
 	</section>
 
-	<section class="p-sec p-invest" id="investment" aria-labelledby="invest-title">
+	<section class="p-sec p-invest" id="investment" aria-labelledby="invest-title" data-dark>
 		<div class="p-wrap p-invest-grid">
 			<div class="p-invest-head">
 				<h2 class="p-label p-label-lt" id="invest-title">Investment</h2>
@@ -298,6 +350,34 @@ $sera_stages = array(
 					</ul>
 				</div>
 			</div>
+		</div>
+	</section>
+
+	<section class="p-sec p-proof" id="work" aria-labelledby="proof-title" data-dark>
+		<div class="p-wrap p-proof-in">
+			<header class="p-proof-head">
+				<h2 class="p-h2 p-proof-title" id="proof-title">I&rsquo;ve made money feel simple before.</h2>
+				<p class="p-proof-lede">Credit cards, cross-border accounts, payment plans and debt renegotiation: products where clarity and trust decide whether people move forward. Researched, designed and shipped.</p>
+			</header>
+			<ul class="p-deck" data-deck>
+				<?php foreach ( $sera_proof as $sera_c ) : ?>
+					<li class="p-card">
+						<div class="p-card-plate" aria-hidden="true">
+							<?php if ( $sera_c['logo'] ) : ?>
+								<span class="p-card-logo"><?php echo $sera_logo( $sera_c['logo'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+							<?php else : ?>
+								<span class="p-card-word"><?php echo esc_html( $sera_c['brand'] ); ?></span>
+							<?php endif; ?>
+						</div>
+						<div class="p-card-body">
+							<p class="p-card-meta"><?php echo esc_html( $sera_c['brand'] . ', ' . strtolower( $sera_c['area'] ) ); ?></p>
+							<h3 class="p-card-title"><a class="p-card-link" href="<?php echo esc_url( home_url( '/' . $sera_c['slug'] . '/' ) ); ?>" target="_blank" rel="noopener noreferrer"><?php echo $sera_c['title']; // phpcs:ignore WordPress.Security.EscapeOutput -- fixed copy above. ?><span class="screen-reader-text"> (case study, opens in a new tab)</span></a></h3>
+							<p class="p-card-text"><?php echo esc_html( $sera_c['text'] ); ?></p>
+							<p class="p-card-foot"><span class="p-card-tag"><?php echo esc_html( $sera_c['tag'] ); ?></span><span class="p-card-go" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11L11 5M6 5h5v5"/></svg></span></p>
+						</div>
+					</li>
+				<?php endforeach; ?>
+			</ul>
 		</div>
 	</section>
 

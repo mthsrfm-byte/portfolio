@@ -21,6 +21,7 @@ function disabled( $on ) { echo $on ? ' disabled' : ''; }
 function get_template_directory() { return $GLOBALS['theme']; }
 function get_template_directory_uri() { return 'THEME'; }
 function get_post_meta() { return ''; }
+function home_url( $p = '' ) { return 'https://matheusserafim.com' . $p; }
 require $theme . '/inc/proposals.php';
 
 $p        = require $theme . '/inc/proposals/' . $key . '.php';

@@ -140,15 +140,15 @@
 
     // Sticky bar state: scrolled, dark over the investment block, current section.
     var bar = $('[data-prop-bar]');
-    var invest = $('#investment');
+    var darks = $$('[data-dark]');
     var links = $$('.p-bar-nav a');
     function onScroll() {
       if (!bar) { return; }
       bar.classList.toggle('is-scrolled', window.scrollY > 8);
-      if (invest) {
-        var r = invest.getBoundingClientRect();
-        bar.classList.toggle('is-dark', r.top < 40 && r.bottom > 40);
-      }
+      bar.classList.toggle('is-dark', darks.some(function (d) {
+        var r = d.getBoundingClientRect();
+        return r.top < 40 && r.bottom > 40;
+      }));
       var here = null;
       links.forEach(function (a) {
         var s = $(a.getAttribute('href'));
@@ -175,6 +175,43 @@
           });
         }, { threshold: 0.35 });
         io.observe(ruler);
+      }
+    }
+
+    // Work deck: cards are dealt into the row once, then lean towards the pointer a little.
+    var deck = $('[data-deck]');
+    if (deck) {
+      var deal = function () {
+        deck.classList.add('is-in');
+        setTimeout(function () { deck.classList.add('is-dealt'); }, reduce ? 0 : 1500);
+      };
+      if (reduce || !('IntersectionObserver' in window)) {
+        deal();
+      } else {
+        var dio = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting) { deal(); dio.disconnect(); }
+          });
+        }, { threshold: 0.3 });
+        dio.observe(deck);
+      }
+      var fine = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      if (fine && !reduce) {
+        $$('.p-card', deck).forEach(function (card) {
+          card.addEventListener('pointermove', function (e) {
+            var r = card.getBoundingClientRect();
+            var x = (e.clientX - r.left) / r.width;
+            var y = (e.clientY - r.top) / r.height;
+            card.style.setProperty('--ry', ((x - 0.5) * 10).toFixed(2) + 'deg');
+            card.style.setProperty('--rx', ((0.5 - y) * 8).toFixed(2) + 'deg');
+            card.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+            card.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+          });
+          card.addEventListener('pointerleave', function () {
+            card.style.setProperty('--rx', '0deg');
+            card.style.setProperty('--ry', '0deg');
+          });
+        });
       }
     }
 

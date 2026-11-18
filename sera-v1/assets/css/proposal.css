@@ -340,8 +340,63 @@ ul,ol{list-style:none}
 /* ---------- preview ribbon (static preview only) ---------- */
 .p-preview{padding:10px var(--gutter);background:var(--teal);color:#fff;font-size:13px;font-weight:500;text-align:center;line-height:1.45}
 
+
+/* ---------- work: why me (one fold, night) ---------- */
+.p-proof{margin-top:var(--sec);padding:clamp(64px,7vw,96px) 0;background:var(--night);color:var(--on-night);overflow:hidden;position:relative;isolation:isolate}
+.p-proof::before{content:"";position:absolute;inset:auto -20% -40% -20%;height:70%;z-index:-1;background:radial-gradient(60% 60% at 50% 100%,rgba(140,201,194,.16),transparent 70%);pointer-events:none}
+.p-proof ::selection{background:var(--on-night);color:var(--ink)}
+.p-proof :focus-visible{outline-color:var(--teal-lt)}
+.p-proof+.p-accept{padding-top:var(--sec)}
+@media (min-width:1080px){.p-proof{min-height:min(100svh,900px);display:flex;align-items:center}.p-proof-in{width:100%}}
+.p-proof-head{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:20px 64px;align-items:end;margin-bottom:clamp(32px,4vw,48px)}
+.p-proof-title{max-width:14ch;font-size:clamp(36px,4.8vw,66px)}
+.p-proof-lede{color:var(--on-night-2);max-width:44ch}
+@media (max-width:860px){.p-proof-head{grid-template-columns:1fr}}
+
+.p-deck{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;perspective:1400px}
+.p-card{--rx:0deg;--ry:0deg;--lift:0px;position:relative;display:flex;flex-direction:column;min-height:0;border-radius:22px;background:var(--night-2);box-shadow:0 0 0 1px rgba(239,238,232,.09) inset,0 30px 60px -30px rgba(0,0,0,.8);transform:translateY(var(--lift)) rotateX(var(--rx)) rotateY(var(--ry));transform-style:preserve-3d;transition:transform .5s var(--ease),box-shadow .4s,background-color .4s;will-change:transform}
+.p-card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(240px circle at var(--mx,50%) var(--my,0%),rgba(239,238,232,.1),transparent 60%);opacity:0;transition:opacity .4s}
+.p-card:hover,.p-card:focus-within{--lift:-10px;background:#232321;box-shadow:0 0 0 1px rgba(140,201,194,.4) inset,0 40px 70px -30px rgba(0,0,0,.9)}
+.p-card:hover::after{opacity:1}
+.p-card-plate{display:grid;place-items:center;height:96px;margin:8px 8px 0;border-radius:16px;background:var(--on-night);color:var(--ink)}
+.p-card-logo{display:block;width:62%;max-width:150px}
+.p-card-logo svg{width:100%;height:auto;max-height:44px}
+.p-card-word{font-family:var(--display);font-stretch:85%;font-weight:600;font-size:21px;letter-spacing:-.02em}
+.p-card-body{display:flex;flex-direction:column;gap:9px;padding:16px 18px 16px;flex:1}
+.p-card-meta{font-size:13px;color:var(--on-night-2)}
+.p-card-title{font-family:var(--display);font-stretch:90%;font-weight:560;font-size:clamp(19px,1.5vw,22px);line-height:1.12;letter-spacing:-.015em;text-wrap:balance}
+.p-card-link{text-decoration:none;color:inherit}
+.p-card-link::before{content:"";position:absolute;inset:0;border-radius:22px;z-index:1}
+.p-card-link:focus-visible{outline:none}
+.p-card:has(.p-card-link:focus-visible){outline:2px solid var(--teal-lt);outline-offset:4px}
+.p-card-text{font-size:14.5px;line-height:1.5;color:var(--on-night-2)}
+.p-card-foot{margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.p-card-tag{display:inline-flex;align-items:center;min-height:28px;padding:0 10px;white-space:nowrap;border-radius:999px;font-size:12.5px;color:var(--teal-lt);border:1px solid rgba(140,201,194,.35)}
+.p-card-go{display:grid;place-items:center;width:34px;height:34px;flex:none;border-radius:50%;border:1px solid rgba(239,238,232,.18);transition:background-color .3s,color .3s,transform .4s var(--ease)}
+.p-card-go svg{width:14px;height:14px}
+.p-card:hover .p-card-go{background:var(--teal-lt);color:var(--ink);border-color:var(--teal-lt);transform:rotate(45deg)}
+
+/* the deal: cards start stacked on the first one and fan out into the row, one after another */
+.js .p-deck .p-card{opacity:0;transform:translateX(var(--from,0)) translateY(40px) rotate(var(--rot,0deg)) scale(.94);transition:transform 1s var(--ease),opacity .5s,box-shadow .4s,background-color .4s}
+.js .p-deck .p-card:nth-child(1){--rot:-4deg}
+.js .p-deck .p-card:nth-child(2){--from:calc(-100% - 14px);--rot:-2deg;transition-delay:.08s}
+.js .p-deck .p-card:nth-child(3){--from:calc(-200% - 28px);--rot:1deg;transition-delay:.16s}
+.js .p-deck .p-card:nth-child(4){--from:calc(-300% - 42px);--rot:3deg;transition-delay:.24s}
+.js .p-deck .p-card:nth-child(5){--from:calc(-400% - 56px);--rot:5deg;transition-delay:.32s}
+.js .p-deck.is-in .p-card{opacity:1;transform:translateY(var(--lift)) rotateX(var(--rx)) rotateY(var(--ry))}
+.js .p-deck.is-dealt .p-card{transition:transform .5s var(--ease),box-shadow .4s,background-color .4s;transition-delay:0s}
+
+@media (max-width:1079px){
+  .p-deck{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--gutter);margin:0 calc(var(--gutter) * -1);padding:12px var(--gutter) 20px;scrollbar-width:none;overscroll-behavior-x:contain}
+  .p-deck::-webkit-scrollbar{display:none}
+  .p-card{flex:0 0 min(300px,78vw);scroll-snap-align:start;min-height:380px}
+  .js .p-deck .p-card{transform:none;transition:opacity .6s}
+  .js .p-deck.is-in .p-card{transform:none}
+}
+
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0s!important}
   .js .p-ruler-stage,.js .p-ruler-stage>*{transform:none;opacity:1}
+  .js .p-deck .p-card{transform:none;opacity:1}
 }
