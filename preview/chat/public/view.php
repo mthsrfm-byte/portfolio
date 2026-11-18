@@ -42,6 +42,10 @@ $full = $authorised;
 <link rel="preload" href="<?=$asset?>fonts/geist.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="<?=CHAT_PATH?>proposal.css?v=<?=attr($rev)?>">
 <script defer src="<?=CHAT_PATH?>proposal.js?v=<?=attr((string)filemtime(__DIR__.'/proposal.js'))?>"></script>
+<?php if ($full): ?>
+<link rel="stylesheet" href="<?=CHAT_PATH?>fintech-work.css?v=<?=attr((string)filemtime(__DIR__.'/fintech-work.css'))?>">
+<script defer src="<?=CHAT_PATH?>fintech-work.js?v=<?=attr((string)filemtime(__DIR__.'/fintech-work.js'))?>"></script>
+<?php endif;?>
 </head><body class="<?=$full ? 'document' : 'gate'?>">
 <a class="skip" href="#main">Skip to content</a>
 <header class="mast"><div class="wrap mast-in"><a class="identity" href="https://matheusserafim.com/" aria-label="Matheus Serafim, portfolio"><img src="<?=$asset?>img/logo-serafim.svg" alt="" width="62" height="20"><span>Matheus Serafim</span></a>
@@ -109,6 +113,7 @@ $question_open = $error_area === 'question' || $message === 'question';
  <label for="question">What would you like to discuss?</label><textarea id="question" name="question" rows="4" maxlength="2000" required><?=h($error_area==='question' ? chat_value('question') : '')?></textarea>
  <?php if ($error && $error_area==='question'):?><p class="error" role="alert"><?=h($error)?></p><?php endif;?><button class="secondary" data-busy="Sending…">Send message <?php icon('arrow');?></button></form></details>
  </div></section>
+<?php require __DIR__ . '/fintech-work.php'; ?>
 </main>
 <?php endif;?>
 <footer><div class="wrap footer-in"><span>Matheus Serafim <i>/</i> Product design</span><a href="https://matheusserafim.com/">Portfolio <?php icon('external');?></a></div></footer>

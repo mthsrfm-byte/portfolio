@@ -1,0 +1,107 @@
+.fintech {
+  background: #1d211f;
+  color: #f7f6f0;
+}
+.fintech-wrap { padding-block: clamp(34px, 5vw, 76px) clamp(18px, 2.8vw, 40px); }
+.fintech-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; margin-bottom: clamp(23px, 3vw, 44px); }
+.fintech-head h2 { font-size: clamp(47px, 5.4vw, 80px); }
+.fintech-head h2 em { color: #c3caff; }
+.fintech-head p { max-width: 39ch; color: #d3d6cf; font-size: clamp(14px, 1.15vw, 17px); line-height: 1.5; }
+.fintech-cards { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: clamp(12px, 1.5vw, 23px); margin: 0; padding: 0; list-style: none; }
+.fintech-card { min-width: 0; }
+.fintech-card > a { display: flex; flex-direction: column; height: 100%; border-radius: 12px; background: #f6f5ee; color: #1e211e; overflow: hidden; }
+.fintech-card > a:focus-visible, .work-foot :focus-visible { outline: 3px solid #c3caff; outline-offset: 2px; }
+.work-art { height: clamp(136px, 12.7vw, 195px); overflow: hidden; position: relative; isolation: isolate; container-type: inline-size; }
+.work-logo { position: absolute; left: 6.5%; top: 12%; z-index: 2; display: block; width: auto; max-width: 42%; height: 14px; object-fit: contain; object-position: left; }
+.work-text { flex: 1; display: flex; flex-direction: column; padding: clamp(16px, 1.6vw, 25px); }
+.work-brand { font: 540 10px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: #51564c; }
+.work-text h3 { font: 540 clamp(23px, 2vw, 32px)/1.08 var(--sans); letter-spacing: -.058em; margin: 8px 0 10px; text-wrap: balance; }
+.work-text p { color: #4a5049; font-size: clamp(14px, 1.07vw, 16px); line-height: 1.5; }
+.work-link, .work-return { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 560; }
+.work-link { margin-top: auto; padding-top: 19px; color: var(--blue); }
+.work-link .icon { width: 15px; height: 15px; transition: transform .2s ease; }
+@media (hover:hover) {
+  .fintech-card a:hover .work-link .icon { transform: translate(2px,-2px); }
+  .fintech-card a:hover h3, .work-return:hover { text-decoration: underline; text-underline-offset: .12em; }
+}
+.work-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 12px; }
+.work-return { min-height: 44px; color: #e6e9de; }
+.work-controls { display: none; align-items: center; gap: 8px; }
+.work-controls button { width: 44px; height: 44px; padding: 0; border-radius: 50%; border: 1px solid #7c8278; background: transparent; color: #fafbf4; font-size: 19px; }
+.work-controls button:disabled { cursor: default; opacity: .36; }
+.work-controls output { min-width: 36px; text-align: center; font: 11px var(--mono); color: #e6e9de; }
+
+/* Excerpts from the portfolio's bill simulator, two-sided ID capture and Atlas components. */
+.art-bill { background: #ffdb56; color: #1b2019; }
+.will-logo { height: 18px; }
+.bill-sheet { position: absolute; left: 13%; top: 34%; width: 68%; padding: 4% 5%; border-radius: 9px; background: #fffdf5; box-shadow: 1px 6px 22px #6d51122c; transform: rotate(-6deg); }
+.bill-sheet > b, .atlas-copy small { display: block; font: 550 clamp(9px,2.7cqw,13px)/1.2 var(--sans); }
+.bill-value { margin-top: 4px; font: 600 clamp(19px,6.5cqw,30px)/1 var(--sans); letter-spacing: -.06em; }
+.bill-sub { margin-top: 3px; font: 500 clamp(8px,2.2cqw,12px)/1.2 var(--sans); color: #58594f; }
+.bill-months { display: flex; align-items: flex-end; gap: 7%; height: clamp(34px,12cqw,53px); margin-top: 6px; }
+.bill-months span { display: flex; flex-direction: column; justify-content: flex-end; gap: 2px; width: 23%; height: 100%; font: 10px/1 var(--mono); }
+.bill-months i { height: 70%; background: #38392d; border-top: 6px solid #ffd327; border-radius: 3px 3px 0 0; transform-origin: bottom; }
+.bill-months span:nth-child(2) i { height: 59%; }
+.bill-months span:nth-child(3) i { height: 42%; }
+.bill-slip { position: absolute; right: 6%; top: 38%; transform: rotate(7deg); background: #262a21; color: #fff; border-radius: 6px; padding: 7px 10px 8px; box-shadow: 2px 5px 10px #46370b38; }
+.bill-slip small, .bill-slip b { display: block; }
+.bill-slip small { font-size: clamp(8px,2.1cqw,10px); }
+.bill-slip b { font-size: clamp(15px,4.8cqw,23px); letter-spacing: -.055em; line-height: 1.12; }
+.art-id { background: radial-gradient(ellipse at 65% 88%, #60695a, #363d36 64%, #30362f); }
+.wu-logo { height: 17px; filter: brightness(0) invert(87%) sepia(99%) saturate(810%) hue-rotate(345deg) brightness(104%); }
+.id-pair { position: absolute; inset: 27% 8% -7%; perspective: 700px; }
+.id-step { position: absolute; width: 55%; }
+.id-step small { display: block; margin-bottom: 4px; color: #f8f9e8; font: 500 clamp(8px,2.4cqw,12px)/1.3 var(--mono); letter-spacing: .07em; }
+.id-step svg { width: 100%; height: auto; display: block; border-radius: 5px; box-shadow: 1px 5px 14px #1117; }
+.id-front { top: 6%; left: 3%; transform: rotate(-9deg); }
+.id-back { top: 15%; right: 1%; transform: rotate(7deg); }
+.art-atlas { background: #cbd6ff; color: #152c73; }
+.ac-logo { height: 17px; }
+.atlas-palette { position: absolute; right: 9%; top: 30%; width: 50%; height: 44%; display: flex; transform: rotate(9deg); }
+.atlas-palette i { flex: 1; border-radius: 5px 5px 0 0; background: #0048db; }
+.atlas-palette i:nth-child(2) { background: #02bedf; }
+.atlas-palette i:nth-child(3) { background: #7b4bd8; }
+.atlas-palette i:nth-child(4) { background: #3cc47c; }
+.atlas-palette i:nth-child(5) { background: #ffd66b; }
+.atlas-sheet { display: flex; align-items: center; gap: 7%; position: absolute; top: 45%; left: 9%; width: 77%; padding: 4.2% 5%; border-radius: 7px; background: #fafaff; transform: rotate(-5deg); box-shadow: 2px 5px 15px #1d347e2e; }
+.atlas-type { font: 490 clamp(39px,13cqw,60px)/1 var(--sans); letter-spacing: -.08em; color: #2453d6; }
+.atlas-copy { flex: 1; }
+.atlas-copy small { color: #53617a; font-size: clamp(8px,2.4cqw,11px); }
+.atlas-copy b { display: block; margin: 3px 0 5px; font-size: clamp(13px,4cqw,18px); letter-spacing: -.035em; line-height: 1.1; }
+.atlas-copy span { display: inline-flex; align-items: center; gap: 13px; border-radius: 100px; padding: 3px 9px; font-size: clamp(8px,2.3cqw,10px); color: #fff; background: #1f4fe0; }
+.atlas-copy i { font-style: normal; }
+
+@media (max-width: 760px) {
+  .fintech-wrap { padding-block: 32px 16px; }
+  .fintech-head { display: block; margin-bottom: 18px; }
+  .fintech-head h2 { font-size: clamp(39px,8vw,52px); }
+  .fintech-head p { font-size: 14px; margin-top: 11px; max-width: 46ch; }
+  .fintech-cards { display: flex; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; gap: 12px; scrollbar-width: thin; scrollbar-color: #858b80 transparent; padding: 3px var(--gutter) 5px; margin: -3px calc(0px - var(--gutter)) -5px; scroll-padding-inline: var(--gutter); }
+  .fintech-card { flex: 0 0 min(90%,430px); scroll-snap-align: start; }
+  .work-art { height: clamp(123px,33vw,155px); }
+  .work-text { padding: 15px 17px; }
+  .work-text h3 { margin: 5px 0 8px; font-size: 23px; }
+  .work-text p { font-size: 14px; line-height: 1.45; }
+  .work-link { padding-top: 12px; }
+  .work-controls:not([hidden]) { display: flex; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .work-seen .bill-months i { animation: bill-rise .75s cubic-bezier(.18,.76,.3,1) both; }
+  .work-seen .bill-months span:nth-child(2) i { animation-delay: .1s; }
+  .work-seen .bill-months span:nth-child(3) i { animation-delay: .2s; }
+  .work-seen .bill-slip { animation: bill-receipt .9s cubic-bezier(.18,.76,.3,1) both; }
+  .work-seen .id-back { animation: show-id .9s cubic-bezier(.18,.76,.3,1) both; }
+  .work-seen .atlas-palette { animation: unfold-palette .9s cubic-bezier(.18,.76,.3,1) both; transform-origin: 10% 100%; }
+  @keyframes bill-rise { from { transform: scaleY(.25); } to { transform: scaleY(1); } }
+  @keyframes bill-receipt { from { transform: translate(0,14px) rotate(-2deg); } to { transform: rotate(7deg); } }
+  @keyframes show-id { from { transform: translateX(-42%) rotate(-8deg) rotateY(-65deg); } to { transform: rotate(7deg); } }
+  @keyframes unfold-palette { from { transform: translateY(40%) rotate(-7deg); } to { transform: rotate(9deg); } }
+}
+@media print {
+  .fintech { background: white; color: #121512; break-inside: avoid; }
+  .fintech-wrap { padding-block: 16px; }
+  .fintech-head p, .fintech-head h2 em { color: #222; }
+  .fintech-cards { display: grid; grid-template-columns: repeat(3,1fr); overflow: visible; margin: 0; padding: 0; gap: 10px; }
+  .work-foot { display: none; }
+  .work-art { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}
