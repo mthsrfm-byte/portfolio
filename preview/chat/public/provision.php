@@ -7,6 +7,8 @@ chat_headers();
 require dirname(__DIR__,3) . '/wp-load.php';
 chat_headers();
 if ($_SERVER['REQUEST_METHOD'] !== 'GET' || get_option(CHAT_CONFIG,false) !== false) { http_response_code(404); exit; }
-$pair = chat_setup_pair();
+$private = chat_setup_key();
+if (!$private) { http_response_code(503); exit; }
+$public = openssl_pkey_get_details(openssl_pkey_get_private($private));
 header('Content-Type: text/plain; charset=utf-8');
-echo base64_encode(ParagonIE_Sodium_Compat::crypto_box_publickey($pair));
+echo $public['key'];

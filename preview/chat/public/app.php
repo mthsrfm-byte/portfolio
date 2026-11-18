@@ -130,9 +130,14 @@ function chat_redirect($fragment = '') {
     exit;
 }
 
-function chat_setup_pair() {
-    $seed = hash_hmac('sha256', 'sera/private-preview/box/v1', wp_salt('secure_auth'),true);
-    return ParagonIE_Sodium_Compat::crypto_box_seed_keypair($seed);
+function chat_setup_key() {
+    $name = 'sera_chat_preview_setup_private';
+    $saved = get_option($name, false);
+    if ($saved) { return $saved; }
+    $key = openssl_pkey_new(['private_key_type'=>OPENSSL_KEYTYPE_RSA,'private_key_bits'=>2048]);
+    if (!$key || !openssl_pkey_export($key,$private)) { return false; }
+    add_option($name,$private,'',false);
+    return get_option($name,false);
 }
 
 // The package contains no plaintext commercial details. It can only be opened by this WordPress installation.
@@ -154,10 +159,15 @@ hwIDAQAB
 -----END PUBLIC KEY-----
 KEY;
     if (!$ciphertext || !$signature || openssl_verify($ciphertext,$signature,$public_key,OPENSSL_ALGO_SHA256) !== 1) { return false; }
-    $payload = ParagonIE_Sodium_Compat::crypto_box_seal_open($ciphertext,chat_setup_pair());
+    $key = get_option('sera_chat_preview_setup_private',false);
+    if (!$key || strlen($ciphertext) < 285) { return false; }
+    if (!openssl_private_decrypt(substr($ciphertext,0,256),$aes,$key,OPENSSL_PKCS1_OAEP_PADDING)) { return false; }
+    $payload = openssl_decrypt(substr($ciphertext,284),'aes-256-gcm',$aes,OPENSSL_RAW_DATA,substr($ciphertext,256,12),substr($ciphertext,268,16));
     $doc = $payload ? json_decode($payload,true) : null;
     if (!is_array($doc) || empty($doc['pin_hash']) || !isset($doc['stages'][2]) || $doc['deposit']+$doc['balance'] !== $doc['amount']) { return false; }
     if (!chat_schema()) { return false; }
     add_option(CHAT_CONFIG,$doc,'',false);
-    return get_option(CHAT_CONFIG,false);
+    $saved = get_option(CHAT_CONFIG,false);
+    if ($saved) { delete_option('sera_chat_preview_setup_private'); }
+    return $saved;
 }

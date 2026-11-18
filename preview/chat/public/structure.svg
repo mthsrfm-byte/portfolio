@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 225" fill="none" stroke="#eef1ff" stroke-linejoin="round" stroke-linecap="round">
+<path d="M193.40 123.80L193.40 13.10" stroke-width="0.6" stroke-dasharray="2.5 4" opacity=".7"/>
+<path d="M353.40 185.55L353.40 74.85" stroke-width="0.6" stroke-dasharray="2.5 4" opacity=".7"/>
+<path d="M91.00 163.32L91.00 52.62" stroke-width="0.6" stroke-dasharray="2.5 4" opacity=".7"/>
+<path d="M251.00 225.07L251.00 114.37" stroke-width="0.6" stroke-dasharray="2.5 4" opacity=".7"/>
+<polygon points="84.60,151.02 244.60,212.77 244.60,218.92 84.60,157.17" fill="#344dc8" stroke-width="1.1"/>
+<polygon points="353.40,170.78 244.60,212.77 244.60,218.92 353.40,176.93" fill="#2d47bf" stroke-width="1.1"/>
+<polygon points="193.40,109.03 353.40,170.78 244.60,212.77 84.60,151.02" fill="#344dca" stroke-width="1.3"/>
+<path d="M206.73 114.18L97.93 156.17" stroke-width="0.57" opacity=".86"/>
+<path d="M220.07 119.32L111.27 161.31" stroke-width="0.57" opacity=".86"/>
+<path d="M233.40 124.47L124.60 166.46" stroke-width="0.57" opacity=".86"/>
+<path d="M246.73 129.61L137.93 171.60" stroke-width="0.57" opacity=".86"/>
+<path d="M260.07 134.76L151.27 176.75" stroke-width="0.57" opacity=".86"/>
+<path d="M273.40 139.91L164.60 181.90" stroke-width="0.57" opacity=".86"/>
+<path d="M286.73 145.05L177.93 187.04" stroke-width="0.57" opacity=".86"/>
+<path d="M300.07 150.20L191.27 192.19" stroke-width="0.57" opacity=".86"/>
+<path d="M313.40 155.34L204.60 197.33" stroke-width="0.57" opacity=".86"/>
+<path d="M326.73 160.49L217.93 202.48" stroke-width="0.57" opacity=".86"/>
+<path d="M340.07 165.63L231.27 207.62" stroke-width="0.57" opacity=".86"/>
+<path d="M179.80 114.28L339.80 176.03" stroke-width="0.57" opacity=".86"/>
+<path d="M166.20 119.53L326.20 181.28" stroke-width="0.57" opacity=".86"/>
+<path d="M152.60 124.78L312.60 186.53" stroke-width="0.57" opacity=".86"/>
+<path d="M139.00 130.03L299.00 191.78" stroke-width="0.57" opacity=".86"/>
+<path d="M125.40 135.27L285.40 197.02" stroke-width="0.57" opacity=".86"/>
+<path d="M111.80 140.52L271.80 202.27" stroke-width="0.57" opacity=".86"/>
+<path d="M98.20 145.77L258.20 207.52" stroke-width="0.57" opacity=".86"/>
+<path d="M193.40 113.97L193.40 87.32" stroke-width="1.6" />
+<path d="M340.60 170.78L340.60 144.13" stroke-width="1.6" />
+<path d="M97.40 151.02L97.40 124.37" stroke-width="1.6" />
+<path d="M244.60 207.83L244.60 181.18" stroke-width="1.6" />
+<polygon points="84.60,118.22 244.60,179.97 244.60,186.12 84.60,124.37" fill="#344dc8" stroke-width="1.1"/>
+<polygon points="353.40,137.98 244.60,179.97 244.60,186.12 353.40,144.13" fill="#2d47bf" stroke-width="1.1"/>
+<polygon points="193.40,76.23 353.40,137.98 244.60,179.97 84.60,118.22" fill="#344dca" stroke-width="1.3"/>
+<path d="M206.73 81.38L97.93 123.37" stroke-width="0.57" opacity=".86"/>
+<path d="M220.07 86.52L111.27 128.51" stroke-width="0.57" opacity=".86"/>
+<path d="M233.40 91.67L124.60 133.66" stroke-width="0.57" opacity=".86"/>
+<path d="M246.73 96.81L137.93 138.80" stroke-width="0.57" opacity=".86"/>
+<path d="M260.07 101.96L151.27 143.95" stroke-width="0.57" opacity=".86"/>
+<path d="M273.40 107.10L164.60 149.09" stroke-width="0.57" opacity=".86"/>
+<path d="M286.73 112.25L177.93 154.24" stroke-width="0.57" opacity=".86"/>
+<path d="M300.07 117.40L191.27 159.39" stroke-width="0.57" opacity=".86"/>
+<path d="M313.40 122.54L204.60 164.53" stroke-width="0.57" opacity=".86"/>
+<path d="M326.73 127.69L217.93 169.68" stroke-width="0.57" opacity=".86"/>
+<path d="M340.07 132.83L231.27 174.82" stroke-width="0.57" opacity=".86"/>
+<path d="M179.80 81.48L339.80 143.23" stroke-width="0.57" opacity=".86"/>
+<path d="M166.20 86.73L326.20 148.48" stroke-width="0.57" opacity=".86"/>
+<path d="M152.60 91.98L312.60 153.73" stroke-width="0.57" opacity=".86"/>
+<path d="M139.00 97.22L299.00 158.97" stroke-width="0.57" opacity=".86"/>
+<path d="M125.40 102.47L285.40 164.22" stroke-width="0.57" opacity=".86"/>
+<path d="M111.80 107.72L271.80 169.47" stroke-width="0.57" opacity=".86"/>
+<path d="M98.20 112.97L258.20 174.72" stroke-width="0.57" opacity=".86"/>
+<path d="M193.40 81.17L193.40 54.52" stroke-width="1.6" />
+<path d="M340.60 137.98L340.60 111.33" stroke-width="1.6" />
+<path d="M97.40 118.22L97.40 91.57" stroke-width="1.6" />
+<path d="M244.60 175.03L244.60 148.38" stroke-width="1.6" />
+<polygon points="84.60,85.42 244.60,147.17 244.60,153.32 84.60,91.57" fill="#344dc8" stroke-width="1.1"/>
+<polygon points="353.40,105.18 244.60,147.17 244.60,153.32 353.40,111.33" fill="#2d47bf" stroke-width="1.1"/>
+<polygon points="193.40,43.43 353.40,105.18 244.60,147.17 84.60,85.42" fill="#344dca" stroke-width="1.3"/>
+<path d="M206.73 48.58L97.93 90.57" stroke-width="0.57" opacity=".86"/>
+<path d="M220.07 53.72L111.27 95.71" stroke-width="0.57" opacity=".86"/>
+<path d="M233.40 58.87L124.60 100.86" stroke-width="0.57" opacity=".86"/>
+<path d="M246.73 64.01L137.93 106.00" stroke-width="0.57" opacity=".86"/>
+<path d="M260.07 69.16L151.27 111.15" stroke-width="0.57" opacity=".86"/>
+<path d="M273.40 74.31L164.60 116.30" stroke-width="0.57" opacity=".86"/>
+<path d="M286.73 79.45L177.93 121.44" stroke-width="0.57" opacity=".86"/>
+<path d="M300.07 84.60L191.27 126.59" stroke-width="0.57" opacity=".86"/>
+<path d="M313.40 89.74L204.60 131.73" stroke-width="0.57" opacity=".86"/>
+<path d="M326.73 94.89L217.93 136.88" stroke-width="0.57" opacity=".86"/>
+<path d="M340.07 100.03L231.27 142.02" stroke-width="0.57" opacity=".86"/>
+<path d="M179.80 48.68L339.80 110.43" stroke-width="0.57" opacity=".86"/>
+<path d="M166.20 53.93L326.20 115.68" stroke-width="0.57" opacity=".86"/>
+<path d="M152.60 59.18L312.60 120.93" stroke-width="0.57" opacity=".86"/>
+<path d="M139.00 64.43L299.00 126.18" stroke-width="0.57" opacity=".86"/>
+<path d="M125.40 69.67L285.40 131.42" stroke-width="0.57" opacity=".86"/>
+<path d="M111.80 74.92L271.80 136.67" stroke-width="0.57" opacity=".86"/>
+<path d="M98.20 80.17L258.20 141.92" stroke-width="0.57" opacity=".86"/>
+<path d="M180.60 38.49L71.80 80.48" stroke-width="0.64" />
+<path d="M176.95 39.46L184.25 37.52" stroke-width="0.75" />
+<path d="M68.15 81.45L75.45 79.51" stroke-width="0.75" />
+<path d="M68.60 157.19L228.60 218.95" stroke-width="0.64" />
+<path d="M64.95 158.17L72.25 156.22" stroke-width="0.75" />
+<path d="M224.95 219.92L232.25 217.97" stroke-width="0.75" />
+</svg>
