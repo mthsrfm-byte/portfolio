@@ -80,6 +80,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.37.3 =
+* Proposta: título do topo menor, em 2 linhas.
+
 = 3.37.2 =
 * Proposta: seção "I’ve made money feel simple before." com 5 cases (will bank, Western Union, Pagaleve, Acordo Certo, Paperplane) em cards que entram como cartas e inclinam com o mouse.
 

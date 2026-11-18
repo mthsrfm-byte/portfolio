@@ -126,7 +126,7 @@ ul,ol{list-style:none}
 .p-hero{padding:clamp(56px,10vw,128px) 0 0}
 .p-kicker{font-size:15px;color:var(--muted);margin-bottom:clamp(20px,3vw,32px);display:flex;align-items:center;gap:12px}
 .p-kicker::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--teal);flex:none}
-.p-hero-title{font-family:var(--display);font-weight:580;font-stretch:80%;font-size:clamp(46px,8.6vw,132px);line-height:.92;letter-spacing:-.042em;max-width:12.5ch;text-wrap:balance}
+.p-hero-title{font-family:var(--display);font-weight:580;font-stretch:80%;font-size:clamp(42px,6.2vw,96px);line-height:.95;letter-spacing:-.038em;max-width:22ch;text-wrap:balance}
 .p-hero-cols{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:28px clamp(32px,6vw,96px);margin-top:clamp(36px,5vw,64px);max-width:1080px}
 .p-lede{font-size:clamp(20px,1.9vw,25px);line-height:1.4;letter-spacing:-.012em;color:var(--ink);max-width:30ch}
 .p-hero-body{color:var(--ink-2);max-width:40ch;padding-top:6px}
