@@ -21,50 +21,10 @@ $now_logo = sera_mod( 'hero_now_logo' );
 ?>
 
 <?php // Hero + Selected work wrapper (the v3.4.1 "sheet" transition was removed in 3.5.3: normal scroll until the first case). ?>
+<?php // v3.42 · Cover: SERAFIM masthead + 3D bust (template-parts/cover.php). The old headline block is gone; the logo strip stays. ?>
+<?php get_template_part( 'template-parts/cover' ); ?>
 <div class="hero-scope">
-<section class="hero">
-	<div class="wrap">
-		<?php // v3.15 · "Manifesto": signature line, full-width title, then lede + CTAs beside two availability cards. ?>
-		<div class="hero-b">
-			<div class="hb-who">
-				<?php
-				$photo_alt = sera_mod( 'hero_photo_alt' );
-				$photo_alt = $photo_alt ? $photo_alt : 'Matheus Serafim';
-				?>
-				<img src="<?php echo esc_url( sera_photo_url() ); ?>" width="112" height="112" alt="<?php echo esc_attr( $photo_alt ); ?>" fetchpriority="high">
-				<span><b>Matheus Serafim</b><span><?php echo esc_html( sera_mod( 'hero_role' ) ); ?></span></span>
-			</div>
-			<?php echo sera_hero_title_html(); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped inside. ?>
-			<div class="hb-foot">
-				<div>
-					<p class="hero-lede"><?php echo esc_html( sera_mod( 'hero_lede' ) ); ?></p>
-					<div class="hero-ctas">
-						<a class="btn btn-dark" href="#work"><?php sera_e( 'See selected work', 'Ver trabalhos selecionados' ); ?> <?php echo sera_icon( 'arrow-down' ); // phpcs:ignore ?></a>
-						<?php if ( sera_mod( 'contact_email' ) ) : ?>
-							<a class="btn btn-line" href="mailto:<?php echo esc_attr( sera_mod( 'contact_email' ) ); ?>?subject=<?php echo rawurlencode( sera_t( 'A project', 'Um projeto' ) ); ?>"><?php sera_e( 'Start a project', 'Começar um projeto' ); ?> <?php echo sera_icon( 'arrow-up-right' ); // phpcs:ignore ?></a>
-						<?php endif; ?>
-					</div>
-				</div>
-				<ul class="hb-av">
-					<?php if ( sera_mod( 'hero_status' ) ) : ?>
-						<li><i aria-hidden="true"></i><?php echo esc_html( sera_mod( 'hero_status' ) ); ?><span><?php echo esc_html( sera_mod( 'hero_status_note' ) ); ?></span></li>
-					<?php endif; ?>
-					<?php if ( sera_mod( 'hero_freela' ) ) : ?>
-						<li class="is-freela"><i aria-hidden="true"></i><?php echo esc_html( sera_mod( 'hero_freela' ) ); ?><span><?php echo esc_html( sera_mod( 'hero_freela_note' ) ); ?></span></li>
-					<?php endif; ?>
-				</ul>
-			</div>
-		</div>
-
-		<div class="facts">
-			<?php for ( $i = 1; $i <= 3; $i++ ) : ?>
-				<?php if ( sera_mod( "fact_{$i}_value" ) ) : ?>
-					<div class="fact"><b><?php echo esc_html( sera_mod( "fact_{$i}_value" ) ); ?></b><span><?php echo esc_html( sera_mod( "fact_{$i}_label" ) ); ?></span></div>
-				<?php endif; ?>
-			<?php endfor; ?>
-		</div>
-	</div>
-
+<section class="hero hero-logos-only">
 	<?php if ( $logos ) : ?>
 		<div class="logos" role="region" aria-label="<?php echo esc_attr( sera_mod( 'logos_title' ) ); ?>">
 			<div class="wrap">
