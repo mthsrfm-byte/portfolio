@@ -80,6 +80,14 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.42.0 =
+* Home: nova capa de revista. Logo SERAFIM como masthead, busto 3D (assets/models/matheus-busto.glb) na frente dele e quatro chamadas de capa (template-parts/cover.php, assets/css/cover.css, assets/js/cover.js).
+* Coreografia em loop: foto, onda de grade, explosão de partículas, logo de partículas (troca invisível com o SVG), retorno, rosto em ASCII, nova explosão e volta à foto. Clicar no busto recomeça e a onda sai do ponto clicado.
+* Scroll: depois de ~10% da tela, o busto vira partículas que formam o logo do header; ao voltar ao topo a foto se monta em blocos e o ciclo recomeça.
+* Header da home: cursores no estilo Figma ("Matheus" passeia pelo menu; o seu segue o mouse). Só em desktop com mouse.
+* Chão em grade com profundidade de campo. Three.js 0.160 fica no tema (assets/js/lib/three), sem CDN.
+* Saiu o bloco antigo de título do hero; a faixa de logos continua.
+
 = 3.41.1 =
 * Proposta: corrigido o "isn't available right now" depois de cadastrar a senha (o cache da hospedagem tinha guardado a tela antiga). A tela da senha agora é igual para todos e /proposal/ fica fora do cache. A senha é pedida de novo a cada atualização da página (passe de uso único).
 

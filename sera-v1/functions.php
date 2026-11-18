@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'SERA_VERSION', '3.41.1' );
+define( 'SERA_VERSION', '3.42.0' );
 
 require_once get_template_directory() . '/inc/i18n.php';
 require_once get_template_directory() . '/inc/i18n/customizer-pt.php';
@@ -178,6 +178,9 @@ add_action(
 		// Camada v2 (refino visual): carrega depois de tudo, com escopo em html.is-v2.
 		wp_enqueue_style( 'sera-v2', $uri . '/assets/css/v2.css', array( 'sera-main' ), sera_asset_ver( 'assets/css/v2.css' ) );
 		wp_enqueue_script( 'sera-v2', $uri . '/assets/js/v2.js', array( 'sera-main' ), sera_asset_ver( 'assets/js/v2.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
+		if ( is_front_page() ) {
+			wp_enqueue_style( 'sera-cover', $uri . '/assets/css/cover.css', array( 'sera-v2' ), sera_asset_ver( 'assets/css/cover.css' ) );
+		}
 		if ( is_front_page() ) {
 			wp_enqueue_style( 'sera-v2-home', $uri . '/assets/css/v2-home.css', array( 'sera-v2' ), sera_asset_ver( 'assets/css/v2-home.css' ) );
 			wp_enqueue_script( 'sera-v2-home', $uri . '/assets/js/v2-home.js', array( 'sera-v2', 'sera-case-js' ), sera_asset_ver( 'assets/js/v2-home.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
@@ -381,4 +384,20 @@ add_action(
 		echo '<meta name="theme-color" content="#F5F4EF">' . "\n";
 	},
 	2
+);
+
+/**
+ * Home cover (3D bust): an ES module, so it gets its own tag instead of wp_enqueue_script.
+ * Three.js is vendored in assets/js/lib/three with relative imports (no import map, no CDN).
+ */
+add_action(
+	'wp_footer',
+	function () {
+		if ( ! is_front_page() ) {
+			return;
+		}
+		$src = get_template_directory_uri() . '/assets/js/cover.js?ver=' . rawurlencode( sera_asset_ver( 'assets/js/cover.js' ) );
+		printf( '<script type="module" src="%s"></script>' . "\n", esc_url( $src ) );
+	},
+	30
 );

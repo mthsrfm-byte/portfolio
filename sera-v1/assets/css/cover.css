@@ -1,0 +1,133 @@
+/* =========================================================================
+   Sera · cover hero (home)
+   A magazine cover: the SERAFIM logo as masthead, the 3D bust in front of it,
+   four cover lines. One ruler for every screen: the logo's width (--lw) and its
+   stroke (--u); the bust box and the text columns derive from them.
+   Everything is scoped to #cover so the rest of the theme is untouched.
+   ========================================================================= */
+#cover{
+	--hdr:80px;
+	--hh:max(320px,calc(100svh - var(--hdr)));
+	--lw:min(86vw,1600px,calc(var(--hh) * 1.32));
+	--lh:calc(var(--lw) / 3.09);
+	--u:calc(var(--lw) * 8.99 / 305.55);
+	--mt:calc(var(--hh) * .03);
+	--bt:calc(var(--mt) + var(--lh) * .3);
+	--bh:calc(var(--hh) - var(--bt));
+	--bw:min(100vw,calc(var(--bh) * 1.3));
+	--cw:calc(var(--lw) / 2 - var(--bh) * .2 - 20px);
+	--hw:calc(var(--lw) / 2 - var(--bh) * .12 - 20px);
+	--rowB:44px;
+	--cv-paper:#EEEBE3;--cv-ink:#111110;--cv-ink-2:#3B3A36;--cv-teal:#0B5F63;
+	position:relative;height:var(--hh);overflow-x:clip;overflow-y:visible;color:var(--cv-ink)
+}
+#cover *{box-sizing:border-box}
+#cover .thin{font-family:var(--display);font-weight:220;font-stretch:76%;text-transform:uppercase;letter-spacing:.015em;line-height:.92;text-wrap:balance}
+#cover .cap{font:400 13px/1.5 var(--mono);letter-spacing:.16em;text-transform:uppercase}
+
+/* the floor is drawn three times; each copy is blurred a little more and kept only where it sits further away: depth of field */
+#cover .grid3d{position:absolute;left:0;right:0;bottom:0;height:72%;z-index:0;pointer-events:none;overflow:hidden}
+#cover .grid3d .fl{position:absolute;left:-30%;right:-30%;top:0;bottom:0}
+#cover .grid3d .pl{position:absolute;inset:0;
+	background-image:linear-gradient(rgba(17,17,16,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(17,17,16,.12) 1px,transparent 1px);background-size:84px 84px;background-position:center bottom;
+	transform:perspective(900px) rotateX(64deg) rotateZ(var(--gz,0deg));transform-origin:50% 100%}
+#cover .grid3d .near{-webkit-mask-image:linear-gradient(to top,#000 0%,#000 16%,transparent 40%);mask-image:linear-gradient(to top,#000 0%,#000 16%,transparent 40%)}
+#cover .grid3d .mid{filter:blur(1.3px);-webkit-mask-image:linear-gradient(to top,transparent 12%,#000 32%,#000 46%,transparent 66%);mask-image:linear-gradient(to top,transparent 12%,#000 32%,#000 46%,transparent 66%)}
+#cover .grid3d .far{filter:blur(3.4px);opacity:.85;-webkit-mask-image:linear-gradient(to top,transparent 40%,#000 60%,rgba(0,0,0,.6) 78%,transparent 96%);mask-image:linear-gradient(to top,transparent 40%,#000 60%,rgba(0,0,0,.6) 78%,transparent 96%)}
+
+#cover .mast{position:absolute;left:50%;top:var(--mt);z-index:1;transform:translateX(-50%);width:var(--lw);margin:0;color:var(--cv-ink)}
+#cover .mast svg{display:block;width:100%;height:auto}
+#cover .bust-box{position:absolute;left:50%;top:var(--bt);height:var(--bh);width:var(--bw);transform:translateX(-50%);visibility:hidden;pointer-events:none}
+/* the canvas reaches up behind the header so the particles can build the small logo there */
+#cover canvas.bust{position:absolute;left:0;top:calc(var(--hdr) * -1);width:100%;height:calc(100% + var(--hdr));z-index:2;display:block;opacity:0;transition:opacity 1.2s ease;pointer-events:none}
+#cover canvas.bust.is-ready{opacity:1}
+#cover .cv-lab{display:none!important}
+
+#cover .frame{position:absolute;z-index:3;top:0;bottom:0;left:50%;width:var(--lw);transform:translateX(-50%);pointer-events:none}
+#cover .frame a{pointer-events:auto}
+#cover .cl{position:absolute;z-index:2;width:var(--cw)}
+#cover .cl h2{margin:0 0 8px;font-size:clamp(18px,calc(var(--cw) / 8.5),52px);color:var(--cv-ink)}
+#cover .cl p{margin:0;font-size:clamp(13px,calc(var(--cw) / 19),17px);line-height:1.5;color:var(--cv-ink-2);max-width:34ch}
+#cover .c2 p,#cover .c4 p{margin-left:auto}
+#cover .cl .k{color:var(--cv-teal);margin-bottom:8px;display:block}
+#cover .c1{left:0;top:calc(var(--mt) + var(--lh) + var(--u))}
+#cover .c2{right:0;top:calc(var(--mt) + var(--lh) + var(--u));text-align:right}
+#cover .c3{left:0;bottom:var(--rowB);width:var(--hw)}
+#cover .c3 h1{margin:0;font-size:clamp(26px,calc(var(--hw) / 9.6),74px);color:var(--cv-ink)}
+#cover .c4{right:0;bottom:var(--rowB);text-align:right}
+#cover .cv-btn{display:inline-flex;align-items:center;min-height:52px;margin-top:16px;padding:0 24px;border-radius:999px;font:400 13.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;background:var(--cv-ink);color:#fff;text-decoration:none}
+#cover .cv-btn:focus-visible{outline:2px solid var(--cv-teal);outline-offset:3px}
+@media (min-aspect-ratio:4/5) and (min-width:761px) and (max-height:940px){#cover .c1 p,#cover .c2 p{display:none}}
+@media (min-aspect-ratio:4/5) and (min-width:761px) and (max-height:780px){#cover .c4 p{display:none}}
+
+/* portrait and phones: the cover lines become a three-column strip under the headline */
+@media (max-aspect-ratio:4/5),(max-width:760px){
+	#cover{--lw:min(calc(100vw - 40px),820px);--mt:calc(var(--hh) * .045);--bt:calc(var(--mt) + var(--lh) * .62);--bw:100vw;--rowB:26px;
+		--fs:clamp(26px,min(8.6vw,6.2svh),64px);--fs2:clamp(13px,min(4.3vw,3.1svh),28px);--pH:0px;
+		--stack:calc(var(--rowB) + var(--fs2) * 1.84 + 34px + var(--pH) + var(--fs) * 1.84 + 64px + clamp(16px,3.2vh,28px));
+		--bh:min(calc((var(--hh) - var(--bt)) * .9),calc((var(--hh) - var(--stack) - var(--bt)) * 1.95));overflow:hidden}
+	#cover .frame{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:1fr auto auto;column-gap:14px;padding-bottom:var(--rowB)}
+	#cover .cl{position:static;width:auto;text-align:left!important}
+	#cover .c3{grid-column:1/-1;grid-row:2;margin-bottom:clamp(16px,3.2vh,28px)}
+	#cover .c3 h1{font-size:var(--fs)}
+	#cover .c1{grid-column:1;grid-row:3}#cover .c2{grid-column:2;grid-row:3}#cover .c4{grid-column:3;grid-row:3}
+	#cover .c1,#cover .c2,#cover .c4{padding-top:10px;border-top:1px solid rgba(17,17,16,.28)}
+	#cover .cl .k{font-size:clamp(9px,2.3vw,12px);letter-spacing:.12em;margin-bottom:6px}
+	#cover .cl h2{font-size:var(--fs2);margin:0}
+	#cover .cl p{display:none}
+	#cover .cv-btn{min-height:46px;margin-top:14px;padding:0 20px;font-size:12.5px}
+	/* the shirt melts into the paper so the cover lines always read */
+	#cover::after{content:"";position:absolute;left:0;right:0;bottom:0;height:50%;z-index:2;pointer-events:none;
+		background:linear-gradient(to top,rgba(238,235,227,.97) 0%,rgba(238,235,227,.82) 40%,rgba(238,235,227,0) 100%)}
+}
+@media (max-aspect-ratio:4/5) and (min-width:600px) and (min-height:900px),(max-width:760px) and (min-width:600px) and (min-height:900px){#cover{--pH:66px}#cover .cl p{display:block;margin:8px 0 0;font-size:14px;max-width:none}}
+@media (max-aspect-ratio:4/5) and (max-height:700px),(max-width:760px) and (max-height:700px){#cover .cv-btn{min-height:42px;margin-top:10px}}
+
+/* phones on their side: logo and text on the left, the bust on the right */
+@media (min-aspect-ratio:4/5) and (max-height:520px){
+	#cover{--hh:max(500px,calc(100svh - var(--hdr)));--lw:min(46vw,calc(var(--hh) * 1.3));--mt:14px;--bt:0px;--bh:var(--hh);--bw:54vw;--rowB:20px}
+	#cover .mast{left:max(20px,env(safe-area-inset-left,0px));transform:none}
+	#cover .bust-box{left:auto;right:0;transform:none}
+	#cover .frame{left:max(20px,env(safe-area-inset-left,0px));transform:none;top:calc(var(--mt) + var(--lh) + 14px);
+		display:flex;flex-direction:column;justify-content:flex-end;gap:7px;padding-bottom:var(--rowB)}
+	#cover .cl{position:static;width:auto;text-align:left!important}
+	#cover .c3{order:-1;margin-bottom:8px}
+	#cover .c3 h1{font-size:clamp(22px,3.6vw,34px)}
+	#cover .c1,#cover .c2,#cover .c4{display:flex;align-items:baseline;gap:10px;padding-top:6px;border-top:1px solid rgba(17,17,16,.22)}
+	#cover .c1 p,#cover .c2 p,#cover .c4 p{display:none}
+	#cover .cl .k{flex:0 0 7.5em;margin:0;font-size:10px}
+	#cover .cl h2{font-size:15px;margin:0}
+	#cover .cv-btn{min-height:40px;margin-top:10px;padding:0 16px;font-size:11.5px}
+}
+
+/* no model (load failed): the cover still reads as a cover */
+#cover.cv-fallback canvas.bust{display:none}
+
+/* header on the home: the brand logo is built by the particles on the way down, so it waits for them */
+html.cv-on .site-header .brand svg{opacity:0;transition:opacity .25s linear}
+html.cv-on .site-header.logo-on .brand svg{opacity:1}
+/* while the dots fly into the header its glass stays clear, so they read */
+html.cv-on .site-header:not(.logo-on)::before,html.cv-on .site-header:not(.logo-on)>.v2-pill-tint{opacity:0!important}
+
+/* multiplayer cursors in the header (desktop with a mouse only) */
+.site-header .mp-host{position:relative}
+.site-header.has-you,.site-header.has-you a,.site-header.has-you button{cursor:none}
+.site-header .mp{position:absolute;left:0;top:0;z-index:5;pointer-events:none;will-change:transform;transition:opacity .35s}
+.site-header .mp svg{display:block;width:15px;height:15px;filter:drop-shadow(0 1px 1.5px rgba(17,17,16,.22))}
+.site-header .mp b{position:absolute;left:12px;top:13px;padding:4px 8px 5px;border-radius:2px 9px 9px 9px;font:500 11.5px/1 var(--sans);letter-spacing:.01em;white-space:nowrap;color:#fff;background:var(--c);
+	box-shadow:0 1px 2px rgba(17,17,16,.18),0 4px 12px -4px rgba(17,17,16,.25);transform-origin:0 0;transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
+.site-header .mp.click b{transform:scale(.92)}
+.site-header .mp-me{--c:#111110}.site-header .mp-you{--c:#6E6C66;opacity:0}
+.site-header .mp-you.on{opacity:1}
+.site-header .mp svg path{fill:var(--c);stroke:#fff;stroke-width:1.3;stroke-linejoin:round}
+.site-header .mp-me b small{display:inline-block;vertical-align:bottom;max-width:0;margin-left:0;overflow:hidden;opacity:0;font:500 11.5px/1 var(--sans);
+	transition:max-width .45s cubic-bezier(.3,1.3,.5,1),margin-left .45s cubic-bezier(.3,1.3,.5,1),opacity .25s}
+.site-header .mp-me.say b small{max-width:3em;margin-left:5px;opacity:1}
+.site-header .mp i{position:absolute;left:-9px;top:-9px;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--c);opacity:0;pointer-events:none}
+.site-header .mp.click i{animation:cvRing .55s ease-out}
+@keyframes cvRing{0%{opacity:.85;transform:scale(.3)}100%{opacity:0;transform:scale(1.7)}}
+.site-header .mp-sel{position:absolute;left:0;top:0;z-index:4;height:22px;width:0;border-radius:2px;background:rgba(17,17,16,.08);box-shadow:inset 0 0 0 1px rgba(17,17,16,.35);pointer-events:none;opacity:0;transition:opacity .35s}
+.site-header .mp-sel.on{opacity:1}
+@media (max-width:900px),(hover:none){.site-header .mp,.site-header .mp-sel{display:none}.site-header.has-you,.site-header.has-you a,.site-header.has-you button{cursor:auto}}
+
+@media (prefers-reduced-motion:reduce){#cover *{transition:none!important}}
