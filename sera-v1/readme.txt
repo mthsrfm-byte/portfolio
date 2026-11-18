@@ -80,6 +80,11 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.42.3 =
+* Busto 3D no iPhone: celular e tablet carregam um modelo leve (assets/models/matheus-busto-m.glb, texturas até 2048px, ~5 MB na entrega) e renderizam sem antialias extra, o que corta a memória de vídeo que o Safari do iOS limita. Desktop segue com as texturas originais.
+* Texturas de volta em JPEG (formato que todo navegador decodifica igual); geometria continua quantizada.
+* Se depois de alguns quadros o busto não aparecer na tela, ou demorar mais de 20 s, a capa mostra a foto; se o 3D chegar depois, ele assume.
+
 = 3.42.2 =
 * Capa: se o busto 3D não carregar (WebGL indisponível, modelo que falha, erro no navegador), entra a foto no lugar e a capa nunca fica vazia.
 * Diagnóstico: abra a home com ?cvdebug no endereço para ver na tela o que o navegador fez (WebGL, download do modelo, primeiro quadro ou o erro).

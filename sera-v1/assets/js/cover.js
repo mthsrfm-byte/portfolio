@@ -5,7 +5,9 @@ import { GLTFLoader } from './lib/three/addons/loaders/GLTFLoader.js';
 /* ---------- the effects ---------- */
 const cvRoot = document.getElementById('cover');
 if (!cvRoot) { throw new Error('no cover'); }
-const CV = { model: cvRoot.dataset.model, say: cvRoot.dataset.say || 'hi!', me: cvRoot.dataset.me || 'Matheus', you: cvRoot.dataset.you || 'You' };
+// phones and tablets get the light model (2048px textures): a fraction of the GPU memory, which iOS Safari is strict about
+const LITE = (window.matchMedia && matchMedia('(pointer:coarse)').matches) || Math.min(screen.width, screen.height) < 820;
+const CV = { model: (LITE && cvRoot.dataset.modelM) || cvRoot.dataset.model, say: cvRoot.dataset.say || 'hi!', me: cvRoot.dataset.me || 'Matheus', you: cvRoot.dataset.you || 'You' };
 document.documentElement.classList.add('cv-on');
 /* diagnostics: anything that stops the bust shows the photo instead; ?cvdebug prints what happened */
 const DBG = /[?&]cvdebug/.test(location.search);
@@ -25,7 +27,7 @@ function cvFail(why) {
 }
 window.addEventListener('error', e => { if (!failed && e && e.filename && /cover\.js|three/.test(e.filename)) cvFail('error: ' + e.message + ' @' + (e.lineno || '')); });
 window.addEventListener('unhandledrejection', e => { if (!failed) cvFail('promise: ' + (e.reason && (e.reason.message || e.reason))); });
-note('start');
+note('start ' + (LITE ? 'lite' : 'full'));
 const FX = [
   { id: 'meio-tom',   name: 'Meio-tom',        lens: 0.30, how: 'Impressão de revista em duas tintas. <b>Chegue perto</b>: a lupa revela a foto.' },
   { id: 'curvas',     name: 'Curvas de nível', lens: 0.30, how: 'O rosto como mapa topográfico. <b>Chegue perto</b>: a lupa mostra as curvas finas.' },
@@ -41,7 +43,7 @@ const TORSO = ['camiseta', 'base do busto', 'base do pescoço'];
 const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const canvas = cvRoot.querySelector('canvas.bust');
 let renderer;
-try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' }); }
+try { renderer = new THREE.WebGLRenderer({ canvas, antialias: !LITE, alpha: true, powerPreference: LITE ? 'default' : 'high-performance' }); }
 catch (e) { cvFail('webgl: ' + (e && e.message)); throw e; }
 { const gl = renderer.getContext(); note('webgl ' + (renderer.capabilities.isWebGL2 ? '2' : '1') + ' maxTex ' + gl.getParameter(gl.MAX_TEXTURE_SIZE) + ' fltTex ' + !!gl.getExtension('EXT_color_buffer_float')); }
 canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); cvFail('webgl context lost'); });
@@ -467,7 +469,7 @@ function glyphAtlas() {
 }
 
 /* ---------- screen passes ---------- */
-const rt = new THREE.WebGLRenderTarget(2, 2, { samples: 4 });
+const rt = new THREE.WebGLRenderTarget(2, 2, { samples: LITE ? 0 : 4 });
 const qCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 const qScene = new THREE.Scene();
 const quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2)); quad.frustumCulled = false; qScene.add(quad);
@@ -830,6 +832,22 @@ function simTick(now) {
   if (sim.active) { sim.active = false; show.t0 = now; show.cyc = -1; show.fromH = false; }
   return false;
 }
+/* a silent GPU failure draws nothing: read a few pixels across the bust once; if all are empty, show the photo */
+const bc = { n: 0, tries: 0, done: false };
+function blankCheck() {
+  if (bc.done || ++bc.n < 8) return;
+  bc.n = 0;
+  try {
+    const gl = renderer.getContext(), bb = cvRoot.querySelector('#bustBox').getBoundingClientRect(), cr = canvas.getBoundingClientRect();
+    const px = new Uint8Array(4); let hit = 0;
+    for (let i = 0; i < 5; i++) for (let j = 0; j < 4; j++) {
+      const x = (bb.left - cr.left + bb.width * (.3 + .1 * i)) * dpr, y = (cr.bottom - bb.top - bb.height * (.25 + .15 * j)) * dpr;
+      gl.readPixels(Math.round(x), Math.round(y), 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px); if (px[3] > 0) hit++;
+    }
+    if (hit) { bc.done = true; note('render ok (' + hit + '/20)'); return; }
+    if (++bc.tries >= 4) { bc.done = true; cvFail('blank render'); }
+  } catch (e) { bc.done = true; }
+}
 function renderShow(now, T) {
   const A = asciiMat.uniforms;
   if (simTick(now)) return;
@@ -850,6 +868,7 @@ function renderShow(now, T) {
   if (T < 0 || T < 3.0 || T >= 18.8 || !A.tGlyph.value) {
     drawMeshes(T >= 1.0 && T < 3.0 ? 'pulse' : 'photo');
     renderer.render(scene, camera);
+    blankCheck();
     return;
   }
   let amt, scr, rev, alpha;
@@ -1019,6 +1038,8 @@ function frameBody(t) {
   (async function life() { let k = 0; await sleep(900); for (;;) { await acts[plan[k++ % plan.length]](); await sleep(rnd(250, 700)); } })();
 })();
 
+const slow = setTimeout(() => { if (!canvas.classList.contains('is-ready')) { note('slow: photo shown'); cvRoot.classList.add('cv-fallback'); } }, 20000);
+ready.then(() => { clearTimeout(slow); if (!failed) cvRoot.classList.remove('cv-fallback'); });
 ready.then(() => { resize(); fromHash(); canvas.classList.add('is-ready'); requestAnimationFrame(frame); });
 
 /* floor grid tilts a touch with the pointer, as on the cover */
