@@ -15,6 +15,7 @@ $sera_mast = preg_replace( '/<svg\b/', '<svg aria-hidden="true" focusable="false
 ?>
 <section class="cv" id="cover" aria-label="<?php echo esc_attr( sera_t( 'Matheus Serafim, product designer', 'Matheus Serafim, product designer' ) ); ?>"
 	data-model="<?php echo esc_url( get_template_directory_uri() . '/assets/models/matheus-busto.glb?v=' . SERA_VERSION ); ?>"
+	data-model-m="<?php echo esc_url( get_template_directory_uri() . '/assets/models/matheus-busto-m.glb?v=' . SERA_VERSION ); ?>"
 	data-me="Matheus" data-you="<?php echo esc_attr( sera_t( 'You', 'Você' ) ); ?>" data-say="<?php echo esc_attr( sera_t( 'hi!', 'oi!' ) ); ?>">
 	<span class="grid3d" id="g3" aria-hidden="true"><span class="fl near"><span class="pl"></span></span><span class="fl mid"><span class="pl"></span></span><span class="fl far"><span class="pl"></span></span></span>
 	<div class="mast" aria-hidden="true"><?php echo $sera_mast; // phpcs:ignore WordPress.Security.EscapeOutput -- theme file. ?></div>
