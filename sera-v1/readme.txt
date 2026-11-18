@@ -80,6 +80,10 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.42.2 =
+* Capa: se o busto 3D não carregar (WebGL indisponível, modelo que falha, erro no navegador), entra a foto no lugar e a capa nunca fica vazia.
+* Diagnóstico: abra a home com ?cvdebug no endereço para ver na tela o que o navegador fez (WebGL, download do modelo, primeiro quadro ou o erro).
+
 = 3.42.1 =
 * Home: a capa termina num degradê para o papel do site (mesma cor, chão em grade sumindo aos poucos) e a faixa de logos começa com respiro proporcional, sem a linha dura em cima.
 * Modelo 3D 51% menor (14,7 MB → 7,2 MB, ~5,2 MB comprimido na entrega): geometria quantizada (KHR_mesh_quantization), malhas grandes divididas em índices de 16 bits e texturas em WebP na resolução original. assets/models/.htaccess liga compressão e cache de 1 ano para o .glb.

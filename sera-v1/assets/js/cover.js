@@ -7,6 +7,25 @@ const cvRoot = document.getElementById('cover');
 if (!cvRoot) { throw new Error('no cover'); }
 const CV = { model: cvRoot.dataset.model, say: cvRoot.dataset.say || 'hi!', me: cvRoot.dataset.me || 'Matheus', you: cvRoot.dataset.you || 'You' };
 document.documentElement.classList.add('cv-on');
+/* diagnostics: anything that stops the bust shows the photo instead; ?cvdebug prints what happened */
+const DBG = /[?&]cvdebug/.test(location.search);
+const diag = { ua: navigator.userAgent, steps: [], loaded: 0, total: 0 };
+let hud = null;
+function note(m) { diag.steps.push(((performance.now() / 1000).toFixed(1)) + 's ' + m); if (DBG) paintHud(); }
+function paintHud() {
+  if (!hud) { hud = document.createElement('pre'); hud.className = 'cv-hud'; document.body.appendChild(hud); }
+  hud.textContent = ['cover debug', 'loaded ' + (diag.loaded / 1048576).toFixed(2) + ' / ' + (diag.total / 1048576).toFixed(2) + ' MB'].concat(diag.steps.slice(-14), [diag.ua]).join('\n');
+}
+let failed = false;
+function cvFail(why) {
+  note('FAIL ' + why);
+  if (failed) return; failed = true;
+  cvRoot.classList.add('cv-fallback');
+  try { console.error('[cover]', why); } catch (e) {}
+}
+window.addEventListener('error', e => { if (!failed && e && e.filename && /cover\.js|three/.test(e.filename)) cvFail('error: ' + e.message + ' @' + (e.lineno || '')); });
+window.addEventListener('unhandledrejection', e => { if (!failed) cvFail('promise: ' + (e.reason && (e.reason.message || e.reason))); });
+note('start');
 const FX = [
   { id: 'meio-tom',   name: 'Meio-tom',        lens: 0.30, how: 'Impressão de revista em duas tintas. <b>Chegue perto</b>: a lupa revela a foto.' },
   { id: 'curvas',     name: 'Curvas de nível', lens: 0.30, how: 'O rosto como mapa topográfico. <b>Chegue perto</b>: a lupa mostra as curvas finas.' },
@@ -21,7 +40,11 @@ const FX = [
 const TORSO = ['camiseta', 'base do busto', 'base do pescoço'];
 const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const canvas = cvRoot.querySelector('canvas.bust');
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+let renderer;
+try { renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' }); }
+catch (e) { cvFail('webgl: ' + (e && e.message)); throw e; }
+{ const gl = renderer.getContext(); note('webgl ' + (renderer.capabilities.isWebGL2 ? '2' : '1') + ' maxTex ' + gl.getParameter(gl.MAX_TEXTURE_SIZE) + ' fltTex ' + !!gl.getExtension('EXT_color_buffer_float')); }
+canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); cvFail('webgl context lost'); });
 const dpr = Math.min(window.devicePixelRatio || 1, 2);
 renderer.setPixelRatio(dpr);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -512,7 +535,10 @@ const ready = new Promise(resolve => {
         for (let i = 0; i < pa.count; i += 3) { t3.fromBufferAttribute(pa, i).applyMatrix4(fm.matrix).add(fm.parent.position); if (t3.z > bz) { bz = t3.z; nose.copy(t3); } } }); }
     resolve();
   };
-  loader.load(CV.model, done, undefined, () => cvRoot.classList.add('cv-fallback'));
+  note('model request');
+  loader.load(CV.model, g => { note('model parsed'); try { done(g); } catch (e) { cvFail('setup: ' + e.message); } },
+    x => { diag.loaded = x.loaded; diag.total = x.total || diag.total; if (DBG) paintHud(); },
+    e => cvFail('model: ' + (e && (e.message || e.type || e))));
 });
 
 /* ---------- the logo as a maze: corridor samples + walking distance from the entrance ---------- */
@@ -861,6 +887,11 @@ function renderShow(now, T) {
   }
 }
 function frame(t) {
+  if (failed) return;
+  try { frameBody(t); } catch (e) { cvFail('frame: ' + e.message); return; }
+  if (!frame.ok) { frame.ok = true; note('first frame'); }
+}
+function frameBody(t) {
   const now = performance.now();
   const idle = now - st.last > 2600;
   const tx = idle ? Math.sin(t / 2600) * 0.45 : st.look.x;
