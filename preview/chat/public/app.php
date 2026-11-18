@@ -140,13 +140,8 @@ function chat_setup_key() {
     return get_option($name,false);
 }
 
-// The package contains no plaintext commercial details. It can only be opened by this WordPress installation.
-function chat_install_package() {
-    $package_file = __DIR__ . '/sealed.php';
-    if (!is_file($package_file)) { return false; }
-    $package = require $package_file;
-    $ciphertext = base64_decode($package['sealed'],true);
-    $signature = base64_decode($package['signature'],true);
+// The signed envelope is delivered directly by the publisher over TLS. Never put it in Git.
+function chat_import_envelope($ciphertext, $signature) {
     $public_key = <<<'KEY'
 -----BEGIN PUBLIC KEY-----
 MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqpHt2p9ddlsrBEziV1JT

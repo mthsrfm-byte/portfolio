@@ -6,11 +6,11 @@ chat_headers();
 require dirname(__DIR__,3) . '/wp-load.php';
 chat_headers();
 $doc = get_option(CHAT_CONFIG,false);
-if ($doc === false) { $doc = chat_install_package(); }
 if (!is_array($doc)) { http_response_code(503); echo 'This private preview is being prepared.'; exit; }
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 if (!in_array($method,['GET','HEAD','POST'],true)) { header('Allow: GET, HEAD, POST'); http_response_code(405); exit; }
 chat_session();
+$json_response = $method === 'POST' && ($_SERVER['HTTP_ACCEPT'] ?? '') === 'application/json';
 $error = '';
 $error_area = 'gate';
 $message = $_SESSION['notice'] ?? '';
@@ -67,13 +67,23 @@ if ($method === 'POST') {
             if (!$record) {
                 $error = 'We couldn’t save this response. Your details are still here. Please try again.'; http_response_code(503);
             } else {
-                $_SESSION['notice'] = $action;
-                if ($action === 'question') { unset($_SESSION['question_key']); }
+                if ($action === 'question') { $_SESSION['question_key'] = bin2hex(random_bytes(16)); }
                 chat_deliver_pending();
+                if ($json_response) {
+                    header('Content-Type: application/json; charset=UTF-8');
+                    echo wp_json_encode(['saved'=>true,'id'=>$record,'next'=>$_SESSION['question_key'] ?? '']);
+                    exit;
+                }
+                $_SESSION['notice'] = $action;
                 chat_redirect('#respond');
             }
         }
     } else { http_response_code(400); $error = 'Choose an action from this page.'; }
+}
+if ($json_response && $error !== '') {
+    header('Content-Type: application/json; charset=UTF-8');
+    echo wp_json_encode(['saved'=>false,'error'=>$error,'unlock'=>!$authorised]);
+    exit;
 }
 if ($authorised) {
     if (empty($_SESSION['question_key'])) { $_SESSION['question_key'] = bin2hex(random_bytes(16)); }
