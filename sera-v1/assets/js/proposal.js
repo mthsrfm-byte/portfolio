@@ -7,6 +7,10 @@
   root.classList.add('js');
 
   var PREVIEW = root.hasAttribute('data-preview');
+  // tidy the address after opening (?open=… is only there to skip page caches)
+  if (/[?&]open=/.test(window.location.search) && window.history && history.replaceState) {
+    history.replaceState(null, '', window.location.pathname + window.location.hash);
+  }
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   var MSG = {
@@ -95,7 +99,8 @@
         if (res.ok) {
           msg.textContent = 'Opening the proposal…';
           if (PREVIEW) { previewOpen(); busy(btn, false); return; }
-          window.location.reload();
+          // a URL with a fresh query string is never served from a page cache
+          window.location.replace(window.location.pathname + '?open=' + Date.now());
           return;
         }
         busy(btn, false);

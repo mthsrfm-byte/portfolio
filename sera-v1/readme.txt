@@ -80,6 +80,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.41.1 =
+* Proposta: corrigido o "isn't available right now" depois de cadastrar a senha (o cache da hospedagem tinha guardado a tela antiga). A tela da senha agora é igual para todos e /proposal/ fica fora do cache. A senha é pedida de novo a cada atualização da página (passe de uso único).
+
 = 3.41.0 =
 * Proposta: endereço novo /proposal/evanly (atalho /proposal/evenly). Os links /comercial/... redirecionam para lá. Primeira publicação da proposta.
 

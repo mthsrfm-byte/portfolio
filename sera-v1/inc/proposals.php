@@ -188,6 +188,69 @@ function sera_prop_set_cookie( $p, $val, $exp ) {
 }
 
 /**
+ * One-time view pass. The proposal page is shown only once per pass: the GET that shows it
+ * clears the pass, so reloading the page asks for the access code again. The session cookie
+ * still lets the open page accept the proposal or send a question.
+ *
+ * @param array $p Proposal.
+ */
+function sera_prop_ticket_cookie( $p ) {
+	return sera_prop_cookie( $p ) . '_view';
+}
+
+/**
+ * Issue a view pass bound to a session (valid for one page load, within 2 minutes).
+ *
+ * @param array  $p       Proposal.
+ * @param string $session Session value.
+ */
+function sera_prop_issue_ticket( $p, $session ) {
+	$exp = time() + 120;
+	$val = $exp . '.' . hash_hmac( 'sha256', 'view|' . $exp . '|' . $session, sera_prop_secret( $p ) );
+	setcookie(
+		sera_prop_ticket_cookie( $p ),
+		$val,
+		array(
+			'expires'  => $exp,
+			'path'     => sera_home_path() . '/proposal/',
+			'secure'   => is_ssl(),
+			'httponly' => true,
+			'samesite' => 'Lax',
+		)
+	);
+}
+
+/**
+ * Use up the view pass: true when it was valid. It is cleared either way.
+ *
+ * @param array  $p       Proposal.
+ * @param string $session Session value.
+ */
+function sera_prop_use_ticket( $p, $session ) {
+	$name = sera_prop_ticket_cookie( $p );
+	$raw  = isset( $_COOKIE[ $name ] ) ? (string) wp_unslash( $_COOKIE[ $name ] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
+	if ( '' === $raw ) {
+		return false;
+	}
+	setcookie(
+		$name,
+		'',
+		array(
+			'expires'  => time() - 3600,
+			'path'     => sera_home_path() . '/proposal/',
+			'secure'   => is_ssl(),
+			'httponly' => true,
+			'samesite' => 'Lax',
+		)
+	);
+	$parts = explode( '.', $raw );
+	if ( 2 !== count( $parts ) || ! ctype_digit( $parts[0] ) || (int) $parts[0] < time() || '' === $session ) {
+		return false;
+	}
+	return hash_equals( hash_hmac( 'sha256', 'view|' . $parts[0] . '|' . $session, sera_prop_secret( $p ) ), $parts[1] );
+}
+
+/**
  * Form token bound to the session (CSRF).
  *
  * @param array  $p       Proposal.
@@ -474,6 +537,22 @@ add_action(
 );
 
 /**
+ * Hosting page caches (Endurance / Newfold): never store /proposal/ or /comercial/ pages.
+ */
+add_filter(
+	'epc_exempt_uri_contains',
+	function ( $list ) {
+		return array_merge( (array) $list, array( '/proposal/', '/comercial/' ) );
+	}
+);
+add_filter(
+	'newfold_cache_exempt_uri_contains',
+	function ( $list ) {
+		return array_merge( (array) $list, array( '/proposal/', '/comercial/' ) );
+	}
+);
+
+/**
  * Private, never cached, never indexed, never framed.
  */
 function sera_prop_headers() {
@@ -528,7 +607,10 @@ function sera_prop_serve( $p, $slug ) {
 			echo wp_json_encode( $res['body'] );
 			return;
 		}
-		// No-JS fallback: back to the page (Post/Redirect/Get), with a short flag.
+		// No-JS fallback: back to the page (Post/Redirect/Get), with a short flag and a new view pass.
+		if ( $session && 'leave' !== $action ) {
+			sera_prop_issue_ticket( $p, $session );
+		}
 		$flag = isset( $res['body']['flag'] ) ? $res['body']['flag'] : ( isset( $res['body']['error'] ) ? 'e-' . $res['body']['error'] : '' );
 		$to   = $flag ? add_query_arg( 'r', $flag, $url ) : $url;
 		if ( ! empty( $res['body']['anchor'] ) ) {
@@ -545,6 +627,9 @@ function sera_prop_serve( $p, $slug ) {
 
 	$flag = isset( $_GET['r'] ) ? sanitize_key( wp_unslash( $_GET['r'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
 	header( 'Content-Type: text/html; charset=utf-8' );
+	if ( $session && ! sera_prop_use_ticket( $p, $session ) ) {
+		$session = ''; // Reloaded (or opened again): ask for the code again.
+	}
 	if ( ! $session ) {
 		status_header( 200 );
 		sera_prop_render(
@@ -552,9 +637,12 @@ function sera_prop_serve( $p, $slug ) {
 			array(
 				'p'      => $p,
 				'url'    => $url,
+				// The gate HTML is the same for everyone, so a page cache can never freeze a state into it
+				// (e.g. "locked" or "not available"). State only comes from a POST answer or a ?r= flag,
+				// and URLs with a query string are never cached.
 				'error'  => $flag,
-				'locked' => sera_prop_locked( $p ),
-				'ready'  => '' !== sera_prop_pin_source( $p ),
+				'locked' => 'e-locked' === $flag,
+				'ready'  => 'e-unavailable' !== $flag,
 			)
 		);
 		return;
@@ -626,7 +714,7 @@ function sera_prop_post( $p, $action, $session, $in ) {
 			return sera_prop_locked( $p ) ? $err( 429, 'locked' ) : $err( 401, 'code' );
 		}
 		delete_transient( 'sera_pf_' . sera_prop_visitor() );
-		sera_prop_start_session( $p );
+		sera_prop_issue_ticket( $p, sera_prop_start_session( $p ) );
 		return array(
 			'status' => 200,
 			'body'   => array( 'ok' => true ),
