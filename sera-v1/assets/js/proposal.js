@@ -380,12 +380,32 @@
           }
           if (front) { front.setAttribute('aria-hidden', 'true'); front.setAttribute('inert', ''); }
           if (back) { back.removeAttribute('aria-hidden'); }
-          if (flip) { flip.classList.add('is-flipped'); }
-          setTimeout(function () { if (back) { back.focus({ preventScroll: true }); } }, reduce ? 0 : 1100);
           var cta = $('.p-bar-cta');
           if (cta) { cta.textContent = 'Accepted'; }
           var qs = $('[data-questions]');
-          if (qs) { qs.classList.remove('is-closed'); }
+          var settle = function () {
+            if (!flip) { return; }
+            flip.classList.remove('is-flipping');
+            flip.classList.add('is-flipped');
+            if (back) { back.focus({ preventScroll: true }); }
+            // after the turn: the questions form goes away (it isn't needed once accepted)
+            if (qs) {
+              qs.classList.add('is-gone');
+              setTimeout(function () { qs.remove(); }, reduce ? 0 : 420);
+            }
+            var opener = $('[data-open-questions]');
+            if (opener) { opener.remove(); }
+          };
+          if (!flip || reduce) {
+            settle();
+          } else {
+            var inner = $('[data-flip-inner]');
+            var done = false;
+            var finish = function (e) { if (done || (e && e.animationName !== 'p-rot')) { return; } done = true; settle(); };
+            if (inner) { inner.addEventListener('animationend', finish); }
+            setTimeout(finish, 1500); // in case animationend never fires
+            requestAnimationFrame(function () { flip.classList.add('is-flipping'); });
+          }
         } else {
           var qOk = $('[data-q-ok]');
           qOk.textContent = 'Your message has been received. I’ll get back to you shortly.';

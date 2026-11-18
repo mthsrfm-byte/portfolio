@@ -80,6 +80,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.40.1 =
+* Proposta: giro do formulário para o passe de metal refeito (um objeto 3D só, giro e leve elevação em curvas suaves, sem engasgo). Depois do aceite, o formulário de perguntas some.
+
 = 3.40.0 =
 * Proposta: novo prédio em three.js contando a história da Evanly. A lavanderia térrea de hoje (tracejada, com medidas), a fundação e o térreo de concreto, depois 4 andares com 48 casas, varandas alternadas, placas solares e uma lavanderia nova no térreo. Linhas de trás escondidas e câmera que se afasta conforme o prédio cresce.
 * Proposta: ao aceitar (depois de gravar no servidor), a caixa do formulário gira e vira um passe de metal escovado com o nome, "Pass No. 001" e "Estimated kickoff"; embaixo, confirmação com data, valor e versão.

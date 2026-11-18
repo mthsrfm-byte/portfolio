@@ -435,6 +435,7 @@ $sera_styles = array( 'assets/css/mockups.css', 'assets/css/cases/wb.css', 'asse
 
 			<div class="p-accept-side">
 				<div class="p-flip<?php echo $accepted ? ' is-flipped is-static' : ''; ?>" data-flip>
+					<div class="p-flip-inner" data-flip-inner>
 					<div class="p-flip-front p-accept-box"<?php echo $accepted ? ' aria-hidden="true" inert' : ''; ?>>
 				<?php if ( ! $accepted && ! $expired ) : ?>
 						<form class="p-form" method="post" action="<?php echo esc_url( $url ); ?>#accept" data-prop-form="accept" novalidate>
@@ -485,8 +486,10 @@ $sera_styles = array( 'assets/css/mockups.css', 'assets/css/cases/wb.css', 'asse
 						</div>
 					</div>
 				</div>
+				</div>
 
-				<div class="p-questions<?php echo $accepted ? ' is-after' : ''; ?>" id="questions" data-questions tabindex="-1">
+				<?php if ( ! $accepted ) : ?>
+				<div class="p-questions" id="questions" data-questions tabindex="-1">
 					<h3 class="p-h4">What would you like to discuss?</h3>
 					<?php if ( $accepted ) : ?>
 						<p class="p-fine">Questions are still welcome after accepting.</p>
@@ -509,6 +512,7 @@ $sera_styles = array( 'assets/css/mockups.css', 'assets/css/cases/wb.css', 'asse
 						</div>
 					</form>
 				</div>
+				<?php endif; ?>
 			</div>
 		</div>
 	</section>
@@ -517,7 +521,7 @@ $sera_styles = array( 'assets/css/mockups.css', 'assets/css/cases/wb.css', 'asse
 		<div class="p-wrap p-faq-grid">
 			<header class="p-faq-head">
 				<h2 class="p-h2" id="faq-title">Questions, answered.</h2>
-				<p>The practical details, in one place. Anything else, send it through the form above and I&rsquo;ll reply.</p>
+				<p>The practical details, in one place.<?php echo $accepted ? ' Anything else, just reply to my email.' : ' Anything else, send it through the form above and I&rsquo;ll reply.'; ?></p>
 			</header>
 			<div class="p-faq-list">
 				<?php foreach ( $sera_faq as $sera_i => $sera_q ) : ?>

@@ -394,13 +394,20 @@ ul,ol{list-style:none}
 
 /* ---------- accept: the form flips into the pass ---------- */
 .p-accept-side{min-width:0}
-.p-flip{display:grid;perspective:1600px}
-.p-flip>*{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform 1.1s cubic-bezier(.3,.7,.1,1),opacity 0s .45s}
-.p-flip-back{display:flex;flex-direction:column;justify-content:center;gap:22px;transform:rotateY(-180deg);pointer-events:none;opacity:0;visibility:hidden}
-.p-flip.is-flipped .p-flip-back{opacity:1;visibility:visible;transition:transform 1.1s cubic-bezier(.3,.7,.1,1),opacity 0s .45s,visibility 0s .45s}
-.p-flip.is-flipped .p-flip-front{transform:rotateY(180deg);pointer-events:none;opacity:0;visibility:hidden;transition:transform 1.1s cubic-bezier(.3,.7,.1,1),opacity 0s .45s,visibility 0s .45s}
-.p-flip.is-flipped .p-flip-back{transform:none;pointer-events:auto}
-.p-flip.is-static>*{transition:none}
+.p-flip{perspective:1800px;perspective-origin:50% 40%}
+.p-flip-inner{display:grid;transform-style:preserve-3d;transform-origin:50% 50%}
+.p-flip-inner>*{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.p-flip-back{display:flex;flex-direction:column;justify-content:center;gap:22px;transform:rotateY(180deg);visibility:hidden;pointer-events:none}
+.p-flip.is-flipping .p-flip-back,.p-flip.is-flipped .p-flip-back{visibility:visible}
+.p-flip.is-flipped .p-flip-inner{rotate:y 180deg}
+.p-flip.is-flipped .p-flip-back{pointer-events:auto}
+.p-flip.is-flipped .p-flip-front{visibility:hidden}
+.p-flip.is-flipping .p-flip-inner{will-change:transform,rotate,translate,scale;animation:p-rot 1.25s cubic-bezier(.66,0,.24,1) both,p-lift 1.25s cubic-bezier(.45,0,.55,1) both}
+.p-flip.is-flipping .p-flip-front,.p-flip.is-flipping .p-flip-back{pointer-events:none}
+.p-flip.is-flipping .vip{transition:none;transform:none}
+/* two smooth curves composed: the turn, and a lift off the page that peaks halfway */
+@keyframes p-rot{from{rotate:y 0deg}to{rotate:y 180deg}}
+@keyframes p-lift{0%,100%{translate:0 0;scale:1}50%{translate:0 -18px;scale:.965}}
 .p-flip-back:focus{outline:none}
 .p-done-text{display:grid;gap:10px;width:100%;max-width:520px;padding:0 2px}
 .p-done-text .p-done-title{display:flex;align-items:flex-start;gap:12px;font-family:var(--display);font-stretch:92%;font-weight:560;font-size:clamp(19px,1.7vw,22px);line-height:1.2;letter-spacing:-.012em}
@@ -412,11 +419,12 @@ ul,ol{list-style:none}
 .p-done-meta dd{margin:0;font-size:14px;font-weight:500;font-variant-numeric:tabular-nums}
 @media (max-width:480px){.p-done-meta{grid-template-columns:1fr 1fr;margin-left:0}.p-done-lede{padding-left:0}}
 .p-flip-back{align-items:flex-start}
-.p-flip.is-flipped~.p-questions{margin-top:40px}
+.p-questions.is-gone{opacity:0;transform:translateY(-6px);transition:opacity .4s,transform .4s}
 .p-bld-homes{position:absolute;left:50%;bottom:calc(2% + 18px);transform:translate(-50%,8px);padding:6px 14px;border-radius:999px;background:var(--ink);color:#fff;font-size:13px;font-weight:500;white-space:nowrap;opacity:0;transition:opacity .5s,transform .6s var(--ease)}
 .p-bld-homes.is-on{opacity:1;transform:translate(-50%,0)}
-.p-flip:not(.is-flipped) .p-done-text{opacity:0}
-.p-flip.is-flipped .p-done-text{opacity:1;transition:opacity .6s .9s}
+.p-flip:not(.is-flipped) .p-done-text{opacity:0;transform:translateY(8px)}
+.p-flip.is-flipped .p-done-text{opacity:1;transform:none;transition:opacity .6s .15s,transform .7s .15s var(--ease)}
+.p-flip.is-static .p-done-text{transition:none}
 
 /* the pass: brushed titanium, engraved */
 .vip{--rx:0deg;--ry:0deg;--mx:30%;--my:30%;position:relative;width:100%;max-width:520px;aspect-ratio:1.586;border-radius:22px;isolation:isolate;color:#4A4E51;
@@ -425,7 +433,7 @@ ul,ol{list-style:none}
   transform:rotateX(var(--rx)) rotateY(var(--ry));transition:transform .5s var(--ease);touch-action:pan-y}
 .vip-glare{position:absolute;inset:0;border-radius:inherit;pointer-events:none;mix-blend-mode:soft-light;background:radial-gradient(60% 70% at var(--mx) var(--my),rgba(255,255,255,.8),transparent 60%);z-index:3}
 .vip-shine{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.65) 45%,transparent 60%) no-repeat;background-size:60% 100%;background-position:-160% 0}
-.p-flip.is-flipped:not(.is-static) .vip-shine{animation:vip-sweep 1.6s 1s cubic-bezier(.4,0,.2,1) both}
+.p-flip.is-flipped:not(.is-static) .vip-shine{animation:vip-sweep 1.5s .1s cubic-bezier(.4,0,.2,1) both}
 @keyframes vip-sweep{from{background-position:-160% 0}to{background-position:260% 0}}
 .vip-in{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(18px,4vw,26px) clamp(20px,4vw,28px);text-shadow:0 1px 0 rgba(255,255,255,.55),0 -1px 0 rgba(0,0,0,.28)}
 .vip-row{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
@@ -534,7 +542,6 @@ ul,ol{list-style:none}
   .js .p-ruler-stage,.js .p-ruler-stage>*{transform:none;opacity:1}
   .js .p-deck .p-card{transform:none;opacity:1}
   .js .p-note [data-focus]>*{opacity:1;filter:none;transform:none}
-  .p-flip>*{transition:opacity .3s!important}
-  .p-flip-back,.p-flip.is-flipped .p-flip-front{transform:none}
-  .p-flip:not(.is-flipped) .p-flip-back,.p-flip.is-flipped .p-flip-front{opacity:0}
+  .p-flip-inner,.p-flip.is-flipped .p-flip-inner{rotate:none!important;animation:none!important}
+  .p-flip-back{transform:none}
 }
