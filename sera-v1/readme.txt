@@ -57,7 +57,7 @@ da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
 == Propostas comerciais privadas ==
 
-/comercial/evenly (e o alias /comercial/evanly): proposta da Evanly, fora do
+/proposal/evanly (e o atalho /proposal/evenly; links antigos em /comercial/ redirecionam): proposta da Evanly, fora do
 menu, do sitemap e do Google (noindex + no-store). Código em inc/proposals.php,
 termos em inc/proposals/evanly.php, página em template-parts/proposals/.
 
@@ -79,6 +79,9 @@ viram (cópia + hash).
 Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
+
+= 3.41.0 =
+* Proposta: endereço novo /proposal/evanly (atalho /proposal/evenly). Os links /comercial/... redirecionam para lá. Primeira publicação da proposta.
 
 = 3.40.3 =
 * Proposta: o preço entra caractere por caractere, do desfocado para o nítido, devagar; depois USD, a frase de preço fixo e a divisão 50/50.

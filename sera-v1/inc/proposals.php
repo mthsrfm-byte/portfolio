@@ -1,6 +1,6 @@
 <?php
 /**
- * Private commercial proposals at /comercial/<slug>.
+ * Private commercial proposals at /proposal/<slug> (old /comercial/<slug> links redirect there).
  *
  * Each proposal is a PHP data file in inc/proposals/<key>.php (terms, client, version). The page is
  * rendered here, outside the normal theme templates: no wp_head(), no plugins' scripts, no tracking.
@@ -58,7 +58,7 @@ function sera_proposals() {
 /**
  * Proposal served at a slug (e.g. 'evenly'), or null.
  *
- * @param string $slug Last part of /comercial/<slug>.
+ * @param string $slug Last part of /proposal/<slug>.
  */
 function sera_proposal_by_slug( $slug ) {
 	foreach ( sera_proposals() as $p ) {
@@ -179,7 +179,7 @@ function sera_prop_set_cookie( $p, $val, $exp ) {
 		$val,
 		array(
 			'expires'  => $exp,
-			'path'     => sera_home_path() . '/comercial/',
+			'path'     => sera_home_path() . '/proposal/',
 			'secure'   => is_ssl(),
 			'httponly' => true,
 			'samesite' => 'Lax',
@@ -455,14 +455,19 @@ function sera_prop_notify( $post_id ) {
 add_action(
 	'parse_request',
 	function ( $wp ) {
-		if ( ! preg_match( '#^comercial/([a-z0-9-]+)/?$#', (string) $wp->request, $m ) ) {
+		if ( ! preg_match( '#^(proposal|comercial)/([a-z0-9-]+)/?$#', (string) $wp->request, $m ) ) {
 			return;
 		}
-		$p = sera_proposal_by_slug( $m[1] );
+		$p = sera_proposal_by_slug( $m[2] );
 		if ( ! $p ) {
 			return; // Normal 404.
 		}
-		sera_prop_serve( $p, $m[1] );
+		if ( 'comercial' === $m[1] ) { // First links used /comercial/: send them to the same proposal.
+			sera_prop_headers();
+			wp_safe_redirect( home_url( '/proposal/' . $m[2] . '/' ), 301 );
+			exit;
+		}
+		sera_prop_serve( $p, $m[2] );
 		exit;
 	},
 	0
@@ -507,7 +512,7 @@ function sera_prop_same_origin() {
  */
 function sera_prop_serve( $p, $slug ) {
 	sera_prop_headers();
-	$url     = home_url( '/comercial/' . $slug . '/' );
+	$url     = home_url( '/proposal/' . $slug . '/' );
 	$method  = isset( $_SERVER['REQUEST_METHOD'] ) ? strtoupper( (string) $_SERVER['REQUEST_METHOD'] ) : 'GET'; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
 	$is_json = isset( $_SERVER['HTTP_ACCEPT'] ) && false !== strpos( (string) $_SERVER['HTTP_ACCEPT'], 'application/json' ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput
 	$session = sera_prop_session( $p );
@@ -851,7 +856,7 @@ function sera_prop_admin_page() {
 
 	foreach ( sera_proposals() as $p ) {
 		$src  = sera_prop_pin_source( $p );
-		$link = home_url( '/comercial/' . $p['slugs'][0] . '/' );
+		$link = home_url( '/proposal/' . $p['slugs'][0] . '/' );
 		echo '<hr><h2>' . esc_html( $p['client'] . ' · ' . $p['terms']['offer'] ) . ' <small>(v' . esc_html( $p['version'] ) . ')</small></h2>';
 		echo '<p><a href="' . esc_url( $link ) . '" target="_blank" rel="noopener">' . esc_html( $link ) . '</a></p>';
 		echo '<p>Código de acesso: <strong>' . esc_html( 'config' === $src ? 'definido no wp-config.php' : ( 'admin' === $src ? 'definido aqui' : 'não definido (a página fica trancada)' ) ) . '</strong></p>';

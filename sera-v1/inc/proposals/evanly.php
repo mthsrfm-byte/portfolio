@@ -19,7 +19,7 @@ return array(
 	'version'  => '1',
 	'issued'   => '2026-11-18', // Date the link is sent. Valid for 'validDays' days after it (acceptance closes after that).
 	'validDays' => 7,
-	'slugs'    => array( 'evenly', 'evanly' ), // /comercial/evenly was requested; /comercial/evanly is an alias.
+	'slugs'    => array( 'evanly', 'evenly' ), // /proposal/evanly (brand spelling); /proposal/evenly works the same.
 	'client'   => 'Evanly',
 	'contact'  => array(
 		'first' => 'Alex',
