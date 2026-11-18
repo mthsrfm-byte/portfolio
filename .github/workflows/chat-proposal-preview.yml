@@ -1,0 +1,32 @@
+name: Publish isolated proposal preview
+on:
+  push:
+    branches: [preview/chat-proposal]
+    paths: ['preview/chat/public/**']
+permissions:
+  contents: read
+concurrency:
+  group: private-proposal-chat-preview
+  cancel-in-progress: false
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate preview
+        run: find preview/chat/public -name '*.php' -print0 | xargs -0 -r -n1 php -l
+      - name: Publish preview files only
+        env:
+          FTP_HOST: ${{ secrets.FTP_SERVER }}
+          FTP_USER: ${{ secrets.FTP_USERNAME }}
+          FTP_PASS: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          set -euo pipefail
+          cd preview/chat/public
+          for file in *; do
+            test -f "$file"
+            curl --fail --silent --show-error --ssl-reqd --ftp-create-dirs --retry 2 \
+              --user "$FTP_USER:$FTP_PASS" --upload-file "$file" \
+              "ftp://$FTP_HOST/matheusserafim.com/chat/comercial/evenly/$file"
+          done
