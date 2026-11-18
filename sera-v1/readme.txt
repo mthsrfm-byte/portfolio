@@ -80,6 +80,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.42.4 =
+* Capa: o celular acha o modelo leve mesmo quando o servidor entrega uma cópia antiga da página em cache.
+
 = 3.42.3 =
 * Busto 3D no iPhone: celular e tablet carregam um modelo leve (assets/models/matheus-busto-m.glb, texturas até 2048px, ~5 MB na entrega) e renderizam sem antialias extra, o que corta a memória de vídeo que o Safari do iOS limita. Desktop segue com as texturas originais.
 * Texturas de volta em JPEG (formato que todo navegador decodifica igual); geometria continua quantizada.

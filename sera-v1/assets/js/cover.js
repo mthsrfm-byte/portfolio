@@ -7,7 +7,9 @@ const cvRoot = document.getElementById('cover');
 if (!cvRoot) { throw new Error('no cover'); }
 // phones and tablets get the light model (2048px textures): a fraction of the GPU memory, which iOS Safari is strict about
 const LITE = (window.matchMedia && matchMedia('(pointer:coarse)').matches) || Math.min(screen.width, screen.height) < 820;
-const CV = { model: (LITE && cvRoot.dataset.modelM) || cvRoot.dataset.model, say: cvRoot.dataset.say || 'hi!', me: cvRoot.dataset.me || 'Matheus', you: cvRoot.dataset.you || 'You' };
+// an older cached page may lack data-model-m: derive the light model's address from the full one
+const MODEL_M = cvRoot.dataset.modelM || String(cvRoot.dataset.model || '').replace(/matheus-busto\.glb/, 'matheus-busto-m.glb');
+const CV = { model: (LITE && MODEL_M) || cvRoot.dataset.model, say: cvRoot.dataset.say || 'hi!', me: cvRoot.dataset.me || 'Matheus', you: cvRoot.dataset.you || 'You' };
 document.documentElement.classList.add('cv-on');
 /* diagnostics: anything that stops the bust shows the photo instead; ?cvdebug prints what happened */
 const DBG = /[?&]cvdebug/.test(location.search);
