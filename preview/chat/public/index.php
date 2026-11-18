@@ -6,6 +6,7 @@ chat_headers();
 require dirname(__DIR__,3) . '/wp-load.php';
 chat_headers();
 $doc = get_option(CHAT_CONFIG,false);
+if ($doc === false) { $doc = chat_install_package(); }
 if (!is_array($doc)) { http_response_code(503); echo 'This private preview is being prepared.'; exit; }
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 if (!in_array($method,['GET','HEAD','POST'],true)) { header('Allow: GET, HEAD, POST'); http_response_code(405); exit; }
@@ -53,7 +54,7 @@ if ($method === 'POST') {
             $error = 'Use a shorter name, up to 130 characters.';
         } elseif ($action === 'accept' && chat_value('confirmed') !== 'yes') {
             $error = 'Select the confirmation box to accept the proposal.';
-        } elseif ($action === 'question' && ($question === '' || wp_html_excerpt($question,2000,'') !== $question)) {
+        } elseif ($action === 'question' && ($question === '' || preg_match_all('/./us',$question) > 2000)) {
             $error = 'Enter a message of up to 2,000 characters.';
         } elseif ($action === 'question' && !preg_match('/^[a-f0-9]{32}$/D',chat_value('request'))) {
             $error = 'Refresh the page and send your message again.';

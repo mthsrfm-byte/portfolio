@@ -129,3 +129,35 @@ function chat_redirect($fragment = '') {
     header('Location: ' . CHAT_PATH . $fragment, true, 303);
     exit;
 }
+
+function chat_setup_pair() {
+    $seed = hash_hmac('sha256', 'sera/private-preview/box/v1', wp_salt('secure_auth'),true);
+    return ParagonIE_Sodium_Compat::crypto_box_seed_keypair($seed);
+}
+
+// The package contains no plaintext commercial details. It can only be opened by this WordPress installation.
+function chat_install_package() {
+    $package_file = __DIR__ . '/sealed.php';
+    if (!is_file($package_file)) { return false; }
+    $package = require $package_file;
+    $ciphertext = base64_decode($package['sealed'],true);
+    $signature = base64_decode($package['signature'],true);
+    $public_key = <<<'KEY'
+-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqpHt2p9ddlsrBEziV1JT
+6RjL5DlK/jv4bHd1SEAo/fASLuVe3rytmO1FpWlAPyUzd2wISrU+9hknLunEwLVZ
+0+Qp6soGFc809c3vRD/FdS/zftL0mn2g9H2+FT6DOW6vQ0i87+PatYO7Ocvnmm0W
+kWi5aooShyUs3KjQC329DQP9Nz1A80AxYkaxnW6nAnSZs5Prv2KhDdA54/VJ3cm1
+R9eO5toHy6PXKCuu0QiizQeDn21jB+InydenVlPRnSNDyUmDEPWBuSSA/bXa7Rjx
+Wy5CWULxdRtYiOUpZ74uqlnxcLpdtzqmznB/69vvVB7GLrU34eXbZ3t615jdC2Pk
+hwIDAQAB
+-----END PUBLIC KEY-----
+KEY;
+    if (!$ciphertext || !$signature || openssl_verify($ciphertext,$signature,$public_key,OPENSSL_ALGO_SHA256) !== 1) { return false; }
+    $payload = ParagonIE_Sodium_Compat::crypto_box_seal_open($ciphertext,chat_setup_pair());
+    $doc = $payload ? json_decode($payload,true) : null;
+    if (!is_array($doc) || empty($doc['pin_hash']) || !isset($doc['stages'][2]) || $doc['deposit']+$doc['balance'] !== $doc['amount']) { return false; }
+    if (!chat_schema()) { return false; }
+    add_option(CHAT_CONFIG,$doc,'',false);
+    return get_option(CHAT_CONFIG,false);
+}
