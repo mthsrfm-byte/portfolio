@@ -52,7 +52,7 @@ function render( $file, $vars ) {
 }
 $common = compact( 'p', 'asset', 'logo', 'photo', 'url' );
 $gate   = render( $theme . '/template-parts/proposals/gate.php', $common + array( 'error' => '', 'locked' => false, 'ready' => true ) );
-$page   = render( $theme . '/template-parts/proposals/' . $key . '.php', $common + array( 'csrf' => 'preview', 'accepted' => null, 'flag' => '' ) );
+$page   = render( $theme . '/template-parts/proposals/' . $key . '.php', $common + array( 'csrf' => 'preview', 'accepted' => null, 'flag' => '', 'expired' => sera_prop_expired( $p ), 'until' => sera_prop_valid_until( $p ) ) );
 
 $body = function ( $html ) {
 	preg_match( '#<body[^>]*>(.*)</body>#s', $html, $m );

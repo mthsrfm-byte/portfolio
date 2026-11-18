@@ -349,6 +349,32 @@ function sera_prop_notify_to() {
 }
 
 /**
+ * Last day the proposal can be accepted (Y-m-d), or '' when it has no expiry.
+ *
+ * @param array $p Proposal.
+ */
+function sera_prop_valid_until( $p ) {
+	if ( empty( $p['issued'] ) || empty( $p['validDays'] ) ) {
+		return '';
+	}
+	return gmdate( 'Y-m-d', strtotime( $p['issued'] . ' +' . (int) $p['validDays'] . ' days' ) );
+}
+
+/**
+ * Has the commercial validity ended? (Open until the end of the last day, US Pacific time.)
+ *
+ * @param array $p Proposal.
+ */
+function sera_prop_expired( $p ) {
+	$until = sera_prop_valid_until( $p );
+	if ( '' === $until ) {
+		return false;
+	}
+	$end = new DateTime( $until . ' 23:59:59', new DateTimeZone( 'America/Los_Angeles' ) );
+	return time() > $end->getTimestamp();
+}
+
+/**
  * Money: 129900 → "$1,299.00".
  *
  * @param int $cents Cents.
@@ -535,6 +561,8 @@ function sera_prop_serve( $p, $slug ) {
 			'url'      => $url,
 			'csrf'     => sera_prop_csrf( $p, $session ),
 			'accepted' => sera_prop_acceptance( $p ),
+			'expired'  => sera_prop_expired( $p ),
+			'until'    => sera_prop_valid_until( $p ),
 			'flag'     => $flag,
 		)
 	);
@@ -652,6 +680,9 @@ function sera_prop_post( $p, $action, $session, $in ) {
 		if ( sera_prop_acceptance( $p ) ) {
 			return $done; // Already recorded: same answer, no duplicate.
 		}
+		if ( sera_prop_expired( $p ) ) {
+			return $err( 410, 'expired', 'accept' );
+		}
 		$lock = 'sera_prop_lock_' . md5( $p['id'] . '|' . $p['version'] );
 		if ( ! add_option( $lock, time(), '', false ) ) {
 			return sera_prop_acceptance( $p ) ? $done : $err( 409, 'busy', 'accept' );
@@ -659,6 +690,7 @@ function sera_prop_post( $p, $action, $session, $in ) {
 		$terms = $p['terms'] + array(
 			'proposalId' => $p['id'],
 			'version'    => $p['version'],
+			'validUntil' => sera_prop_valid_until( $p ),
 		);
 		$snap  = wp_json_encode( $terms );
 		$id    = sera_prop_store(

@@ -22,6 +22,7 @@
     version: 'This proposal was updated. Reload the page to review the current version.',
     save: "Your acceptance wasn't saved. Please try again.",
     busy: 'Too many requests. Please wait a moment and try again.',
+    expired: 'This proposal is no longer open for acceptance. Send me a message below and I\u2019ll prepare an updated one.',
     'q-email': 'Enter a valid email so I can reply.',
     'q-message': 'Write a message before sending.',
     'q-long': 'Keep the message under 4,000 characters.',
@@ -230,6 +231,15 @@
         });
       }
     }
+
+    // The note comes into focus (blur to sharp) the first time it is on screen.
+    $$('[data-focus]').forEach(function (el) {
+      if (reduce || !('IntersectionObserver' in window)) { el.classList.add('is-in'); return; }
+      var fio = new IntersectionObserver(function (en) {
+        if (en[0].isIntersecting) { el.classList.add('is-in'); fio.disconnect(); }
+      }, { threshold: 0.25 });
+      fio.observe(el);
+    });
 
     // Token demo.
     var demo = $('[data-prop-demo]');

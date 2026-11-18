@@ -16,6 +16,21 @@ $sera_dep   = sera_prop_money( $sera_t['depositCents'] );
 $sera_fin   = sera_prop_money( $sera_t['finalPaymentCents'] );
 $sera_rate  = sera_prop_money( $sera_t['additionalHourlyRateCents'] );
 $sera_first = $p['contact']['first'];
+$sera_until = $until ? gmdate( 'j F Y', strtotime( $until ) ) : '';
+
+$sera_faq = array(
+	array( 'How do revisions work?', 'Revisions and adjustments are agreed in our calls and async check-ins. I gather them into one shared list of changes, and the sprint includes up to two rounds of fine-tuning against that list.' ),
+	array( 'What if we need another round?', 'An additional round of adjustments is priced from ' . esc_html( sera_prop_money( $sera_t['extraRoundFromCents'] ) ) . ', depending on the scope of the changes. I confirm the price with you before starting it.' ),
+	array( 'What about work outside the scope?', 'Anything outside the agreed scope needs a new quote before work begins, so you always know the cost up front.' ),
+	array( 'What happens if we cancel?', 'If you cancel after the initial payment, a 50% cancellation fee applies to it: of the ' . esc_html( $sera_dep ) . ' paid to get started, I refund ' . esc_html( sera_prop_money( $sera_t['cancellationRefundCents'] ) ) . '. The final payment is never charged.' ),
+	array( 'When does the sprint start?', 'Once you accept, I confirm the kickoff and send payment instructions. The ten business days start after the initial payment, access and kickoff are in place.' ),
+	array( 'How does payment work?', '50% to get started (' . esc_html( $sera_dep ) . ') and 50% on delivery (' . esc_html( $sera_fin ) . '). Instructions arrive by email after you accept; nothing is charged automatically.' ),
+	array( 'What do you need from us?', 'Access to the product and, for implementation, the relevant codebase and environments. A person who can give feedback and make decisions quickly helps the sprint move.' ),
+	array( 'Will you change anything in production?', 'Not without your approval. Changes go in as a reviewable branch or pull request when the stack allows, and affected paths are tested before handoff.' ),
+);
+if ( $sera_until ) {
+	$sera_faq[] = array( 'How long is this proposal valid?', 'For ' . (int) $p['validDays'] . ' days, until ' . esc_html( $sera_until ) . '. After that, price and availability may change.' );
+}
 
 $sera_errors = array(
 	'e-email'     => 'Enter a valid work email, like name@company.com.',
@@ -24,6 +39,7 @@ $sera_errors = array(
 	'e-version'   => 'This proposal was updated. Reload the page to review the current version.',
 	'e-save'      => "Your acceptance wasn't saved. Please try again.",
 	'e-busy'      => 'Too many requests. Please wait a moment and try again.',
+	'e-expired'   => 'This proposal is no longer open for acceptance. Send me a message below and I&rsquo;ll prepare an updated one.',
 	'e-q-email'   => 'Enter a valid email so I can reply.',
 	'e-q-message' => 'Write a message before sending.',
 	'e-q-long'    => 'Keep the message under 4,000 characters.',
@@ -117,6 +133,7 @@ $sera_styles = array( 'assets/css/mockups.css', 'assets/css/cases/wb.css', 'asse
 			<a href="#investment">Investment</a>
 			<a href="#scope">Scope</a>
 			<a href="#work">Work</a>
+			<a href="#faq">FAQ</a>
 		</nav>
 		<a class="p-btn p-btn-ink p-btn-sm p-bar-cta" href="#accept"><?php echo $accepted ? 'Accepted' : 'Review and accept'; ?></a>
 	</div>
@@ -127,25 +144,10 @@ $sera_styles = array( 'assets/css/mockups.css', 'assets/css/cases/wb.css', 'asse
 	<section class="p-hero" aria-labelledby="hero-title">
 		<div class="p-wrap">
 			<p class="p-kicker">Private project proposal, prepared for <?php echo esc_html( $p['client'] ); ?></p>
-			<div class="p-hero-grid">
-				<div class="p-hero-copy">
-					<h1 class="p-hero-title" id="hero-title">A stronger foundation for Evanly&rsquo;s next stage.</h1>
-					<div class="p-hero-cols">
-						<p class="p-lede">Refine your financing experience today. Build the design and brand foundations that make tomorrow&rsquo;s changes easier.</p>
-						<p class="p-hero-body">A focused, two-week collaboration with Matheus Serafim, created for early-stage startups that need to move quickly without sacrificing consistency.</p>
-					</div>
-				</div>
-			<figure class="p-bld" data-building aria-label="Illustration: an apartment building built from the ground up, starting with a highlighted foundation. Callouts mark the three stages of the sprint.">
-				<div class="p-bld-stage">
-					<svg class="p-bld-lines" aria-hidden="true" focusable="false">
-						<line data-line="assess"></line><line data-line="found"></line><line data-line="refine"></line>
-						<circle data-dot="assess" r="3"></circle><circle data-dot="found" r="3"></circle><circle data-dot="refine" r="3"></circle>
-					</svg>
-					<span class="p-bld-tag" data-tag="assess"><i aria-hidden="true">01</i>Assessment</span>
-					<span class="p-bld-tag is-right" data-tag="refine"><i aria-hidden="true">03</i>Refinement</span>
-					<span class="p-bld-tag is-found" data-tag="found"><i aria-hidden="true">02</i>Foundations</span>
-				</div>
-			</figure>
+			<h1 class="p-hero-title" id="hero-title">A stronger foundation for Evanly&rsquo;s next stage.</h1>
+			<div class="p-hero-cols">
+				<p class="p-lede">Refine your financing experience today. Build the design and brand foundations that make tomorrow&rsquo;s changes easier.</p>
+				<p class="p-hero-body">A focused, two-week collaboration with Matheus Serafim, created for early-stage startups that need to move quickly without sacrificing consistency.</p>
 			</div>
 			<dl class="p-facts">
 				<div><dt>Format</dt><dd>Two-week sprint</dd></div>
@@ -161,7 +163,7 @@ $sera_styles = array( 'assets/css/mockups.css', 'assets/css/cases/wb.css', 'asse
 				<img src="<?php echo esc_url( $photo ); ?>" alt="" width="96" height="96" loading="lazy" decoding="async">
 				<figcaption><strong>Matheus Serafim</strong><span>Staff Product Designer</span></figcaption>
 			</figure>
-			<div class="p-note-body">
+			<div class="p-note-body" data-focus>
 				<p class="p-note-hi">Hi <?php echo esc_html( $sera_first ); ?>,</p>
 				<p>You&rsquo;ve already built a working product and made meaningful progress on the financing screens. Rather than starting over, I&rsquo;d like to build on that progress and help make the experience clearer, more cohesive and easier to evolve.</p>
 				<p>Evanly promises that every document, number and decision stays with the project, and that every figure can be traced back to where it came from. The financing screens are where people feel that promise most, so that&rsquo;s where I&rsquo;d start.</p>
@@ -198,9 +200,22 @@ $sera_styles = array( 'assets/css/mockups.css', 'assets/css/cases/wb.css', 'asse
 				<p class="p-ruler-key" aria-hidden="true"><span class="p-key-dot"></span>Daily checkpoint <span class="p-key-dot is-gate"></span>Stage checkpoint</p>
 			</figure>
 
+			<div class="p-build" data-build-scroll>
+				<figure class="p-bld" data-building aria-label="Illustration: an apartment building that is surveyed, given a foundation and structure, then finished, as you scroll through the three stages.">
+					<div class="p-bld-stage">
+						<svg class="p-bld-lines" aria-hidden="true" focusable="false">
+							<line data-line="assess"></line><line data-line="found"></line><line data-line="refine"></line>
+							<circle data-dot="assess" r="3"></circle><circle data-dot="found" r="3"></circle><circle data-dot="refine" r="3"></circle>
+						</svg>
+						<span class="p-bld-tag" data-tag="assess"><i aria-hidden="true">01</i>Assessment</span>
+						<span class="p-bld-tag is-found" data-tag="found"><i aria-hidden="true">02</i>Foundations</span>
+						<span class="p-bld-tag is-right" data-tag="refine"><i aria-hidden="true">03</i>Refinement</span>
+						<span class="p-bld-prog" aria-hidden="true"><i></i><i></i><i></i></span>
+					</div>
+				</figure>
 			<ol class="p-stages">
 				<?php foreach ( $sera_stages as $sera_s ) : ?>
-					<li class="p-stage p-stage-<?php echo esc_attr( $sera_s['id'] ); ?>" id="stage-<?php echo esc_attr( $sera_s['id'] ); ?>">
+					<li class="p-stage p-stage-<?php echo esc_attr( $sera_s['id'] ); ?>" id="stage-<?php echo esc_attr( $sera_s['id'] ); ?>" data-stage="<?php echo esc_attr( $sera_s['id'] ); ?>">
 						<div class="p-stage-side">
 							<span class="p-stage-n" aria-hidden="true"><?php echo esc_html( $sera_s['n'] ); ?></span>
 							<span class="p-stage-days"><?php echo esc_html( $sera_s['days'] ); ?></span>
@@ -222,6 +237,7 @@ $sera_styles = array( 'assets/css/mockups.css', 'assets/css/cases/wb.css', 'asse
 					</li>
 				<?php endforeach; ?>
 			</ol>
+			</div>
 		</div>
 	</section>
 
@@ -305,6 +321,9 @@ $sera_styles = array( 'assets/css/mockups.css', 'assets/css/cases/wb.css', 'asse
 						<span class="p-split-v"><?php echo esc_html( $sera_fin ); ?></span>
 					</div>
 				</div>
+				<?php if ( $sera_until ) : ?>
+					<p class="p-invest-valid">Valid for <?php echo (int) $p['validDays']; ?> days, until <?php echo esc_html( $sera_until ); ?>.</p>
+				<?php endif; ?>
 				<p class="p-invest-note">Additional work beyond the agreed scope is optional and billed at <?php echo esc_html( $sera_rate ); ?>/hour with prior approval.</p>
 			</div>
 		</div>
@@ -372,7 +391,7 @@ $sera_styles = array( 'assets/css/mockups.css', 'assets/css/cases/wb.css', 'asse
 	<section class="p-sec p-accept" id="accept" aria-labelledby="accept-title">
 		<div class="p-wrap p-accept-grid">
 			<div class="p-accept-copy">
-				<h2 class="p-h2" id="accept-title">Let&rsquo;s build the next version of Evanly.</h2>
+				<h2 class="p-h2" id="accept-title">Let&rsquo;s build the next version of Evanly?</h2>
 				<p>If this approach feels right, confirm your acceptance below. If you&rsquo;d rather discuss the scope or investment first, we can do that too.</p>
 				<h3 class="p-label">After you accept</h3>
 				<ol class="p-next">
@@ -380,6 +399,9 @@ $sera_styles = array( 'assets/css/mockups.css', 'assets/css/cases/wb.css', 'asse
 					<li>I send payment instructions for the first 50%.</li>
 					<li>I share the initial access checklist.</li>
 				</ol>
+				<?php if ( $sera_until ) : ?>
+					<p class="p-valid<?php echo $expired ? ' is-over' : ''; ?>"><?php echo $expired ? 'This proposal was valid until ' . esc_html( $sera_until ) . '. Send me a message and I&rsquo;ll prepare an updated one.' : 'This commercial proposal is valid for ' . (int) $p['validDays'] . ' days, until ' . esc_html( $sera_until ) . '. After that, price and availability may change.'; ?></p>
+				<?php endif; ?>
 				<p class="p-fine">Accepting doesn&rsquo;t charge anything. It records your confirmation of this proposal (version <?php echo esc_html( $p['version'] ); ?>); it isn&rsquo;t a digital signature.</p>
 			</div>
 
@@ -393,7 +415,7 @@ $sera_styles = array( 'assets/css/mockups.css', 'assets/css/cases/wb.css', 'asse
 					<?php endif; ?>
 				</div>
 
-				<?php if ( ! $accepted ) : ?>
+				<?php if ( ! $accepted && ! $expired ) : ?>
 				<form class="p-form" method="post" action="<?php echo esc_url( $url ); ?>#accept" data-prop-form="accept" novalidate>
 					<input type="hidden" name="sera_action" value="accept">
 					<input type="hidden" name="token" value="<?php echo esc_attr( $csrf ); ?>">
@@ -441,6 +463,23 @@ $sera_styles = array( 'assets/css/mockups.css', 'assets/css/cases/wb.css', 'asse
 						</div>
 					</form>
 				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="p-sec p-faq" id="faq" aria-labelledby="faq-title">
+		<div class="p-wrap p-faq-grid">
+			<header class="p-faq-head">
+				<h2 class="p-h2" id="faq-title">Questions, answered.</h2>
+				<p>The practical details, in one place. Anything else, send it through the form above and I&rsquo;ll reply.</p>
+			</header>
+			<div class="p-faq-list">
+				<?php foreach ( $sera_faq as $sera_i => $sera_q ) : ?>
+					<details class="p-faq-item"<?php echo 0 === $sera_i ? ' open' : ''; ?>>
+						<summary><span class="p-faq-q"><?php echo esc_html( $sera_q[0] ); ?></span><span class="p-faq-ico" aria-hidden="true"></span></summary>
+						<div class="p-faq-a"><p><?php echo $sera_q[1]; // phpcs:ignore WordPress.Security.EscapeOutput -- fixed copy built above. ?></p></div>
+					</details>
+				<?php endforeach; ?>
 			</div>
 		</div>
 	</section>

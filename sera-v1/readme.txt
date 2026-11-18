@@ -80,6 +80,12 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.39.0 =
+* Proposta: o prédio em three.js saiu do topo e foi para as 3 etapas. Fica fixo ao lado (no celular, no alto da tela) e o scroll monta: levantamento tracejado, fundação e estrutura, depois fachadas, cobertura e entorno. Desenho mais detalhado e barra de progresso das etapas.
+* Proposta: FAQ depois do aceite (ajustes em até 2 rodadas, rodada extra a partir de US$50, fora do escopo = novo orçamento, cancelamento com multa de 50% da entrada, pagamento, início, produção, validade).
+* Proposta: validade comercial de 7 dias a partir de 'issued' em inc/proposals/evanly.php. Depois disso o aceite fecha no servidor (perguntas continuam abertas).
+* Proposta: bilhete pro Alex aparece de desfocado para focado; título do aceite com "?"; capa da Acordo Certo centralizada.
+
 = 3.38.1 =
 * Proposta: novo cronograma. Etapa 1 nos dias 1 e 2, etapa 2 nos dias 3 a 5, etapa 3 nos dias 6 a 10.
 
