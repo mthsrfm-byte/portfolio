@@ -195,6 +195,22 @@
         }, { threshold: 0.3 });
         dio.observe(deck);
       }
+      // Case covers are the portfolio's own animated mockups: arm them like the home does
+      // (mockups.css runs the loops only while .is-live).
+      if (!reduce && 'IntersectionObserver' in window) {
+        var stages = $$('.mk-anim', deck);
+        stages.forEach(function (st) {
+          $$('.device, .browser, .mk-depth', st).forEach(function (f, i) { f.style.setProperty('--mk-i', String(Math.min(i, 6))); });
+          st.classList.add('mk-armed');
+        });
+        var live = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting && en.intersectionRatio >= 0.3) { en.target.classList.add('is-in'); }
+            en.target.classList.toggle('is-live', !document.hidden && en.isIntersecting && en.intersectionRatio >= 0.5);
+          });
+        }, { threshold: [0, 0.3, 0.5, 0.8, 1] });
+        stages.forEach(function (st) { live.observe(st); });
+      }
       var fine = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
       if (fine && !reduce) {
         $$('.p-card', deck).forEach(function (card) {
@@ -202,8 +218,8 @@
             var r = card.getBoundingClientRect();
             var x = (e.clientX - r.left) / r.width;
             var y = (e.clientY - r.top) / r.height;
-            card.style.setProperty('--ry', ((x - 0.5) * 10).toFixed(2) + 'deg');
-            card.style.setProperty('--rx', ((0.5 - y) * 8).toFixed(2) + 'deg');
+            card.style.setProperty('--ry', ((x - 0.5) * 6).toFixed(2) + 'deg');
+            card.style.setProperty('--rx', ((0.5 - y) * 5).toFixed(2) + 'deg');
             card.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
             card.style.setProperty('--my', (y * 100).toFixed(1) + '%');
           });

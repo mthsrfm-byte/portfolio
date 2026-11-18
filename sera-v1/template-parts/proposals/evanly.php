@@ -39,7 +39,7 @@ $sera_stages = array(
 		'days'  => 'Days 1 to 3',
 		'title' => 'Product & Competitive Assessment',
 		'text'  => 'Understand the existing financing experience, review relevant competitors, and identify high-impact opportunities to improve usability and differentiate Evanly.',
-		'how'   => 'I start with the product as it is today, financing screens first: the main flow, points of friction, hierarchy, how clearly financial information reads, and how consistent components and messages are. Alongside, a small set of direct and adjacent competitors, chosen with you, compared for strengths, gaps and practical openings. Experience attributes such as clarity, trust, efficiency and consistency come out of this as hypotheses to validate, not conclusions.',
+		'how'   => 'I start with the product as it is today, financing screens first, seen from the side of developers and of funders: the main flow, points of friction, hierarchy, how clearly financial information reads, and how consistent components and messages are. Alongside, a small set of direct and adjacent competitors, chosen with you, compared for strengths, gaps and practical openings. Experience attributes such as clarity, trust, efficiency and consistency come out of this as hypotheses to validate, not conclusions.',
 		'gets'  => array( 'Focused UX assessment', 'Competitive insights', 'Experience principles', 'Prioritised recommendations' ),
 		'check' => 'We confirm the focus before moving on.',
 	),
@@ -64,57 +64,30 @@ $sera_stages = array(
 		'check' => 'Final demo and delivery.',
 	),
 );
-$sera_logo = function ( $file ) {
-	$path = get_template_directory() . '/assets/logos/' . $file;
-	return file_exists( $path ) ? (string) file_get_contents( $path ) : ''; // phpcs:ignore WordPress.WP.AlternativeFunctions
-};
 $sera_proof = array(
 	array(
-		'logo'  => 'will-bank.svg',
-		'brand' => 'will bank',
-		'area'  => 'Credit card',
-		'title' => 'A credit card bill you can plan around',
-		'text'  => 'A back-end migration became a product shift: a real-time open bill, past and future bills in the app, and early instalment payments with a discount.',
-		'tag'   => 'Financial clarity',
-		'slug'  => 'will-bank-switching-the-brain',
+		'mockup' => 'will-bank',
+		'brand'  => 'will bank',
+		'title'  => 'See the next bill before buying.',
+		'text'   => 'I turned a back-end migration into control over time: a real-time open bill, future bills in the app and a way to plan a purchase before making it.',
+		'slug'   => 'will-bank-switching-the-brain',
 	),
 	array(
-		'logo'  => 'western-union.svg',
-		'brand' => 'Western Union',
-		'area'  => 'Digital account',
-		'title' => 'Onboarding that stops the error before it happens',
-		'text'  => 'An audit of rejected documents showed where people got stuck. The redesign prevented it, with Compliance reviewing every change.',
-		'tag'   => 'Trust',
-		'slug'  => 'western-union-onboarding',
+		'mockup' => 'pagaleve',
+		'brand'  => 'Pagaleve',
+		'title'  => 'Move a due date before it&rsquo;s late.',
+		'text'   => 'Customers who knew they couldn&rsquo;t pay could agree on a new date ahead of time, with AI agents choosing who saw the offer. From hackathon pitch to production.',
+		'slug'   => 'combina-antes',
 	),
 	array(
-		'logo'  => 'pagaleve.svg',
-		'brand' => 'Pagaleve',
-		'area'  => 'Payment plans',
-		'title' => 'Reschedule a payment before it&rsquo;s late',
-		'text'  => 'Customers agree on a new due date ahead of time, and AI agents decide who sees the offer. It went from hackathon pitch to production.',
-		'tag'   => 'Payments',
-		'slug'  => 'combina-antes',
-	),
-	array(
-		'logo'  => 'acordo-certo.svg',
-		'brand' => 'Acordo Certo',
-		'area'  => 'Debt renegotiation',
-		'title' => 'A homepage that feels safe to people in debt',
-		'text'  => 'Strategy, research and direction for a redesign built on our own design system, with a company-wide vision workshop along the way.',
-		'tag'   => 'Design system',
-		'slug'  => 'acordo-certo-homepage',
-	),
-	array(
-		'logo'  => '',
-		'brand' => 'Paperplane Studio',
-		'area'  => 'Design + build',
-		'title' => 'From idea to a working product, every screen finished',
-		'text'  => 'I set the product, the scope and the finish of every screen, and directed the AI agents that built it. Now in closed beta.',
-		'tag'   => 'Design + build',
-		'slug'  => 'paperplane-studio',
+		'mockup' => 'acordo-certo',
+		'brand'  => 'Acordo Certo',
+		'title'  => 'Make debt negotiation feel safe.',
+		'text'   => 'The service is free for people in debt, yet the old homepage didn&rsquo;t feel trustworthy. I led strategy, research and direction, built on our own design system.',
+		'slug'   => 'acordo-certo-homepage',
 	),
 );
+$sera_styles = array( 'assets/css/mockups.css', 'assets/css/cases/wb.css', 'assets/css/cases/pg.css', 'assets/css/cases/ac.css', 'assets/css/proposal.css' );
 ?><!doctype html>
 <html lang="en" class="no-js">
 <head>
@@ -124,8 +97,12 @@ $sera_proof = array(
 <meta name="referrer" content="no-referrer">
 <title>Product Foundation Sprint · Prepared for <?php echo esc_html( $p['client'] ); ?></title>
 <link rel="icon" href="<?php echo esc_url( get_template_directory_uri() . '/assets/img/favicon.svg' ); ?>" type="image/svg+xml">
-<link rel="stylesheet" href="<?php echo esc_url( $asset( 'assets/css/proposal.css' ) ); ?>">
+<?php foreach ( $sera_styles as $sera_css ) : ?>
+<link rel="stylesheet" href="<?php echo esc_url( $asset( $sera_css ) ); ?>">
+<?php endforeach; ?>
 <script src="<?php echo esc_url( $asset( 'assets/js/proposal.js' ) ); ?>" defer></script>
+<script src="<?php echo esc_url( $asset( 'assets/js/lib/three.min.js' ) ); ?>" defer></script>
+<script src="<?php echo esc_url( $asset( 'assets/js/proposal-building.js' ) ); ?>" defer></script>
 </head>
 <body class="prop">
 <a class="p-skip" href="#content">Skip to content</a>
@@ -150,10 +127,25 @@ $sera_proof = array(
 	<section class="p-hero" aria-labelledby="hero-title">
 		<div class="p-wrap">
 			<p class="p-kicker">Private project proposal, prepared for <?php echo esc_html( $p['client'] ); ?></p>
-			<h1 class="p-hero-title" id="hero-title">A stronger foundation for Evanly&rsquo;s next stage.</h1>
-			<div class="p-hero-cols">
-				<p class="p-lede">Refine your financing experience today. Build the design and brand foundations that make tomorrow&rsquo;s changes easier.</p>
-				<p class="p-hero-body">A focused, two-week collaboration with Matheus Serafim, created for early-stage startups that need to move quickly without sacrificing consistency.</p>
+			<div class="p-hero-grid">
+				<div class="p-hero-copy">
+					<h1 class="p-hero-title" id="hero-title">A stronger foundation for Evanly&rsquo;s next stage.</h1>
+					<div class="p-hero-cols">
+						<p class="p-lede">Refine your financing experience today. Build the design and brand foundations that make tomorrow&rsquo;s changes easier.</p>
+						<p class="p-hero-body">A focused, two-week collaboration with Matheus Serafim, created for early-stage startups that need to move quickly without sacrificing consistency.</p>
+					</div>
+				</div>
+			<figure class="p-bld" data-building aria-label="Illustration: an apartment building built from the ground up, starting with a highlighted foundation. Callouts mark the three stages of the sprint.">
+				<div class="p-bld-stage">
+					<svg class="p-bld-lines" aria-hidden="true" focusable="false">
+						<line data-line="assess"></line><line data-line="found"></line><line data-line="refine"></line>
+						<circle data-dot="assess" r="3"></circle><circle data-dot="found" r="3"></circle><circle data-dot="refine" r="3"></circle>
+					</svg>
+					<span class="p-bld-tag" data-tag="assess"><i aria-hidden="true">01</i>Assessment</span>
+					<span class="p-bld-tag is-right" data-tag="refine"><i aria-hidden="true">03</i>Refinement</span>
+					<span class="p-bld-tag is-found" data-tag="found"><i aria-hidden="true">02</i>Foundations</span>
+				</div>
+			</figure>
 			</div>
 			<dl class="p-facts">
 				<div><dt>Format</dt><dd>Two-week sprint</dd></div>
@@ -172,6 +164,7 @@ $sera_proof = array(
 			<div class="p-note-body">
 				<p class="p-note-hi">Hi <?php echo esc_html( $sera_first ); ?>,</p>
 				<p>You&rsquo;ve already built a working product and made meaningful progress on the financing screens. Rather than starting over, I&rsquo;d like to build on that progress and help make the experience clearer, more cohesive and easier to evolve.</p>
+				<p>Evanly promises that every document, number and decision stays with the project, and that every figure can be traced back to where it came from. The financing screens are where people feel that promise most, so that&rsquo;s where I&rsquo;d start.</p>
 				<p>The Product Foundation Sprint is a structured way to do that: understand what matters, establish just enough of a foundation, and put it to work in the product immediately.</p>
 				<p class="p-note-sign">Matheus</p>
 			</div>
@@ -238,6 +231,7 @@ $sera_proof = array(
 				<h2 class="p-h2" id="found-title">Built to evolve, not to slow you down.</h2>
 				<p>Early-stage products change quickly. A lean, well-structured foundation makes it easier to explore a different colour palette, refine the tone of voice or adjust the visual direction without rebuilding every screen.</p>
 				<p>The aim is to make future decisions faster, keep the experience consistent, and reduce unnecessary rework.</p>
+				<p>Evanly follows a building from acquisition to operations. The interface can hold up the same way: one set of decisions, applied from the first screen to the hundredth.</p>
 				<p class="p-fine">Visual decisions live in tokens. Tone of voice lives in shared patterns and centralised copy where the code allows it. Both are documented, so the next change is a decision, not a hunt through screens.</p>
 			</div>
 			<figure class="p-demo" data-prop-demo>
@@ -356,24 +350,18 @@ $sera_proof = array(
 	<section class="p-sec p-proof" id="work" aria-labelledby="proof-title" data-dark>
 		<div class="p-wrap p-proof-in">
 			<header class="p-proof-head">
-				<h2 class="p-h2 p-proof-title" id="proof-title">I&rsquo;ve made money feel simple before.</h2>
-				<p class="p-proof-lede">Credit cards, cross-border accounts, payment plans and debt renegotiation: products where clarity and trust decide whether people move forward. Researched, designed and shipped.</p>
+				<h2 class="p-h2 p-proof-title" id="proof-title">Why work with me?</h2>
+				<p class="p-proof-lede">Draws, funding and applications only work when people trust the numbers in front of them. I&rsquo;ve designed for that moment across credit cards, payment plans and debt negotiation, from research to shipped product.</p>
 			</header>
 			<ul class="p-deck" data-deck>
 				<?php foreach ( $sera_proof as $sera_c ) : ?>
 					<li class="p-card">
-						<div class="p-card-plate" aria-hidden="true">
-							<?php if ( $sera_c['logo'] ) : ?>
-								<span class="p-card-logo"><?php echo $sera_logo( $sera_c['logo'] ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
-							<?php else : ?>
-								<span class="p-card-word"><?php echo esc_html( $sera_c['brand'] ); ?></span>
-							<?php endif; ?>
-						</div>
+						<div class="p-card-cover" aria-hidden="true" inert><?php echo function_exists( 'sera_render_mockup' ) ? sera_render_mockup( $sera_c['mockup'] ) : ''; // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
 						<div class="p-card-body">
-							<p class="p-card-meta"><?php echo esc_html( $sera_c['brand'] . ', ' . strtolower( $sera_c['area'] ) ); ?></p>
-							<h3 class="p-card-title"><a class="p-card-link" href="<?php echo esc_url( home_url( '/' . $sera_c['slug'] . '/' ) ); ?>" target="_blank" rel="noopener noreferrer"><?php echo $sera_c['title']; // phpcs:ignore WordPress.Security.EscapeOutput -- fixed copy above. ?><span class="screen-reader-text"> (case study, opens in a new tab)</span></a></h3>
-							<p class="p-card-text"><?php echo esc_html( $sera_c['text'] ); ?></p>
-							<p class="p-card-foot"><span class="p-card-tag"><?php echo esc_html( $sera_c['tag'] ); ?></span><span class="p-card-go" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11L11 5M6 5h5v5"/></svg></span></p>
+							<p class="p-card-co"><?php echo esc_html( $sera_c['brand'] ); ?></p>
+							<h3 class="p-card-title"><a class="p-card-link" href="<?php echo esc_url( home_url( '/' . $sera_c['slug'] . '/' ) ); ?>" target="_blank" rel="noopener noreferrer"><?php echo $sera_c['title']; // phpcs:ignore WordPress.Security.EscapeOutput -- fixed copy above. ?><span class="screen-reader-text"> Read the <?php echo esc_html( $sera_c['brand'] ); ?> case study (opens in a new tab)</span></a></h3>
+							<p class="p-card-text"><?php echo $sera_c['text']; // phpcs:ignore WordPress.Security.EscapeOutput -- fixed copy above. ?></p>
+							<p class="p-card-read" aria-hidden="true">Read the case <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 11L11 5M6 5h5v5"/></svg></p>
 						</div>
 					</li>
 				<?php endforeach; ?>

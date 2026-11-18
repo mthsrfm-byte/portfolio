@@ -22,6 +22,19 @@ function get_template_directory() { return $GLOBALS['theme']; }
 function get_template_directory_uri() { return 'THEME'; }
 function get_post_meta() { return ''; }
 function home_url( $p = '' ) { return 'https://matheusserafim.com' . $p; }
+function sanitize_key( $k ) { return preg_replace( '/[^a-z0-9_\-]/', '', strtolower( (string) $k ) ); }
+function wp_parse_args( $a, $d = array() ) { return array_merge( (array) $d, (array) $a ); }
+function absint( $n ) { return abs( (int) $n ); }
+function apply_filters( $h, $v ) { return $v; }
+function wp_strip_all_tags( $s ) { return trim( strip_tags( (string) $s ) ); }
+function is_admin() { return false; }
+function wp_doing_ajax() { return false; }
+function get_option( $k, $d = false ) { return 'home' === $k ? 'https://matheusserafim.com' : $d; }
+function get_template_part( $slug ) { include $GLOBALS['theme'] . '/' . $slug . '.php'; }
+putenv( 'SERA_LANG=en' );
+require $theme . '/inc/i18n.php';
+require $theme . '/inc/template-tags.php';
+foreach ( glob( $theme . '/inc/screens*.php' ) as $f ) { require $f; }
 require $theme . '/inc/proposals.php';
 
 $p        = require $theme . '/inc/proposals/' . $key . '.php';
@@ -47,15 +60,40 @@ $body = function ( $html ) {
 };
 preg_match( '#<title>(.*?)</title>#', $page, $t );
 
-$css = file_get_contents( $theme . '/assets/css/proposal.css' );
-$css = preg_replace_callback(
-	'#url\("\.\./fonts/([^"]+)"\)#',
-	function ( $m ) use ( $theme ) {
-		return 'url("data:font/woff2;base64,' . base64_encode( file_get_contents( $theme . '/assets/fonts/' . $m[1] ) ) . '")';
-	},
-	$css
-);
-$js   = file_get_contents( $theme . '/assets/js/proposal.js' );
+// Inline every stylesheet and script the page links (ASSET:path), with url() assets as data URIs.
+$data_uri = function ( $file ) {
+	$ext  = strtolower( pathinfo( $file, PATHINFO_EXTENSION ) );
+	$mime = array( 'woff2' => 'font/woff2', 'svg' => 'image/svg+xml', 'png' => 'image/png', 'webp' => 'image/webp', 'jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg' );
+	return 'data:' . ( isset( $mime[ $ext ] ) ? $mime[ $ext ] : 'application/octet-stream' ) . ';base64,' . base64_encode( file_get_contents( $file ) );
+};
+$css_of = function ( $rel ) use ( $theme, $data_uri ) {
+	$dir = dirname( $theme . '/' . $rel );
+	return preg_replace_callback(
+		'#url\(\s*["\']?(?!data:|https?:|\#)([^"\')]+)["\']?\s*\)#',
+		function ( $m ) use ( $dir, $data_uri ) {
+			$f = realpath( $dir . '/' . $m[1] );
+			return $f ? 'url("' . $data_uri( $f ) . '")' : $m[0];
+		},
+		file_get_contents( $theme . '/' . $rel )
+	);
+};
+preg_match_all( '#<link rel="stylesheet" href="ASSET:([^"]+)">#', $page, $lm );
+$css = implode( "\n", array_map( $css_of, $lm[1] ) );
+preg_match_all( '#<script src="ASSET:([^"]+)"[^>]*></script>#', $page, $sm );
+$js = implode( "\n", array_map( function ( $r ) use ( $theme ) { return file_get_contents( $theme . '/' . $r ); }, $sm[1] ) );
+// Theme URLs inside markup (logo masks etc.).
+$fix = function ( $html ) use ( $theme, $data_uri ) {
+	return preg_replace_callback(
+		'#THEME/([A-Za-z0-9_./\-]+)#',
+		function ( $m ) use ( $theme, $data_uri ) {
+			$f = $theme . '/' . $m[1];
+			return is_file( $f ) ? $data_uri( $f ) : $m[0];
+		},
+		$html
+	);
+};
+$gate = $fix( $gate );
+$page = $fix( $page );
 $icon = 'data:image/svg+xml;base64,' . base64_encode( file_get_contents( $theme . '/assets/img/favicon.svg' ) );
 
 $html = '<!doctype html>
