@@ -80,6 +80,11 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.42.1 =
+* Home: a capa termina num degradê para o papel do site (mesma cor, chão em grade sumindo aos poucos) e a faixa de logos começa com respiro proporcional, sem a linha dura em cima.
+* Modelo 3D 51% menor (14,7 MB → 7,2 MB, ~5,2 MB comprimido na entrega): geometria quantizada (KHR_mesh_quantization), malhas grandes divididas em índices de 16 bits e texturas em WebP na resolução original. assets/models/.htaccess liga compressão e cache de 1 ano para o .glb.
+* O vidro do header só fica transparente enquanto as partículas voam para o logo.
+
 = 3.42.0 =
 * Home: nova capa de revista. Logo SERAFIM como masthead, busto 3D (assets/models/matheus-busto.glb) na frente dele e quatro chamadas de capa (template-parts/cover.php, assets/css/cover.css, assets/js/cover.js).
 * Coreografia em loop: foto, onda de grade, explosão de partículas, logo de partículas (troca invisível com o SVG), retorno, rosto em ASCII, nova explosão e volta à foto. Clicar no busto recomeça e a onda sai do ponto clicado.
