@@ -55,7 +55,33 @@ Rascunhos aparecem na Home só para você (logado), com a etiqueta "Rascunho".
 "Atualizar conteúdo" em Sera · Cases sobrescreve o texto da página com a versão
 da biblioteca do tema (o WordPress guarda a anterior em Revisões).
 
+== Propostas comerciais privadas ==
+
+/comercial/evenly (e o alias /comercial/evanly): proposta da Evanly, fora do
+menu, do sitemap e do Google (noindex + no-store). Código em inc/proposals.php,
+termos em inc/proposals/evanly.php, página em template-parts/proposals/.
+
+Antes de mandar o link:
+1. Ferramentas › Propostas: defina o código de 4 dígitos (fica salvo como hash,
+   nunca no repositório). Alternativa no wp-config.php:
+   define( 'SERA_PROPOSAL_PIN_EVANLY', '....' );
+   Sem código definido, a página fica trancada.
+2. Na mesma tela: e-mail que recebe aceites e perguntas, e "Enviar e-mail de
+   teste para mim" para conferir se o WordPress consegue mandar e-mail.
+3. A confirmação automática para o cliente fica desligada até você ligar.
+
+Aceites e perguntas aparecem em Ferramentas › Propostas (só admin), com status
+da notificação e botão de reenviar. "Encerrar todas as sessões" ou trocar o
+código derruba quem estiver com a página aberta. Mudou preço ou termos? Suba
+'version' em inc/proposals/evanly.php: aceites antigos guardam os termos que
+viram (cópia + hash).
+
+Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
+
 == Changelog ==
+
+= 3.37.0 =
+* Nova página privada de proposta comercial em /comercial/evenly (alias /comercial/evanly): código de 4 dígitos checado no servidor, limite de tentativas, sessão assinada de 2h, aceite e perguntas gravados com notificação por e-mail, tela Ferramentas › Propostas. O resto do site não muda.
 
 = 3.36.4 =
 * Correção urgente: a home ficou sem estilo porque o cache guardou uma cópia com CSS e JS em http://, que o navegador bloqueia em página https. Os endereços do tema agora saem sempre em https e o cache é limpo uma vez.

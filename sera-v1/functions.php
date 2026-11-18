@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'SERA_VERSION', '3.36.4' );
+define( 'SERA_VERSION', '3.37.0' );
 
 require_once get_template_directory() . '/inc/i18n.php';
 require_once get_template_directory() . '/inc/i18n/customizer-pt.php';
@@ -27,6 +27,7 @@ require_once get_template_directory() . '/inc/blocks.php';
 require_once get_template_directory() . '/inc/starter-content.php';
 require_once get_template_directory() . '/inc/copy-pack.php';
 require_once get_template_directory() . '/inc/paperplane.php';
+require_once get_template_directory() . '/inc/proposals.php';
 
 /**
  * Asset version: SERA_VERSION in production, file mtime while SCRIPT_DEBUG is on.
