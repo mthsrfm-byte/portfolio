@@ -531,8 +531,8 @@ function sera_starter_cases() {
 	$c .= sera_b_chapter( 6, 'Dobra', 'A design system that runs the whole studio.' );
 	$c .= sera_b_p( 'I created Dobra so the whole studio would follow one standard. Colour, spacing, corners and motion live in one place, and that is where every piece of the product gets tuned. When I change a choice there, everything follows, and the agents speak the same language I do: I ask for <code>--accent</code> and they know where to look.', 'lead' );
 	$c .= sera_b_p( 'Nothing off-standard goes live: colour, spacing and contrast are checked on every change.' );
-	$c .= sera_b_chapter( 7, 'The website', 'Paper with light: the home page speaks the studio’s language.' );
-	$c .= sera_b_p( 'The home page has one job: make people who haven’t come in yet want to. I brought Dobra’s vocabulary to it, with paper grain, light coming from the top left and a lime with volume. The promise comes along too: the price appears before every take. The waiting list measures the funnel without cookies and without storing names, emails or IP addresses in its events.', 'lead' );
+	$c .= sera_b_chapter( 7, 'The website', 'Dobradura: the home page speaks the studio’s language.' );
+	$c .= sera_b_p( 'The home page has one job: make people who haven’t come in yet want to. I brought Dobra’s vocabulary to it, with smooth paper, flat lime and the highlight that folds. The promise comes along too: the price appears before every take. The waiting list measures the funnel without cookies and without storing names, emails or IP addresses in its events.', 'lead' );
 	$c .= sera_b_p( 'The whole studio fits in your pocket, with everything the desktop can do.' );
 	$c .= sera_b_chapter( 8, 'How I work', 'Every night, a team of agents researches what Paperplane should become. In the morning, I choose.' );
 	$c .= sera_b_p( 'While I sleep, agents review the platform, study the competition and follow what is new in the AI market. Out of that comes a shortlist of what deserves a place on the roadmap.', 'lead' );

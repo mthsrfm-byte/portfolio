@@ -1,0 +1,143 @@
+/* Facelift do case (brand kit 0.2 da home "Dobradura"): carregado depois do pp-case.css. */
+@font-face{font-family:'Geologica';font-style:normal;font-weight:300 800;font-display:swap;src:url(../../fonts/geologica-variavel.woff2) format('woff2')}
+@font-face{font-family:'Onest';font-style:normal;font-weight:400 700;font-display:swap;src:url(../../fonts/onest-variavel.woff2) format('woff2')}
+@font-face{font-family:'Geist Mono';font-style:normal;font-weight:400 500;font-display:swap;src:url(../../fonts/geist-mono.woff2) format('woff2')}
+/* ================================================================
+   Facelift do case: a linguagem da home nova do Paperplane ("Dobradura", brand kit 0.2).
+   Papel liso #F4EEE8, tinta #121311, lima chapada #E4F65C com a dobra em #9DB321,
+   Geologica nos títulos, Onest no texto, Geist Mono nos rótulos. Cartão é papel liso com fio, sem sombra nem degradê.
+   ================================================================ */
+
+/* ---------- Tokens ---------- */
+body .pp-case{
+  --lime:#E4F65C;--lime-50:#F9FCDD;--lime-100:#F2FAB4;--lime-400:#D2E64A;--lime-500:#9DB321;--on-lime:#121311;
+  --lime-dobra:#9DB321;
+  --app-bg:#121311;
+  --display:'Geologica','Helvetica Neue',Arial,sans-serif;
+  --sans:'Onest','Helvetica Neue',Arial,sans-serif;
+  --mono:'Geist Mono',ui-monospace,Menlo,monospace;
+  --raio-cartao:12px;--raio-moldura:14px;--raio-botao:6px;
+  --bg:#F4EEE8;--surface:#FFFFFF;--surface-2:#EFE8E0;--ink:#121311;--ink-2:#33342F;--muted:#55564F;
+  --line:rgba(18,19,17,.14);--line-strong:rgba(18,19,17,.3);--focus:#121311;
+}
+html.js[data-theme="dark"] body .pp-case{
+  --bg:#121311;--surface:#1C1D1A;--surface-2:#262722;--ink:#F1EFE8;--ink-2:#C9C7BD;--muted:#A9A79D;
+  --line:rgba(241,239,232,.14);--line-strong:rgba(241,239,232,.3);--focus:#E4F65C;
+}
+html:not(.js) body .pp-case .pp-zone[data-theme="dark"]{
+  --bg:#121311;--surface:#1C1D1A;--surface-2:#262722;--ink:#F1EFE8;--ink-2:#C9C7BD;--muted:#A9A79D;
+  --line:rgba(241,239,232,.14);--line-strong:rgba(241,239,232,.3);--focus:#E4F65C;
+}
+body.is-pp{background:var(--bg,#F4EEE8)}
+
+/* ---------- Tipografia ---------- */
+body .pp-case{font-family:var(--sans)}
+body .pp-case :is(.pp-hero-title,.pp-chapter-title,.cel-frase,.diretor-frase,.resp,.pp-regra h3,.licoes-l h3,.db-t,.db-nome,.mi-selo b){
+  font-family:var(--display);font-weight:500;font-stretch:100%;letter-spacing:-.045em
+}
+body .pp-case .pp-hero-title{line-height:.98;font-size:clamp(38px,5.4vw,80px)}
+body .pp-case .pp-chapter-title{line-height:1;font-size:clamp(34px,4.1vw,58px)}
+body .pp-case .cel-frase{line-height:1.02;letter-spacing:-.045em}
+/* números grandes: Geologica cheia, sem o estreitamento da Bricolage */
+body .pp-case :is(.pp-metric b,.pp-stat b,.regra-n,.ag-v,.r4-n,.db-num,.ind b,.ct-n,.ct-num b,.clock-time,.dia-n){
+  font-family:var(--display);font-stretch:100%;letter-spacing:-.05em;font-weight:500
+}
+body .pp-case :is(.pp-art-label,.pp-cap-note,.pp-url){font-family:var(--mono);letter-spacing:.07em}
+
+/* ---------- Rótulo do capítulo: ficha de lima com o número + nome em mono ---------- */
+body .pp-case .pp-kicker{gap:10px;color:var(--muted);font:500 11.5px/1 var(--mono);letter-spacing:.07em}
+body .pp-case .pp-kicker::before{display:none}
+body .pp-case .pp-kicker .pp-kn{display:inline-grid;place-items:center;min-width:24px;height:20px;padding:0 5px;border-radius:3px;background:var(--lime);color:var(--on-lime);font-weight:500;letter-spacing:.02em}
+
+/* ---------- Grifo que dobra (igual ao da home): face de cima em lima, face de baixo em lima sombra ---------- */
+body .pp-case [data-dobra]{position:relative;z-index:0;display:inline-block;white-space:nowrap;line-height:1;padding:.04em .16em .09em;margin:0 .02em;color:transparent;-webkit-text-fill-color:transparent;background:none}
+body .pp-case [data-dobra]::before,body .pp-case [data-dobra]::after{content:attr(data-dobra);position:absolute;inset:0;z-index:-1;padding:inherit;color:var(--on-lime);-webkit-text-fill-color:var(--on-lime);background-color:var(--lime);white-space:nowrap;transform-origin:50% 50%}
+body .pp-case [data-dobra]::before{clip-path:inset(0 -1em 49.5% -1em);transform:skewX(-10deg)}
+body .pp-case [data-dobra]::after{background-color:var(--lime-dobra);clip-path:inset(50% -1em 0 -1em);transform:skewX(10deg)}
+/* o título do topo já tinha o sublinhado aceso do .kw: sai, o grifo faz o papel */
+body .pp-case .kw::before,body .pp-case .kw::after{border:0;box-shadow:none}
+body .pp-case .h1-wrap .kw{background-image:none}
+/* no celular o grifo quebra linha: vira marca-texto em duas faces, sem a inclinação */
+@media (max-width:760px){
+  body .pp-case [data-dobra]{display:inline;white-space:normal;line-height:inherit;padding:0 .12em;color:var(--on-lime);-webkit-text-fill-color:var(--on-lime);
+    background:linear-gradient(180deg,var(--lime) 0 54%,var(--lime-dobra) 54% 100%);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+  body .pp-case [data-dobra]::before,body .pp-case [data-dobra]::after{display:none}
+}
+
+/* ---------- Superfícies: papel liso com fio, sem sombra nem degradê ---------- */
+body .pp-case :is(.pp-regra,.ct,.pp-stat,.db-dado,.pp-reveal-card,.mi,.licoes-l li,.contrato li){box-shadow:none}
+body .pp-case .pp-stat{border-radius:var(--raio-cartao);border:1px solid var(--line);background:var(--surface)}
+body .pp-case .pp-stat.stat--hl{background:var(--lime);border-color:transparent;color:var(--on-lime);--ink:#121311;--ink-2:#33342F;--muted:#44453F;--line:rgba(18,19,17,.18)}
+
+/* ---------- Moldura de navegador clara, como as telas da home ---------- */
+body .pp-case .pp-browser{border-radius:var(--raio-moldura);border:1px solid var(--line);background:#EAE3DA;box-shadow:0 30px 60px -40px rgba(18,19,17,.35)}
+body .pp-case .pp-browser-bar{background:#EAE3DA;border-bottom:1px solid rgba(18,19,17,.08);color:#55564F}
+body .pp-case .pp-dots i{background:rgba(18,19,17,.18)!important}
+body .pp-case .pp-url{background:#FFFFFF;color:#55564F;border:1px solid rgba(18,19,17,.08);border-radius:4px;font-size:10.5px}
+html.js[data-theme="dark"] body .pp-case .pp-browser{background:#1C1D1A;border-color:rgba(241,239,232,.1);box-shadow:none}
+html.js[data-theme="dark"] body .pp-case .pp-browser-bar{background:#1C1D1A;border-bottom-color:rgba(241,239,232,.08);color:#A9A79D}
+html.js[data-theme="dark"] body .pp-case .pp-dots i{background:rgba(241,239,232,.2)!important}
+html.js[data-theme="dark"] body .pp-case .pp-url{background:#262722;color:#C9C7BD;border-color:transparent}
+
+/* ---------- Botões: o principal é lima chapada com o canto que dobra; o secundário, papel com fio ---------- */
+@property --canto{syntax:'<length>';inherits:true;initial-value:0px}
+body .pp-case .pp-cta{border-radius:var(--raio-botao)!important;box-shadow:none!important;transition:transform .2s,--canto .28s cubic-bezier(.2,1.25,.4,1),background-color .2s,border-color .2s}
+body .pp-case .pp-cta.pp-cta-lime{--canto:0px;position:relative;border:0!important;color:#121311!important;background:linear-gradient(225deg,transparent calc(var(--canto) * .7072),#E4F65C 0)!important}
+body .pp-case .pp-cta.pp-cta-lime::after{content:"";position:absolute;inset:0 0 auto auto;width:var(--canto);height:var(--canto);background:linear-gradient(45deg,#9DB321 50%,transparent 50%);pointer-events:none}
+@media (hover:hover){body .pp-case .pp-cta.pp-cta-lime:hover{--canto:12px}}
+body .pp-case .pp-cta.pp-cta-line{background:transparent!important;border:1px solid color-mix(in srgb,currentColor 28%,transparent)!important}
+@media (hover:hover){body .pp-case .pp-cta.pp-cta-line:hover{background:color-mix(in srgb,currentColor 7%,transparent)!important;border-color:color-mix(in srgb,currentColor 52%,transparent)!important}}
+body .pp-case .pp-cta:active{transform:scale(.97)}
+
+/* ---------- Chips e selos: retos, com fio ---------- */
+body .pp-case .pp-chip{border-radius:4px;border:1px solid var(--line);background:transparent;font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- Seleção e foco ---------- */
+body .pp-case ::selection{background:#E4F65C;color:#121311}
+
+/* ---------- Papel liso: sai o grão ---------- */
+body .pp-case{--grao-papel:none;--grao-papel-leve:none}
+body .pp-case .grao,body .pp-case .pp-mesa::after{display:none}
+
+/* ---------- Cartões das quatro regras: papel com fio, cantos menores, sem o brilho de lima ---------- */
+body .pp-case .pp-regra{border-radius:16px;box-shadow:none}
+body .pp-case .pp-regra::before{display:none}
+body .pp-case .regra-art{border-radius:10px;border-color:transparent;background:#121311}
+body .pp-case :is(.ct,.pp-stat){border-radius:var(--raio-cartao)}
+
+/* ---------- Números em destaque: cartão de lima, texto em tinta ---------- */
+body .pp-case .stat--hl{background:#E4F65C;border-color:#E4F65C}
+body .pp-case .stat--hl :is(b,h3,.st-ic,.pp-odo,span){color:#121311}
+body .pp-case .stat--hl p{color:#33342F;border-top-color:rgba(18,19,17,.28)}
+body .pp-case .stat--hl .st-selo{background:#121311;color:#E4F65C;border-radius:3px}
+body .pp-case .pp-stat .st-selo{border-radius:3px;font-family:var(--mono)}
+
+/* ---------- Palco: as molduras pousam direto no papel, como as telas da home ---------- */
+body .pp-case .palco,body .pp-case .palco[data-tema="escuro"]{--palco-fundo:transparent;background:transparent;box-shadow:none;padding:0;border-radius:0}
+body .pp-case .palco::before{display:none}
+body .pp-case .palco-etapas{background:#EFE8E0}
+html.js[data-theme="dark"] body .pp-case .palco-etapas{background:#1C1D1A}
+
+/* ---------- A mesa das seis ferramentas: papel liso, janelas com fio, sem sombra ---------- */
+body .pp-case .pp-mesa{background:#EAE3DA;border-radius:16px;border-color:rgba(18,19,17,.1)}
+body .pp-case .pp-mesa::after{display:none}
+body .pp-case .pp-mesa[data-tema="escuro"]::before{background:#121311}
+body .pp-case .jan{border-radius:8px;background:#FFFFFF;border-color:rgba(18,19,17,.14);box-shadow:none}
+body .pp-case .jan-bar{background:#F4EEE8}
+
+/* ---------- Menu do site no escuro: preto de verdade, sem transparência ---------- */
+html.is-v2 body .site-header>.v2-pill-tint{background:#000!important}
+html.is-v2 body .site-header.v2-dark::before{background:#000!important;-webkit-backdrop-filter:none;backdrop-filter:none}
+
+/* ---------- Cada zona com as próprias cores: a troca de claro e escuro acontece na borda da zona, não no meio da tela ---------- */
+html body .pp-case .pp-zone[data-theme="dark"]{
+  --bg:#121311;--surface:#1C1D1A;--surface-2:#262722;--ink:#F1EFE8;--ink-2:#C9C7BD;--muted:#A9A79D;
+  --line:rgba(241,239,232,.14);--line-strong:rgba(241,239,232,.3);--focus:#E4F65C;
+  background:var(--bg);color:var(--ink-2)
+}
+html body .pp-case .pp-zone[data-theme="light"]{
+  --bg:#F4EEE8;--surface:#FFFFFF;--surface-2:#EFE8E0;--ink:#121311;--ink-2:#33342F;--muted:#55564F;
+  --line:rgba(18,19,17,.14);--line-strong:rgba(18,19,17,.3);--focus:#121311;
+  background:var(--bg);color:var(--ink-2)
+}
+html body .pp-case .pp-zone{transition:none}

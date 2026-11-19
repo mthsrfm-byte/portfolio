@@ -161,7 +161,7 @@ defined( 'ABSPATH' ) || exit;
 </div>
 
 <!-- ============ SALA ESCURA ============ -->
-<div class="pp-zone" data-theme="dark">
+<div class="pp-zone" data-theme="light">
 
 <!-- 02 PRODUTO -->
 <section class="pp-chapter" id="produto" aria-labelledby="produto-t">
@@ -377,23 +377,23 @@ defined( 'ABSPATH' ) || exit;
   <div class="pp-wide dobra-art">
     <div class="db-sistema" role="group" aria-label="<?php echo esc_attr( sera_t( 'Dobra, the design system: logo, colour and type', 'Dobra, o design system: logo, cor e tipo' ) ); ?>">
       <div class="db-marca">
-        <svg class="db-logo" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 4h21l7 7v25H6z" fill="#F7FF9E"/><path d="M27 4v7h7z" fill="rgba(17,17,16,.32)"/><path d="M12 19h15M12 25h10" stroke="#111110" stroke-width="2.2" stroke-linecap="round"/></svg>
+        <svg class="db-logo" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 4h21l7 7v25H6z" fill="#E4F65C"/><path d="M27 4v7h7z" fill="rgba(17,17,16,.32)"/><path d="M12 19h15M12 25h10" stroke="#121311" stroke-width="2.2" stroke-linecap="round"/></svg>
         <div><b class="db-nome">Dobra</b><span class="db-sub"><?php sera_e( 'Design system', 'Design system' ); ?></span></div>
       </div>
       <div class="db-bloco">
         <span class="db-k"><?php sera_e( 'Colour', 'Cor' ); ?></span>
         <ul class="db-cores">
-          <li><i style="--c:#F5F4EF"></i><span><?php sera_e( 'Paper', 'Papel' ); ?></span><code>--bg</code></li>
-          <li><i style="--c:#111110"></i><span><?php sera_e( 'Ink', 'Tinta' ); ?></span><code>--ink</code></li>
-          <li><i style="--c:#F7FF9E"></i><span><?php sera_e( 'Lime', 'Limão' ); ?></span><code>--accent</code></li>
-          <li><i style="--c:#181D16"></i><span><?php sera_e( 'Night', 'Noite' ); ?></span><code>--surface</code></li>
+          <li><i style="--c:#F4EEE8"></i><span><?php sera_e( 'Paper', 'Papel' ); ?></span><code>--bg</code></li>
+          <li><i style="--c:#121311"></i><span><?php sera_e( 'Ink', 'Tinta' ); ?></span><code>--ink</code></li>
+          <li><i style="--c:#E4F65C"></i><span><?php sera_e( 'Lime', 'Limão' ); ?></span><code>--accent</code></li>
+          <li><i style="--c:#1C1D1A"></i><span><?php sera_e( 'Night', 'Noite' ); ?></span><code>--surface</code></li>
         </ul>
       </div>
       <div class="db-bloco">
         <span class="db-k"><?php sera_e( 'Type', 'Tipo' ); ?></span>
         <ul class="db-fontes">
-          <li><span class="db-aa f-display" aria-hidden="true">Aa</span><b class="f-display"><?php echo 'Bricolage Grotesque'; ?></b><span class="db-papel"><?php sera_e( 'Titles', 'Títulos' ); ?></span></li>
-          <li><span class="db-aa f-sans" aria-hidden="true">Aa</span><b class="f-sans">Geist</b><span class="db-papel"><?php sera_e( 'Body copy', 'Texto corrido' ); ?></span></li>
+          <li><span class="db-aa f-display" aria-hidden="true">Aa</span><b class="f-display"><?php echo 'Geologica'; ?></b><span class="db-papel"><?php sera_e( 'Titles', 'Títulos' ); ?></span></li>
+          <li><span class="db-aa f-sans" aria-hidden="true">Aa</span><b class="f-sans">Onest</b><span class="db-papel"><?php sera_e( 'Body copy', 'Texto corrido' ); ?></span></li>
           <li><span class="db-aa f-mono" aria-hidden="true">Aa</span><b class="f-mono">Geist Mono</b><span class="db-papel"><?php sera_e( 'Labels and tokens', 'Rótulos e tokens' ); ?></span></li>
         </ul>
       </div>
@@ -439,15 +439,15 @@ defined( 'ABSPATH' ) || exit;
 <section class="pp-chapter" id="site" aria-labelledby="site-t">
   <div class="pp-col">
     <p class="pp-kicker"><?php sera_e( '07 · The website', '07 · O site' ); ?></p>
-    <h2 class="pp-chapter-title" id="site-t"><?php sera_e( 'Paper with light: the home page speaks the studio’s language.', 'Papel com luz: a home fala a mesma língua do estúdio.' ); ?></h2>
-    <p class="pp-lead pp-reveal"><?php sera_e( 'The home page has one job: make people who haven’t come in yet want to. I brought Dobra’s vocabulary to it, with paper grain, light coming from the top left and a lime with volume. The promise comes along too: the price appears before every take. The waiting list measures the funnel without cookies and without storing names, emails or IP addresses in its events.', 'A home tem um trabalho só: fazer quem ainda não entrou querer entrar. Levei para ela o vocabulário da Dobra, com grão de papel, luz vindo de cima à esquerda e o limão com volume. A promessa vai junto: o preço aparece antes de cada take. A lista de espera mede o funil sem cookies e sem guardar nome, e-mail ou IP nos eventos.' ); ?></p>
+    <h2 class="pp-chapter-title" id="site-t"><?php sera_e( 'Dobradura: the home page speaks the studio’s language.', 'Dobradura: a home fala a mesma língua do estúdio.' ); ?></h2>
+    <p class="pp-lead pp-reveal"><?php sera_e( 'The home page has one job: make people who haven’t come in yet want to. I brought Dobra’s vocabulary to it, with smooth paper, flat lime and the highlight that folds. The promise comes along too: the price appears before every take. The waiting list measures the funnel without cookies and without storing names, emails or IP addresses in its events.', 'A home tem um trabalho só: fazer quem ainda não entrou querer entrar. Levei para ela o vocabulário da Dobra, com papel liso, a lima chapada e o grifo que dobra. A promessa vai junto: o preço aparece antes de cada take. A lista de espera mede o funil sem cookies e sem guardar nome, e-mail ou IP nos eventos.' ); ?></p>
   </div>
   <div class="site-sec">
     <div class="site-grid pp-wide">
       <div class="site-telas palco" data-tema="claro">
         <div class="pp-browser site-frame">
           <div class="pp-browser-bar" aria-hidden="true"><span class="pp-dots"><i></i><i></i><i></i></span><span class="pp-url">paperplanestudio.app</span><span></span></div>
-          <div class="sim" data-tipo="site" data-vw="1280" data-vh="720" data-tema="claro" data-cursor-nativo role="img" aria-label="<?php echo esc_attr( sera_t( 'The Paperplane home page, with the menu pinned to the top.', 'A home do Paperplane, com o menu preso no topo.' ) ); ?>"><noscript><p class="sim-alt">A home: "Estúdio de filmes com IA para errar menos e gastar melhor", o tour pelo estúdio, os estilos, o celular e a lista de espera.</p></noscript></div>
+          <div class="sim" data-tipo="site" data-vw="1280" data-vh="720" data-tema="claro" data-cursor-nativo role="img" aria-label="<?php echo esc_attr( sera_t( 'The Paperplane home page, with the menu pinned to the top.', 'A home do Paperplane, com o menu preso no topo.' ) ); ?>"><noscript><p class="sim-alt">A home: "Suas ideias viram filme, sem falir no caminho", o tour pelo estúdio, os estilos, o celular e a lista de espera.</p></noscript></div>
         </div>
         <div class="site-cel">
           <div class="aparelho" data-tema="claro"><div class="aparelho-status" aria-hidden="true"><time>9:41</time><span class="ilha"></span><span class="st-icones"><svg viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx=".8"/><rect x="5" y="5.5" width="3" height="6.5" rx=".8"/><rect x="10" y="3" width="3" height="9" rx=".8"/><rect x="15" y="0" width="3" height="12" rx=".8"/></svg><svg viewBox="0 0 16 12"><path d="M8 11.2 5.6 8.6a3.4 3.4 0 0 1 4.8 0z"/><path d="M3.4 6.4a6.5 6.5 0 0 1 9.2 0l-1.3 1.3a4.7 4.7 0 0 0-6.6 0z"/><path d="M1.2 4.2a9.6 9.6 0 0 1 13.6 0l-1.3 1.3a7.8 7.8 0 0 0-11 0z"/></svg><svg viewBox="0 0 27 12"><rect x=".6" y=".6" width="22.8" height="10.8" rx="3.2" class="bat-borda"/><rect x="2.4" y="2.4" width="17.4" height="7.2" rx="1.8"/><path d="M25 4.2v3.6c.8-.3 1.4-1 1.4-1.8s-.6-1.5-1.4-1.8z"/></svg></span></div><div class="aparelho-tela"><div class="sim" data-tipo="siteCel" data-vw="390" data-vh="844" data-tema="claro" data-cursor-nativo role="img" aria-label="<?php echo esc_attr( sera_t( 'The top of the home page on a phone.', 'O topo da home no celular.' ) ); ?>"></div></div><i class="aparelho-inicio" aria-hidden="true"></i></div>
@@ -455,9 +455,9 @@ defined( 'ABSPATH' ) || exit;
         </div>
       </div>
       <ol class="site-caps">
-        <li data-sec="top" class="is-on"><span class="pp-art-label">01</span><?php sera_e( '<b>The promise</b><span>"An AI film studio for fewer mistakes and better spending."</span>', '<b>A promessa</b><span>"Estúdio de filmes com IA para errar menos e gastar melhor."</span>' ); ?></li>
+        <li data-sec="top" class="is-on"><span class="pp-art-label">01</span><?php sera_e( '<b>The promise</b><span>"Your ideas become films, without going broke on the way."</span>', '<b>A promessa</b><span>"Suas ideias viram filme, sem falir no caminho."</span>' ); ?></li>
         <li data-sec="estudio"><span class="pp-art-label">02</span><?php sera_e( '<b>The same style, from the first frame to the last</b><span>The studio from the inside, from "Once upon a sentence." to "Cut!", and the style swap that keeps the story.</span>', '<b>O mesmo traço, do primeiro ao último quadro</b><span>O estúdio por dentro, de "Era uma vez uma frase." a "Corta!", e a troca de estilo que mantém a história.</span>' ); ?></li>
-        <li data-sec="iphone-duo"><span class="pp-art-label">03</span><?php sera_e( '<b>In your pocket</b><span>"A studio in your pocket where every fold counts."</span>', '<b>No bolso</b><span>"Um estúdio no seu bolso onde cada dobra conta."</span>' ); ?></li>
+        <li data-sec="iphone-duo"><span class="pp-art-label">03</span><?php sera_e( '<b>In your pocket</b><span>"And the best part? It fits in your pocket."</span>', '<b>No bolso</b><span>"E o melhor de tudo? Cabe no seu bolso."</span>' ); ?></li>
         <li data-sec="comecar"><span class="pp-art-label">04</span><?php sera_e( '<b>Waiting list</b><span>A sheet that slides up, data protection in plain language and a little plane that lands on the email field.</span>', '<b>Lista de espera</b><span>Uma folha que sobe, LGPD em linguagem simples e um aviãozinho que pousa no e-mail.</span>' ); ?></li>
       </ol>
     </div>
