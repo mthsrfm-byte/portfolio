@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'SERA_VERSION', '3.43.1' );
+define( 'SERA_VERSION', '3.44.0' );
 
 require_once get_template_directory() . '/inc/i18n.php';
 require_once get_template_directory() . '/inc/i18n/customizer-pt.php';
@@ -184,6 +184,9 @@ add_action(
 		if ( is_front_page() ) {
 			wp_enqueue_style( 'sera-v2-home', $uri . '/assets/css/v2-home.css', array( 'sera-v2' ), sera_asset_ver( 'assets/css/v2-home.css' ) );
 			wp_enqueue_script( 'sera-v2-home', $uri . '/assets/js/v2-home.js', array( 'sera-v2', 'sera-case-js' ), sera_asset_ver( 'assets/js/v2-home.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
+			// 3.44 · Selected work cards "Capa": after the v2 layer, so its deck rules stay and only the card's inside changes.
+			wp_enqueue_style( 'sera-capa', $uri . '/assets/css/capa.css', array( 'sera-v2-home', 'sera-mockups' ), sera_asset_ver( 'assets/css/capa.css' ) );
+			wp_enqueue_script( 'sera-capa', $uri . '/assets/js/capa.js', array( 'sera-main' ), sera_asset_ver( 'assets/js/capa.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
 		}
 		if ( $is_case ) {
 			wp_enqueue_style( 'sera-v2-case', $uri . '/assets/css/v2-case.css', array( 'sera-v2', 'sera-case' ), sera_asset_ver( 'assets/css/v2-case.css' ) );

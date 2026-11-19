@@ -1623,18 +1623,34 @@
 			return;
 		}
 		v.classList.add( 'cv-fit' );
-		var m = Math.max( 24, W * 0.075 );
+		// 3.44 · "Capa" cards: a lower, fuller stage (less empty room above and below the devices)
+		var capa = !! v.closest( '.case-capa' );
+		var m = capa ? Math.max( 14, W * 0.05 ) : Math.max( 24, W * 0.075 );
 		var chip = st.querySelector( '.brand-chip' );
-		var top = ( chip ? chip.offsetTop + chip.offsetHeight : 56 ) + Math.max( 28, H * 0.05 );
+		var top = ( chip ? chip.offsetTop + chip.offsetHeight : 56 ) + ( capa ? Math.max( 12, H * 0.03 ) : Math.max( 28, H * 0.05 ) );
 		var browser = st.querySelector( '.browser' );
-		var phones = st.querySelectorAll( '.device' );
+		var phones = [].filter.call( st.querySelectorAll( '.device' ), function ( d ) {
+			return ! capa || 'none' !== getComputedStyle( d ).display;
+		} );
+		// phones: only the phone mockup (mockups.css hides the browser); a phone left alone fills the stage
+		if ( capa && window.innerWidth <= 760 ) {
+			if ( browser && 'none' === getComputedStyle( browser ).display ) {
+				browser = null;
+			}
+			if ( ! browser && 1 === phones.length ) {
+				var sl = Math.min( ( H - top - 12 ) / PH, ( W - 24 ) / PW );
+				phones[0].style.setProperty( '--s', sl.toFixed( 4 ) );
+				place( phones[0], ( W - PW * sl ) / 2, top );
+				return;
+			}
+		}
 		if ( browser ) {
 			var phone = phones[0];
 			var aw = W - 2 * m;
-			var bs = Math.min( 0.5, ( aw * 0.84 ) / 1280 );
+			var bs = Math.min( 0.5, ( aw * ( capa ? 0.92 : 0.84 ) ) / 1280 );
 			browser.style.setProperty( '--bs', bs.toFixed( 4 ) );
 			var bh = browser.offsetHeight;
-			var s = phone ? Math.min( 0.5, ( aw * 0.3 ) / PW ) : 0;
+			var s = phone ? Math.min( 0.5, ( aw * ( capa ? 0.34 : 0.3 ) ) / PW ) : 0;
 			var pOff = bh * 0.3;
 			// Centre the browser + phone group in the space under the chip when it fits.
 			var groupH = Math.max( bh, pOff + PH * s );

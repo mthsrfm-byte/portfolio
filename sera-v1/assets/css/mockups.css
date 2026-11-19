@@ -1972,3 +1972,12 @@
   .case-hero-visual .ac-hero-stage>.browser{display:none}
   .case-hero-visual .ac-hero-stage>.device{--s:.48;margin:56px 0 0}
 }
+
+/* 3.44 · "Capa" cards on phones: only the phone mockup. The browser and the before/after compare step
+   aside; a phone left alone is laid out by main.js to fill the stage (~1.6× the old size), and the stage
+   keeps little empty room above and below it. */
+@media (max-width:760px){
+	.case-capa .case-visual .mockup-stage .browser,.case-capa .case-visual.cv-fit .mockup-stage .browser,.case-capa .case-visual .mockup-stage .mk-compare{display:none!important}
+	.case-capa .case-visual.cv-fit .mockup-stage{padding:66px 12px 12px!important}
+	.case-capa .case-visual.cv-fit .mockup-stage>.brand-chip{top:16px!important}
+}
