@@ -5,7 +5,7 @@
    the corners and the cover's 3D floor runs underneath, with the same grain.
    Loaded after v2-home.css (home only), so the deck rules there and in main.css (sticky stack,
    --cover shade, snap points) keep working; only the inside of the card changes.
-   JS: assets/js/capa.js (fit, grains, parallax).
+   JS: assets/js/capa.js (fit, grains).
    ========================================================================= */
 
 /* the deck (3.44.1): plain native scrolling, no pinned "Selected work" line, no snap. Each card sticks just
@@ -19,7 +19,7 @@ html:root #work{padding-top:clamp(24px,3.4vw,48px)}
 
 html .cases>.case-card.case-capa{
 	--pad:clamp(24px,3vw,40px);--cc-teal:#0B5F63;
-	display:block;grid-template-columns:none;grid-template-rows:none;background:var(--bg-2);border:0;border-radius:var(--r-lg);overflow:hidden;isolation:isolate;color:var(--ink)
+	display:block;grid-template-columns:none;grid-template-rows:none;background:url(../img/grain-light.png) 0 0/180px 180px,var(--bg-2);background-blend-mode:multiply;border:0;border-radius:var(--r-lg);overflow:hidden;isolation:isolate;color:var(--ink)
 }
 html .cases>.case-card.case-capa:hover{border-color:transparent}
 .case-capa .thin{font-family:var(--display);font-weight:220;font-stretch:76%;text-transform:uppercase;letter-spacing:.012em;line-height:.92;text-wrap:balance}
@@ -33,12 +33,10 @@ html .cases>.case-card.case-capa:hover{border-color:transparent}
 .case-capa .cc-floor .mid{filter:blur(1.3px);-webkit-mask-image:linear-gradient(to top,transparent 12%,#000 32%,#000 46%,transparent 66%);mask-image:linear-gradient(to top,transparent 12%,#000 32%,#000 46%,transparent 66%)}
 .case-capa .cc-floor .far{filter:blur(3.4px);opacity:.85;-webkit-mask-image:linear-gradient(to top,transparent 40%,#000 60%,rgba(0,0,0,.6) 78%,transparent 96%);mask-image:linear-gradient(to top,transparent 40%,#000 60%,rgba(0,0,0,.6) 78%,transparent 96%)}
 html .cases>.case-card.case-capa::before{content:"";position:absolute;left:0;right:0;bottom:-1px;height:22%;z-index:1;background:linear-gradient(to top,var(--bg-2),transparent);pointer-events:none}
-.case-capa .cc-grain{position:absolute;inset:0;z-index:6;pointer-events:none;background:url(../img/grain-light.png) 0 0/180px 180px;mix-blend-mode:multiply;opacity:.75;border-radius:inherit}
 
 /* masthead: one line, full width (font size from capa.js); solid type with a soft hole where the cursor is */
-.case-capa .cc-mast{position:absolute;z-index:1;left:var(--pad);right:var(--pad);top:calc(var(--pad) * .8);margin:0;font:800 100px/.8 var(--display);font-stretch:75%;text-transform:uppercase;letter-spacing:-.012em;white-space:nowrap;text-align:center;color:var(--ink);
-	-webkit-mask-image:radial-gradient(circle var(--mr,1px) at var(--mx,-999px) var(--my,-999px),transparent 66%,#000 100%);mask-image:radial-gradient(circle var(--mr,1px) at var(--mx,-999px) var(--my,-999px),transparent 66%,#000 100%);
-	clip-path:inset(-40% -4% -3% -4%)}
+.case-capa .cc-mast{position:absolute;z-index:1;left:var(--pad);right:var(--pad);top:calc(var(--pad) * .8);margin:0;font:800 100px/.8 var(--display);font-stretch:75%;text-transform:uppercase;letter-spacing:-.012em;white-space:nowrap;text-align:center;color:var(--ink)}
+.case-capa .cc-mast.is-hole{-webkit-mask-image:radial-gradient(circle var(--mr,1px) at var(--mx,-999px) var(--my,-999px),transparent 66%,#000 100%);mask-image:radial-gradient(circle var(--mr,1px) at var(--mx,-999px) var(--my,-999px),transparent 66%,#000 100%)}
 .case-capa .cc-mast-t{display:inline-block}
 .case-capa .cc-mast .bl{display:inline-block;width:0;height:0;vertical-align:baseline}
 
@@ -73,15 +71,6 @@ html .cases>.case-card.case-capa:hover .cc-cta i{transform:translateX(4px) rotat
 /* grains: the canvas lives outside the card (capa.js) so they can fly past its edge */
 .cc-dust{position:fixed;left:0;top:0;z-index:39;pointer-events:none;display:block}
 
-/* scroll parallax per layer (value from capa.js): --py is -1 entering from below, 0 at rest,
-   1 covered by the next card */
-@media (prefers-reduced-motion:no-preference){
-	.case-capa .cc-floor,.case-capa .cc-mast,.case-capa .cc-fig,.case-capa .cl{translate:0 calc(var(--py,0) * var(--d,0) * 1px)}
-	.case-capa .cc-floor{--d:-18}
-	.case-capa .cc-mast{--d:28}
-	html .cases>.case-card.case-capa .cc-fig{--d:-36}
-	.case-capa .cl{--d:12}
-}
 @media (prefers-reduced-motion:reduce){.cc-dust{display:none}}
 
 /* phones: name on top, the mockup full width over ~16% of it, cover lines in two columns below */

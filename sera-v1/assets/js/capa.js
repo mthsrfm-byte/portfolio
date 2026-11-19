@@ -3,7 +3,7 @@
       stacked phone layout can't loop), then the mockup and the cover lines are placed from it.
    2. Grains: near the cursor the name opens a soft hole and a canvas draws the same letters as the
       cover's round ink grains, pushed outwards at a random angle. Never over the mockup.
-   3. Scroll: parallax per layer while the cards stack on plain native scrolling. Off under reduced motion. */
+   Off under reduced motion. Scrolling is plain and native: nothing here runs per scroll frame. */
 ( function () {
 	'use strict';
 	var cards = [].slice.call( document.querySelectorAll( '.cases > .case-capa' ) );
@@ -234,6 +234,7 @@
 			var d = placeDust( mr );
 			var ctx = d.ctx;
 			R += ( RT - R ) * 0.14;
+			mast.classList.add( 'is-hole' );
 			mast.style.setProperty( '--mr', Math.max( 1, R ).toFixed( 1 ) + 'px' );
 			mast.style.setProperty( '--mx', mx.toFixed( 1 ) + 'px' );
 			mast.style.setProperty( '--my', my.toFixed( 1 ) + 'px' );
@@ -314,6 +315,7 @@
 			} else {
 				ctx.setTransform( 1, 0, 0, 1, 0, 0 );
 				ctx.clearRect( 0, 0, d.cv.width, d.cv.height );
+				mast.classList.remove( 'is-hole' );
 			}
 		}
 		function kick() {
@@ -349,50 +351,6 @@
 		};
 	}
 
-	/* ---------- 3. scroll: parallax ---------- */
-	var state = cards.map( function () {
-		return { py: null };
-	} );
-	function setVar( card, st, key, name, v ) {
-		var s = v.toFixed( 3 );
-		if ( st[ key ] !== s ) {
-			st[ key ] = s;
-			card.style.setProperty( name, s );
-		}
-	}
-	function onScroll() {
-		ticking = false;
-		var stick = parseFloat( getComputedStyle( cards[ 0 ] ).top ) || 0;
-		var rects = cards.map( function ( c ) {
-			return c.getBoundingClientRect();
-		} );
-		cards.forEach( function ( card, i ) {
-			var r = rects[ i ];
-			var next = rects[ i + 1 ];
-			// arrival: 0 when the card's top is one card-height below its rest, 1 when it rests
-			var arrive = Math.max( 0, Math.min( 1, 1 - ( r.top - stick ) / r.height ) );
-			// leaving: how far the next card has covered this one
-			var cover = next ? Math.max( 0, Math.min( 1, 1 - ( next.top - stick ) / r.height ) ) : 0;
-			var py = arrive < 1 ? -( 1 - arrive ) : cover;
-			if ( ! next && r.top < stick - 1 ) {
-				// the last card scrolls away normally: keep the parallax going as it leaves
-				py = Math.min( 1, ( stick - r.top ) / r.height );
-			}
-			var st = state[ i ];
-			setVar( card, st, 'py', '--py', py );
-			if ( cover > 0.02 && card.ccGrains ) {
-				card.ccGrains.release();
-			}
-		} );
-	}
-	var ticking = false;
-	function queue() {
-		if ( ! ticking ) {
-			ticking = true;
-			window.requestAnimationFrame( onScroll );
-		}
-	}
-
 	/* ---------- wiring ---------- */
 	fontsReady.then( function () {
 		cards.forEach( function ( card ) {
@@ -419,16 +377,20 @@
 						card.ccGrains.invalidate();
 					}
 				} );
-				queue();
 			} );
 			cards.forEach( function ( c ) {
 				ro.observe( c );
 			} );
 		}
-		if ( ! reduce ) {
-			window.addEventListener( 'scroll', queue, { passive: true } );
-			window.addEventListener( 'resize', queue );
-			onScroll();
+		// scrolling moves the name away from a still cursor: close the hole instead of leaving it open
+		if ( ! reduce && finePointer ) {
+			window.addEventListener( 'scroll', function () {
+				cards.forEach( function ( card ) {
+					if ( card.ccGrains ) {
+						card.ccGrains.release();
+					}
+				} );
+			}, { passive: true } );
 		}
 		// the thin cover-line face can arrive after fonts.ready (it is only requested once used): refit then
 		function refitAll() {

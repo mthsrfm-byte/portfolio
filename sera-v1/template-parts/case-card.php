@@ -70,5 +70,4 @@ $kicker  = implode( ' · ', array_filter( array( $year, $company ) ) );
 			</div>
 		<?php endif; ?>
 	</div>
-	<span class="cc-grain" aria-hidden="true"></span>
 </article>
