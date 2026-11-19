@@ -376,7 +376,7 @@ void main(){
   vec2 q = gl_PointCoord - .5;
   if ((vSq < .5 && dot(q, q) > .25) || vRnd > uAlpha || (fract(vRnd * 13.7) < .7375 && vSq < .5 && vMz < .5)) discard;
   if (vSq > .5 && max(abs(q.x), abs(q.y)) > .5) discard;
-  if (fract(vRnd * 29.1) < .3) discard;   // 30% fewer dots everywhere; the logo cells still overlap, so it stays solid
+  if (fract(vRnd * 29.1) < .58) discard;   // 58% fewer dots everywhere (42% of the mesh); the logo cells still overlap, so it stays solid
   cutout();
   if (fract(vRnd * 31.3) > vClear || fract(vRnd * 5.3) < vHide) discard;
   // ink and greys only
@@ -628,6 +628,8 @@ function measureText(cr) {
     const r = el.getBoundingClientRect(); if (!r.width || !r.height) return;
     menu = menu ? { left: Math.min(menu.left, r.left), top: Math.min(menu.top, r.top), right: Math.max(menu.right, r.right), bottom: Math.max(menu.bottom, r.bottom) } : { left: r.left, top: r.top, right: r.right, bottom: r.bottom };
   });
+  // ...and it reaches up to the top edge: no dust above the menu
+  if (menu) { menu.top = Math.min(menu.top, cr.top) - 60; }
   if (menu) rects.push({ left: menu.left, top: menu.top, right: menu.right, bottom: menu.bottom, width: menu.right - menu.left, height: menu.bottom - menu.top });
   const M = U.uMask.value; let i = 0;
   rects.forEach(r => {
@@ -697,7 +699,7 @@ document.addEventListener('pointerleave', () => { st.seen = false; readout.hidde
 cvRoot.addEventListener('pointerdown', e => {
   if (isShow() && show.on && !failed && !intro.on && !(sim.p > .004 || sim.formed || sim.rebuild >= 0)) {
     // only while the bust is the realistic 3D photo, and only on the face: anything else leaves the choreography alone
-    const T = show.paused != null ? show.paused : ((performance.now() - show.t0) / 1000) % CYCLE;
+    const T = warp(show.paused != null ? show.paused : ((performance.now() - show.t0) / 1000) % CYCLE);
     const hit = (T < 1.0 || T >= 18.8) ? pick(e.clientX, e.clientY) : null;
     if (hit) { show.pulseFrom = hit; startShow(); }
   } st.px = e.clientX; st.py = e.clientY; st.seen = true; st.last = performance.now(); if (fx.id === 'pulso') dropAt(e.clientX, e.clientY, 1, 0); });
@@ -744,7 +746,12 @@ function dropRandom() {
 let fx = FX[0];
 const isShow = () => fx.id === 'show' || fx.id === 'show-logo';
 const beats = () => ['Foto', 'Voo', fx.id === 'show-logo' ? 'Logo' : 'Labirinto', 'Retorno', 'Código', 'Voo', 'Foto'];
-const CYCLE = 21.5;
+/* the clock: the way out of the realistic 3D (burst + flight to the logo, choreography time 3.0–5.0 s) plays 20% slower
+   in real time; every beat after it just starts 0.4 s later. warp() turns real seconds into choreography seconds. */
+const FLY0 = 3.0, FLY1 = 5.0, FLYK = 1.2, FLYD = (FLY1 - FLY0) * (FLYK - 1);
+const CYCLE = 21.5 + FLYD;
+const warp = t => t < FLY0 ? t : t < FLY0 + (FLY1 - FLY0) * FLYK ? FLY0 + (t - FLY0) / FLYK : t - FLYD;
+const unwarp = t => t < FLY0 ? t : t < FLY1 ? FLY0 + (t - FLY0) * FLYK : t + FLYD;
 const mastEl = cvRoot.querySelector('.mast');
 const show = { on: false, t0: 0, beat: -1, fw: 1, cyc: -1, fromH: false };
 const SCROLL_SIM = true;
@@ -752,7 +759,7 @@ const sim = { p: 0, formed: false, active: false, lastY: 0, lastT: 0, vel: 0, re
 const hdrEl = document.querySelector('.site-header') || document.createElement('header'), hdrLogo = hdrEl.querySelector('.brand svg') || cvRoot.querySelector('.mast svg');
 function startShow() { show.t0 = performance.now() - 900; show.cyc = -1; show.paused = null; }
 /* a small remote so a page around this one can scrub the choreography */
-const beatTimes = () => { const D = fx.id === 'show-logo' ? 1.2 : 0; return [['Foto', 0], ['Onda', 1.0], ['Voo', 3.0], [fx.id === 'show-logo' ? 'Logo' : 'Labirinto', 3.7], ['Retorno', 6.7 + D], ['Código', 9.2 + D], ['Voo', 15.1], ['Foto', 18.4]]; };
+const beatTimes = () => { const D = fx.id === 'show-logo' ? 1.2 : 0; return [['Foto', 0], ['Onda', 1.0], ['Voo', 3.0], [fx.id === 'show-logo' ? 'Logo' : 'Labirinto', 3.7], ['Retorno', 6.7 + D], ['Código', 9.2 + D], ['Voo', 15.1], ['Foto', 18.4]].map(([n, t]) => [n, +unwarp(t).toFixed(2)]); };
 window.__show = {
   seek(t) { t = Math.max(0, Math.min(CYCLE - .01, t)); show.t0 = performance.now() - t * 1000; show.cyc = t >= 3 ? 0 : -1; if (show.paused != null) show.paused = t; },
   pause() { if (show.paused == null) show.paused = ((performance.now() - show.t0) / 1000) % CYCLE; },
@@ -987,7 +994,7 @@ function frameBody(t) {
   const k = reduce ? 1 : 0.075;
   st.cur.x += (tx - st.cur.x) * k; st.cur.y += (ty - st.cur.y) * k;
   const yaw = st.cur.x * 0.62 * 0.38 * 0.85, pitch = st.cur.y * 0.26 * 0.38;
-  const T = show.on ? (show.paused != null ? show.paused : ((now - show.t0) / 1000) % CYCLE) : -1;
+  const T = show.on ? warp(show.paused != null ? show.paused : ((now - show.t0) / 1000) % CYCLE) : -1;
   if (intro.on) show.fw = 0; else show.fw += ((T > 0.9 && T < 18.8) || (SCROLL_SIM && (sim.p > .004 || sim.formed)) ? (0 - show.fw) * 0.07 : (1 - show.fw) * 0.07);
   rig.rotation.y = yaw * 0.22 * show.fw;
   pivot.rotation.set(pitch * show.fw, yaw * 0.78 * show.fw, -st.cur.x * 0.04 * show.fw);
@@ -1106,6 +1113,8 @@ if (DBG) window.__cvBake = (hpx = 192, A = 1.4, ss = 4) => {
   const sg = sm2.getContext('2d'); sg.imageSmoothingQuality = 'high'; sg.drawImage(big, 0, 0, w / ss, h / ss);
   return { png: sm2.toDataURL('image/png'), frameF: { cap: frameF.cap, chin: frameF.chin }, A };
 };
+/* ?cvdebug only: render one frame of the loop at T seconds, synchronously, and hand it back as an image */
+if (DBG) window.__cvShot = (T) => { if (intro.on) endIntro(performance.now()); window.__show.seek(T); window.__show.pause(); frameBody(performance.now()); return canvas.toDataURL(); };
 /* ?cvdebug only: one live ASCII frame, read back in the same task (to compare it with the still one) */
 if (DBG) window.__cvSnap = () => {
   const A = asciiMat.uniforms;

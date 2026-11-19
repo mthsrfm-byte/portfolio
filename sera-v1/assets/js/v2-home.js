@@ -390,7 +390,7 @@ var V2_CASE_ICONS = {
 			rz = setTimeout( function () {
 				if ( mazeStarted ) {
 					buildMaze();
-					if ( maze.end ) {
+					if ( maze && maze.end ) { // buildMaze() can return early and leave maze null
 						maze.solveTo( maze.end[ 0 ], maze.end[ 1 ], true );
 						maze.wander( wanderOpts() );
 						syncRun();

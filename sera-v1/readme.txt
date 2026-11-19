@@ -85,6 +85,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 * Header da home: o menu do topo fica parado no lugar e sobe com a página; a barra sticky entra quando a faixa de marcas chega no topo.
 * Header da home: o logo já é o logo da barra sticky desde o início e espera fixo no lugar dele, então os grãos que viram logo sempre vão para lá; quando a barra entra, só o fundo, o menu e os botões aparecem em volta dele.
 * Capa: a poeira desvia do menu e dos botões como um bloco só, sem entrar nos vãos entre os itens.
+* Capa: 40% menos grãos (o logo de partículas continua sólido) e nenhum grão acima do menu.
+* Capa: a saída do 3D realista para o voo dura 20% mais (2,4 s em vez de 2 s); o resto da coreografia só começa 0,4 s depois.
+* Home: o labirinto do hero não quebra mais ao redimensionar a janela.
 * Header da home: sobre blocos escuros a barra volta a escurecer (antes o texto clarinho ficava sobre fundo claro).
 
 = 3.43.0 =
