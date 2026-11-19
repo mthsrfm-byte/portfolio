@@ -69,6 +69,10 @@ function sera_pp_enqueue() {
 		wp_enqueue_script( 'sera-pp-aviao', $base . 'aviao.js', array(), $ver( 'aviao.js' ), $js );
 		$deps[] = 'sera-pp-aviao';
 	}
+	// Facelift (brand kit 0.2 da home nova): por cima do pp-case.css; o script roda antes do pp-case.js.
+	wp_enqueue_style( 'sera-pp-facelift', $base . 'facelift.css', array( 'sera-pp-case', 'sera-v2' ), $ver( 'facelift.css' ) );
+	wp_enqueue_script( 'sera-pp-facelift', $base . 'facelift.js', array(), $ver( 'facelift.js' ), $js );
+	$deps[] = 'sera-pp-facelift';
 	wp_enqueue_script( 'sera-pp-case', $base . 'pp-case.js', $deps, $ver( 'pp-case.js' ), $js );
 
 	$data = sera_pp_case_data();

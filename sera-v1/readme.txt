@@ -80,6 +80,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.46.0 =
+* Paperplane Studio: facelift do case com a linguagem da home nova (brand kit 0.2, "Dobradura"): Geologica, Onest e Geist Mono; lima #E4F65C com a dobra #9DB321; papel liso, cartões com fio, grifo que dobra nos títulos, rótulo de capítulo com número em lima; telas do estúdio claras com o logotipo novo e as imagens e vídeos da landing; a moldura do "07 · O site" mostra a home nova (só topo, tour, bolso e lista); cada zona com as próprias cores e o menu preto no escuro. Textos: só nomes que mudaram (fontes, "Dobradura", citações da home).
+
 = 3.45.1 =
 * Experiência: sai o texto de apoio ("Fui gestor e voltei a IC...") do título e da barra fixa.
 * Home: mockups dos cards enterrados na pilha ou bem abaixo da dobra viram um bloco skeleton (conteúdo não renderizado) e voltam antes de entrar na tela. Menos memória ao voltar pro topo (camadas de composição no topo: 155 → 46).

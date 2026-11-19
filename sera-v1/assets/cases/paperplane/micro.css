@@ -3,17 +3,17 @@
  --paper-0:#FFFFFF; --paper-50:#FAF9F6; --paper-100:#F4F3EE; --paper-150:#EFEDE7;
  --paper-200:#E8E5DE; --paper-250:#E4E1DA; --paper-300:#DCD9D1;
  --graphite-900:#1A1A1A; --graphite-800:#3A3A3D; --graphite-700:#4A4A4D; --graphite-600:#58585C; --graphite-500:#6E6E73;
- --night-1000:#000000; --night-950:#0C0D0B; --night-900:#0F100E; --night-850:#151614; --night-800:#181917;
+ --night-1000:#000000; --night-950:#0C0D0B; --night-900:#121311; --night-850:#151614; --night-800:#181917;
  --night-750:#1E1F1C; --night-700:#222320; --night-650:#2B2C28; --night-600:#2F2F2B;
- --night-green-950:#0C0E0B; --night-green-900:#11140F; --night-green-850:#131611; --night-green-800:#151913;
+ --night-green-950:#0C0E0B; --night-green-900:#121311; --night-green-850:#131611; --night-green-800:#151913;
  --night-green-750:#191E17; --night-green-700:#1D231B;
  --light-50:#F7F7F2; --light-100:#F1F0EB; --light-150:#F0F0F0; --light-200:#ECEBE6; --light-400:#C9C8C2;
  --light-600:#9A9991; --light-700:#8B8A84;
- --lime-50:#FBFFD6; --lime-100:#F9FFBC; --lime-300:#F7FF9E; --lime-400:#E7F07F; --lime-500:#C9D46A; --lime-700:#8A9440; --lime-900:#4A5020;
+ --lime-50:#F9FCDD; --lime-100:#F2FAB4; --lime-300:#E4F65C; --lime-400:#D2E64A; --lime-500:#9DB321; --lime-700:#6E7E14; --lime-900:#3A430A;
  --green-700:#1E6B44; --green-400:#4CC08A; --green-100:#E4F2EA; --green-950:#13301F; --green-990:#07130C;
  --amber-700:#8A4E06; --amber-400:#E8A85C; --amber-100:#FFF0E0; --amber-950:#33230F;
  --red-700:#9A2418; --red-400:#FF8C7C; --red-100:#FCEBE8; --red-950:#3A1A15;
- --hue-violet:#9D8CFF; --hue-blue:#8FA8FF; --hue-teal:#5CC4C0; --hue-green:#4CC08A; --hue-olive:#C9D46A;
+ --hue-violet:#9D8CFF; --hue-blue:#8FA8FF; --hue-teal:#5CC4C0; --hue-green:#4CC08A; --hue-olive:#9DB321;
  --hue-amber:#E2A254; --hue-clay:#D9A07A; --hue-coral:#E2725B; --hue-rose:#E58FB0; --hue-slate:#94949B;
  --tone-1:#5B6B7A; --tone-2:#6E7F6A; --tone-3:#8A6D5C; --tone-4:#6F6482; --tone-5:#8C7A4E; --tone-6:#4F6F73; --tone-7:#7A5F6B;
  --bg:var(--paper-50); --surface:var(--paper-0); --surface-2:var(--paper-100); --surface-3:var(--paper-150);
@@ -181,7 +181,7 @@
  --panel:linear-gradient(180deg,var(--night-green-700) 0%,var(--night-green-850) 100%);
  --line:rgba(255,255,255,.10); --line-strong:rgba(255,255,255,.20); --line-controle:rgba(255,255,255,.36);
  --ink:var(--light-100); --ink-2:var(--light-400); --muted:var(--light-600);
- --accent:var(--lime-300); --on-accent:var(--graphite-900); --accent-soft:rgba(247,255,158,.12);
+ --accent:var(--lime-300); --on-accent:var(--graphite-900); --accent-soft:rgba(228,246,92,.12);
  --btn:var(--lime-300); --on-btn:var(--graphite-900);
  --ai:var(--graphite-900); --ai-soft:var(--lime-300); --ai-line:transparent;
  --track:rgba(255,255,255,.12); --bar:var(--lime-300);
@@ -209,7 +209,7 @@
  --menu-line:rgba(255,255,255,.1); --menu-hover:rgba(255,255,255,.07); --menu-border:rgba(255,255,255,.14);
  --menu-btn:var(--night-750); --menu-btn-ink:var(--light-200);
  --menu-btn-shadow:0 0 0 5px var(--board-ring),0 0 0 6px rgba(255,255,255,.16),var(--lift);
- --lime-glow:radial-gradient(120% 140% at 85% 10%,rgba(247,255,158,.34) 0%,rgba(247,255,158,.14) 40%,var(--night-800) 100%);
+ --lime-glow:radial-gradient(120% 140% at 85% 10%,rgba(228,246,92,.34) 0%,rgba(228,246,92,.14) 40%,var(--night-800) 100%);
  --ghost-ink:color-mix(in srgb,var(--ink) 38%,transparent); --pending-line:var(--lime-300); --coautor:var(--lime-300); --on-coautor:var(--graphite-900);
  --system-bar:var(--night-green-700);
  --credito-halo:var(--lime-300); --credito-brilho:color-mix(in srgb,var(--lime-300) 35%,transparent);
@@ -221,7 +221,7 @@
  --panel:linear-gradient(180deg,var(--night-green-700) 0%,var(--night-green-850) 100%);
  --line:rgba(255,255,255,.10); --line-strong:rgba(255,255,255,.20); --line-controle:rgba(255,255,255,.36);
  --ink:var(--light-100); --ink-2:var(--light-400); --muted:var(--light-600);
- --accent:var(--lime-300); --on-accent:var(--graphite-900); --accent-soft:rgba(247,255,158,.12);
+ --accent:var(--lime-300); --on-accent:var(--graphite-900); --accent-soft:rgba(228,246,92,.12);
  --btn:var(--lime-300); --on-btn:var(--graphite-900);
  --ai:var(--graphite-900); --ai-soft:var(--lime-300); --ai-line:transparent;
  --track:rgba(255,255,255,.12); --bar:var(--lime-300);
@@ -249,7 +249,7 @@
  --menu-line:rgba(255,255,255,.1); --menu-hover:rgba(255,255,255,.07); --menu-border:rgba(255,255,255,.14);
  --menu-btn:var(--night-750); --menu-btn-ink:var(--light-200);
  --menu-btn-shadow:0 0 0 5px var(--board-ring),0 0 0 6px rgba(255,255,255,.16),var(--lift);
- --lime-glow:radial-gradient(120% 140% at 85% 10%,rgba(247,255,158,.34) 0%,rgba(247,255,158,.14) 40%,var(--night-800) 100%);
+ --lime-glow:radial-gradient(120% 140% at 85% 10%,rgba(228,246,92,.34) 0%,rgba(228,246,92,.14) 40%,var(--night-800) 100%);
  --ghost-ink:color-mix(in srgb,var(--ink) 38%,transparent); --pending-line:var(--lime-300); --coautor:var(--lime-300); --on-coautor:var(--graphite-900);
  --system-bar:var(--night-green-700);
  --credito-halo:var(--lime-300); --credito-brilho:color-mix(in srgb,var(--lime-300) 35%,transparent);

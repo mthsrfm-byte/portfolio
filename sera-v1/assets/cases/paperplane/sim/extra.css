@@ -23,3 +23,444 @@ html.sim-tema,html.sim-tema body,html.sim-tema *{transition:background-color .6s
 .v2-strip-s.on{box-shadow:none!important}
 .rt2-hint{display:none!important}
 .un2-cast{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+/* Facelift: tokens atuais da Dobra e fontes do brand kit 0.2 */
+@font-face{font-family:'Geologica';font-style:normal;font-weight:300 800;font-display:swap;src:url(../../../fonts/geologica-variavel.woff2) format('woff2')}
+@font-face{font-family:'Onest';font-style:normal;font-weight:400 700;font-display:swap;src:url(../../../fonts/onest-variavel.woff2) format('woff2')}
+@font-face{font-family:'Geist Mono';font-style:normal;font-weight:400 500;font-display:swap;src:url(../../../fonts/geist-mono.woff2) format('woff2')}
+/* =====================================================================================
+   Paperplane · Design system — tokens
+   Guia completo: docs/estudio/DESIGN-SYSTEM.md. Vitrine viva no app: /sistema.
+
+   Três camadas:
+   1. Primitivas (--paper-*, --night-*, --lime-*, --hue-*): valores crus. Não usar direto em
+      componentes; servem para montar as camadas de cima.
+   2. Semânticas (--bg, --surface, --ink, --ok, --board-*...): o que a cor FAZ. Componentes usam
+      só estas. Trocar uma cor do app inteiro = mudar o valor aqui.
+   3. Escalas (--s-*, --fs-*, --r-*, --dur-*, --ease-*): espaço, tipo, raio e movimento.
+
+   Claro é o padrão; escuro pelo sistema (sem escolha salva) ou forçado por data-theme="dark".
+   O bloco escuro aparece duas vezes (media query e data-theme): o teste
+   scripts/test.mjs confere que os dois são idênticos.
+
+   Dobra (o design system) lê este arquivo sozinha: a página /sistema e a referência gerada em
+   docs/estudio/DESIGN-SYSTEM.md (npm run dobra:doc). Para isso, siga a convenção:
+   - comentário em linha própria abre um grupo ("Título: nota" ou "Título. Nota");
+   - comentário no fim da linha descreve o token daquela linha;
+   - "---------- N. Nome ----------" abre uma camada.
+   ===================================================================================== */
+:root{
+  /* ---------- 1. Primitivas ---------- */
+  /* Papel: off-white levemente quente do tema claro (do mais claro ao mais escuro). Esquentou e clareou em 07/11/2026
+     (auditoria do Papel com luz: o cinza-esverdeado com grão lia como cimento, não papel). */
+  --paper-0:#FFFFFF; --paper-50:#F4EEE8; --paper-100:#EFE8E0; --paper-150:#EAE3DA;
+  --paper-200:#E3DBD1; --paper-250:#DDD5CA; --paper-300:#D4CBBF;
+  /* Grafite: tinta do tema claro. O 600 (rótulos) desceu de #656568 para #58585C com o grão (07/11/2026): segue
+     acima de 4,5:1 mesmo no fundo mais escuro da página com o grão por cima. */
+  --graphite-900:#121311; --graphite-800:#33342F; --graphite-700:#44453F; --graphite-600:#55564F; --graphite-500:#6B6C64;
+  /* Noite: neutros do tema escuro (do fundo para cima), mais os verdes-noite da placa de nós. Papel carbono (09/11/2026):
+     os neutros perderam o azul e viraram um carvão quente levemente oliva, da mesma família do verde-noite e do limão,
+     com a luminosidade de cada degrau mantida. O 600 é a folha do roteiro no escuro, um tom acima do cartão. */
+  --night-1000:#000000; --night-950:#0C0D0B; --night-900:#121311; --night-850:#171816; --night-800:#1C1D1A;
+  --night-750:#21221E; --night-700:#262722; --night-650:#2E2F29; --night-600:#33342E;
+  --night-green-950:#0C0D0B; --night-green-900:#10110F; --night-green-850:#131412; --night-green-800:#161715;
+  --night-green-750:#191A18; --night-green-700:#1C1D1A;
+  /* Luz: tinta do tema escuro e texto sobre mídia. Os cinzas 400, 600 e 700 perderam o azul em 09/11/2026 (papel carbono),
+     com a mesma luminosidade; o 600 (rótulos) clareou um pouco para passar 4,5:1 na folha do roteiro (--night-600). */
+  --light-50:#F8F6F0; --light-100:#F1EFE8; --light-150:#F1EFE8; --light-200:#ECEAE2; --light-400:#C9C7BD;
+  --light-600:#A9A79D; --light-700:#8F8D84;
+  /* Limão: a cor da marca. Só preenchimento, nunca texto sobre fundo claro. */
+  --lime-50:#F9FCDD; --lime-100:#F2FAB4; --lime-300:#E4F65C; --lime-400:#D2E64A; --lime-500:#9DB321; --lime-700:#6E7E14; --lime-900:#3A430A;
+  /* Azul: o par da lima (brand kit 0.2, 15/11/2026). Na interface entra só como ponto ou figura, nunca como botão, link ou texto. */
+  --blue-600:#1546D6; --blue-900:#0B2A8C; --blue-500:#357AB3; --blue-400:#3A86BA;
+  /* Status (cada um tem tinta no claro, tinta no escuro e fundo suave nos dois). */
+  --green-700:#1E6B44; --green-400:#4CC08A; --green-100:#E4F2EA; --green-950:#13301F; --green-990:#07130C;
+  --amber-700:#8A4E06; --amber-400:#E8A85C; --amber-100:#FFF0E0; --amber-950:#33230F;
+  --red-700:#9A2418; --red-400:#FF8C7C; --red-100:#FCEBE8; --red-950:#3A1A15;
+  /* Matizes de apoio (dados, trilhas, provedores, gráficos). Mesma luminosidade (~70%) e croma
+     médio, então convivem com o limão sem brigar. Use como preenchimento ou marcador, não como texto. */
+  --hue-violet:#9D8CFF; --hue-blue:#8FA8FF; --hue-teal:#5CC4C0; --hue-green:#4CC08A; --hue-olive:#C9D46A;
+  --hue-amber:#E2A254; --hue-clay:#D9A07A; --hue-coral:#E2725B; --hue-rose:#E58FB0; --hue-slate:#94949B;
+  /* Tons de personagem/cenário (dados do filme, escuros e dessaturados para combinar com o Drama 2D). */
+  --tone-1:#5B6B7A; --tone-2:#6E7F6A; --tone-3:#8A6D5C; --tone-4:#6F6482; --tone-5:#8C7A4E; --tone-6:#4F6F73; --tone-7:#7A5F6B;
+
+  /* ---------- 2. Semânticas (tema claro) ---------- */
+  /* Superfícies, bordas e tinta: a base de toda tela. */
+  --bg:var(--paper-50); --surface:var(--paper-0); --surface-2:var(--paper-100); --surface-3:var(--paper-150);
+  --panel:linear-gradient(180deg,var(--paper-150) 0%,var(--paper-150) 100%); /* moldura e menu: a mesa em volta da folha, um tom abaixo do fundo */
+  --line:rgba(18,19,17,.16); --line-strong:rgba(18,19,17,.36);
+  --line-controle:rgba(18,19,17,.52); /* borda de campo e caixa de marcar: 3:1 com o fundo, para achar o campo vazio */
+  --ink:var(--graphite-900); --ink-2:var(--graphite-800); --muted:var(--graphite-600);
+  --accent:var(--lime-300); --on-accent:var(--graphite-900); --accent-soft:var(--lime-50);
+  /* Marca (brand kit 0.2): a lima tem dois tons, a face (--accent) e o verso da fita. Tudo o que dobra mostra o verso. */
+  --marca-dobra:var(--lime-500); /* lima sombra, o verso da fita: a dobra do símbolo, o canto que o botão dobra e a orelha do cartão, igual nos dois temas */
+  --marca-azul:var(--blue-600); /* o azul da marca: fundo cheio e figura, nunca botão nem texto */
+  --marca-azul-noite:var(--blue-900); /* o fundo atrás do azul, em malha e folha de construção */
+  --ponto:var(--blue-500); /* ponto azul da cartela: etapa pronta no menu */
+  --dobra-do-botao:12px; /* canto que o botão principal dobra no hover e no foco: lima chapada parada, o verso em lima sombra aparece ao chegar (16/11/2026) */
+  --dobra-do-botao-p:9px; /* o mesmo canto no botão pequeno (32 px) */
+  --orelha:var(--s-5); /* tamanho do canto dobrado do cartão de lima */
+  /* Links e textos "de destaque": o limão nunca é cor de texto, então eles ficam em tinta. */
+  --accent-ink:var(--ink); --focus:var(--ink);
+  /* Seleção de texto: o trecho marcado com o mouse ou o dedo fica em limão com tinta escura, nos dois temas. */
+  --selecao:var(--lime-300); /* fundo do texto selecionado: um limão mais firme no claro, para aparecer sobre o papel branco */
+  --on-selecao:var(--graphite-900); /* texto selecionado: sempre tinta escura, porque o fundo é limão */
+  /* Ação: botão principal e o Origami. */
+  --btn:var(--lime-300); --on-btn:var(--graphite-900);
+  --ai:var(--graphite-900); --ai-soft:var(--lime-300); --ai-line:rgba(36,32,34,.18);
+  /* Progresso: trilho e barra dos medidores. */
+  --track:rgba(36,32,34,.12); --bar:var(--graphite-900);
+  /* Progresso de passos (ProgressoDePassos): apoio quieto, não protagonista. Seguem as bordas do tema, então valem no claro e no escuro. */
+  --passos-trilho:var(--line); /* trilho dos passos que faltam: quase sumindo */
+  --passos-feito:var(--line-strong); /* passos já vistos: tinta suave */
+  --passos-atual:var(--muted); /* passo atual: só um pouco mais presente */
+  /* Status: tinta, fundo suave e texto sobre o status. */
+  --ok:var(--green-700); --ok-soft:var(--green-100); --on-ok:var(--paper-0);
+  --warn:var(--amber-700); --warn-soft:var(--amber-100);
+  --bad:var(--red-700); --bad-soft:var(--red-100);
+  /* Sinais: bolinhas de status, medidores e indicadores. Iguais nos dois temas (são preenchimento). */
+  --signal-ok:var(--green-400); --signal-warn:var(--amber-400); --signal-live:var(--hue-coral);
+  /* Grade, palco e sombra base. */
+  --grid:rgba(36,32,34,.07);
+  --stage:var(--night-900); /* palco de vídeo e mídia, escuro nos dois temas */
+  /* Textura e profundidade: papel de verdade sobre a mesa, com a luz vindo de cima à esquerda (estudo "Papel com luz",
+     07/11/2026). Guia: DESIGN-SYSTEM.md › Textura e profundidade. */
+  --grao:.26; /* intensidade do grão no fundo e na moldura, de 0 a 1 (cartões e painéis levam metade); era .36 até a auditoria de 07/11/2026 */
+  --grao-papel:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.117'/%3E%3C/svg%3E"); /* o grão pronto para camada de fundo: ruído de papel (SVG feTurbulence) em ladrilho de 160 px, na intensidade --grao */
+  --grao-papel-leve:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.059'/%3E%3C/svg%3E"); /* metade do grão, para peças médias que se repetem (nós e tomadas nas placas) */
+  --luz-borda:transparent; /* brilho da borda de cima (inset 0 1px 0): a luz batendo na beirada do papel */
+  --luz-lime:transparent; /* o mesmo brilho sobre o limão, igual nos dois temas */
+  --sombra-tom-curto:rgba(18,19,17,.08); /* sombra de contato, colada embaixo da peça (quente e macia desde 09/11/2026; era 28,32,24 esverdeado) */
+  --sombra-tom-longo:rgba(18,19,17,.12); /* sombra longa e macia da luz de cima */
+  --sombra-tom-fundo:rgba(18,19,17,.26); /* sombra do que fica por cima de tudo */
+  --papel-espessura:rgba(18,19,17,.12); /* espessura do papel: fio de 1 px na beirada de baixo da peça elevada (0 1px 0), a lateral de uma folha grossa */
+  --sombra-tom-lime:color-mix(in srgb,var(--lime-700) 55%,transparent); /* sombra do limão: tingida de limão, nunca cinza */
+  /* Elevação: alturas de papel. Toda peça que levanta tem a luz na borda de cima, a espessura do papel na de baixo e a sombra em duas camadas (curta + longa). */
+  --sombra-controle:0 1px 0 var(--papel-espessura); /* peças pequenas em repouso: botão secundário, selo, chip */
+  --sombra-repouso:0 0 0 0 transparent; /* cartão e painel deitados no fundo */
+  --sombra-repouso-emendada:0 0 0 0 transparent; /* corpo de cartão emendado sob um cabeçalho: o repouso sem a luz de cima, que viraria um fio na emenda */
+  --sombra-levantado:0 0 0 1px var(--line-strong),0 14px 28px -18px var(--sombra-tom-fundo); /* a folha sai da mesa: mouse por cima, peça agarrada, popover e menu */
+  --sombra-por-cima:0 0 0 1px var(--line-strong),0 28px 56px -24px var(--sombra-tom-fundo); /* modal, folha e aviso: por cima de tudo */
+  --sombra-controle-alta:0 0 0 1px var(--line-strong); /* peça pequena com o mouse por cima: sobe um pouco */
+  --sombra-afundada:0 0 0 0 transparent; /* campo, trilho e interruptor afundam no papel */
+  --sombra-lime:0 0 0 0 transparent; /* limão com volume: luz no topo e a sombra limão embaixo */
+  --sombra-esfera:0 0 0 0 transparent; /* esfera limão (Origami): sombra própria embaixo à direita e brilho em cima à esquerda */
+  --sombra-destaque:0 0 0 0 transparent; /* cartão de destaque limão: a sombra puxa para o limão */
+  --sombra-lime-alta:0 0 0 1px var(--lime-500); /* o limão com o mouse por cima */
+  /* Superfícies com luz: degradês claros em cima e à esquerda, de onde vem a luz. */
+  --fundo-pagina:var(--bg); /* área de trabalho do estúdio e fundo das páginas: a folha de papel sobre a mesa (a moldura, --panel) */
+  --fundo-cartao:var(--surface); /* cartão, painel e modal: começam em branco, claramente mais claros que o fundo */
+  --fundo-controle:var(--surface); /* botão secundário, selo e chip */
+  --fundo-afundado:rgba(18,19,17,.05); /* campo, busca e trilho: um pouco mais escuro que o papel em volta (translúcido, afunda em qualquer superfície); a sombra da borda cai para dentro */
+  --folha:var(--paper-0); /* folha do roteiro: branca e lisa, sem grão, a peça mais clara da tela; no escuro, --night-600, claramente acima do cartão */
+  --fundo-menu-aberto:var(--grao-papel),var(--panel); /* menu que abre por cima (trilho aberto, modos avançados): o mesmo papel da moldura, com o grão */
+  --lime-volume:var(--lime-300); /* botão principal, etapa atual, interruptor ligado */
+  --lime-esfera:var(--lime-300); /* Origami e bolinhas limão: uma esfera com luz */
+  --esfera-clara:var(--paper-0); /* bolinha do interruptor */
+  --tinta-volume:var(--graphite-900); /* botão escuro e aviso: tinta com volume */
+  --esfera-tinta:var(--graphite-900); /* bolinha escura (interruptor de modo) */
+  --on-tinta:var(--light-150); /* texto sobre a tinta com volume */
+  --link-tinta:var(--lime-300); /* link sobre a tinta: limão só porque a tinta é escura; no escuro a tinta clareia e o link vira grafite */
+  --borda-cartao:var(--line); /* borda do cartão de papel: no claro a sombra recorta; no escuro um fio de luz */
+  --borda-lime:transparent; /* beirada do limão com volume */
+  --fundo-item-ativo:var(--fundo-controle); /* item ativo do menu (estúdio, Dobra e barra de baixo): papel levantado; no escuro, um tom acima da mesa */
+  --traco-ativo:var(--lime-500); /* traço limão na lateral do item ativo do menu (estúdio e Dobra): um limão mais firme, que aparece sobre o papel branco; no escuro, o limão claro */
+  /* Sombras de sempre (popover, modal, botão de borda da placa): agora apontam para a elevação. */
+  --pop:var(--sombra-levantado);
+  --float:var(--sombra-por-cima);
+  --lift:0 1px 2px var(--sombra-tom-curto),0 6px 14px -4px var(--sombra-tom-fundo);
+  /* Botões dentro do cartão limão: brancos nos dois temas. */
+  --on-lime-btn:var(--paper-0); /* FUNDO do botão que fica sobre o limão (não é cor de texto: o texto dele é --on-accent) */
+  --on-lime-line:rgba(36,32,34,.18); /* borda desse botão sobre o limão */
+  /* Cursor de avião: papel branco com contorno de tinta, igual nos dois temas (aparece sobre qualquer fundo). */
+  --cursor-papel:var(--paper-0); --cursor-tinta:var(--graphite-900);
+  --cursor-rastro:rgba(26,26,26,.64); /* fios do rastro de voo, que as asas deixam só no movimento rápido */
+  --cursor-papel-meio:var(--paper-50); --cursor-papel-sombra:var(--paper-150); /* luz do papel do cursor: o meio e a sombra do degradê (o claro é --cursor-papel), iguais nos dois temas */
+  --cursor-papel-faceta:color-mix(in srgb,var(--paper-300) 86%,var(--graphite-500)); --cursor-papel-vinco:color-mix(in srgb,var(--paper-300) 70%,var(--graphite-500)); /* facetas da bolinha de papel low-poly: a média e a mais funda (as claras usam --cursor-papel e --cursor-papel-sombra) */
+  --cursor-realce:rgba(26,26,26,.08); /* realce do ímã: o elemento encaixado tingido de leve */
+  --cursor-realce-borda:rgba(26,26,26,.1);
+  /* Texto e ícones sobre foto, vídeo ou palco escuro: claros nos dois temas. */
+  --on-media:var(--light-150); --on-media-soft:var(--light-100);
+  --media-bg:var(--night-950);
+  --veu-midia:linear-gradient(transparent,color-mix(in srgb,var(--night-950) 72%,transparent)); /* véu escuro que sobe da base da foto ou do vídeo, para ações e texto claro por cima: igual nos dois temas */
+  /* Editor de roteiro: texto fantasma (sugestão), trecho do co-autor ainda não aceito e o cursor do Origami na página. */
+  --ghost-ink:color-mix(in srgb,var(--ink) 38%,transparent);
+  --pending-bg:var(--accent-soft); --pending-line:var(--ink-2);
+  --coautor:var(--graphite-900); --on-coautor:var(--paper-0);
+  /* Recuos do roteiro (o texto gravado tem espaços; a tela desenha o recuo). O celular redefine em porcentagem. */
+  --el-indent-personagem:20ch; --el-indent-parentese:15ch; --el-indent-fala:10ch; --el-indent-fala-dir:8ch;
+  /* Impressão: a folha que vai para o papel ou para o PDF (FolhaDeImpressao). Papel branco e tinta preta nos dois temas: a impressão não segue o tema. */
+  --impressao-papel:var(--paper-0); /* fundo da folha impressa */
+  --impressao-tinta:var(--night-1000); /* texto da folha impressa */
+  --impressao-apoio:var(--graphite-600); /* rótulos, rodapé e metadados da folha */
+  --impressao-linha:var(--paper-300); /* fios e borda do quadro vazio */
+  --impressao-quadro-vazio:var(--paper-100); /* fundo do quadro sem imagem */
+  --impressao-roteiro:'Geist Mono',ui-monospace,Menlo,monospace; /* a fonte da folha de roteiro: Geist Mono, desde 11/11/2026 (antes Courier Prime 12 pt) */
+  /* Véu: atrás de modais e folhas. */
+  --scrim:rgba(12,13,11,.66); --scrim-strong:rgba(12,13,11,.75);
+  /* App instalado na tela de início: cor da barra do sistema (no iPhone, também a da barra de status no tema claro). */
+  --system-bar:var(--paper-150); /* cor da barra do navegador e do Android (theme-color): o topo do fundo do estúdio */
+  /* Placa de nós (Storyboard/Movimento): fundo e anel dos botões de borda. */
+  --board-bg:linear-gradient(180deg,var(--paper-150) 0%,var(--paper-150) 100%);
+  --board-ring:var(--paper-150);
+  /* portas tipadas do canvas (Explorar): a cor da porta é a cor da ligação; iguais nos dois temas */
+  --port-text:var(--hue-violet); --port-image:var(--hue-teal);
+  /* Placa de nós: medidas. */
+  --board-gap:100px; /* distância entre colunas de nós: as ligações são desenhadas a partir dela */
+  --no-largura:300px; /* nó do Explorar que não gera (texto, imagem, nós do projeto): a coluna de referências das placas, com folga para o texto */
+  --no-largura-gerador:380px; /* nó do Explorar que gera (Gerar imagem e vídeo): a largura do take nas placas */
+  --midia-em-pe-largura:240px; /* mídia em pé (9:16, 3:4) sozinha na conversa do Origami: na largura toda ficaria mais alta que a conversa */
+  --midia-em-pe-coluna:136px; /* coluna da grade de mídias em pé na conversa larga do Origami: cabem quatro ou cinco por linha */
+  --midia-quadrada-largura:320px; /* mídia 1:1 sozinha na conversa do Origami */
+  --no-rotulo:24px; /* rótulo mono acima do cartão mais o vão até ele (nós do Explorar que não geram): as portas contam a partir daqui */
+  --no-cabeca:72px; /* cabeçalho do nó do Explorar que gera (o do cartão Movimento: título, subtítulo e selo): as portas ficam na metade dela */
+  /* Menu "…" dos takes. */
+  --menu-bg:var(--paper-0); --menu-ink:var(--graphite-900); --menu-dim:var(--graphite-500);
+  --menu-line:rgba(26,26,26,.1); --menu-hover:rgba(26,26,26,.05); --menu-border:rgba(26,26,26,.14);
+  /* Botão "…": limão no claro, na cor do menu no escuro. */
+  --menu-btn:var(--accent); --menu-btn-ink:var(--graphite-900);
+  --menu-btn-shadow:0 0 0 5px var(--board-ring),0 0 0 6px color-mix(in srgb,var(--accent) 30%,transparent),var(--lift);
+  /* Partícula de crédito: núcleo na tinta e halo limão. Só preenchimento, nunca cor de texto (o limão claro some no branco). */
+  --credito-nucleo:var(--ink); /* miolo da partícula: o contraste vem da tinta, nos dois temas */
+  --credito-halo:var(--lime-500); /* halo e rastro: limão escuro no claro, limão claro no escuro */
+  --credito-brilho:color-mix(in srgb,var(--lime-700) 40%,transparent); /* anel do botão que recebe energia (--carga) */
+  --credito-reflexo:rgba(255,255,255,.7); /* reflexo que passa pelo botão limão enquanto carrega */
+  --credito-vaga:var(--muted); /* contorno de pontos em volta do botão quando o saldo não cobre */
+  /* Trilhas da Montagem. */
+  --lane-falas:var(--hue-violet); --lane-efeitos:var(--hue-green); --lane-ambiencia:var(--hue-amber);
+  --lane-musica:var(--hue-olive); --lane-textos:var(--hue-slate);
+
+  /* ---------- 3. Escalas ---------- */
+  /* Tipografia */
+  --display:'Geologica','Helvetica Neue',Arial,sans-serif; /* títulos: Archivo desde 13/11/2026 (antes a Geist), pesos 400 e 500 na largura normal; a largura variável (62% a 125%) fica para o site */
+  --body:'Onest','Helvetica Neue',Arial,sans-serif; /* texto de interface e de leitura: a mesma Archivo, com algarismos tabulares onde o número muda (tabular-nums) */
+  --mono:'Geist Mono',ui-monospace,Menlo,monospace; /* números miúdos, rótulos em caixa alta e detalhes técnicos */
+  --script:'Geist Mono','Courier New',monospace;
+  /* Escala de tamanhos. 13 é o texto de interface; 14 o corpo de leitura; 10 o rótulo mono. */
+  --fs-2xs:10px;  /* rótulo mono em caixa alta, selos */
+  --fs-xs:11px;   /* mono de detalhe técnico, legenda de mídia */
+  --fs-sm:12px;   /* texto de apoio, metadados */
+  --fs-md:13px;   /* interface: botões pequenos, listas, campos */
+  --fs-base:14px; /* corpo de leitura, botões, lede */
+  --fs-lg:16px;   /* título de cartão (h3), nome de item */
+  --fs-xl:20px;   /* subtítulo, marca */
+  --fs-2xl:24px;  /* título de modal, botão grande */
+  --fs-3xl:28px;  /* h2, número do crédito */
+  --fs-4xl:32px;  /* número de destaque pequeno */
+  --fs-5xl:48px;  /* título da tela no celular */
+  --fs-6xl:56px;  /* número do herói */
+  --fs-hero:76px; /* título da tela */
+  /* Linha e letra: altura de linha e espaçamento entre letras. */
+  --lh-tight:1.1; /* títulos: 1.15 desde a troca para a Archivo (13/11/2026; era 1.1 na Geist) */
+  --lh-snug:1.3; --lh-normal:1.45; --lh-loose:1.6;
+  --track-hero:-.045em; /* número e título de 48 px para cima: a Archivo encosta as letras abaixo disso (a Geist usava -.055em) */
+  --track-tight:-.035em; /* títulos de 20 a 32 px (era -.045em na Geist): abaixo disso o espaço entre as palavras da Archivo some */
+  --track-snug:-.02em; --track-caps:.07em;
+
+  /* Espaço: grade de 8, com meio-passo de 4 para dentro de componentes.
+     1 e 2 px só para ajuste óptico (bordas, sublinhados), nunca para ritmo. */
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:24px; --s-6:32px; --s-7:40px; --s-8:48px; --s-9:64px; --s-10:80px;
+  /* Fluidos: crescem com a largura da tela, entre dois degraus da escala. */
+  --margem-tela:clamp(var(--s-4),4vw,var(--s-6)); /* respiro lateral das telas: 16 px no celular, 32 px a partir de 800 px */
+  --fs-titulo-tela:clamp(var(--fs-3xl),.6vw + 26px,var(--fs-4xl)); /* título de tela que cresce com a largura: 28 px em 360, 32 px a partir de ~1000 px */
+
+  /* Alturas de controle: botões, chips e campos, também na grade de 8. */
+  --h-xs:24px; --h-sm:32px; --h-md:40px; --h-lg:48px;
+  /* Alvo mínimo de toque (placas de nós e controles soltos com o dedo). */
+  --hit:44px;
+  /* Área segura: o recorte da câmera, a barra de status e o indicador de início do celular (app na tela de início e
+     navegador com viewport-fit=cover). Fora do celular valem zero. Use estes no lugar de env(safe-area-inset-*). */
+  --seguro-topo:env(safe-area-inset-top,0px); /* barra de status e recorte da câmera */
+  --seguro-baixo:env(safe-area-inset-bottom,0px); /* indicador de início do iPhone */
+  --seguro-esq:env(safe-area-inset-left,0px); /* recorte da câmera com o celular deitado */
+  --seguro-dir:env(safe-area-inset-right,0px); /* o mesmo, do outro lado */
+  /* Traço fino de indicador de apoio. */
+  --passos-espessura:2px; /* espessura da linha do ProgressoDePassos */
+  /* Ícone ao lado de um rótulo: pequeno e apagado, só para bater o olho. */
+  --icone-rotulo:14px; /* Ícone do tipo de ajuste ao lado do rótulo nos cartões de nós (RotuloDoAjuste) */
+  /* Controles juntos: opções de um grupo e campo com botão ao lado. */
+  --gap-segmentos:var(--s-2); /* Espaço entre as opções de um grupo de escolha (.chips): nunca encostadas */
+  --h-controle:var(--h-md); /* Altura comum de campo e botão lado a lado (.campo-acao) e do X de fechar */
+  /* Ritmo dos controles: o ícone acompanha a altura do controle, e a distância diz quem anda junto. */
+  --icone-controle-p:14px; /* Ícone dentro de controle pequeno (32 px): cartão, nó, linha de lista */
+  --icone-controle-m:16px; /* Ícone dentro de controle médio (40 px): barra da etapa e ação do objeto */
+  --icone-controle-g:18px; /* Ícone dentro do controle de chegada (48 px), que fecha um painel */
+  --vao-no-grupo:var(--s-2); /* Distância entre controles do mesmo grupo de uma fileira */
+  --vao-entre-grupos:var(--s-4); /* Distância entre grupos de uma fileira (navegação, estado, ações): o dobro da de dentro */
+
+  /* Foco: o anel de quem anda pelo teclado, igual em toda peça. */
+  --foco-largura:2px; /* Espessura do anel de foco */
+  --foco-respiro:2px; /* Distância entre o anel de foco e a peça */
+  /* Desligado: o controle que não responde agora. Uma opacidade só, para o desligado ter a mesma cara em toda peça. */
+  --opacidade-desligado:.45; /* Opacidade de botão, campo e controle desligados (antes variava de .35 a .6 de peça para peça) */
+  /* Dica: o balão que nomeia um botão só de ícone ou ensina um atalho. */
+  --dica-espera:450ms; /* Quanto o ponteiro espera antes da primeira dica; no foco pelo teclado ela vem na hora */
+  --dica-largura:240px; /* Largura máxima do balão da dica */
+  --ajuda-largura:320px; /* Largura máxima do balão quando leva a frase da Ajuda */
+  /* Interruptor: liga e desliga com efeito na hora. */
+  --interruptor-largura:36px; /* Trilho do interruptor */
+  --interruptor-altura:20px; /* Altura do trilho do interruptor */
+  --interruptor-largura-p:28px; /* Trilho do interruptor pequeno, para barras de ferramenta e painéis densos */
+  --interruptor-altura-p:16px; /* Altura do trilho do interruptor pequeno */
+
+  /* Raios. Cartões e controles 6; painéis 10; selos 3; pílulas inteiras. */
+  --r-xs:2px; --r-tag:3px; --r-sm:4px; --r-card:6px; --r-md:8px; --r-panel:10px; --r-lg:16px; --r-pill:999px;
+
+  /* Movimento. Ver docs/estudio/DESIGN-SYSTEM.md › Movimento. */
+  --dur-instant:100ms;  /* troca de cor em hover rápido */
+  --dur-fast:150ms;     /* hover, foco, sair */
+  --dur-base:200ms;     /* troca de estado: cor, borda, opacidade */
+  --dur-moderate:320ms; /* abrir, expandir, popover, troca de modo */
+  --dur-slow:480ms;     /* entrada de tela, deslizar, indicador do menu */
+  --dur-slower:720ms;   /* barras de progresso, revelar mídia */
+  --dur-pan:950ms;      /* câmera da placa de nós */
+  --stagger:48ms;       /* atraso entre itens que entram em cascata */
+  --ease:cubic-bezier(.2,.8,.2,1);      /* padrão: sai rápido, assenta devagar */
+  --ease-out:var(--ease);
+  --ease-in:cubic-bezier(.4,0,1,1);     /* só para sair de cena */
+  --ease-in-out:cubic-bezier(.45,0,.55,1); /* loops e vaivém */
+  --spring:cubic-bezier(.34,1.56,.64,1); /* toque, pop, confirmação: passa um pouco e volta */
+  --snap:cubic-bezier(.2,.9,.3,1);       /* menus que crescem do ponto de origem, sem quique */
+  /* Personalidade "Quieto com pouso": entra subindo pouco e aparece; cartão, aviso e folha assentam passando 2% e voltando. Ver docs/estudio/DESIGN-SYSTEM.md › Movimento. */
+  --dur-quieto:280ms;   /* entrada quieta: sobe --mov-sobe e aparece; texto entra em foco por linha */
+  --dur-sair:140ms;     /* saída: sobe --mov-sai e some */
+  --dur-pouso:450ms;    /* cartão, aviso e folha assentando com --ease-pouso */
+  --mov-sobe:8px;       /* quanto a entrada sobe */
+  --mov-sai:4px;        /* quanto a saída sobe */
+  --mov-foco:4px;       /* desfoque do texto antes de entrar em foco */
+  --mov-afunda:.97;     /* escala do clique: afunda 3% e volta com --spring */
+  --ease-quieto:cubic-bezier(.33,1,.68,1); /* entrada quieta, sem quique */
+  --ease-pouso:cubic-bezier(.2,1.25,.4,1); /* passa ~2% do alvo e volta: papel assentando */
+  --ease-suave:cubic-bezier(.22,.61,.36,1); /* partículas que preenchem devagar (saldo insuficiente) */
+
+  /* Camadas: a ordem fixa do que fica por cima. Dentro de uma peça bastam --z-base e --z-raised; os degraus de cima
+     valem para a tela inteira. Não use número solto: escolha o degrau pelo papel da peça. */
+  --z-base:1; /* dentro da peça: a camada de cima do conteúdo (selo sobre a imagem) */
+  --z-raised:2; /* dentro da peça: o que fica sobre o selo (botão no canto, X de fechar) */
+  --z-sticky:5; /* cabeçalho e rodapé grudados que rolam junto com a área */
+  --z-pop:20; /* menu da Dobra fechado e véus dentro de uma área */
+  --z-erguido:30; /* peça agarrada ou assentando na placa e o popover preso a um botão (.pop) */
+  --z-flutuante:40; /* o que flutua sobre a tela de trabalho: Origami em janela, escolha de formato */
+  --z-controle-fixo:45; /* controle fixo no canto da tela, acima do Origami flutuante */
+  --z-overlay:50; /* folha lateral e inspetor da Dobra */
+  --z-trilho:60; /* casca do estúdio por cima do conteúdo: o trilho do menu que se abre, barras fixas, presença ao vivo */
+  --z-modal:65; /* véu e modal (.scrim) */
+  --z-folha:66; /* folha que sobe ou cobre a tela no celular, acima do trilho e do véu: Origami no celular, painéis da Montagem compacta, estreia da exportação */
+  --z-popover:70; /* balão fixo que abre de um botão, também dentro de um modal: confirmar, cor, menu do roteiro */
+  --z-toast:75; /* aviso de baixo (#toast) e o "copiado" da Dobra */
+  --z-lista:80; /* lista que abre em portal (seletor, tipo de plano, menções): acima do aviso */
+  --z-seletor:90; /* seletor de modelos em camada própria, acima das listas de outro modal */
+  --z-dica:95; /* dica de um botão, acima de qualquer lista ou seletor aberto */
+  --z-cursor:1000; /* o cursor de avião, por cima de tudo (até das listas que abrem em portal) */
+
+  /* Esqueleto do redesign 2026 (docs/estudio/REDESIGN.md): área de trabalho arredondada, menu, painel e barra. */
+  --r-xl:20px;
+  --sidebar-w:232px; --rail-w:64px; --inspector-w:320px; --topbar-h:64px; --bottombar-h:64px;
+  /* Cartão de destaque (um por tela, no máximo): o limão se espalhando a partir do canto. */
+  --lime-glow:var(--lime-300);
+
+  color-scheme:light;
+}
+/* ---------- Tema escuro (bloco duplicado: manter os dois iguais) ---------- */
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:var(--night-900); --surface:var(--night-800); --surface-2:var(--night-700); --surface-3:var(--night-650);
+  --panel:linear-gradient(180deg,var(--night-green-700) 0%,var(--night-green-700) 100%);
+  --line:rgba(241,239,232,.16); --line-strong:rgba(241,239,232,.38); --line-controle:rgba(241,239,232,.46);
+  --ink:var(--light-100); --ink-2:var(--light-400); --muted:var(--light-600);
+  --accent:var(--lime-300); --on-accent:var(--graphite-900); --accent-soft:rgba(228,246,92,.12);
+  --selecao:var(--lime-300); --ponto:var(--blue-400);
+  --btn:var(--lime-300); --on-btn:var(--graphite-900);
+  --ai:var(--graphite-900); --ai-soft:var(--lime-300); --ai-line:transparent;
+  --track:rgba(255,255,255,.12); --bar:var(--lime-300);
+  --ok:var(--green-400); --ok-soft:var(--green-950); --on-ok:var(--green-990);
+  --warn:var(--amber-400); --warn-soft:var(--amber-950); --bad:var(--red-400); --bad-soft:var(--red-950);
+  --grid:rgba(255,255,255,.06);
+  --stage:var(--night-1000);
+  --grao:.2; --luz-borda:transparent; --papel-espessura:rgba(0,0,0,.55);
+  --grao-papel:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.09'/%3E%3C/svg%3E");
+  --grao-papel-leve:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.045'/%3E%3C/svg%3E");
+  --sombra-tom-curto:rgba(0,0,0,.32); --sombra-tom-longo:rgba(0,0,0,.42); --sombra-tom-fundo:rgba(0,0,0,.6);
+  --fundo-pagina:var(--bg);
+  --fundo-cartao:var(--surface);
+  --fundo-controle:var(--surface-2);
+  --fundo-afundado:rgba(241,239,232,.06);
+  --folha:var(--night-600); --fundo-menu-aberto:var(--surface);
+  --fundo-item-ativo:var(--surface-2); --traco-ativo:var(--lime-300);
+  --tinta-volume:var(--light-100);
+  --on-tinta:var(--graphite-900); --link-tinta:var(--graphite-900); --borda-cartao:var(--line);
+  --sombra-destaque:var(--sombra-repouso);
+  --board-bg:linear-gradient(180deg,var(--night-850) 0%,var(--night-850) 100%);
+  --board-ring:var(--night-850);
+  --menu-bg:var(--night-750); --menu-ink:var(--light-200); --menu-dim:var(--light-700);
+  --menu-line:rgba(255,255,255,.1); --menu-hover:rgba(255,255,255,.07); --menu-border:rgba(255,255,255,.14);
+  --menu-btn:var(--night-750); --menu-btn-ink:var(--light-200);
+  --menu-btn-shadow:0 0 0 5px var(--board-ring),0 0 0 6px rgba(255,255,255,.16),var(--lift);
+  --lime-glow:var(--lime-300);
+  --ghost-ink:color-mix(in srgb,var(--ink) 38%,transparent); --pending-line:var(--lime-300); --coautor:var(--lime-300); --on-coautor:var(--graphite-900);
+  --system-bar:var(--night-green-700);
+  --credito-halo:var(--lime-300); --credito-brilho:color-mix(in srgb,var(--lime-300) 35%,transparent);
+  --cursor-rastro:rgba(255,255,255,.7);
+  --cursor-realce:rgba(255,255,255,.1); --cursor-realce-borda:rgba(255,255,255,.14);
+  color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:var(--night-900); --surface:var(--night-800); --surface-2:var(--night-700); --surface-3:var(--night-650);
+  --panel:linear-gradient(180deg,var(--night-green-700) 0%,var(--night-green-700) 100%);
+  --line:rgba(241,239,232,.16); --line-strong:rgba(241,239,232,.38); --line-controle:rgba(241,239,232,.46);
+  --ink:var(--light-100); --ink-2:var(--light-400); --muted:var(--light-600);
+  --accent:var(--lime-300); --on-accent:var(--graphite-900); --accent-soft:rgba(228,246,92,.12);
+  --selecao:var(--lime-300); --ponto:var(--blue-400);
+  --btn:var(--lime-300); --on-btn:var(--graphite-900);
+  --ai:var(--graphite-900); --ai-soft:var(--lime-300); --ai-line:transparent;
+  --track:rgba(255,255,255,.12); --bar:var(--lime-300);
+  --ok:var(--green-400); --ok-soft:var(--green-950); --on-ok:var(--green-990);
+  --warn:var(--amber-400); --warn-soft:var(--amber-950); --bad:var(--red-400); --bad-soft:var(--red-950);
+  --grid:rgba(255,255,255,.06);
+  --stage:var(--night-1000);
+  --grao:.2; --luz-borda:transparent; --papel-espessura:rgba(0,0,0,.55);
+  --grao-papel:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.09'/%3E%3C/svg%3E");
+  --grao-papel-leve:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.045'/%3E%3C/svg%3E");
+  --sombra-tom-curto:rgba(0,0,0,.32); --sombra-tom-longo:rgba(0,0,0,.42); --sombra-tom-fundo:rgba(0,0,0,.6);
+  --fundo-pagina:var(--bg);
+  --fundo-cartao:var(--surface);
+  --fundo-controle:var(--surface-2);
+  --fundo-afundado:rgba(241,239,232,.06);
+  --folha:var(--night-600); --fundo-menu-aberto:var(--surface);
+  --fundo-item-ativo:var(--surface-2); --traco-ativo:var(--lime-300);
+  --tinta-volume:var(--light-100);
+  --on-tinta:var(--graphite-900); --link-tinta:var(--graphite-900); --borda-cartao:var(--line);
+  --sombra-destaque:var(--sombra-repouso);
+  --board-bg:linear-gradient(180deg,var(--night-850) 0%,var(--night-850) 100%);
+  --board-ring:var(--night-850);
+  --menu-bg:var(--night-750); --menu-ink:var(--light-200); --menu-dim:var(--light-700);
+  --menu-line:rgba(255,255,255,.1); --menu-hover:rgba(255,255,255,.07); --menu-border:rgba(255,255,255,.14);
+  --menu-btn:var(--night-750); --menu-btn-ink:var(--light-200);
+  --menu-btn-shadow:0 0 0 5px var(--board-ring),0 0 0 6px rgba(255,255,255,.16),var(--lift);
+  --lime-glow:var(--lime-300);
+  --ghost-ink:color-mix(in srgb,var(--ink) 38%,transparent); --pending-line:var(--lime-300); --coautor:var(--lime-300); --on-coautor:var(--graphite-900);
+  --system-bar:var(--night-green-700);
+  --credito-halo:var(--lime-300); --credito-brilho:color-mix(in srgb,var(--lime-300) 35%,transparent);
+  --cursor-rastro:rgba(255,255,255,.7);
+  --cursor-realce:rgba(255,255,255,.1); --cursor-realce-borda:rgba(255,255,255,.14);
+  color-scheme:dark;}
+/* Sobre o limão o texto é sempre escuro, nos dois temas: quem fica dentro destas superfícies herda
+   tinta, apoio e status próprios do limão (todos acima de 6:1). Botão desligado sai do limão
+   (fundo --surface-2), então volta à tinta do tema. */
+.sugc,.btn.p:not(:disabled),.pill.ac,.pill.ai,.tag,.navchip,.script .mark,
+.chipb[aria-pressed="true"],.dirlbl[aria-pressed="true"],.viewtog button[aria-pressed="true"],
+.pop .it[aria-selected="true"] .n,.v2-lime,.dobra-heroi,.btn.offline-on,.segtabs button[aria-selected="true"],.cop-pill .unread{
+  --ink:var(--graphite-900); --ink-2:var(--graphite-800); --muted:var(--graphite-700);
+  --ok:var(--green-700); --warn:var(--amber-700); --bad:var(--red-700);
+  --line:rgba(18,19,17,.16); --line-strong:rgba(18,19,17,.36);
+  color:var(--ink);
+}
+/* Cartão de lima (destaque da tela e herói da Dobra): lima chapada nos dois temas. O que mora dentro dele é papel claro,
+   para a tinta escura nunca cair sobre uma superfície do tema escuro. */
+.v2-lime,.dobra-heroi{
+  --surface:var(--paper-0); --surface-2:var(--paper-100); --surface-3:var(--paper-150);
+  --fundo-cartao:var(--paper-0); --fundo-controle:var(--paper-0); --fundo-item-ativo:var(--paper-0);
+  --track:rgba(18,19,17,.16); --bar:var(--graphite-900);
+}
+
+/* Telas do estúdio no brand kit 0.2: lima chapada, papel liso, Geologica nos títulos e Onest no texto. */
+body{font-family:var(--body)}
+.sim-digitando{caret-color:var(--lime-500)}
