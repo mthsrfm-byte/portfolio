@@ -80,6 +80,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.44.4 =
+* Home: o menu fixo sobre blocos escuros fica preto sólido, sem o cinza translúcido.
+
 = 3.44.3 =
 * Home: scroll dos cases liso, sem pisca. Os nove cards ficam empilhados (sticky) e todos continuavam desenhando por baixo: o chão 3D de cada um (três grades inclinadas com blur e máscara) era refeito a cada quadro e os mockups rodavam ~110 animações em loop ao mesmo tempo.
 * O chão agora é desenhado uma vez num canvas, com a mesma conta do CSS, e entra como imagem plana (o CSS fica de reserva).

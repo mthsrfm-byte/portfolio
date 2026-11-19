@@ -160,3 +160,6 @@ html.cv-on .site-header::after{left:0!important;right:0!important;bottom:0!impor
 /* over dark blocks the bar turns ink (v2's tint layer), full width like the bar itself; never on the static top menu */
 html.cv-on .site-header>.v2-pill-tint{inset:0!important;border-radius:0!important}
 html.cv-on .site-header:not(.cv-bar)>.v2-pill-tint{opacity:0!important}
+/* 3.44.4 · home bar over dark blocks: plain ink, not the translucent grey (light bar + tint stacked) */
+html.cv-on .site-header.cv-bar:is(.v2-dark,.hdr-escuro)::before{background:#111110!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;box-shadow:0 1px 0 rgba(239,238,232,.08)!important}
+html.cv-on .site-header.cv-bar:is(.v2-dark,.hdr-escuro)>.v2-pill-tint{background:#111110}
