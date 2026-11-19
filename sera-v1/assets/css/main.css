@@ -219,6 +219,7 @@ button{font:inherit;color:inherit}
 .read .arrow .ico{width:16px;height:16px}
 .case-card:hover .read .arrow{transform:rotate(-45deg)}
 .draft-badge{position:absolute;top:16px;right:16px;z-index:6;font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;background:#FFF3C4;color:#6B4E00;border:1px solid #F0D98A;padding:5px 9px;border-radius:999px}
+.cases .draft-badge{display:none}
 
 /* more work rows */
 .more-work{margin-top:56px;border-top:1px solid var(--ink)}
