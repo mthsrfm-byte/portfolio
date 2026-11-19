@@ -80,6 +80,17 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.42.6 =
+* Capa: clicar no rosto só solta a onda quando o busto está em 3D realista; nas outras fases o clique não interrompe a coreografia.
+* Header da home no topo: sem o nome à esquerda, menu + idioma + Let's talk juntos e centralizados, na largura do logo; ao rolar eles deslizam para o layout normal.
+* Header da home rolado: barra de ponta a ponta no topo, sem a pílula flutuante.
+* Scroll: a transição busto → grãos → logo do menu começa e termina ~30% mais tarde.
+* Grãos contornam os textos (capa e menu) de forma líquida, inclusive durante o voo até o logo.
+* Sem contorno preto ao clicar na página (foco do <main>).
+
+= 3.42.5 =
+* Capa: se o 3D não carregar, entra a foto original do escaneamento (assets/img/cover-fallback.webp, sem fundo) no mesmo lugar do busto, na frente do logo.
+
 = 3.42.4 =
 * Capa: o celular acha o modelo leve mesmo quando o servidor entrega uma cópia antiga da página em cache.
 

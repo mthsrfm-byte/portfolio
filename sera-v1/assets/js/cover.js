@@ -21,10 +21,28 @@ function paintHud() {
   hud.textContent = ['cover debug', 'loaded ' + (diag.loaded / 1048576).toFixed(2) + ' / ' + (diag.total / 1048576).toFixed(2) + ' MB'].concat(diag.steps.slice(-14), [diag.ua]).join('\n');
 }
 let failed = false;
+/* the fallback photo sits exactly in the bust's box, whatever layout is active */
+function placePhoto() {
+  const ph = cvRoot.querySelector('.cv-photo'), bx = cvRoot.querySelector('#bustBox');
+  if (!ph || !bx) return;
+  const c = cvRoot.getBoundingClientRect();
+  ph.style.transform = 'none';
+  if (window.matchMedia('(max-aspect-ratio:4/5),(max-width:760px)').matches) {
+    // stacked layout: the cap cuts into the logo's lower edge, the chin clears the headline (photo: cap top 1%, chin 53%)
+    const L = cvRoot.querySelector('.mast svg').getBoundingClientRect().bottom - c.top, S = cvRoot.querySelector('.c3').getBoundingClientRect().top - c.top - 14;
+    const hgt = Math.max(140, Math.min((S - L) / (.53 - .06), c.width * 1.1)), top = L - .06 * hgt;
+    ph.style.left = ((c.width - hgt) / 2) + 'px'; ph.style.top = top + 'px'; ph.style.width = hgt + 'px'; ph.style.height = hgt + 'px';
+    return;
+  }
+  const r = bx.getBoundingClientRect();
+  ph.style.left = (r.left - c.left) + 'px'; ph.style.top = (r.top - c.top) + 'px';
+  ph.style.width = r.width + 'px'; ph.style.height = r.height + 'px';
+}
+window.addEventListener('resize', () => { if (cvRoot.classList.contains('cv-fallback')) placePhoto(); });
 function cvFail(why) {
   note('FAIL ' + why);
   if (failed) return; failed = true;
-  cvRoot.classList.add('cv-fallback');
+  cvRoot.classList.add('cv-fallback'); placePhoto();
   try { console.error('[cover]', why); } catch (e) {}
 }
 window.addEventListener('error', e => { if (!failed && e && e.filename && /cover\.js|three/.test(e.filename)) cvFail('error: ' + e.message + ' @' + (e.lineno || '')); });
@@ -68,7 +86,7 @@ const U = {
   uInk: { value: col(0x111110) }, uPaper: { value: col(0xEEEBE3) }, uStone: { value: col(0xDCD7CA) },
   uTeal: { value: col(0x0B5F63) }, uTealLt: { value: col(0x8CC9C2) },
   uRigWorld: { value: new THREE.Matrix4() }, uHeadC: { value: new THREE.Vector3(0, 0.3, 0) },
-  uB: { value: 0 }, uS: { value: 0 }, uG: { value: 0 }, uSpin: { value: 0 }, uInkMix: { value: 0 }, uAlpha: { value: 1 }, uCamD: { value: 1 }, uToH: { value: 0 }, uFromH: { value: 0 }, uLogoH: { value: new THREE.Vector4() }, uDotH: { value: 1.5 }, tMaze: { value: null }, tLogo: { value: null }, uLogo: { value: new THREE.Vector4() }, uMaze: { value: 0 }, uRet: { value: 0 }, uVar: { value: 0 }, uBound: { value: 0.56 }, uDot: { value: 3 }, uLock: { value: -1 }, uSolve: { value: -1 }, uWaveV: { value: 0.11 }, uWaveF: { value: 0.6 }, uMask: { value: Array.from({ length: 16 }, () => new THREE.Vector4()) }, uMaskPad: { value: 28 },
+  uB: { value: 0 }, uS: { value: 0 }, uG: { value: 0 }, uSpin: { value: 0 }, uInkMix: { value: 0 }, uAlpha: { value: 1 }, uCamD: { value: 1 }, uToH: { value: 0 }, uFromH: { value: 0 }, uLogoH: { value: new THREE.Vector4() }, uDotH: { value: 1.5 }, tMaze: { value: null }, tLogo: { value: null }, uLogo: { value: new THREE.Vector4() }, uMaze: { value: 0 }, uRet: { value: 0 }, uVar: { value: 0 }, uBound: { value: 0.56 }, uDot: { value: 3 }, uLock: { value: -1 }, uSolve: { value: -1 }, uWaveV: { value: 0.11 }, uWaveF: { value: 0.6 }, uMask: { value: Array.from({ length: 24 }, () => new THREE.Vector4()) }, uMaskPad: { value: 28 },
   uHit: { value: Array.from({ length: 8 }, () => new THREE.Vector4(0, 0, 0, -99)) }, uHitK: { value: new Array(8).fill(0) }
 };
 
@@ -248,7 +266,7 @@ const SHOW_V = VH + `
 uniform mat4 uRigWorld; uniform vec3 uHeadC; uniform float uB; uniform float uS; uniform float uG; uniform float uSpin; uniform float uCamD;
 varying float vRnd; varying float vFar; varying float vClear; varying float vGeo; varying float vMz; varying float vHide; varying float vArr; varying float vSq; varying float vGlow; varying float vTh;
 uniform sampler2D tMaze; uniform sampler2D tLogo; uniform vec4 uLogo; uniform float uMaze; uniform float uRet; uniform float uVar; uniform float uBound; uniform float uDot; uniform float uLock; uniform float uToH; uniform float uFromH; uniform vec4 uLogoH; uniform float uDotH;
-uniform vec4 uMask[16]; uniform float uMaskPad;
+uniform vec4 uMask[24]; uniform float uMaskPad;
 float vnoise(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3. - 2. * f);
   float a = fract(sin(dot(i, vec2(127.1, 311.7))) * 43758.5), b = fract(sin(dot(i + vec2(1, 0), vec2(127.1, 311.7))) * 43758.5);
   float c = fract(sin(dot(i + vec2(0, 1), vec2(127.1, 311.7))) * 43758.5), d = fract(sin(dot(i + vec2(1, 1), vec2(127.1, 311.7))) * 43758.5);
@@ -256,7 +274,7 @@ float vnoise(vec2 p){ vec2 i = floor(p), f = fract(p); f = f * f * (3. - 2. * f)
 // distance to the nearest reading block, as soft rounded shapes
 float textField(vec2 p){
   float m = 1e5;
-  for (int i = 0; i < 16; i++) {
+  for (int i = 0; i < 24; i++) {
     vec4 r = uMask[i]; if (r.z <= r.x) continue;
     vec2 c = (r.xy + r.zw) * .5, h = (r.zw - r.xy) * .5;
     float rad = min(min(h.x, h.y), 36. * uDpr);
@@ -328,10 +346,13 @@ void main(){
   float d = textField(sp) + wob * uMaskPad;
   vec2 e = vec2(2. * uDpr, 0.);
   vec2 grad = normalize(vec2(textField(sp + e.xy) - textField(sp - e.xy), textField(sp + e.yx) - textField(sp - e.yx)) + 1e-5);
-  float push = smoothstep(uMaskPad * 1.6, -uMaskPad * .4, d) * uMaskPad * (.7 + .8 * rnd) * (1. - mk) * (1. - th);
-  sp += grad * push;
+  // liquid: dots are pushed out and also swirl along the edge, and keep doing it until they land in the header logo
+  float land = 1. - smoothstep(.86, 1., th);
+  float push = smoothstep(uMaskPad * 1.9, -uMaskPad * .4, d) * uMaskPad * (.7 + .8 * rnd) * (1. - mk) * land;
+  vec2 tng = vec2(-grad.y, grad.x) * ((rnd2 - .5) * 2. + .35 * sin(uTime * .9 + rnd * 6.2831));
+  sp += grad * push + tng * push * .75;
   gl_Position.xy = ((sp / uRes) * 2. - 1.) * gl_Position.w;
-  vClear = max(max(mk, th), smoothstep(-uMaskPad * .2, uMaskPad * .9, d + push * .55 + (rnd2 - .5) * uMaskPad * .8));
+  vClear = max(max(mk, 1. - land), smoothstep(-uMaskPad * .5, uMaskPad * 1.3, d + push * .55 + (rnd2 - .5) * uMaskPad * 1.1));
   gl_PointSize = clamp(uDpr * 1.75 * (uCamD / max(-mv.z, .05)) * (1. + .6 * rnd * uB * (1. - g)) * (1. - .45 * vFar), uDpr, 10. * uDpr);
   float szA = (1.7 + 1.6 * sin(3.1416 * r)) * uDpr;
   // B: a landed dot fills its whole cell, so the particle logo is the logo; then the cells shrink centre-out and it shows its grain
@@ -598,7 +619,7 @@ const LOGO_PITCH = 8.99 / 6;   // six cells per stroke, so the grid sits exactly
 
 /* ---------- reading text the particles avoid (device px, y up) ---------- */
 function measureText(cr) {
-  const els = [...cvRoot.querySelectorAll('.frame .cl > *, #chips, #how')];
+  const els = [...cvRoot.querySelectorAll('.frame .cl > *, #chips, #how')].concat([...document.querySelectorAll('.site-header .primary-nav a, .site-header .header-actions > *, .site-header .brand-name')]);
   const M = U.uMask.value; let i = 0;
   els.forEach(el => {
     if (i >= M.length) return;
@@ -663,7 +684,12 @@ window.addEventListener('pointermove', e => {
 }, { passive: true });
 document.addEventListener('pointerleave', () => { st.seen = false; readout.hidden = true; });
 cvRoot.addEventListener('pointerdown', e => {
-  if (isShow() && show.on) { show.pulseFrom = pick(e.clientX, e.clientY); startShow(); } st.px = e.clientX; st.py = e.clientY; st.seen = true; st.last = performance.now(); if (fx.id === 'pulso') dropAt(e.clientX, e.clientY, 1, 0); });
+  if (isShow() && show.on && !failed && !(sim.p > .004 || sim.formed || sim.rebuild >= 0)) {
+    // only while the bust is the realistic 3D photo, and only on the face: anything else leaves the choreography alone
+    const T = show.paused != null ? show.paused : ((performance.now() - show.t0) / 1000) % CYCLE;
+    const hit = (T < 1.0 || T >= 18.8) ? pick(e.clientX, e.clientY) : null;
+    if (hit) { show.pulseFrom = hit; startShow(); }
+  } st.px = e.clientX; st.py = e.clientY; st.seen = true; st.last = performance.now(); if (fx.id === 'pulso') dropAt(e.clientX, e.clientY, 1, 0); });
 
 /* ripples: raycast the face, store hits in rig space (the same space the shader uses) */
 const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
@@ -773,6 +799,7 @@ function renderScroll(P) {
   U.uB.value = (1 - Math.pow(1 - cl(P / .3), 3)) * .55; U.uS.value = P * 1.2; U.uSpin.value = P * .8; U.uG.value = 0;
   U.uMaze.value = 0; U.uRet.value = 0; U.uLock.value = 0;
   U.uToH.value = sm(.2, .96, P); U.uInkMix.value = sm(.04, .3, P);
+  measureText(canvas.getBoundingClientRect());
   const formed = P > .965;
   hdrEl.classList.toggle('logo-on', formed);
   hdrEl.classList.toggle('cv-flying', !formed && P > .02);
@@ -818,7 +845,7 @@ function simTick(now) {
   // sweet spot: a short dead zone so a stray flick does nothing, then the small logo finishes forming
   // exactly as the big one slides under the header
   const mb = mastEl.getBoundingClientRect().bottom + window.scrollY, hb = Math.max(56, hdrEl.getBoundingClientRect().bottom);
-  const start = innerHeight * .1, end = Math.max(start + 160, (mb - hb) * .96);
+  const start = innerHeight * .13, end = Math.max(start + 200, (mb - hb) * 1.25);
   const target = cl((window.scrollY - start) / (end - start));
   sim.p += (target - sim.p) * (1 - Math.exp(-dt / 110));   // time-based, same feel at any frame rate
   if (sim.formed) {
@@ -954,6 +981,31 @@ function frameBody(t) {
   requestAnimationFrame(frame);
 }
 
+/* ---------- home header: compact and centred at the top, it opens out to the normal bar on scroll ---------- */
+(function headerTop() {
+  const hdr = document.querySelector('.site-header'); if (!hdr) return;
+  const items = () => [hdr.querySelector('.primary-nav'), hdr.querySelector('.header-actions')].filter(Boolean);
+  const setW = () => { const m = cvRoot.querySelector('.mast svg'); if (m) hdr.style.setProperty('--cv-lw', m.getBoundingClientRect().width + 'px'); };
+  setW(); window.addEventListener('resize', setW);
+  let top = !hdr.classList.contains('is-scrolled');
+  hdr.classList.toggle('cv-top', top);
+  new MutationObserver(() => {
+    const now = !hdr.classList.contains('is-scrolled');
+    if (now === top) return; top = now;
+    // FLIP: measure, switch layout, then glide from the old spot to the new one
+    const els = items(), before = els.map(el => el.getBoundingClientRect());
+    hdr.classList.toggle('cv-top', top);
+    if (reduce) return;
+    els.forEach((el, i) => {
+      const a = before[i], b = el.getBoundingClientRect(), dx = a.left - b.left;
+      if (!dx) return;
+      el.style.transition = 'none'; el.style.transform = 'translateX(' + dx + 'px)';
+      requestAnimationFrame(() => requestAnimationFrame(() => { el.style.transition = 'transform .6s cubic-bezier(.2,.8,.2,1)'; el.style.transform = ''; }));
+      setTimeout(() => { el.style.transition = ''; }, 700);
+    });
+  }).observe(hdr, { attributes: true, attributeFilter: ['class'] });
+})();
+
 /* ---------- Figma-style cursors in the header ---------- */
 (function cursors() {
   const hdr = document.querySelector('.site-header'); if (!hdr) return;
@@ -1040,7 +1092,7 @@ function frameBody(t) {
   (async function life() { let k = 0; await sleep(900); for (;;) { await acts[plan[k++ % plan.length]](); await sleep(rnd(250, 700)); } })();
 })();
 
-const slow = setTimeout(() => { if (!canvas.classList.contains('is-ready')) { note('slow: photo shown'); cvRoot.classList.add('cv-fallback'); } }, 20000);
+const slow = setTimeout(() => { if (!canvas.classList.contains('is-ready')) { note('slow: photo shown'); cvRoot.classList.add('cv-fallback'); placePhoto(); } }, 20000);
 ready.then(() => { clearTimeout(slow); if (!failed) cvRoot.classList.remove('cv-fallback'); });
 ready.then(() => { resize(); fromHash(); canvas.classList.add('is-ready'); requestAnimationFrame(frame); });
 
