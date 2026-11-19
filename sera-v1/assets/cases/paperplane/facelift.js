@@ -14,7 +14,7 @@
   })
   var kw = document.getElementById('kw'); if (kw) kw.setAttribute('data-dobra', kw.textContent.trim())
 })();
-/* Tema pela zona que está no meio da tela: recalcula a cada rolagem, sem depender de posições guardadas. */
+/* Tema da página pela zona que está no meio da tela (cursor e variáveis); o menu fica com o v2.js. */
 (function () {
   var root = document.documentElement, pedido = 0
   function aplicar() {
@@ -25,8 +25,7 @@
       if (r.top <= meio && r.bottom > meio) {
         var t = zonas[i].dataset.theme
         if (root.dataset.theme !== t) root.dataset.theme = t
-        var h = document.querySelector('.site-header')
-        if (h) { h.classList.toggle('v2-dark', t === 'dark'); h.classList.toggle('hdr-escuro', t === 'dark') }
+        // O menu não segue o meio da tela: quem decide é o v2.js, pelo que está embaixo do próprio menu.
         return
       }
     }
@@ -35,5 +34,4 @@
   addEventListener('scroll', pedir, { passive: true })
   addEventListener('resize', pedir)
   addEventListener('load', function () { pedir(); setTimeout(pedir, 500); if (window.ScrollTrigger) { ScrollTrigger.refresh(); setTimeout(function () { ScrollTrigger.refresh() }, 2000) } })
-  setInterval(pedir, 400)
 })()

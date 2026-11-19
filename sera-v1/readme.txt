@@ -80,6 +80,13 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.48.0 =
+* Paperplane: passagens entre áreas claras e escuras (Dobra, celular e o céu da noite) agora escurecem aos poucos, sem corte seco. A última peça antes do escuro ganhou respiro.
+* Paperplane: o menu só fica preto em cima de área preta. Ele olha o que está embaixo dele (v2.js, com --hdr-inset para a passagem), não o meio da tela. Também fica escuro em cima do céu da noite.
+* Paperplane: a home embutida (capítulo 07) não aparece mais vazia. A ponte do iframe punha overflow:auto no body e quebrava todo o sticky da home.
+* Paperplane: a mesa das seis ferramentas, quando vira o estúdio, fica em papel branco com fio (não preta), e o estúdio cabe inteiro nela, sem cortar a barra nem o rodapé.
+* Paperplane: o fim do case e o "próximo case" no mesmo bege da página, sem faixa de outro tom.
+
 = 3.47.2 =
 * SEO: o <title> sai escapado ("&" vira "&amp;"). Com o "&" cru, a prévia do LinkedIn caía em "Index".
 

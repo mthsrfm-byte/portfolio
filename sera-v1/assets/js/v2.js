@@ -1086,7 +1086,9 @@
 			var r = e.getBoundingClientRect();
 			// only blocks that run (almost) edge to edge under the pill count as a dark background
 			if ( r.height > 80 && r.width >= vw * 0.7 ) {
-				spans.push( [ r.top + sy, r.bottom + sy ] );
+				// a block that fades in from the paper (--hdr-inset, a registered length) only counts once the fade is half done
+				var inset = parseFloat( getComputedStyle( e ).getPropertyValue( '--hdr-inset' ) ) || 0;
+				spans.push( [ r.top + sy + inset, r.bottom + sy - inset ] );
 			}
 		} );
 	}
