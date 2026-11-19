@@ -14,6 +14,8 @@
 html:root .cases{--stack-top:calc(var(--adm) + var(--hdr) + 16px);--card-h:max(460px,min(calc(100svh - var(--stack-top) - 16px),clamp(620px,60vw,790px)))}
 html:root .cases>.case-card.case-capa,html:root .cases>.case-card.case-capa:hover{scale:none;translate:none;opacity:1;box-shadow:none;transform:none;will-change:auto;border:1px solid rgba(17,17,16,.09)}
 html:root .cases>.case-card.case-capa::after{content:none}
+/* 3.44.2 · without the pinned title, the section's top padding only has to breathe after the brand strip's rule */
+html:root #work{padding-top:clamp(24px,3.4vw,48px)}
 
 html .cases>.case-card.case-capa{
 	--pad:clamp(24px,3vw,40px);--cc-teal:#0B5F63;

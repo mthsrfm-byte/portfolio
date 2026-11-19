@@ -80,6 +80,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.44.2 =
+* Home: menos espaço entre a faixa de marcas e o primeiro case (era 144px, sobra do título fixo que saiu; agora 24–48px).
+
 = 3.44.1 =
 * Selected work: sai a linha fixa "Selected work" (com o contador 01 / 09); o título fica só para leitor de tela.
 * Scroll dos cards orgânico: rolagem nativa, sem snap nem passo de um card por gesto. Cada card gruda logo abaixo do header e o próximo simplesmente pousa por cima, sem sombra, escurecimento, encolhimento ou fade; só um fio de 1px marca a borda.
