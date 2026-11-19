@@ -80,6 +80,14 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.44.0 =
+* Selected work: cards novos "Capa". O nome curto do case vira o masthead (Bricolage 800, 75%, caixa alta, na largura toda do card) e o mockup fica na frente dele, cobrindo uns 26% de baixo das letras, com sombra longa. Cover lines nos cantos: ano · empresa e papel; "Proof" com a primeira métrica; o resto do título com "Read case"; segunda e terceira métricas. Chão 3D e grão da capa embaixo.
+* Cards: com o cursor perto do nome, as letras viram os grãos redondos da poeira da capa e são empurradas para fora; o canvas sai pela borda do card e nunca desenha por cima do mockup.
+* Cards: parallax no scroll vertical por camada (chão, nome, mockup, cover lines). Transição entre cases: enquanto o próximo card sobe por cima do atual, o nome dele nasce da linha de base e as cover lines assentam por último. Sem grãos nem movimento com "reduzir movimento".
+* Cards no celular: nome no topo, mockup na largura toda, cover lines em duas colunas. Só o mockup de celular (sem navegador nem antes/depois); o celular sozinho fica maior e ocupa o palco. Em tela baixa a terceira métrica sai antes do mockup apertar.
+* Palco do mockup no desktop e tablet mais baixo e cheio (528 × 600), com menos espaço vazio em cima e embaixo.
+* Arquivos: template-parts/case-card.php, assets/css/capa.css e assets/js/capa.js (novos, só na home), ajuste no layout dos aparelhos em main.js e regra do celular em mockups.css.
+
 = 3.43.1 =
 * Capa (Coreo · Logo): os grãos em voo voltam a desviar do texto, como na Coreografia do Hero Lab; só o grão já pousado no logo ignora a copy.
 * Header da home: o menu do topo fica parado no lugar e sobe com a página; a barra sticky entra quando a faixa de marcas chega no topo.
