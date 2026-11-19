@@ -152,10 +152,14 @@ html.cv-on .site-header.cv-flying::before,html.cv-on .site-header.cv-flying>.v2-
 /* the cover script loads after Three.js: until it has laid the header out, the menu waits hidden instead of jumping */
 html.cv-on .site-header>.wrap>:not(.brand){transition:opacity .35s ease}
 html.cv-pre .site-header>.wrap>:not(.brand){opacity:0}
-/* home: while the cover scrolls by, only the particle logo sits in the header; the bar arrives with the brands strip */
-html.cv-on .site-header.is-scrolled:not(.cv-bar)>.wrap>:not(.brand){opacity:0;pointer-events:none}
-html.cv-on .site-header.is-scrolled:not(.cv-bar)::before,html.cv-on .site-header.is-scrolled:not(.cv-bar)::after{opacity:0!important}
+/* home: the top menu is part of the page (stays put and scrolls away with the cover, no background);
+   the sticky bar slides in once the brands strip reaches the top */
+html.cv-on .site-header:not(.cv-bar){position:relative;top:auto}
+html.cv-on .site-header:not(.cv-bar)::before,html.cv-on .site-header:not(.cv-bar)::after{opacity:0!important}
+html.cv-on .site-header.cv-bar{animation:cvBarIn .5s cubic-bezier(.2,.8,.2,1) both}
 html.cv-on .site-header.cv-bar .brand svg{opacity:1}
+@keyframes cvBarIn{from{transform:translateY(-100%)}to{transform:none}}
+@media (prefers-reduced-motion:reduce){html.cv-on .site-header.cv-bar{animation:none}}
 
 /* home header at the top: no name, menu + language + button grouped in the middle, never wider than the logo */
 @media (min-width:901px){
@@ -166,4 +170,6 @@ html.cv-on .site-header.cv-bar .brand svg{opacity:1}
 /* home header scrolled: a full-width bar across the top, not the floating pill */
 html.cv-on .site-header::before{inset:0!important;border-radius:0!important;transform:none!important;box-shadow:0 1px 0 rgba(17,17,16,.08)!important}
 html.cv-on .site-header::after{left:0!important;right:0!important;bottom:0!important}
-html.cv-on .site-header>.v2-pill-tint{display:none!important}
+/* over dark blocks the bar turns ink (v2's tint layer), full width like the bar itself; never on the static top menu */
+html.cv-on .site-header>.v2-pill-tint{inset:0!important;border-radius:0!important}
+html.cv-on .site-header:not(.cv-bar)>.v2-pill-tint{opacity:0!important}

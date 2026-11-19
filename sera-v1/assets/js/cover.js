@@ -335,6 +335,8 @@ void main(){
   vec2 ctrl = uVar > .5 ? mix(mp, hsp, .5) + vec2(-dv2.y, dv2.x) * (rnd - .5) * 1.3 : ent + vec2((rnd - .5) * .05 * uLogo.z, 0.);
   vec2 bz = mix(mix(mp, ctrl, r), mix(ctrl, hsp, r), r);
   float mk = arr * bound;
+  // who ignores the text: in A the dots in the maze; in B only a dot already sitting in the logo (in flight, out and home, every dot goes round the copy)
+  float mkT = uVar > .5 ? mk * landed * (1. - r) : mk;
   sp = mix(sp, bz, mk);
   float th = clamp(uToH * 1.6 - rnd * .6, 0., 1.); th = th * th * (3. - 2. * th);
   vec2 dvH = hpH - sp; vec2 ctrlH = mix(sp, hpH, .45) + vec2(-dvH.y, dvH.x) * (rnd - .5) * .6;
@@ -348,11 +350,11 @@ void main(){
   vec2 grad = normalize(vec2(textField(sp + e.xy) - textField(sp - e.xy), textField(sp + e.yx) - textField(sp - e.yx)) + 1e-5);
   // liquid: dots are pushed out and also swirl along the edge, and keep doing it until they land in the header logo
   float land = 1. - smoothstep(.86, 1., th);
-  float push = smoothstep(uMaskPad * 1.9, -uMaskPad * .4, d) * uMaskPad * (.7 + .8 * rnd) * (1. - mk) * land;
+  float push = smoothstep(uMaskPad * 1.9, -uMaskPad * .4, d) * uMaskPad * (.7 + .8 * rnd) * (1. - mkT) * land;
   vec2 tng = vec2(-grad.y, grad.x) * ((rnd2 - .5) * 2. + .35 * sin(uTime * .9 + rnd * 6.2831));
   sp += grad * push + tng * push * .75;
   gl_Position.xy = ((sp / uRes) * 2. - 1.) * gl_Position.w;
-  vClear = max(max(mk, 1. - land), smoothstep(-uMaskPad * .5, uMaskPad * 1.3, d + push * .55 + (rnd2 - .5) * uMaskPad * 1.1));
+  vClear = max(max(mkT, 1. - land), smoothstep(-uMaskPad * .5, uMaskPad * 1.3, d + push * .55 + (rnd2 - .5) * uMaskPad * 1.1));
   gl_PointSize = clamp(uDpr * 1.75 * (uCamD / max(-mv.z, .05)) * (1. + .6 * rnd * uB * (1. - g)) * (1. - .45 * vFar), uDpr, 10. * uDpr);
   float szA = (1.7 + 1.6 * sin(3.1416 * r)) * uDpr;
   // B: a landed dot fills its whole cell, so the particle logo is the logo; then the cells shrink centre-out and it shows its grain
@@ -1019,32 +1021,21 @@ function frameBody(t) {
 /* ---------- home header: compact and centred at the top, it opens out to the normal bar on scroll ---------- */
 (function headerTop() {
   const hdr = document.querySelector('.site-header'); if (!hdr) return;
-  const items = () => [hdr.querySelector('.primary-nav'), hdr.querySelector('.header-actions')].filter(Boolean);
   const setW = () => { const m = cvRoot.querySelector('.mast svg'); if (m) hdr.style.setProperty('--cv-lw', m.getBoundingClientRect().width + 'px'); };
   setW(); window.addEventListener('resize', setW);
-  // the sticky bar (background, menu, buttons) only arrives once the brands strip reaches it; before that the
-  // header holds just the logo the particles form
+  // the top menu belongs to the page: it stays put, compact and centred, and scrolls away with the cover.
+  // The sticky bar (normal layout, background, logo) slides in once the brands strip reaches the top.
   const strip = document.querySelector('.hero-logos-only, .logos');
-  const bar = () => { hdr.classList.toggle('cv-bar', !strip || strip.getBoundingClientRect().top <= hdr.getBoundingClientRect().bottom + 2); };
-  bar(); window.addEventListener('scroll', bar, { passive: true }); window.addEventListener('resize', bar);
-  let top = !hdr.classList.contains('is-scrolled');
-  hdr.classList.toggle('cv-top', top);
+  const adminBar = document.getElementById('wpadminbar');
+  const bar = () => {
+    const at = (adminBar && getComputedStyle(adminBar).position === 'fixed' ? adminBar.offsetHeight : 0) + hdr.offsetHeight + 2;
+    const on = !strip || strip.getBoundingClientRect().top <= at;
+    if (on === hdr.classList.contains('cv-bar')) return;
+    hdr.classList.toggle('cv-bar', on); hdr.classList.toggle('cv-top', !on);
+  };
+  hdr.classList.add('cv-top'); bar();
+  window.addEventListener('scroll', bar, { passive: true }); window.addEventListener('resize', bar);
   document.documentElement.classList.remove('cv-pre'); // cv-top is on before the next paint, so the menu fades in already compact
-  new MutationObserver(() => {
-    const now = !hdr.classList.contains('is-scrolled');
-    if (now === top) return; top = now;
-    // FLIP: measure, switch layout, then glide from the old spot to the new one
-    const els = items(), before = els.map(el => el.getBoundingClientRect());
-    hdr.classList.toggle('cv-top', top);
-    if (reduce) return;
-    els.forEach((el, i) => {
-      const a = before[i], b = el.getBoundingClientRect(), dx = a.left - b.left;
-      if (!dx) return;
-      el.style.transition = 'none'; el.style.transform = 'translateX(' + dx + 'px)';
-      requestAnimationFrame(() => requestAnimationFrame(() => { el.style.transition = 'transform .6s cubic-bezier(.2,.8,.2,1)'; el.style.transform = ''; }));
-      setTimeout(() => { el.style.transition = ''; }, 700);
-    });
-  }).observe(hdr, { attributes: true, attributeFilter: ['class'] });
 })();
 
 /* ---------- Figma-style cursor in the header: the visitor's own pointer, labelled ---------- */

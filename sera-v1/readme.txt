@@ -80,6 +80,11 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.43.1 =
+* Capa (Coreo · Logo): os grãos em voo voltam a desviar do texto, como na Coreografia do Hero Lab; só o grão já pousado no logo ignora a copy.
+* Header da home: o menu do topo fica parado no lugar e sobe com a página; a barra sticky entra deslizando quando a faixa de marcas chega no topo.
+* Header da home: sobre blocos escuros a barra volta a escurecer (antes o texto clarinho ficava sobre fundo claro).
+
 = 3.43.0 =
 * Capa: o retrato em ASCII aparece já no carregamento, desenhado de um mapa de 9 KB (assets/img/cover-ascii.png) sem esperar o modelo 3D. Quando o modelo chega, esse mesmo ASCII se dissolve célula a célula no busto realista e o loop começa. Para refazer o mapa: abrir a home com ?cvdebug e rodar window.__cvBake().
 * Capa: o busto termina sempre num véu para transparente na base da caixa (ASCII, 3D e foto de reserva).
