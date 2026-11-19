@@ -147,7 +147,8 @@ html body .pp-case .pp-zone[data-theme="dark"]{
   position:relative;--hdr-inset:0px;
   background:#121311;
   border-top:1px solid rgba(228,246,92,.55);border-bottom:1px solid rgba(228,246,92,.22);
-  box-shadow:inset 0 1px 0 rgba(228,246,92,.12),inset 0 56px 72px -56px rgba(228,246,92,.10)
+  box-shadow:inset 0 1px 0 rgba(228,246,92,.12),inset 0 56px 72px -56px rgba(228,246,92,.10);
+  padding-bottom:clamp(72px,8vw,128px)
 }
 html body .pp-case .pp-zone[data-theme="light"]:has(+ .pp-zone[data-theme="dark"]){padding-bottom:clamp(56px,7vw,110px)}
 

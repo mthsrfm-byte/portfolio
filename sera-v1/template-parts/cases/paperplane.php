@@ -58,7 +58,7 @@ defined( 'ABSPATH' ) || exit;
 <header class="pp-case-hero">
   <div class="pp-hero-in">
     <a class="pp-back-link" href="<?php echo esc_url( home_url( '/#work' ) ); ?>" data-hero><svg class="ico" aria-hidden="true"><use href="#pp-i-seta"/></svg><?php sera_e( 'All work', 'Todos os trabalhos' ); ?></a>
-    <p class="pp-case-meta" data-hero><?php sera_e( '<strong>Personal project</strong>', '<strong>Projeto pessoal</strong>' ); ?><span class="sep" aria-hidden="true"></span><?php sera_e( '<span>2026 · in beta</span>', '<span>2026 · em beta</span>' ); ?><span class="sep" aria-hidden="true"></span><?php sera_e( '<span>Product designer · concept, design and agent direction</span>', '<span>Product designer · conceito, design e direção dos agentes</span>' ); ?></p>
+    <p class="pp-case-meta" data-hero><?php sera_e( '<strong>Personal project</strong>', '<strong>Projeto pessoal</strong>' ); ?><span class="sep" aria-hidden="true"></span><?php sera_e( '<span>2026 · in beta</span>', '<span>2026 · em beta</span>' ); ?><span class="sep" aria-hidden="true"></span><?php sera_e( '<span>Founder & Designer</span>', '<span>Fundador e designer</span>' ); ?></p>
     <div class="h1-wrap">
       <h1 class="pp-hero-title"><?php sera_e( 'Paperplane Studio: an AI film studio that shows the', 'Paperplane Studio: um estúdio de cinema com IA que mostra o' ); ?> <span class="kw" id="kw"><?php sera_e( 'price before the click', 'preço antes do clique' ); ?></span></h1>
     </div>
@@ -90,7 +90,7 @@ defined( 'ABSPATH' ) || exit;
   <div class="pp-glance-block pp-reveal">
     <dl class="pp-glance">
       <div><dt><?php sera_e( 'Company', 'Empresa' ); ?></dt><dd><?php sera_e( 'Personal project', 'Projeto pessoal' ); ?></dd></div>
-      <div><dt><?php sera_e( 'Role', 'Papel' ); ?></dt><dd><?php sera_e( 'Product designer · concept, design and agent direction', 'Product designer · conceito, design e direção dos agentes' ); ?></dd></div>
+      <div><dt><?php sera_e( 'Role', 'Papel' ); ?></dt><dd><?php sera_e( 'Founder & Designer', 'Fundador e designer' ); ?></dd></div>
       <div><dt><?php sera_e( 'Year', 'Ano' ); ?></dt><dd><?php sera_e( '2026 · in beta', '2026 · em beta' ); ?></dd></div>
       <div><dt><?php sera_e( 'Type', 'Tipo' ); ?></dt><dd><?php sera_e( 'My own product, from scratch: studio, design system and website', 'Produto próprio, do zero: estúdio, design system e site' ); ?></dd></div>
       <div><dt><?php sera_e( 'Duration', 'Duração' ); ?></dt><dd><?php sera_e( '23 days, 19 Oct to 11 Nov 2026', '23 dias, de 19/10 a 11/11/2026' ); ?></dd></div>

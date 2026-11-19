@@ -80,6 +80,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.50.0 =
+* Paperplane: respiro no fim das áreas escuras (Dobra e Lighthouse). Papel no case vira "Founder & Designer" / "Fundador e designer".
+
 = 3.49.0 =
 * Paperplane: passagens claro ↔ escuro viram corte seco com fio de luz limão. O 06 (Dobra) abre em cortina circular a partir de um ponto de luz no scroll. A saída do céu para os 23 dias ganhou um degradê longo e macio.
 

@@ -60,7 +60,7 @@ return array(
 	'meta'    => array(
 		'_sera_headline' => 'Paperplane Studio: um estúdio de cinema com IA que mostra o preço antes do clique',
 		'_sera_year'     => '2026 · em beta',
-		'_sera_role'     => 'Product designer · conceito, design e direção dos agentes',
+		'_sera_role'     => 'Fundador e designer',
 		'_sera_metrics'  => "23 dias | Da primeira tela a um estúdio completo, com montagem e cobrança\n10 etapas | Da frase ao episódio, como num set de verdade\nZero | Mídia gerada sem o clique da pessoa",
 		'_sera_chips'    => 'Projeto pessoal, IA generativa, Design system',
 	),
