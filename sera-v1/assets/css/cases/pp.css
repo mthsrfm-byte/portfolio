@@ -94,3 +94,50 @@
 .stage-pp .brand-chip{font-family:"Geist",system-ui,-apple-system,"Segoe UI",sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;height:38px;padding:0 15px 0 7px;gap:10px}
 .stage-pp .pp-chip-mark{width:26px;height:26px;border-radius:8px}
 .stage-pp .pp-chip-mark svg{width:15px;height:15px}
+
+/* 3.47.0 · Facelift: a linguagem da home nova do Paperplane (brand kit 0.2). Papel claro, lima #E4F65C chapada,
+   Geologica nos títulos e Onest no texto, cartões com fio, logotipo "P" com a dobra. */
+@font-face{font-family:'Geologica';font-style:normal;font-weight:300 800;font-display:swap;src:url(../../fonts/geologica-variavel.woff2) format('woff2')}
+@font-face{font-family:'Onest';font-style:normal;font-weight:400 700;font-display:swap;src:url(../../fonts/onest-variavel.woff2) format('woff2')}
+.stage-pp{background:#EAE3DA}
+.sera-mockup-block:has(.stage-pp){--sbg:#EAE3DA}
+.stage-pp .brand-chip{background:#FFFFFF;border:1px solid rgba(18,19,17,.14);color:#121311}
+.pp-chip-mark{background:transparent;color:#121311;width:20px;height:20px}
+.pp-chip-mark svg{width:18px;height:18px}
+.stage-pp .browser-frame{background:#F4EEE8;box-shadow:0 30px 60px -36px rgba(18,19,17,.35),0 0 0 1px rgba(18,19,17,.1)}
+.stage-pp .browser-bar{background:#EAE3DA;border-bottom-color:rgba(18,19,17,.08)}
+.stage-pp .browser-bar .dots i,.stage-pp .browser-bar .dots i:nth-child(2),.stage-pp .browser-bar .dots i:nth-child(3){background:rgba(18,19,17,.18)}
+.stage-pp .browser-bar .url{background:#FFFFFF;color:#55564F}
+.ppk,.ppk-m{background:#F4EEE8!important;color:#121311!important;font-family:'Onest',system-ui,sans-serif!important}
+.ppk-side{background:#EFE8E0;border-right-color:rgba(18,19,17,.1)}
+.ppk-proj small,.ppk-g,.ppk-sub,.ppk-search,.ppk-fine{color:#6B6C64!important}
+.ppk-logo{background:transparent!important;color:#121311!important;border-radius:0}
+.ppk-logo svg{width:24px;height:24px}
+.ppk-side li{color:#33342F}
+.ppk-side li i{border-color:#A9A79D}
+.ppk-side li.is-next{background:#FFFFFF;color:#121311;box-shadow:inset 0 0 0 1px rgba(18,19,17,.12)}
+.ppk-side li.is-next i{border-color:#9DB321;background:#E4F65C}
+.ppk-saldo,.ppk-search{border-color:rgba(18,19,17,.14)!important;color:#33342F}
+.ppk-ring{border-color:rgba(18,19,17,.14);border-top-color:#9DB321;border-right-color:#9DB321}
+.ppk-next{background:#E4F65C!important;color:#121311!important;border-radius:6px!important}
+.ppk-kicker{color:#55564F!important}
+.ppk-h,.ppk-ct,.ppk-big,.ppk-min{font-family:'Geologica',system-ui,sans-serif!important;letter-spacing:-.04em!important;color:#121311}
+.ppk-card{background:#FFFFFF!important;border-color:rgba(18,19,17,.12)!important;color:#121311}
+.ppk-cont{background:#E4F65C!important;border-color:#E4F65C!important}
+.ppk-cont .ppk-cs{color:#33342F!important}
+.ppk-tag{background:#FFFFFF!important;color:#121311!important;border:1px solid rgba(18,19,17,.14)}
+.ppk-btn{background:#121311!important;color:#F4EEE8!important;border-radius:6px!important}
+.ppk-art{background:#EAE3DA!important}
+.ppk-art img{width:100%;height:100%;object-fit:cover}
+.ppk *{border-color:rgba(18,19,17,.12)}
+.ppk-ct2,.ppk-big b,.ppk-groups b{color:#121311!important}
+.ppk-sq i{border-color:rgba(18,19,17,.16)!important}
+.ppk-sq i.on,.ppk-bar i,.ppk-pill,.ppk-li:nth-of-type(2) em{background:#E4F65C!important;border-color:#E4F65C!important;color:#121311!important}
+.ppk-bar{background:rgba(18,19,17,.1)!important}
+.ppk-li i{background:#EAE3DA!important}
+.ppk-li em{color:#55564F;border-color:rgba(18,19,17,.16)}
+.ppk-screen{background:#F4EEE8!important}
+.ppk-island{background:#121311!important}
+.ppk-island span.is-on{background:#E4F65C!important;color:#121311!important}
+.ppk-ori{background:#E4F65C!important;color:#121311!important}
+.ppk-ori svg{width:20px;height:20px}

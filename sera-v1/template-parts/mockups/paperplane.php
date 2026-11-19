@@ -9,7 +9,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$sera_pp_plane = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M3 11.5 21 3l-4.5 17-5-6.2L3 11.5Z"/><path d="M21 3 11.5 13.8l-1.2 5.8 2.8-3.7"/></svg>';
+$sera_pp_plane = '<svg viewBox="5 3 22 26" aria-hidden="true"><path fill="currentColor" d="M6 10h6v18H6zM20 10h6v6l-6 6z"/><path fill="#9DB321" d="M6 10l6-6h8l6 6zM12 16h8v6h-8z"/></svg>';
 $sera_pp_steps = array(
 	'Escrever'   => array( 'Ideia', 'Universo', 'Roteiro' ),
 	'Visualizar' => array( 'Estilo visual', 'Personagens', 'Cenários', 'Decupagem', 'Storyboard' ),
@@ -98,6 +98,6 @@ $sera_pp_mob = ob_get_clean();
 	<span class="brand-chip"><span class="pp-chip-mark" aria-hidden="true"><?php echo $sera_pp_plane; // phpcs:ignore ?></span><span>Paperplane Studio</span></span>
 	<div class="ac-hero-stage">
 		<?php echo sera_browser( $sera_pp_desk, array( 'url' => 'beta.paperplanestudio.app', 'class' => 'pp-browser', 'label' => sera_t( 'Paperplane Studio home on desktop: pick up where you left off, episode progress at 8 of 10 steps, your stories and how much video the balance buys', 'Início do Paperplane Studio no computador: continuar de onde parei, progresso do episódio em 8 de 10 etapas, suas histórias e quanto vídeo o saldo rende' ) ) ); // phpcs:ignore ?>
-		<?php echo sera_device( 'ppk-screen', $sera_pp_mob, array( 'position' => 'up', 'dark' => true, 'label' => sera_t( 'The same studio home on a phone, with the navigation island above the thumb', 'O mesmo Início do estúdio no celular, com a ilha de navegação acima do polegar' ) ) ); // phpcs:ignore ?>
+		<?php echo sera_device( 'ppk-screen', $sera_pp_mob, array( 'position' => 'up', 'dark' => false, 'label' => sera_t( 'The same studio home on a phone, with the navigation island above the thumb', 'O mesmo Início do estúdio no celular, com a ilha de navegação acima do polegar' ) ) ); // phpcs:ignore ?>
 	</div>
 </div>
