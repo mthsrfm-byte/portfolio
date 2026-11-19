@@ -874,3 +874,8 @@ html.deck-on .deck-before,html.deck-on .deck-after{scroll-snap-align:start;scrol
   .xp-head p{display:block;max-width:none;text-align:left;font-size:16px;-webkit-line-clamp:unset;overflow:visible}
   .xp-head::after{opacity:1}
 }
+/* 3.45.0 · Lenis (assets/js/lib/lenis.min.js) */
+html.lenis,html.lenis body{height:auto}
+.lenis:not(.lenis-autoToggle).lenis-stopped{overflow:clip}
+.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
+.lenis.lenis-smooth iframe{pointer-events:none}

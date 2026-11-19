@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'SERA_VERSION', '3.44.4' );
+define( 'SERA_VERSION', '3.45.0' );
 
 require_once get_template_directory() . '/inc/i18n.php';
 require_once get_template_directory() . '/inc/i18n/customizer-pt.php';
@@ -165,7 +165,9 @@ add_action(
 			}
 		}
 
-		wp_enqueue_script( 'sera-main', $uri . '/assets/js/main.js', array(), sera_asset_ver( 'assets/js/main.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
+		// 3.45.0 · Lenis smooth scroll (MIT, darkroomengineering/lenis 1.3.4), used by main.js
+		wp_enqueue_script( 'lenis', $uri . '/assets/js/lib/lenis.min.js', array(), '1.3.4', array( 'strategy' => 'defer', 'in_footer' => true ) );
+		wp_enqueue_script( 'sera-main', $uri . '/assets/js/main.js', array( 'lenis' ), sera_asset_ver( 'assets/js/main.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
 
 		if ( ( $is_case || is_front_page() ) && file_exists( $dir . '/assets/js/case.js' ) ) {
 			wp_enqueue_script( 'sera-case-js', $uri . '/assets/js/case.js', array(), sera_asset_ver( 'assets/js/case.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
