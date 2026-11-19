@@ -466,10 +466,17 @@ html:not(.js) .pp-case .etapas-lista p,.pp-case .etapas.sem-pin .etapas-lista p{
 .pp-case .site-cel-cap{font:500 10.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
 .pp-case .site-caps{display:grid;gap:16px}
 .pp-case .site-caps li{padding-left:16px;border-left:2px solid var(--line);transition:border-color .3s,opacity .3s}
+.pp-case .site-caps li.is-on{border-left-color:var(--ink)}
 .js .pp-case .site-caps li{opacity:.55}
-.js .pp-case .site-caps li.is-on{opacity:1;border-left-color:var(--ink)}
+.js .pp-case .site-caps li.is-on{opacity:1}
+.js .pp-case .site-caps li:not(.is-on):hover{opacity:.8}
+.pp-case .site-b{display:block;width:100%;margin:0;padding:0;border:0;background:none;font:inherit;color:inherit;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.pp-case .site-b:focus-visible{outline:2px solid var(--ink);outline-offset:6px;border-radius:4px}
 .pp-case .site-caps b{display:block;margin-top:4px;color:var(--ink);font-weight:600;font-size:16px}
-.pp-case .site-caps li>span:last-child{display:block;margin-top:4px;font-size:14.5px;color:var(--ink-2)}
+.pp-case .site-b>span:last-child{display:block;margin-top:4px;font-size:14.5px;color:var(--ink-2)}
+/* Quatro vistas paradas da home: a troca apaga e acende a moldura com um deslize curto, sem mostrar a rolagem */
+.pp-case .site-telas .sim-escala{transition:opacity .42s var(--ease-quieto),transform .6s var(--ease-quieto)}
+.pp-case .site-telas.is-trocando .sim-escala{opacity:0;transform:translateY(10px);transition-duration:.22s}
 .pp-case .site-sec.is-pin .site-grid{height:100vh;height:100svh;padding-top:calc(var(--header-h) + 2vh);align-content:center}
 @media (max-width:899px){.pp-case .site-grid{grid-template-columns:1fr;gap:16px}
 .pp-case .site-telas{padding-right:0}
@@ -858,7 +865,7 @@ html:not(.js) .pp-case .night-list li,html:not(.js) .pp-case .night-notes,html:n
 .pp-case .site-sec .site-cel{display:grid;position:static;width:min(232px,58vw);margin:0 auto}
 .pp-case .site-sec.is-pin .site-grid{align-content:center;gap:14px;padding-top:calc(var(--header-h) + 4px)}
 }
-@media (max-width:760px){.pp-case .site-sec.is-pin .site-caps{min-height:118px;align-content:start}}
+@media (max-width:760px){.pp-case .site-sec.is-pin .site-caps{min-height:150px;align-content:start}}
 /* card 04: quando o quadro vira take, o código "3C" sai e o rótulo do take ganha fundo (antes os dois se sobrepunham) */
 .pp-case .aq-cod{transition:opacity .3s}
 .pp-case .art-quadro:has(.aq-take.vivo) .aq-cod{opacity:0}

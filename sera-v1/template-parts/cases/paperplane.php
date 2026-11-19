@@ -455,10 +455,10 @@ defined( 'ABSPATH' ) || exit;
         </div>
       </div>
       <ol class="site-caps">
-        <li data-sec="top" class="is-on"><span class="pp-art-label">01</span><?php sera_e( '<b>The promise</b><span>"Your ideas become films, without going broke on the way."</span>', '<b>A promessa</b><span>"Suas ideias viram filme, sem falir no caminho."</span>' ); ?></li>
-        <li data-sec="estudio"><span class="pp-art-label">02</span><?php sera_e( '<b>The same style, from the first frame to the last</b><span>The studio from the inside, from "Once upon a sentence." to "Cut!", and the style swap that keeps the story.</span>', '<b>O mesmo traço, do primeiro ao último quadro</b><span>O estúdio por dentro, de "Era uma vez uma frase." a "Corta!", e a troca de estilo que mantém a história.</span>' ); ?></li>
-        <li data-sec="iphone-duo"><span class="pp-art-label">03</span><?php sera_e( '<b>In your pocket</b><span>"And the best part? It fits in your pocket."</span>', '<b>No bolso</b><span>"E o melhor de tudo? Cabe no seu bolso."</span>' ); ?></li>
-        <li data-sec="comecar"><span class="pp-art-label">04</span><?php sera_e( '<b>Waiting list</b><span>A sheet that slides up, data protection in plain language and a little plane that lands on the email field.</span>', '<b>Lista de espera</b><span>Uma folha que sobe, LGPD em linguagem simples e um aviãozinho que pousa no e-mail.</span>' ); ?></li>
+        <li data-sec="top" class="is-on"><button type="button" class="site-b"><span class="pp-art-label">01</span><?php sera_e( '<b>The promise</b><span>"Your ideas become films, without going broke on the way."</span>', '<b>A promessa</b><span>"Suas ideias viram filme, sem falir no caminho."</span>' ); ?></button></li>
+        <li data-sec="estudio"><button type="button" class="site-b"><span class="pp-art-label">02</span><?php sera_e( '<b>The same style, from the first frame to the last</b><span>The studio from the inside, from "Once upon a sentence." to "Cut!", and the style swap that keeps the story.</span>', '<b>O mesmo traço, do primeiro ao último quadro</b><span>O estúdio por dentro, de "Era uma vez uma frase." a "Corta!", e a troca de estilo que mantém a história.</span>' ); ?></button></li>
+        <li data-sec="iphone-duo"><button type="button" class="site-b"><span class="pp-art-label">03</span><?php sera_e( '<b>In your pocket</b><span>"And the best part? It fits in your pocket."</span>', '<b>No bolso</b><span>"E o melhor de tudo? Cabe no seu bolso."</span>' ); ?></button></li>
+        <li data-sec="comecar"><button type="button" class="site-b"><span class="pp-art-label">04</span><?php sera_e( '<b>Waiting list</b><span>A sheet that slides up, data protection in plain language and a little plane that lands on the email field.</span>', '<b>Lista de espera</b><span>Uma folha que sobe, LGPD em linguagem simples e um aviãozinho que pousa no e-mail.</span>' ); ?></button></li>
       </ol>
     </div>
   </div>

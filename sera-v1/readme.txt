@@ -80,6 +80,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.51.0 =
+* Paperplane, seção do site: em vez de rolar a home inteira, quatro vistas fixas (promessa, tour do estúdio, celular, lista de espera), uma por item 01 a 04, trocando com o scroll. Itens viram botões.
+
 = 3.50.0 =
 * Paperplane: respiro no fim das áreas escuras (Dobra e Lighthouse). Papel no case vira "Founder & Designer" / "Fundador e designer".
 
