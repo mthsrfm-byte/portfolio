@@ -125,9 +125,7 @@ body .pp-case .pp-mesa[data-tema="escuro"]::before{background:#121311}
 body .pp-case .jan{border-radius:8px;background:#FFFFFF;border-color:rgba(18,19,17,.14);box-shadow:none}
 body .pp-case .jan-bar{background:#F4EEE8}
 
-/* ---------- Menu do site no escuro: preto de verdade, sem transparência ---------- */
-html.is-v2 body .site-header>.v2-pill-tint{background:#000!important}
-html.is-v2 body .site-header.v2-dark::before{background:#000!important;-webkit-backdrop-filter:none;backdrop-filter:none}
+/* Menu do site: vidro "Camaleão" do v2.css (3.52), com o tom de cada zona (data-header-tint no template). */
 
 /* ---------- Cada zona com as próprias cores: a troca de claro e escuro acontece na borda da zona, não no meio da tela ---------- */
 html body .pp-case .pp-zone[data-theme="dark"]{
@@ -157,7 +155,8 @@ html.js body .pp-case .pp-zone.pp-cortina{clip-path:circle(var(--cortina,150%) a
 html.js body .pp-case .pp-zone.pp-cortina::after{content:"";position:absolute;left:78%;top:0;width:14px;height:14px;margin:-7px;border-radius:50%;background:#E4F65C;box-shadow:0 0 28px #E4F65C;opacity:var(--ponto,0);pointer-events:none;z-index:3}
 
 /* 08 · O céu: entra em corte seco com fio; sai para o papel num degradê longo e macio */
-body .pp-case .pp-night{--hdr-inset:0px;border-top:1px solid rgba(228,246,92,.55)}
+/* --hdr-end: o menu volta ao papel na metade da saída em degradê, não no fim do bloco */
+body .pp-case .pp-night{--hdr-inset:0px;--hdr-end:clamp(90px,11vw,170px);border-top:1px solid rgba(228,246,92,.55)}
 body .pp-case .pp-night::before{content:none}
 body .pp-case .pp-night::after{content:"";position:absolute;left:0;right:0;bottom:0;z-index:1;height:clamp(180px,22vw,340px);pointer-events:none;
   background:linear-gradient(0deg,#F4EEE8 0%,rgba(244,238,232,.94) 14%,rgba(244,238,232,.78) 30%,rgba(244,238,232,.55) 48%,rgba(244,238,232,.3) 66%,rgba(244,238,232,.12) 82%,rgba(244,238,232,0) 100%);

@@ -526,6 +526,10 @@
 		var tint = document.createElement( 'span' );
 		tint.className = 'v2-pill-tint';
 		tint.setAttribute( 'aria-hidden', 'true' );
+		// 3.52 · grain of the case glass (hidden elsewhere by CSS)
+		var grain = document.createElement( 'i' );
+		grain.className = 'v2-pill-grain';
+		tint.appendChild( grain );
 		header.insertBefore( tint, header.firstChild );
 	}
 	var cssProgress = window.CSS && CSS.supports && CSS.supports( 'animation-timeline: scroll()' );
@@ -1067,52 +1071,108 @@
 } )();
 
 /* 3.24 · menu "troca lenta": a pílula escurece sobre blocos escuros e clareia sobre os claros, com uma
-   transição longa (CSS). Detecção barata: só os blocos escuros conhecidos, medidos uma vez (e de novo
-   ao mudar de tamanho); na rolagem é só comparar números. A mesma detecção pinta a barra de status. */
+   transição longa (CSS). Detecção barata: só os blocos conhecidos, medidos uma vez (e de novo
+   ao mudar de tamanho); na rolagem é só comparar números. A mesma detecção pinta a barra de status.
+   3.52 · Camaleão: além de claro/escuro, o cabeçalho recebe o tom do bloco de trás em data-tint
+   (paper, ink, sky ou custom com --hdr-tint). Um bloco pode declarar o seu com
+   data-header-tint="paper|ink|sky|<cor CSS>" (e data-header-tone="light|dark" para forçar o texto).
+   Sem atributo: os blocos escuros conhecidos viram ink, o céu do Paperplane (.pp-night) vira sky e o
+   resto é papel. --hdr-inset (as duas pontas) e --hdr-end (só o fim, p. ex. a saída em degradê do céu)
+   encurtam o trecho que conta. */
 ( function () {
 	'use strict';
 	var header = document.querySelector( '.site-header' );
 	if ( ! header || ! window.V2 || ! document.documentElement.classList.contains( 'is-v2' ) ) {
 		return;
 	}
-	var SEL = '#approach, .site-footer, .pp-zone[data-theme="dark"], .cv2-bleed, .art-panel.art-dark, .impact, .pp-night, [data-header-tone="dark"]';
+	var SEL = '#approach, .site-footer, .pp-zone[data-theme="dark"], .cv2-bleed, .art-panel.art-dark, .impact, .pp-night, [data-header-tone="dark"], [data-header-tint]';
+	var PRESET = { paper: false, ink: true, sky: true }; // true = fundo escuro, texto claro
+	var PAPER = { key: 'paper', color: '', dark: false };
 	var meta = document.querySelector( 'meta[name="theme-color"]' );
 	var LIGHT = meta ? meta.getAttribute( 'content' ) : '#F5F4EF', DARK = '#121211';
-	var spans = [], dark = null, mt = 0;
+	var spans = [], cur = null, mt = 0, probe = null;
+	// any CSS colour to [r, g, b] (via the browser's own parser)
+	function rgbOf( c ) {
+		if ( ! probe ) {
+			probe = document.createElement( 'i' );
+			probe.style.display = 'none';
+			document.body.appendChild( probe );
+		}
+		probe.style.color = '';
+		probe.style.color = c;
+		if ( ! probe.style.color ) {
+			return null;
+		}
+		var v = getComputedStyle( probe ).color.match( /[\d.]+/g );
+		return v && v.length >= 3 ? [ +v[ 0 ], +v[ 1 ], +v[ 2 ] ] : null;
+	}
+	function tintOf( e ) {
+		var t = ( e.getAttribute( 'data-header-tint' ) || '' ).trim().toLowerCase();
+		var tone = e.getAttribute( 'data-header-tone' );
+		if ( ! t ) {
+			t = e.matches( '.pp-night' ) ? 'sky' : 'ink';
+		}
+		if ( Object.prototype.hasOwnProperty.call( PRESET, t ) ) {
+			return { key: t, color: '', dark: tone ? 'dark' === tone : PRESET[ t ] };
+		}
+		var c = rgbOf( t );
+		if ( ! c ) {
+			return null;
+		}
+		var l = ( 0.2126 * c[ 0 ] + 0.7152 * c[ 1 ] + 0.0722 * c[ 2 ] ) / 255;
+		return { key: 'c:' + t, color: 'rgba(' + c[ 0 ] + ',' + c[ 1 ] + ',' + c[ 2 ] + ',.5)', dark: tone ? 'dark' === tone : l < 0.5 };
+	}
 	function measure() {
 		var sy = window.scrollY, vw = document.documentElement.clientWidth;
 		spans = [];
+		// document order: a block inside another comes later and wins (see tintAt)
 		[].slice.call( document.querySelectorAll( SEL ) ).forEach( function ( e ) {
 			var r = e.getBoundingClientRect();
-			// only blocks that run (almost) edge to edge under the pill count as a dark background
+			// only blocks that run (almost) edge to edge under the pill count as a background
 			if ( r.height > 80 && r.width >= vw * 0.7 ) {
+				var t = tintOf( e );
+				if ( ! t ) {
+					return;
+				}
 				// a block that fades in from the paper (--hdr-inset, a registered length) only counts once the fade is half done
-				var inset = parseFloat( getComputedStyle( e ).getPropertyValue( '--hdr-inset' ) ) || 0;
-				spans.push( [ r.top + sy + inset, r.bottom + sy - inset ] );
+				var cs = getComputedStyle( e );
+				var inset = parseFloat( cs.getPropertyValue( '--hdr-inset' ) ) || 0;
+				var end = parseFloat( cs.getPropertyValue( '--hdr-end' ) ) || 0;
+				spans.push( [ r.top + sy + inset, r.bottom + sy - inset - end, t ] );
 			}
 		} );
 	}
-	function inDark( y ) {
+	function tintAt( y ) {
+		var t = PAPER;
 		for ( var i = 0; i < spans.length; i++ ) {
 			if ( y >= spans[ i ][ 0 ] && y < spans[ i ][ 1 ] ) {
-				return true;
+				t = spans[ i ][ 2 ];
 			}
 		}
-		return false;
+		return t;
+	}
+	function apply( t ) {
+		header.setAttribute( 'data-tint', t.color ? 'custom' : t.key );
+		if ( t.color ) {
+			header.style.setProperty( '--hdr-tint', t.color );
+		} else {
+			header.style.removeProperty( '--hdr-tint' );
+		}
+		header.classList.toggle( 'v2-dark', t.dark );
+		if ( meta ) {
+			meta.setAttribute( 'content', t.dark ? DARK : LIGHT );
+		}
 	}
 	function check( y ) {
 		var mid = y + 40;
 		// a small hysteresis: the new tone has to cover the pill's middle by 14px before it switches
-		var a = inDark( mid - 14 ), b = inDark( mid + 14 );
-		if ( a !== b ) {
+		var a = tintAt( mid - 14 ), b = tintAt( mid + 14 );
+		if ( a.key !== b.key ) {
 			return;
 		}
-		if ( a !== dark ) {
-			dark = a;
-			header.classList.toggle( 'v2-dark', a );
-			if ( meta ) {
-				meta.setAttribute( 'content', a ? DARK : LIGHT );
-			}
+		if ( a.key !== cur ) {
+			cur = a.key;
+			apply( a );
 		}
 	}
 	function remeasure() {
@@ -1143,4 +1203,126 @@
 	if ( window.ScrollTrigger && window.ScrollTrigger.addEventListener ) {
 		window.ScrollTrigger.addEventListener( 'refresh', remeasure );
 	}
+} )();
+
+/* 3.52 · lente nas bordas da pílula dos cases: só Chromium (os outros mostram o mesmo vidro sem ela) e só
+   com ponteiro fino. O blur mora DENTRO do filtro SVG (feGaussianBlur → feDisplacementMap): no Chromium,
+   url() seguido de blur() perde o blur, então nunca são dois efeitos separados. O mapa de deslocamento
+   (canvas) é refeito quando a pílula muda de tamanho; o resultado entra em --hdr-refr no cabeçalho. */
+( function () {
+	'use strict';
+	var header = document.querySelector( '.site-header' );
+	var tint = header && header.querySelector( '.v2-pill-tint' );
+	var body = document.body;
+	if ( ! tint || ! body || ! document.documentElement.classList.contains( 'is-v2' ) || ! ( body.classList.contains( 'is-case' ) || body.classList.contains( 'is-pp' ) ) ) {
+		return;
+	}
+	var uad = navigator.userAgentData;
+	var chromium = !! ( uad && uad.brands && uad.brands.some( function ( b ) {
+		return /Chrom|Edge/.test( b.brand );
+	} ) );
+	if ( ! chromium || ! window.CSS || ! CSS.supports( 'backdrop-filter', 'blur(1px)' ) || ! window.matchMedia( '(hover: hover) and (pointer: fine)' ).matches || ! window.ResizeObserver ) {
+		return;
+	}
+	var NS = 'http://www.w3.org/2000/svg';
+	var BLUR = 18;
+	var svg = document.createElementNS( NS, 'svg' );
+	svg.setAttribute( 'width', '0' );
+	svg.setAttribute( 'height', '0' );
+	svg.setAttribute( 'aria-hidden', 'true' );
+	svg.setAttribute( 'focusable', 'false' );
+	svg.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden';
+	var f = document.createElementNS( NS, 'filter' );
+	f.setAttribute( 'id', 'v2-pill-lens' );
+	f.setAttribute( 'filterUnits', 'userSpaceOnUse' );
+	f.setAttribute( 'color-interpolation-filters', 'sRGB' );
+	f.setAttribute( 'x', '0' );
+	f.setAttribute( 'y', '0' );
+	var gb = document.createElementNS( NS, 'feGaussianBlur' );
+	gb.setAttribute( 'in', 'SourceGraphic' );
+	gb.setAttribute( 'stdDeviation', String( BLUR ) );
+	gb.setAttribute( 'edgeMode', 'duplicate' );
+	gb.setAttribute( 'result', 'b' );
+	var im = document.createElementNS( NS, 'feImage' );
+	im.setAttribute( 'x', '0' );
+	im.setAttribute( 'y', '0' );
+	im.setAttribute( 'preserveAspectRatio', 'none' );
+	im.setAttribute( 'result', 'm' );
+	var dm = document.createElementNS( NS, 'feDisplacementMap' );
+	dm.setAttribute( 'in', 'b' );
+	dm.setAttribute( 'in2', 'm' );
+	dm.setAttribute( 'scale', '26' );
+	dm.setAttribute( 'xChannelSelector', 'R' );
+	dm.setAttribute( 'yChannelSelector', 'G' );
+	f.appendChild( gb );
+	f.appendChild( im );
+	f.appendChild( dm );
+	svg.appendChild( f );
+	body.appendChild( svg );
+	var cache = {};
+	// displacement map of a rounded rectangle: only a thin bezel near the edge bends the backdrop
+	function mapURL( w, h, r ) {
+		var key = w + 'x' + h + 'x' + r;
+		if ( cache[ key ] ) {
+			return cache[ key ];
+		}
+		var c = document.createElement( 'canvas' );
+		c.width = w;
+		c.height = h;
+		var ctx = c.getContext( '2d' );
+		var img = ctx.createImageData( w, h ), px = img.data;
+		var bezel = Math.min( 16, h * 0.32 ), hw = w / 2, hh = h / 2;
+		for ( var y = 0; y < h; y++ ) {
+			for ( var x = 0; x < w; x++ ) {
+				var X = x + 0.5 - hw, Y = y + 0.5 - hh, ax = Math.abs( X ), ay = Math.abs( Y );
+				var qx = ax - ( hw - r ), qy = ay - ( hh - r ), d, nx, ny;
+				if ( qx > 0 && qy > 0 ) {
+					var L = Math.sqrt( qx * qx + qy * qy ) || 1;
+					d = r - L;
+					nx = qx / L;
+					ny = qy / L;
+				} else if ( qx > qy ) {
+					d = r - qx;
+					nx = 1;
+					ny = 0;
+				} else {
+					d = r - qy;
+					nx = 0;
+					ny = 1;
+				}
+				nx *= X < 0 ? -1 : 1;
+				ny *= Y < 0 ? -1 : 1;
+				var m = d < bezel ? Math.pow( 1 - Math.max( 0, d ) / bezel, 2 ) : 0;
+				var o = ( y * w + x ) * 4;
+				px[ o ] = 128 - nx * m * 127;
+				px[ o + 1 ] = 128 - ny * m * 127;
+				px[ o + 2 ] = 128;
+				px[ o + 3 ] = 255;
+			}
+		}
+		ctx.putImageData( img, 0, 0 );
+		cache = {}; // one size at a time is enough
+		return ( cache[ key ] = c.toDataURL() );
+	}
+	var raf = 0;
+	function refract() {
+		raf = 0;
+		var w = Math.round( tint.offsetWidth ), h = Math.round( tint.offsetHeight );
+		if ( w < 16 || h < 16 ) {
+			header.style.removeProperty( '--hdr-refr' );
+			return;
+		}
+		var r = Math.round( Math.min( h / 2, w / 2 ) );
+		f.setAttribute( 'width', w );
+		f.setAttribute( 'height', h );
+		im.setAttribute( 'width', w );
+		im.setAttribute( 'height', h );
+		im.setAttribute( 'href', mapURL( w, h, r ) );
+		header.style.setProperty( '--hdr-refr', 'url(#v2-pill-lens)' );
+	}
+	new ResizeObserver( function () {
+		if ( ! raf ) {
+			raf = requestAnimationFrame( refract );
+		}
+	} ).observe( tint );
 } )();

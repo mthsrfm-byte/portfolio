@@ -80,6 +80,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.53.0 =
+* Cases: menu de vidro "Camaleão". Sai o preto chapado; o vidro ganha borda de luz, grão e mais respiro interno, e a cor acompanha a seção de trás (papel, escuro ou céu, ou data-header-tint). Home sem mudança.
+
 = 3.52.0 =
 * Research Hub e Lume: refino visual de todas as telas (home e cases), sem mudar layout nem texto.
 * Lume (lume-ui.css, camada 3.52.0): títulos mais justos, números tabulares, bordas e sombras mais suaves, botões com luz no topo, abas com sublinhado arredondado, bolha da pessoa sem contorno preto (classe .bq em screens-lm.php), telas lidas no "Novo estudo" com cara de tela.
