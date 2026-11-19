@@ -80,6 +80,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.49.0 =
+* Paperplane: passagens claro ↔ escuro viram corte seco com fio de luz limão. O 06 (Dobra) abre em cortina circular a partir de um ponto de luz no scroll. A saída do céu para os 23 dias ganhou um degradê longo e macio.
+
 = 3.48.0 =
 * Paperplane: passagens entre áreas claras e escuras (Dobra, celular e o céu da noite) agora escurecem aos poucos, sem corte seco. A última peça antes do escuro ganhou respiro.
 * Paperplane: o menu só fica preto em cima de área preta. Ele olha o que está embaixo dele (v2.js, com --hdr-inset para a passagem), não o meio da tela. Também fica escuro em cima do céu da noite.

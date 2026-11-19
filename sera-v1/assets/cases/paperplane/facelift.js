@@ -35,3 +35,23 @@
   addEventListener('resize', pedir)
   addEventListener('load', function () { pedir(); setTimeout(pedir, 500); if (window.ScrollTrigger) { ScrollTrigger.refresh(); setTimeout(function () { ScrollTrigger.refresh() }, 2000) } })
 })()
+
+/* 3.49 · Dobra: cortina circular guiada pelo scroll */
+;(function () {
+  var z = document.getElementById('dobra'); z = z && z.closest('.pp-zone')
+  if (!z || matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  z.classList.add('pp-cortina')
+  var pedido = 0
+  function aplicar() {
+    pedido = 0
+    var h = innerHeight, t = z.getBoundingClientRect().top
+    var k = Math.min(1, Math.max(0, (h - t) / (h * .8)))
+    k = 1 - Math.pow(1 - k, 2)
+    z.style.setProperty('--cortina', (2 + k * 148) + '%')
+    z.style.setProperty('--ponto', k > .02 && k < .85 ? 1 : 0)
+  }
+  function pedir() { if (!pedido) pedido = requestAnimationFrame(aplicar) }
+  addEventListener('scroll', pedir, { passive: true })
+  addEventListener('resize', pedir)
+  aplicar()
+})()
