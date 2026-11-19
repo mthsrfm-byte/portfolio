@@ -205,3 +205,69 @@
 /* PT: longer arrow labels in the connector diagram wrap instead of running into the nodes */
 :lang(pt) .rh-cx-arrow small{white-space:normal;padding:0 6px;line-height:1.25}
 @media (max-width:1000px){:lang(pt) .rh-cx-arrow small{padding:0}}
+
+/* ---------------------------------------------------------------- 3.49.0 · refino visual das telas (.rhs)
+   Contrast checked (WCAG AA 4.5:1 for text) on every colour pair changed here.
+   Same layout and copy; finer finishing: the close button stops competing with the main action,
+   tags become soft pills with a hairline, buttons and dark tiles get a little light, cards a layered shadow. */
+.rhs{text-rendering:optimizeLegibility;font-feature-settings:"kern" 1}
+.rhs-modal-wrap{background:radial-gradient(70% 60% at 15% 0%,#F4E5F0 0%,transparent 65%),linear-gradient(160deg,#ECE7F0,#E3E7EE)}
+.rhs-modal{box-shadow:0 0 0 1px rgba(15,25,30,.06),0 2px 6px rgba(15,25,30,.04),0 50px 100px -40px rgba(15,25,30,.45)}
+.rhs-x{width:38px;height:38px;background:#fff;color:var(--ink);border:1px solid var(--g2);box-shadow:0 1px 2px rgba(15,25,30,.06)}
+.rhs-x .rhs-i{width:16px;height:16px}
+.rhs-pill{background:linear-gradient(180deg,#D51C91 0%,#BF137F 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 1px 2px rgba(125,20,100,.25),0 10px 20px -10px rgba(194,21,127,.8)}
+.rhs-ghost{background:#fff;border-color:#DFE0E6;box-shadow:0 1px 2px rgba(15,25,30,.06)}
+/* tags: soft pills with a hairline of their own colour */
+.rhs-tag{padding:3px 9px;border-radius:999px;font-size:11.5px;letter-spacing:.01em;box-shadow:inset 0 0 0 1px color-mix(in srgb,currentColor 18%,transparent)}
+.rhs-tag.is-int{background:#E6EEFB;color:#0B4A94}
+.rhs-tag.is-ok{background:#E3F7EE;color:#0A7D50}
+.rhs-tag.is-warn{background:#FFF2E4;color:#9A560A}
+.rhs-tag.is-conf{background:linear-gradient(180deg,#E3283A,#C81B2C);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 2px 6px -2px rgba(200,27,44,.5)}
+.rhs-chip{border-radius:999px;padding:3px 10px;background:linear-gradient(180deg,#D51C91,#BF137F);box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+.rhs-chip.is-grey{background:#F1F1F6;color:#5F6D75;box-shadow:inset 0 0 0 1px rgba(25,45,55,.08)}
+.rhs-ans .rhs-chip,.rhs-m .rhs-chip{box-shadow:none}
+/* file tiles */
+[class^="ft-"]{box-shadow:inset 0 0 0 1px color-mix(in srgb,currentColor 14%,transparent);letter-spacing:.04em}
+/* import */
+.rhs-zip{border:1.5px dashed #D3CCDD;background:linear-gradient(180deg,#FBFAFD,#F5F4F9)}
+.rhs-zip>i{width:46px;height:46px;flex:none;border-radius:13px;display:grid;place-items:center;background:#fff;box-shadow:0 1px 2px rgba(15,25,30,.06),inset 0 0 0 1px var(--g2)}
+.rhs-zip>i .rhs-i{width:22px;height:22px}
+.rhs-files{border-color:#E8E8EE;box-shadow:0 1px 2px rgba(15,25,30,.04)}
+.rhs-files>div{padding:12px 18px;border-bottom-color:#F0F0F4}
+.rhs-files>div:nth-child(even){background:#FCFCFE}
+.rhs-lgpd{align-items:center;background:linear-gradient(135deg,#16252E 0%,#0C151B 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 10px 24px -14px rgba(12,21,27,.7)}
+.rhs-lgpd>i{background:linear-gradient(145deg,#E0279E,#BF137F);box-shadow:inset 0 1px 0 rgba(255,255,255,.22)}
+/* section heads and the dark icon tiles */
+.rhs-sh>i{background:linear-gradient(145deg,#22323B,#0C151B);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 4px 10px -4px rgba(12,21,27,.5)}
+.rhs-sh b{letter-spacing:-.01em}
+/* study report */
+.rhs-rep-h h2{letter-spacing:-.03em}
+.rhs-meta i{background:#fff;border-color:#F6D3E9;box-shadow:0 1px 2px rgba(194,21,127,.08)}
+.rhs-counts>div{border-color:#ECECF1;box-shadow:0 1px 2px rgba(15,25,30,.04),0 6px 14px -10px rgba(15,25,30,.18)}
+.rhs-counts i{background:linear-gradient(145deg,#FFE0F2,#FFCDEB);box-shadow:inset 0 0 0 1px rgba(194,21,127,.08)}
+.rhs-counts b{font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.rhs-rep-b{border-top-color:#ECECF1}
+.rhs-summary{background:radial-gradient(70% 120% at 100% 0%,rgba(255,90,190,.22) 0%,transparent 60%),linear-gradient(135deg,#BD1283 0%,#A10E6A 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 18px 36px -20px rgba(168,15,110,.75)}
+.rhs-summary>i{box-shadow:inset 0 0 0 1px rgba(255,255,255,.22)}
+.rhs-summary small{color:#FFE8F5}
+.rhs-find{border-color:#ECECF1;box-shadow:0 1px 2px rgba(15,25,30,.04)}
+.rhs-find>span{font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.rhs-find .ev{border-left:2px solid var(--pd);border-radius:4px 10px 10px 4px;background:#F7F7FA;color:#55636B}
+/* privacy */
+.rhs-mat>div{border-color:#ECECF1;box-shadow:0 1px 2px rgba(15,25,30,.04)}
+.rhs-mat em.open{background:linear-gradient(180deg,#D51C91,#BF137F);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 6px 12px -8px rgba(194,21,127,.8)}
+.rhs-mat>div.is-locked em{background:#fff;box-shadow:inset 0 0 0 1px var(--g2)}
+.rhs-rules{border-color:#ECECF1;box-shadow:0 1px 2px rgba(15,25,30,.04)}
+.rhs-rules>div{border-bottom-color:#F0F0F4}
+.rhs .tog{background:linear-gradient(180deg,#D51C91,#BF137F);box-shadow:inset 0 1px 2px rgba(80,0,50,.25)}
+.rhs .tog::after{box-shadow:0 1px 3px rgba(80,0,50,.35)}
+/* guide */
+.rhs-gh{letter-spacing:-.04em}
+.rhs-gcards p{background:#F6F6FA;box-shadow:inset 0 0 0 1px rgba(25,45,55,.05)}
+.rhs-cut{border-color:#ECECF1;box-shadow:0 1px 2px rgba(15,25,30,.04),0 24px 48px -28px rgba(15,25,30,.3)}
+.rhs-cut .eq p{background:#F7F7FA;border-color:#ECECF1}
+.rhs-cut .eq p.r{background:linear-gradient(145deg,#C2157F,#A80F6E);border-color:transparent;box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 8px 16px -10px rgba(194,21,127,.8)}
+.rhs-cut .eq p.r small{color:#FFF0F8}
+.rhs-cut .out{background:linear-gradient(180deg,#16252E,#0F191E);box-shadow:inset 0 0 0 1px rgba(255,255,255,.05)}
+.rhs-seven p{border-color:#ECECF1;box-shadow:0 1px 2px rgba(15,25,30,.04)}
+.rhs-bar{border-bottom-color:#EEEEF2}

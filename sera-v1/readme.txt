@@ -80,6 +80,14 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.49.0 =
+* Research Hub e Lume: refino visual de todas as telas (home e cases), sem mudar layout nem texto.
+* Lume (lume-ui.css, camada 3.49.0): títulos mais justos, números tabulares, bordas e sombras mais suaves, botões com luz no topo, abas com sublinhado arredondado, bolha da pessoa sem contorno preto (classe .bq em screens-lm.php), telas lidas no "Novo estudo" com cara de tela.
+* Research Hub (cases/rh.css): fechar neutro (não compete com o botão principal), tags em pílula com fio, blocos escuros e botões com profundidade, evidência com fio rosa à esquerda.
+* Frames (shots.css): barra do navegador mais clara, cadeado no endereço, sombras em camadas e fio fino na borda dos prints.
+* Contraste: todo par de cor mexido confere WCAG AA (4,5:1). No Lume, o rosa com texto branco virou #D6048A; o #FF009B fica só em barras, ondas e ícones.
+* Print 01-home-mob do Research Hub: tirei as contagens (pesquisas, pessoas ouvidas, insights), igual à versão desktop.
+
 = 3.48.0 =
 * Paperplane: passagens entre áreas claras e escuras (Dobra, celular e o céu da noite) agora escurecem aos poucos, sem corte seco. A última peça antes do escuro ganhou respiro.
 * Paperplane: o menu só fica preto em cima de área preta. Ele olha o que está embaixo dele (v2.js, com --hdr-inset para a passagem), não o meio da tela. Também fica escuro em cima do céu da noite.

@@ -212,3 +212,67 @@
 .lmx-duo-cap{margin-top:12px;font-size:13.5px;color:var(--muted,#6E6C66)}
 @media (max-width:1000px){.lmx-duo{grid-template-columns:1fr}.lmx-duo-ph .device{--s:.56}}
 .lmx .ta{overflow:hidden}
+
+/* ---------------------------------------------------------------- 3.49.0 · refino visual
+   Same tokens and components as the product, with finer finishing: tighter headings, tabular figures,
+   softer borders, layered shadows, buttons with a little light, calmer person bubbles, real-looking
+   skeleton screens. Overrides only; the base rules above stay the 1:1 port. */
+.lmx{text-rendering:optimizeLegibility;font-feature-settings:"kern" 1,"liga" 1;--u-pink:#D6048A;--u-mut:#5F6C74}
+/* contrast (WCAG AA, 4.5:1 for text): the pink that carries white text or sits as small text is a deeper magenta
+   (#D6048A, 4.9:1 with white); the bright #FF009B stays only on bars, waves and icon tiles (non-text, 3:1). */
+.lmx .t24,.lmx .t32,.lmx .pt{letter-spacing:-.022em}
+.lmx .t18,.lmx .t20{letter-spacing:-.012em}
+.lmx .tab,.lmx td,.lmx th{font-variant-numeric:tabular-nums}
+.lmx .mut{color:var(--u-mut)}
+.lmx .over{letter-spacing:.8px;color:var(--u-mut)}
+.lmx .hr{background:rgba(25,45,55,.09)}
+/* surfaces */
+.lmx .card{border-color:rgba(25,45,55,.10);border-radius:14px;box-shadow:0 1px 2px rgba(25,45,55,.04),0 4px 12px -6px rgba(25,45,55,.08)}
+.lmx .box{border-color:rgba(25,45,55,.10);box-shadow:0 1px 2px rgba(25,45,55,.04),0 6px 16px -8px rgba(25,45,55,.12)}
+/* buttons: a touch of light on top, a soft coloured shadow below */
+.lmx .btn{background:linear-gradient(180deg,#E3058C 0%,#D10081 100%);border-color:#C9007C;box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 1px 2px rgba(160,0,100,.25),0 8px 18px -10px rgba(214,4,138,.8);letter-spacing:.005em}
+.lmx .btn.out{background:#fff;color:var(--u-ink);border-color:rgba(25,45,55,.15);box-shadow:0 1px 2px rgba(25,45,55,.06),inset 0 -1px 0 rgba(25,45,55,.04)}
+.lmx .btn.ghost{background:transparent;border-color:transparent;box-shadow:none}
+.lmx .btn.dark{background:linear-gradient(180deg,#24384A 0%,#14242E 100%);border-color:#14242E;box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 8px 16px -10px rgba(20,36,46,.8)}
+.lmx .btn.dis{background:var(--u-g2);border-color:var(--u-g2);box-shadow:none}
+.lmx .chip{border-color:rgba(25,45,55,.13);background:#fff;box-shadow:0 1px 1px rgba(25,45,55,.04)}
+.lmx .chip.on{border-color:var(--u-pink);background:var(--u-pink-soft);box-shadow:0 0 0 3px rgba(255,0,155,.08)}
+.lmx .chip.navy{background:linear-gradient(180deg,#24384A,#14242E);border-color:#14242E;box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 2px 6px -2px rgba(20,36,46,.5)}
+/* pills: a hairline of their own colour, so they sit on any surface */
+.lmx .pill{font-size:11.5px;letter-spacing:.01em;box-shadow:inset 0 0 0 1px color-mix(in srgb,currentColor 16%,transparent)}
+.lmx .p-draft{border:0;background:#F3F3F7;color:#56636B;box-shadow:inset 0 0 0 1px rgba(25,45,55,.14)}
+.lmx .p-done{background:linear-gradient(180deg,#24384A,#14242E);box-shadow:inset 0 1px 0 rgba(255,255,255,.1)}
+/* progress */
+.lmx .prog{background:var(--u-g2);box-shadow:inset 0 1px 1px rgba(25,45,55,.06)}
+.lmx .prog>i{background:linear-gradient(90deg,#FF66C2,#FF009B)}
+/* fields */
+.lmx .inp,.lmx .ta{border-color:rgba(25,45,55,.17);box-shadow:inset 0 1px 2px rgba(25,45,55,.05)}
+/* table */
+.lmx th{background:#FAFAFC;font-size:10.5px;letter-spacing:.8px;color:var(--u-mut);padding:11px 14px}
+.lmx td{padding:13px 14px;border-bottom-color:#F0F0F4}
+.lmx tbody tr:last-child td{border-bottom:0}
+/* app shell */
+.lmx .side{background:linear-gradient(180deg,#F8F8FB 0%,#F3F3F8 100%);border-right-color:rgba(25,45,55,.08)}
+.lmx .snav a{color:#33464F}
+.lmx .snav a.on{color:var(--u-ink);box-shadow:0 0 0 1px rgba(25,45,55,.06),0 1px 3px rgba(25,45,55,.08)}
+.lmx .snav a .cnt{min-width:20px;height:18px;border-radius:9px;background:var(--u-g2);display:inline-flex;align-items:center;justify-content:center;font-weight:600;font-size:11px;color:#4F5C64}
+.lmx .sitem.on{box-shadow:0 0 0 1px rgba(25,45,55,.06),0 1px 3px rgba(25,45,55,.08)}
+.lmx .mark{background:linear-gradient(145deg,#FF45B5 0%,#FF009B 55%,#E0008B 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 6px 12px -6px rgba(255,0,155,.7)}
+.lmx .avatar{background:linear-gradient(145deg,#2D4757,#14242E);box-shadow:0 0 0 2px #fff,0 0 0 3px rgba(25,45,55,.1)}
+.lmx .mhead{background:#fff}
+.lmx .utabs{border-bottom-color:rgba(25,45,55,.10)}
+.lmx .utabs a{position:relative}
+.lmx .utabs a.on{border-color:transparent}
+.lmx .utabs a.on::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;border-radius:2px 2px 0 0;background:#FF009B}
+.lmx .utabs a .n{font-weight:600}
+.lmx .utabs a.on .n{background:var(--u-ink);color:#fff}
+/* voice: mic with a soft ring, Lume bubble lighter, person bubble outlined softly instead of in black */
+.lmx .mic{background:linear-gradient(145deg,#FF3DB1,#F00092);box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 0 0 4px rgba(255,0,155,.10),0 8px 16px -8px rgba(255,0,155,.8)}
+.lmx .bl{background:#F1F1F6;box-shadow:inset 0 0 0 1px rgba(25,45,55,.05)}
+.lmx .bp{background:linear-gradient(180deg,#E3058C,#D10081);box-shadow:0 6px 14px -8px rgba(214,4,138,.8)}
+.lmx .bq{align-self:flex-end;max-width:80%;background:#fff;border:1px solid rgba(25,45,55,.13);border-radius:16px 16px 4px 16px;padding:10px 12px;box-shadow:0 1px 2px rgba(25,45,55,.05),0 10px 22px -14px rgba(25,45,55,.35)}
+.lmx .wave i{border-radius:3px}
+/* phone footers: frosted, lighter divider */
+.lmx .pfoot{background:rgba(252,252,252,.9);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top-color:rgba(25,45,55,.08)}
+/* D3: the screens the Lume read look like tiny screens, not grey blocks */
+.lmx i.lmx-pop{display:block;box-shadow:inset 0 0 0 1px rgba(25,45,55,.07),0 1px 2px rgba(25,45,55,.06);background-image:linear-gradient(rgba(25,45,55,.16),rgba(25,45,55,.16)),linear-gradient(rgba(25,45,55,.22),rgba(25,45,55,.22)),linear-gradient(rgba(25,45,55,.09),rgba(25,45,55,.09)),linear-gradient(rgba(25,45,55,.09),rgba(25,45,55,.09)),linear-gradient(#FF009B,#FF009B)!important;background-size:40% 2px,62% 5px,74% 2px,58% 2px,72% 7%!important;background-position:20% 9%,20% 20%,20% 33%,20% 40%,50% 91%!important;background-repeat:no-repeat!important}
