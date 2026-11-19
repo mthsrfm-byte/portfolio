@@ -29,6 +29,9 @@ $sera_meta  = array(
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <?php wp_head(); ?>
+<?php if ( is_front_page() ) : ?>
+<script>(function(d){d.classList.add('cv-on','cv-pre');setTimeout(function(){d.classList.remove('cv-pre');},5000);})(document.documentElement);</script>
+<?php endif; ?>
 </head>
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
@@ -38,7 +41,6 @@ $sera_meta  = array(
 	<div class="wrap">
 		<a class="brand" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="<?php echo esc_attr( sera_t( 'Matheus Serafim — home', 'Matheus Serafim — início' ) ); ?>">
 			<?php echo sera_brand_logo(); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-			<span class="brand-name">Matheus Serafim</span>
 		</a>
 
 		<nav class="primary-nav" id="primary-nav" aria-label="<?php echo esc_attr( sera_t( 'Main', 'Principal' ) ); ?>">

@@ -42,6 +42,12 @@
 /* the canvas reaches up behind the header so the particles can build the small logo there */
 #cover canvas.bust{position:absolute;left:0;top:calc(var(--hdr) * -1);width:100%;height:calc(100% + var(--hdr));z-index:2;display:block;opacity:0;transition:opacity 1.2s ease;pointer-events:none}
 #cover canvas.bust.is-ready{opacity:1}
+/* first paint: the still ASCII portrait (cover-pre.js) holds the spot until the live bust takes over */
+#cover canvas.bust-pre{position:absolute;left:0;top:calc(var(--hdr) * -1);width:100%;height:calc(100% + var(--hdr));z-index:2;display:block;pointer-events:none;opacity:0;transition:opacity .35s ease}
+#cover canvas.bust-pre.on{opacity:1}
+#cover.cv-fallback canvas.bust-pre{display:none}
+/* the bust always ends in a veil to transparent at the bottom of its box (--cv-f0/--cv-f1: px from the canvas top, set by cover-pre.js and cover.js) */
+#cover canvas.bust,#cover canvas.bust-pre{-webkit-mask-image:linear-gradient(to bottom,#000 var(--cv-f0,74%),transparent var(--cv-f1,100%));mask-image:linear-gradient(to bottom,#000 var(--cv-f0,74%),transparent var(--cv-f1,100%))}
 #cover .cv-lab{display:none!important}
 
 #cover .frame{position:absolute;z-index:4;top:0;bottom:0;left:50%;width:var(--lw);transform:translateX(-50%);pointer-events:none}
@@ -111,7 +117,7 @@
 #cover .cv-photo{display:none}
 #cover.cv-fallback canvas.bust{display:none}
 /* the source photo of the 3D scan, framed like the bust; multiply turns its white backdrop into the page's paper */
-#cover.cv-fallback .cv-photo{display:block;position:absolute;z-index:2;left:50%;transform:translateX(-50%);top:var(--bt);height:var(--bh);width:var(--bw);max-width:100%;object-fit:contain;object-position:50% 100%}
+#cover.cv-fallback .cv-photo{-webkit-mask-image:linear-gradient(to bottom,#000 74%,transparent);mask-image:linear-gradient(to bottom,#000 74%,transparent);display:block;position:absolute;z-index:2;left:50%;transform:translateX(-50%);top:var(--bt);height:var(--bh);width:var(--bw);max-width:100%;object-fit:contain;object-position:50% 100%}
 .cv-hud{position:fixed;z-index:9999;left:8px;right:8px;bottom:8px;margin:0;padding:10px 12px;border-radius:8px;background:rgba(17,17,16,.88);color:#EFEEE8;font:11px/1.45 var(--mono,monospace);white-space:pre-wrap;word-break:break-all;max-height:45vh;overflow:auto}
 
 /* header on the home: the brand logo is built by the particles on the way down, so it waits for them */
@@ -142,6 +148,14 @@ html.cv-on .site-header.cv-flying::before,html.cv-on .site-header.cv-flying>.v2-
 @media (max-width:900px),(hover:none){.site-header .mp,.site-header .mp-sel{display:none}.site-header.has-you,.site-header.has-you a,.site-header.has-you button{cursor:auto}}
 
 @media (prefers-reduced-motion:reduce){#cover *{transition:none!important}}
+
+/* the cover script loads after Three.js: until it has laid the header out, the menu waits hidden instead of jumping */
+html.cv-on .site-header>.wrap>:not(.brand){transition:opacity .35s ease}
+html.cv-pre .site-header>.wrap>:not(.brand){opacity:0}
+/* home: while the cover scrolls by, only the particle logo sits in the header; the bar arrives with the brands strip */
+html.cv-on .site-header.is-scrolled:not(.cv-bar)>.wrap>:not(.brand){opacity:0;pointer-events:none}
+html.cv-on .site-header.is-scrolled:not(.cv-bar)::before,html.cv-on .site-header.is-scrolled:not(.cv-bar)::after{opacity:0!important}
+html.cv-on .site-header.cv-bar .brand svg{opacity:1}
 
 /* home header at the top: no name, menu + language + button grouped in the middle, never wider than the logo */
 @media (min-width:901px){
