@@ -80,6 +80,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.47.2 =
+* SEO: o <title> sai escapado ("&" vira "&amp;"). Com o "&" cru, a prévia do LinkedIn caía em "Index".
+
 = 3.47.1 =
 * Paperplane: as imagens e vídeos trocados pelos da landing ganham nome novo (-d2), para o navegador não mostrar as antigas guardadas em cache (ex.: a garçonete no trem do "Continuar de onde parei").
 
