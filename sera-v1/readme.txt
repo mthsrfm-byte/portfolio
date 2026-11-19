@@ -80,6 +80,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.47.1 =
+* Paperplane: as imagens e vídeos trocados pelos da landing ganham nome novo (-d2), para o navegador não mostrar as antigas guardadas em cache (ex.: a garçonete no trem do "Continuar de onde parei").
+
 = 3.47.0 =
 * Paperplane na home: o mockup do card fica claro, no visual da home nova (papel, lima #E4F65C, Geologica e Onest), com o logotipo "P" no selo, no menu, no celular e na ilha; as imagens viram as da landing (anime).
 * Case do Paperplane: as últimas imagens antigas saem (sb-c e ficha-lia que faltavam); a do "Continuar de onde parei" vira a da landing.
