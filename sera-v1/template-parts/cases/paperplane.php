@@ -279,7 +279,7 @@ defined( 'ABSPATH' ) || exit;
       </div>
       <div class="regra-art pp-micro art-quadro" data-theme="dark" role="group" aria-label="<?php echo esc_attr( sera_t( 'The approved frame becomes the video take', 'Quadro aprovado vira o take de vídeo' ) ); ?>">
         <div class="aq-trilho">
-          <figure class="aq-quadro"><img data-midia="pg/quadro-take.webp" data-midia-reserva="sim/52cb6968df.webp" alt="<?php echo esc_attr( sera_t( 'An approved storyboard frame, which becomes the first frame of the video.', 'Quadro aprovado do storyboard, que vira o primeiro quadro do vídeo.' ) ); ?>" width="320" height="180"><span class="aq-cod">3C</span><span class="aq-ok" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#pp-i-check"/></svg></span></figure>
+          <figure class="aq-quadro"><img data-midia="pg/quadro-take-d2.webp" data-midia-reserva="sim/52cb6968df-d2.webp" alt="<?php echo esc_attr( sera_t( 'An approved storyboard frame, which becomes the first frame of the video.', 'Quadro aprovado do storyboard, que vira o primeiro quadro do vídeo.' ) ); ?>" width="320" height="180"><span class="aq-cod">3C</span><span class="aq-ok" aria-hidden="true"><svg class="ico" aria-hidden="true"><use href="#pp-i-check"/></svg></span></figure>
           <div class="aq-take" aria-hidden="true"><span class="aq-tk">Take #1.0</span><span class="aq-play"><svg class="ico"><use href="#pp-i-play"/></svg></span></div>
         </div>
         <div class="aq-acoes"><span class="aq-pill"><?php sera_e( 'Awaiting approval', 'Para aprovar' ); ?></span><button type="button" class="pp-btn a sm aq-aprovar"><?php sera_e( 'Approve', 'Aprovar' ); ?></button></div>
