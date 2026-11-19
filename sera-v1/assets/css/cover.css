@@ -142,3 +142,14 @@ html.cv-on .site-header.cv-flying::before,html.cv-on .site-header.cv-flying>.v2-
 @media (max-width:900px),(hover:none){.site-header .mp,.site-header .mp-sel{display:none}.site-header.has-you,.site-header.has-you a,.site-header.has-you button{cursor:auto}}
 
 @media (prefers-reduced-motion:reduce){#cover *{transition:none!important}}
+
+/* home header at the top: no name, menu + language + button grouped in the middle, never wider than the logo */
+@media (min-width:901px){
+	html.cv-on .site-header.cv-top .brand-name{display:none}
+	html.cv-on .site-header.cv-top .brand{position:absolute;left:var(--gutter,24px);pointer-events:none}
+	html.cv-on .site-header.cv-top .wrap{max-width:var(--cv-lw,100%);margin-inline:auto;justify-content:center;gap:34px}
+}
+/* home header scrolled: a full-width bar across the top, not the floating pill */
+html.cv-on .site-header::before{inset:0!important;border-radius:0!important;transform:none!important;box-shadow:0 1px 0 rgba(17,17,16,.08)!important}
+html.cv-on .site-header::after{left:0!important;right:0!important;bottom:0!important}
+html.cv-on .site-header>.v2-pill-tint{display:none!important}
