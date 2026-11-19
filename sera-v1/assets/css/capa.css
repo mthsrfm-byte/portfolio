@@ -32,6 +32,9 @@ html .cases>.case-card.case-capa:hover{border-color:transparent}
 .case-capa .cc-floor .near{-webkit-mask-image:linear-gradient(to top,#000 0%,#000 16%,transparent 40%);mask-image:linear-gradient(to top,#000 0%,#000 16%,transparent 40%)}
 .case-capa .cc-floor .mid{filter:blur(1.3px);-webkit-mask-image:linear-gradient(to top,transparent 12%,#000 32%,#000 46%,transparent 66%);mask-image:linear-gradient(to top,transparent 12%,#000 32%,#000 46%,transparent 66%)}
 .case-capa .cc-floor .far{filter:blur(3.4px);opacity:.85;-webkit-mask-image:linear-gradient(to top,transparent 40%,#000 60%,rgba(0,0,0,.6) 78%,transparent 96%);mask-image:linear-gradient(to top,transparent 40%,#000 60%,rgba(0,0,0,.6) 78%,transparent 96%)}
+/* 3.44.3 · capa.js draws the same floor once into a flat image (no 3D layers to redraw while scrolling) */
+.case-capa .cc-floor.is-flat{background-repeat:no-repeat;background-position:0 0;background-size:100% 100%}
+.case-capa .cc-floor.is-flat .fl{display:none}
 html .cases>.case-card.case-capa::before{content:"";position:absolute;left:0;right:0;bottom:-1px;height:22%;z-index:1;background:linear-gradient(to top,var(--bg-2),transparent);pointer-events:none}
 
 /* masthead: one line, full width (font size from capa.js); solid type with a soft hole where the cursor is */
@@ -67,6 +70,12 @@ html .cases>.case-card.case-capa:hover .cc-cta i{transform:translateX(4px) rotat
 /* tablets: a slimmer button so it fits its corner; short screens: the small print under the 2nd and 3rd metrics goes first */
 @media (min-width:761px) and (max-width:1080px){.case-capa .cc-cta{min-height:44px;padding:0 16px;gap:8px;font-size:11.5px}}
 .case-capa.is-snug .c4 p{display:none}
+
+/* 3.44.3 · the stack (capa.js): covered cards and cards far below stop their loops; cards buried two
+   under the top of the stack aren't drawn at all (they're fully hidden by an identical card on top) */
+html .cases>.case-card.case-capa.is-buried{visibility:hidden}
+.case-capa.is-buried *,.case-capa.is-buried *::before,.case-capa.is-buried *::after,
+.case-capa.is-still *,.case-capa.is-still *::before,.case-capa.is-still *::after{animation-play-state:paused!important}
 
 /* grains: the canvas lives outside the card (capa.js) so they can fly past its edge */
 .cc-dust{position:fixed;left:0;top:0;z-index:39;pointer-events:none;display:block}

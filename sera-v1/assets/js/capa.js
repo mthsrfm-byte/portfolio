@@ -43,6 +43,7 @@
 		if ( ! mast || ! name ) {
 			return;
 		}
+		flatFloor( card );
 		var phone = isPhone();
 		var W = card.clientWidth;
 		var H = card.clientHeight;
@@ -115,6 +116,147 @@
 		if ( overlaps( c2, c4 ) ) {
 			card.classList.add( 'is-snug' );
 		}
+	}
+
+	/* ---------- 1b. floor, flattened (3.44.3) ----------
+	   The CSS floor is three 3D-tilted grids, blurred and masked, in every card: the browser redraws them on
+	   every scroll frame (the deck's flicker). Here the same picture is drawn once per floor size on a canvas,
+	   with the same maths as the CSS (perspective 900px, rotateX 64deg, origin at the bottom centre, 84px grid
+	   anchored centre/bottom, 1px lines at .13), and shown as a flat background. The CSS stays as the fallback. */
+	var FLOOR = {
+		d: 900,
+		th: 64 * Math.PI / 180,
+		cell: 84,
+		layers: [
+			{ blur: 0, op: 1, mask: [ [ 0, 1 ], [ 0.16, 1 ], [ 0.4, 0 ] ] },
+			{ blur: 1.3, op: 1, mask: [ [ 0.12, 0 ], [ 0.32, 1 ], [ 0.46, 1 ], [ 0.66, 0 ] ] },
+			{ blur: 3.4, op: 0.85, mask: [ [ 0.4, 0 ], [ 0.6, 1 ], [ 0.78, 0.6 ], [ 0.96, 0 ] ] },
+		],
+	};
+	var floors = {}; // "w×h" → blob URL, shared by every card of that size
+	function floorImage( w, h, done ) {
+		var key = w + 'x' + h;
+		if ( floors[ key ] ) {
+			if ( floors[ key ].url ) {
+				done( floors[ key ].url );
+			} else {
+				floors[ key ].wait.push( done );
+			}
+			return;
+		}
+		floors[ key ] = { url: '', wait: [ done ] };
+		var dpr = Math.min( 2, window.devicePixelRatio || 1 );
+		var out = document.createElement( 'canvas' );
+		out.width = Math.round( w * dpr );
+		out.height = Math.round( h * dpr );
+		var o = out.getContext( '2d' );
+		var cs = Math.cos( FLOOR.th );
+		var sn = Math.sin( FLOOR.th );
+		var half = w * 0.8; // the plane is 160% of the floor wide (left/right -30%)
+		function P( X, Y ) {
+			var s = FLOOR.d / ( FLOOR.d - Y * sn );
+			return [ ( w / 2 + X * s ) * dpr, ( h + Y * cs * s ) * dpr ];
+		}
+		function quad( c, a, b, e, f ) {
+			c.moveTo( a[ 0 ], a[ 1 ] );
+			c.lineTo( b[ 0 ], b[ 1 ] );
+			c.lineTo( e[ 0 ], e[ 1 ] );
+			c.lineTo( f[ 0 ], f[ 1 ] );
+			c.closePath();
+		}
+		FLOOR.layers.forEach( function ( L ) {
+			var cv = document.createElement( 'canvas' );
+			cv.width = out.width;
+			cv.height = out.height;
+			var c = cv.getContext( '2d' );
+			c.fillStyle = 'rgba(17,17,16,.13)';
+			// horizontal lines: 1px bands at the top of each cell, cells stacked up from the bottom edge
+			for ( var Y = -FLOOR.cell; Y >= -h; Y -= FLOOR.cell ) {
+				c.beginPath();
+				quad( c, P( -half, Y ), P( half, Y ), P( half, Y + 1 ), P( -half, Y + 1 ) );
+				c.fill();
+			}
+			// vertical lines: 1px bands at the left of each cell, the grid centred
+			for ( var X = -FLOOR.cell / 2 - Math.ceil( half / FLOOR.cell ) * FLOOR.cell; X < half; X += FLOOR.cell ) {
+				if ( X + 1 < -half ) {
+					continue;
+				}
+				c.beginPath();
+				quad( c, P( X, 0 ), P( X + 1, 0 ), P( X + 1, -h ), P( X, -h ) );
+				c.fill();
+			}
+			// blur, then the mask (bottom → top, in the floor box), then opacity: the CSS order
+			var src = cv;
+			if ( L.blur ) {
+				var b = document.createElement( 'canvas' );
+				b.width = cv.width;
+				b.height = cv.height;
+				var bc = b.getContext( '2d' );
+				if ( 'filter' in bc ) {
+					bc.filter = 'blur(' + ( L.blur * dpr ) + 'px)';
+					bc.drawImage( cv, 0, 0 );
+				} else {
+					// no canvas filters: soften by drawing small and back up
+					var k = 1 / ( 1 + L.blur );
+					var t = document.createElement( 'canvas' );
+					t.width = Math.max( 1, Math.round( cv.width * k ) );
+					t.height = Math.max( 1, Math.round( cv.height * k ) );
+					t.getContext( '2d' ).drawImage( cv, 0, 0, t.width, t.height );
+					bc.imageSmoothingQuality = 'high';
+					bc.drawImage( t, 0, 0, b.width, b.height );
+				}
+				src = b;
+			}
+			var m = src.getContext( '2d' );
+			m.filter = 'none';
+			m.globalCompositeOperation = 'destination-in';
+			var g = m.createLinearGradient( 0, src.height, 0, 0 );
+			L.mask.forEach( function ( st ) {
+				g.addColorStop( st[ 0 ], 'rgba(0,0,0,' + st[ 1 ] + ')' );
+			} );
+			m.fillStyle = g;
+			m.fillRect( 0, 0, src.width, src.height );
+			o.globalAlpha = L.op;
+			o.drawImage( src, 0, 0 );
+		} );
+		o.globalAlpha = 1;
+		function finish( url ) {
+			floors[ key ].url = url;
+			floors[ key ].wait.forEach( function ( fn ) {
+				fn( url );
+			} );
+			floors[ key ].wait = [];
+		}
+		if ( out.toBlob && window.URL && URL.createObjectURL ) {
+			out.toBlob( function ( blob ) {
+				if ( blob ) {
+					finish( URL.createObjectURL( blob ) );
+				}
+			} );
+		} else {
+			finish( out.toDataURL() );
+		}
+	}
+	function flatFloor( card ) {
+		var fl = card.querySelector( '.cc-floor' );
+		if ( ! fl ) {
+			return;
+		}
+		var w = fl.clientWidth;
+		var h = fl.clientHeight;
+		if ( ! w || ! h ) {
+			return;
+		}
+		var key = w + 'x' + h;
+		fl.ccKey = key;
+		try {
+			floorImage( w, h, function ( url ) {
+				if ( fl.ccKey === key ) {
+					fl.style.backgroundImage = 'url("' + url + '")';
+					fl.classList.add( 'is-flat' );
+				}
+			} );
+		} catch ( e ) {} // the CSS floor stays
 	}
 
 	/* ---------- 2. grains ---------- */
@@ -391,6 +533,54 @@
 					}
 				} );
 			}, { passive: true } );
+		}
+		// 3.44.3 · the stack: every card stays stuck under the header, so all nine are "on screen" at once,
+		// each with its looping mockup and blurred floor. A card that is already covered stops: its animations
+		// pause, and from two below the top of the stack it isn't drawn at all (the one right under the top
+		// stays drawn, so scrolling back up never uncovers an empty spot). Cards far below the fold pause too.
+		var stackState = cards.map( function () {
+			return '';
+		} );
+		var stackTick = false;
+		function stack() {
+			stackTick = false;
+			var stick = parseFloat( getComputedStyle( cards[ 0 ] ).top ) || 0;
+			var vh = window.innerHeight;
+			var tops = cards.map( function ( c ) {
+				return c.getBoundingClientRect().top;
+			} );
+			var k = -1; // the top of the stack: the last card resting at its sticky line
+			tops.forEach( function ( t, i ) {
+				if ( t <= stick + 1 ) {
+					k = i;
+				}
+			} );
+			cards.forEach( function ( card, i ) {
+				var s = '';
+				if ( i < k - 1 ) {
+					s = 'is-buried';
+				} else if ( i < k || tops[ i ] > vh * 2 ) {
+					s = 'is-still';
+				}
+				if ( s !== stackState[ i ] ) {
+					card.classList.remove( 'is-buried', 'is-still' );
+					if ( s ) {
+						card.classList.add( s );
+					}
+					stackState[ i ] = s;
+				}
+			} );
+		}
+		function queueStack() {
+			if ( ! stackTick ) {
+				stackTick = true;
+				window.requestAnimationFrame( stack );
+			}
+		}
+		if ( cards.length > 1 ) {
+			window.addEventListener( 'scroll', queueStack, { passive: true } );
+			window.addEventListener( 'resize', queueStack );
+			stack();
 		}
 		// the thin cover-line face can arrive after fonts.ready (it is only requested once used): refit then
 		function refitAll() {
