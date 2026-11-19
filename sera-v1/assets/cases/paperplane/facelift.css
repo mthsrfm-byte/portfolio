@@ -141,3 +141,37 @@ html body .pp-case .pp-zone[data-theme="light"]{
   background:var(--bg);color:var(--ink-2)
 }
 html body .pp-case .pp-zone{transition:none}
+
+/* ---------- 3.48 · Passagens claro ↔ escuro: o papel escurece aos poucos, sem corte seco ---------- */
+@property --hdr-inset{syntax:'<length>';inherits:false;initial-value:0px}
+html body .pp-case .pp-zone[data-theme="dark"]{
+  --rampa:clamp(140px,16vw,240px);
+  --hdr-inset:calc(var(--rampa) * .5); /* o menu só escurece quando a passagem já está mais preta que papel */
+  background:linear-gradient(180deg,#F4EEE8 0,#121311 var(--rampa),#121311 calc(100% - var(--rampa)),#F4EEE8 100%);
+  background:linear-gradient(in oklab 180deg,#F4EEE8 0,#121311 var(--rampa),#121311 calc(100% - var(--rampa)),#F4EEE8 100%);
+  padding-bottom:calc(var(--rampa) + clamp(56px,6vw,96px))
+}
+/* o conteúdo escuro só começa depois da passagem */
+html body .pp-case .pp-zone[data-theme="dark"]>.pp-chapter:first-child,html body .pp-case .pp-zone[data-theme="dark"]>#celular.pp-chapter{padding-top:calc(var(--rampa) + clamp(56px,6vw,96px))}
+/* respiro em papel antes de a passagem começar (a última peça do capítulo não encosta mais no escuro) */
+html body .pp-case .pp-zone[data-theme="light"]:has(+ .pp-zone[data-theme="dark"]){padding-bottom:clamp(56px,7vw,110px)}
+
+/* O céu da noite (08) nasce e morre no papel, com a mesma suavidade */
+body .pp-case .pp-night{--pluma:clamp(64px,8vw,120px);--hdr-inset:calc(var(--pluma) * .5)}
+body .pp-case .pp-night::before,body .pp-case .pp-night::after{content:"";position:absolute;left:0;right:0;z-index:1;height:var(--pluma);pointer-events:none}
+body .pp-case .pp-night::before{top:0;background:linear-gradient(180deg,#F4EEE8,rgba(244,238,232,0))}
+body .pp-case .pp-night::after{bottom:0;background:linear-gradient(0deg,#F4EEE8,rgba(244,238,232,0))}
+body .pp-case .pp-night .night-grid{z-index:2}
+
+/* Fim do case no mesmo papel: sem a faixa de outro bege entre o fecho e o próximo case */
+html.is-v2 body.is-pp,html body.is-pp{background:#F4EEE8}
+html:has(body.is-pp){background:#F4EEE8}
+body.is-pp .case.pp-next{background:#F4EEE8;box-shadow:none}
+
+/* ---------- 3.48 · A mesa montada fica clara (papel branco com fio), não preta ---------- */
+body .pp-case .pp-mesa::before{background:#FFFFFF}
+body .pp-case .pp-mesa[data-tema="escuro"]::before{background:#FFFFFF;opacity:1}
+body .pp-case .pp-mesa[data-tema="escuro"]{border-color:rgba(18,19,17,.16)}
+/* o estúdio cabe inteiro na mesa: a largura respeita a altura disponível (barra + tela 16:10) */
+body .pp-case .mesa-estudio{container-type:size}
+body .pp-case .mesa-estudio .pp-browser{width:min(100cqw,calc((100cqh - 40px) * 1.6))}

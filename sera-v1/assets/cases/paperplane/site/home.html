@@ -712,7 +712,7 @@
     if (!d || typeof d !== 'object') return
     if (d.type === 'scrollTo') {
       var y = Math.max(0, Number(d.y) || 0)
-      root.style.overflow = 'auto'; document.body.style.overflow = 'auto'
+      root.style.overflow = 'auto'; document.body.style.overflow = 'clip visible' // body sem virar container de rolagem: o sticky da home continua grudando
       root.scrollTop = y; window.scrollTo({ top: y, left: 0, behavior: 'instant' })
     } else if (d.type === 'tema') {
       aplicarTema(d.valor)
