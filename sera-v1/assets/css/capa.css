@@ -5,11 +5,15 @@
    the corners and the cover's 3D floor runs underneath, with the same grain.
    Loaded after v2-home.css (home only), so the deck rules there and in main.css (sticky stack,
    --cover shade, snap points) keep working; only the inside of the card changes.
-   JS: assets/js/capa.js (fit, grains, parallax, the move between cards).
+   JS: assets/js/capa.js (fit, grains, parallax).
    ========================================================================= */
 
-/* the deck: cards keep the cover's proportions instead of filling tall screens */
-html .cases{--card-h:max(460px,min(calc(100svh - var(--stack-top) - 20px),clamp(620px,60vw,790px)))}
+/* the deck (3.44.1): plain native scrolling, no pinned "Selected work" line, no snap. Each card sticks just
+   under the header and the next one simply lands on top of it: no shade, no scale, no fade, no shadow.
+   Cards keep the cover's proportions instead of filling tall screens. */
+html:root .cases{--stack-top:calc(var(--adm) + var(--hdr) + 16px);--card-h:max(460px,min(calc(100svh - var(--stack-top) - 16px),clamp(620px,60vw,790px)))}
+html:root .cases>.case-card.case-capa,html:root .cases>.case-card.case-capa:hover{scale:none;translate:none;opacity:1;box-shadow:none;transform:none;will-change:auto;border:1px solid rgba(17,17,16,.09)}
+html:root .cases>.case-card.case-capa::after{content:none}
 
 html .cases>.case-card.case-capa{
 	--pad:clamp(24px,3vw,40px);--cc-teal:#0B5F63;
@@ -67,23 +71,20 @@ html .cases>.case-card.case-capa:hover .cc-cta i{transform:translateX(4px) rotat
 /* grains: the canvas lives outside the card (capa.js) so they can fly past its edge */
 .cc-dust{position:fixed;left:0;top:0;z-index:39;pointer-events:none;display:block}
 
-/* the move between cards (scroll-driven, both directions; values from capa.js):
-   --py  parallax, -1 entering from below, 0 at rest, 1 covered by the next card
-   --rise the name comes up out of its own baseline as the card arrives (1 → 0)
-   --cl  the cover lines settle in last (0 → 1) */
+/* scroll parallax per layer (value from capa.js): --py is -1 entering from below, 0 at rest,
+   1 covered by the next card */
 @media (prefers-reduced-motion:no-preference){
 	.case-capa .cc-floor,.case-capa .cc-mast,.case-capa .cc-fig,.case-capa .cl{translate:0 calc(var(--py,0) * var(--d,0) * 1px)}
 	.case-capa .cc-floor{--d:-18}
 	.case-capa .cc-mast{--d:28}
 	html .cases>.case-card.case-capa .cc-fig{--d:-36}
-	.case-capa .cl{--d:12;opacity:var(--cl,1);translate:0 calc(var(--py,0) * var(--d) * 1px + (1 - var(--cl,1)) * 22px)}
-	.case-capa .cc-mast-t{translate:0 calc(var(--rise,0) * 104%)}
+	.case-capa .cl{--d:12}
 }
 @media (prefers-reduced-motion:reduce){.cc-dust{display:none}}
 
 /* phones: name on top, the mockup full width over ~16% of it, cover lines in two columns below */
 @media (max-width:760px){
-	html .cases{--card-h:clamp(480px,calc(100svh - var(--stack-top) - 12px),860px)}
+	html:root .cases{--stack-top:calc(var(--adm) + var(--hdr) + 8px);--card-h:clamp(480px,calc(100svh - var(--stack-top) - 8px),860px)}
 	html .cases>.case-card.case-capa{--pad:16px;display:flex;flex-direction:column;padding:16px 16px 18px;border-radius:22px}
 	.case-capa .cc-mast{position:relative;left:auto;right:auto;top:auto;flex:none}
 	html .cases>.case-card.case-capa .cc-fig{position:relative;left:auto;top:auto;width:100%;height:auto;flex:1 1 0;min-height:0;margin-top:var(--fmt,-12px);transform:none;border-radius:16px}

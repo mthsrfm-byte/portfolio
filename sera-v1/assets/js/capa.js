@@ -3,8 +3,7 @@
       stacked phone layout can't loop), then the mockup and the cover lines are placed from it.
    2. Grains: near the cursor the name opens a soft hole and a canvas draws the same letters as the
       cover's round ink grains, pushed outwards at a random angle. Never over the mockup.
-   3. Scroll: parallax per layer and the move between cards (the next card's name rises out of its
-      baseline while it slides up over the current one). Off under reduced motion. */
+   3. Scroll: parallax per layer while the cards stack on plain native scrolling. Off under reduced motion. */
 ( function () {
 	'use strict';
 	var cards = [].slice.call( document.querySelectorAll( '.cases > .case-capa' ) );
@@ -350,9 +349,9 @@
 		};
 	}
 
-	/* ---------- 3. scroll: parallax + the move between cards ---------- */
+	/* ---------- 3. scroll: parallax ---------- */
 	var state = cards.map( function () {
-		return { py: null, rise: null, cl: null };
+		return { py: null };
 	} );
 	function setVar( card, st, key, name, v ) {
 		var s = v.toFixed( 3 );
@@ -381,9 +380,6 @@
 			}
 			var st = state[ i ];
 			setVar( card, st, 'py', '--py', py );
-			setVar( card, st, 'rise', '--rise', ( 1 - arrive ) * ( 1 - arrive ) );
-			var settle = Math.max( 0, Math.min( 1, ( arrive - 0.45 ) / 0.55 ) );
-			setVar( card, st, 'cl', '--cl', 1 - ( 1 - settle ) * ( 1 - settle ) );
 			if ( cover > 0.02 && card.ccGrains ) {
 				card.ccGrains.release();
 			}
