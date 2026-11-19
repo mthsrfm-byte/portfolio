@@ -80,6 +80,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.52.0 =
+* Cases: menu de vidro "Camaleão". Sai o preto chapado; o vidro ganha borda de luz, grão e mais respiro interno, e a cor acompanha a seção de trás (papel, escuro ou céu, ou data-header-tint). Home sem mudança.
+
 = 3.51.0 =
 * Paperplane, seção do site: em vez de rolar a home inteira, quatro vistas fixas (promessa, tour do estúdio, celular, lista de espera), uma por item 01 a 04, trocando com o scroll. Itens viram botões.
 

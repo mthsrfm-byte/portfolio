@@ -194,3 +194,85 @@ html.is-v2 .site-header.v2-dark::before{background:rgba(247,246,241,.76)}
 html.is-v2 .site-header,html.is-v2 .site-header .brand,html.is-v2 .site-header .brand-name,html.is-v2 .site-header .lang-trigger,html.is-v2 .site-header .lang-chev,html.is-v2 .site-header .menu-toggle,html.is-v2 .site-header>.wrap>.header-actions>.btn-dark,html.is-v2 .site-header .primary-nav ul{transition:color .9s cubic-bezier(.4,0,.2,1),background-color .9s cubic-bezier(.4,0,.2,1),border-color .9s cubic-bezier(.4,0,.2,1)}
 html.is-v2 .site-header.v2-dark .lang-trigger,html.is-v2 .site-header.v2-dark .menu-toggle{background:rgba(255,255,255,.06);border-color:rgba(239,238,232,.18);color:#EFEEE8}
 @media (prefers-reduced-motion:reduce){html.is-v2 .site-header>.v2-pill-tint,html.is-v2 .site-header *{transition:none!important}}
+
+/* 3.52 · menu "Camaleão" nas páginas de case. A pílula é vidro de verdade: blur + saturação + brilho no ::before
+   (sem cor; no Chromium com ponteiro fino, a lente das bordas entra por --hdr-refr com o blur dentro do mesmo filtro),
+   e o tom, o aro de luz (mais forte no alto à esquerda), a luz e a sombra por dentro e o grão ficam na camada própria
+   .v2-pill-tint, que o Safari repinta bem. O tom vem do bloco de trás (data-tint, posto pelo v2.js): papel, tinta,
+   o azul do céu ou a cor que o bloco declarar (data-header-tint). Troca em 0,6 s, e o texto vira claro ou escuro junto.
+   Pílula de 64 px, 26 px de respiro à esquerda e 11 px à direita, botões de 42 px. A home não muda (cover.css). */
+@property --hdr-end{syntax:"<length>";inherits:false;initial-value:0px}
+html.is-v2 body:is(.is-case,.is-pp) .site-header{
+  --pill-l:max(8px,calc(max(var(--gutter),(100% - var(--wrap)) / 2 + var(--gutter)) - 26px));
+  --pill-r:max(8px,calc(max(var(--gutter),(100% - var(--wrap)) / 2 + var(--gutter)) - 11px));
+  --hdr-tint:rgba(250,246,240,.5);
+  --hg-spec:.8;--hg-ring:.2;--hg-shade:.2;--hg-edge:.1;--hg-drop:.4;--hg-r1:.95;--hg-r2:.55;--hg-sheen:.42;--hg-grain:.16;
+  --hg-chip-bg:rgba(255,255,255,.42);--hg-chip-b:rgba(18,19,17,.14)}
+html.is-v2 body:is(.is-case,.is-pp) .site-header.v2-dark{
+  --hg-spec:.34;--hg-ring:.12;--hg-shade:.35;--hg-edge:.5;--hg-drop:.6;--hg-r1:.6;--hg-r2:.3;--hg-sheen:.16;--hg-grain:.22;
+  --hg-chip-bg:rgba(255,255,255,.08);--hg-chip-b:rgba(255,255,255,.22)}
+html.is-v2 body:is(.is-case,.is-pp) .site-header[data-tint="ink"]{--hdr-tint:rgba(22,23,20,.58)}
+html.is-v2 body:is(.is-case,.is-pp) .site-header[data-tint="sky"]{--hdr-tint:rgba(34,78,150,.42);
+  --hg-spec:.7;--hg-ring:.28;--hg-shade:.18;--hg-edge:.12;--hg-drop:.35;--hg-r1:.95;--hg-r2:.6;--hg-sheen:.3;--hg-grain:.14;
+  --hg-chip-bg:rgba(255,255,255,.12);--hg-chip-b:rgba(255,255,255,.4)}
+@supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
+  html.is-v2 body:is(.is-case,.is-pp) .site-header{--hdr-tint:rgba(247,244,239,.95)}
+  html.is-v2 body:is(.is-case,.is-pp) .site-header[data-tint="ink"]{--hdr-tint:rgba(22,23,20,.95)}
+  html.is-v2 body:is(.is-case,.is-pp) .site-header[data-tint="sky"]{--hdr-tint:rgba(30,64,122,.95)}
+}
+/* o vidro: só o fundo de trás, borrado, saturado e um pouco mais claro */
+html.is-v2 body:is(.is-case,.is-pp) .site-header::before{
+  inset:8px var(--pill-r) 8px var(--pill-l);border-radius:999px;background:transparent;box-shadow:none;
+  -webkit-backdrop-filter:blur(18px) saturate(180%) brightness(1.04);
+  backdrop-filter:var(--hdr-refr,blur(18px)) saturate(180%) brightness(1.04)}
+/* o tom + luz: camada própria por cima do vidro */
+html.is-v2 body:is(.is-case,.is-pp) .site-header>.v2-pill-tint{
+  display:block;inset:8px var(--pill-r) 8px var(--pill-l);border-radius:999px;background:var(--hdr-tint);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255,255,255,var(--hg-spec)),
+    inset 0 -1px 0 0 rgba(255,255,255,calc(var(--hg-spec) * .28)),
+    inset 0 0 0 1px rgba(255,255,255,var(--hg-ring)),
+    inset 0 12px 18px -14px rgba(255,255,255,calc(var(--hg-spec) * .7)),
+    inset 0 -14px 22px -16px rgba(0,0,0,var(--hg-shade)),
+    0 0 0 .5px rgba(0,0,0,var(--hg-edge)),
+    0 16px 36px -18px rgba(0,0,0,var(--hg-drop)),
+    0 2px 6px -2px rgba(0,0,0,.1);
+  opacity:0;transform:translateY(-6px) scale(1.012);
+  transition:opacity var(--v2-d2) var(--v2-ease),transform var(--v2-d3) var(--v2-ease-out),background-color .6s ease,box-shadow .6s ease}
+html.is-v2 body:is(.is-case,.is-pp) .site-header.is-scrolled>.v2-pill-tint{opacity:1;transform:none}
+/* aro: luz forte no alto à esquerda, reflexo menor embaixo à direita */
+html.is-v2 body:is(.is-case,.is-pp) .site-header>.v2-pill-tint::before{content:"";position:absolute;inset:0;z-index:3;border-radius:inherit;padding:1px;
+  background:linear-gradient(118deg,rgba(255,255,255,var(--hg-r1)) 0%,rgba(255,255,255,.1) 26%,rgba(255,255,255,0) 48%,rgba(255,255,255,.08) 70%,rgba(255,255,255,var(--hg-r2)) 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+/* brilho difuso no alto */
+html.is-v2 body:is(.is-case,.is-pp) .site-header>.v2-pill-tint::after{content:"";position:absolute;inset:0;z-index:2;border-radius:inherit;
+  background:radial-gradient(90% 170% at 24% -70%,rgba(255,255,255,var(--hg-sheen)),rgba(255,255,255,0) 60%)}
+.v2-pill-grain{display:none}
+html.is-v2 body:is(.is-case,.is-pp) .site-header .v2-pill-grain{display:block;position:absolute;inset:0;z-index:1;border-radius:inherit;opacity:var(--hg-grain);mix-blend-mode:overlay;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E") 0 0/160px 160px}
+/* botões: cápsulas de 42 px, concêntricas com a pílula */
+html.is-v2 body:is(.is-case,.is-pp) .site-header .lang-trigger,html.is-v2 body:is(.is-case,.is-pp) .site-header .menu-toggle{height:42px;border-radius:999px;background:var(--hg-chip-bg);border-color:var(--hg-chip-b)}
+html.is-v2 body:is(.is-case,.is-pp) .site-header>.wrap>.header-actions>.btn-dark{height:42px;border-radius:999px}
+/* troca de cor do texto no mesmo ritmo do vidro */
+html.is-v2 body:is(.is-case,.is-pp) .site-header,html.is-v2 body:is(.is-case,.is-pp) .site-header .brand,html.is-v2 body:is(.is-case,.is-pp) .site-header .brand-name,html.is-v2 body:is(.is-case,.is-pp) .site-header .lang-trigger,html.is-v2 body:is(.is-case,.is-pp) .site-header .lang-chev,html.is-v2 body:is(.is-case,.is-pp) .site-header .menu-toggle,html.is-v2 body:is(.is-case,.is-pp) .site-header>.wrap>.header-actions>.btn-dark,html.is-v2 body:is(.is-case,.is-pp) .site-header .primary-nav ul{transition:color .6s ease,background-color .6s ease,border-color .6s ease}
+/* céu: texto branco com uma sombra leve, botão branco com texto azul */
+html.is-v2 body:is(.is-case,.is-pp) .site-header[data-tint="sky"],html.is-v2 body:is(.is-case,.is-pp) .site-header[data-tint="sky"] .brand,html.is-v2 body:is(.is-case,.is-pp) .site-header[data-tint="sky"] .lang-trigger,html.is-v2 body:is(.is-case,.is-pp) .site-header[data-tint="sky"] .menu-toggle{color:#fff}
+html.is-v2 body:is(.is-case,.is-pp) .site-header[data-tint="sky"]>.wrap{text-shadow:0 1px 10px rgba(8,20,45,.35)}
+html.is-v2 body:is(.is-case,.is-pp) .site-header[data-tint="sky"] .brand-name{color:rgba(255,255,255,.8);border-left-color:rgba(255,255,255,.3)}
+html.is-v2 body:is(.is-case,.is-pp) .site-header[data-tint="sky"] .lang-chev{color:rgba(255,255,255,.8)}
+html.is-v2 body:is(.is-case,.is-pp) .site-header[data-tint="sky"]>.wrap>.header-actions>.btn-dark{background:#fff;color:#183563;text-shadow:none}
+html.is-v2 body:is(.is-case,.is-pp) .site-header[data-tint="sky"]>.wrap>.header-actions>.btn-dark:hover{background:#EEF3FA}
+@media (min-width:861px){
+  html.is-v2 body:is(.is-case,.is-pp) .site-header[data-tint="sky"] .primary-nav ul{color:rgba(255,255,255,.9)}
+  html.is-v2 body:is(.is-case,.is-pp) .site-header[data-tint="sky"] .primary-nav a:hover{color:#fff}
+}
+@media (max-width:860px){
+  html.is-v2 body:is(.is-case,.is-pp) .site-header{--pill-l:8px;--pill-r:8px}
+  html.is-v2 body:is(.is-case,.is-pp) .site-header>.wrap{padding-left:28px;padding-right:17px}
+  /* a folha do menu é vidro claro: links em tinta, sem a sombra do céu */
+  html.is-v2 body:is(.is-case,.is-pp) .site-header .primary-nav{text-shadow:none}
+}
+@media (prefers-reduced-motion:reduce){
+  html.is-v2 body:is(.is-case,.is-pp) .site-header::before,html.is-v2 body:is(.is-case,.is-pp) .site-header>.v2-pill-tint,html.is-v2 body:is(.is-case,.is-pp) .site-header *{transition:none!important}
+}

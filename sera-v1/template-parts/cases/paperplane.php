@@ -54,7 +54,7 @@ defined( 'ABSPATH' ) || exit;
 </svg>
 
 <!-- ============ HERO (claro) ============ -->
-<div class="pp-zone" data-theme="light">
+<div class="pp-zone" data-theme="light" data-header-tint="paper">
 <header class="pp-case-hero">
   <div class="pp-hero-in">
     <a class="pp-back-link" href="<?php echo esc_url( home_url( '/#work' ) ); ?>" data-hero><svg class="ico" aria-hidden="true"><use href="#pp-i-seta"/></svg><?php sera_e( 'All work', 'Todos os trabalhos' ); ?></a>
@@ -161,7 +161,7 @@ defined( 'ABSPATH' ) || exit;
 </div>
 
 <!-- ============ SALA ESCURA ============ -->
-<div class="pp-zone" data-theme="light">
+<div class="pp-zone" data-theme="light" data-header-tint="paper">
 
 <!-- 02 PRODUTO -->
 <section class="pp-chapter" id="produto" aria-labelledby="produto-t">
@@ -336,7 +336,7 @@ defined( 'ABSPATH' ) || exit;
 </div>
 
 <!-- ============ MICROINTERAÇÕES (claro) ============ -->
-<div class="pp-zone" data-theme="light">
+<div class="pp-zone" data-theme="light" data-header-tint="paper">
 <section class="pp-chapter" id="micro" aria-labelledby="micro-t">
   <div class="pp-col">
     <p class="pp-kicker"><?php sera_e( '05 · Microinteractions', '05 · Microinterações' ); ?></p>
@@ -367,7 +367,7 @@ defined( 'ABSPATH' ) || exit;
 </div>
 
 <!-- ============ DOBRA (escuro) ============ -->
-<div class="pp-zone" data-theme="dark">
+<div class="pp-zone" data-theme="dark" data-header-tint="ink">
 <section class="pp-chapter" id="dobra" aria-labelledby="dobra-t">
   <div class="pp-col">
     <p class="pp-kicker">06 · Dobra</p>
@@ -435,7 +435,7 @@ defined( 'ABSPATH' ) || exit;
 </div>
 
 <!-- ============ SITE (claro) ============ -->
-<div class="pp-zone" data-theme="light">
+<div class="pp-zone" data-theme="light" data-header-tint="paper">
 <section class="pp-chapter" id="site" aria-labelledby="site-t">
   <div class="pp-col">
     <p class="pp-kicker"><?php sera_e( '07 · The website', '07 · O site' ); ?></p>
@@ -466,7 +466,7 @@ defined( 'ABSPATH' ) || exit;
 </div>
 
 <!-- ============ CELULAR (escuro) ============ -->
-<div class="pp-zone" data-theme="dark">
+<div class="pp-zone" data-theme="dark" data-header-tint="ink">
 <section class="pp-chapter" id="celular" aria-labelledby="celular-t">
   <div class="pp-col">
     <h2 class="cel-frase" id="celular-t"><?php sera_e( 'The whole studio fits in your pocket, with everything the desktop can do.', 'O estúdio inteiro cabe no seu bolso, com tudo o que o computador faz.' ); ?></h2>
@@ -493,7 +493,7 @@ defined( 'ABSPATH' ) || exit;
 </div>
 
 <!-- ============ TURNO (claro) ============ -->
-<div class="pp-zone" data-theme="light">
+<div class="pp-zone" data-theme="light" data-header-tint="paper">
 <section class="pp-chapter" id="turno" aria-labelledby="turno-t">
   <div class="pp-col">
     <p class="pp-kicker"><?php sera_e( '08 · How I work', '08 · Como trabalho' ); ?></p>
@@ -529,7 +529,7 @@ defined( 'ABSPATH' ) || exit;
     <p class="pp-reveal"><?php sera_e( 'There are nine agents, each with one role: research, theme memory, strategy, critique, design, building, quality, security and the morning summary. The critic attacks every idea before it takes shape.', 'São nove agentes, cada um com um papel: pesquisa, memória dos temas, estratégia, crítica, design, construção, qualidade, segurança e o resumo da manhã. O crítico ataca cada ideia antes de ela ganhar forma.' ); ?></p>
   </div>
 
-  <div class="pp-night" style="--h:0">
+  <div class="pp-night" style="--h:0" data-header-tint="sky">
     <div class="night-sky" aria-hidden="true"><i class="pp-stars"></i><i class="grao"></i></div>
     <div class="pp-wide night-grid">
       <div class="night-clock">
