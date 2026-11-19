@@ -167,7 +167,7 @@
 .shots-dot{width:18px}
 @media (prefers-reduced-motion:reduce){.shots-page::before,.screen.shots-screen::before{animation:none}}
 
-/* ---------------------------------------------------------------- 3.49.0 · refino visual dos frames
+/* ---------------------------------------------------------------- 3.52.0 · refino visual dos frames
    Research Hub and Lume only (.stage-rh, .rh-shot, .rh-fit, .shots): a lighter browser bar with a lock in
    the address pill, ringed traffic lights, a layered shadow, and a crisp hairline on the screenshots. */
 .stage-rh .browser-frame,.rh-shot .browser-frame,.rh-fit .browser-frame{border-radius:20px}
@@ -187,6 +187,6 @@
 /* screenshots: a hairline inside the screen edge keeps light pages from melting into the frame */
 .shots-hero-page,.shots-page{isolation:isolate}
 .shots-hero-page::after,.shots-page::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;box-shadow:inset 0 1px 0 rgba(15,25,40,.06)}
-/* 3.49.0 · the desktop screen keeps its own stacking: on the home card (no transform on .browser) the Lume
+/* 3.52.0 · the desktop screen keeps its own stacking: on the home card (no transform on .browser) the Lume
    desktop (.lmx, z-index 2) was painting over the phone. */
 :is(.stage-rh,.rh-shot,.rh-fit) .browser-frame{isolation:isolate}

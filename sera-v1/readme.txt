@@ -80,14 +80,23 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
-= 3.49.0 =
+= 3.52.0 =
 * Research Hub e Lume: refino visual de todas as telas (home e cases), sem mudar layout nem texto.
-* Lume (lume-ui.css, camada 3.49.0): títulos mais justos, números tabulares, bordas e sombras mais suaves, botões com luz no topo, abas com sublinhado arredondado, bolha da pessoa sem contorno preto (classe .bq em screens-lm.php), telas lidas no "Novo estudo" com cara de tela.
+* Lume (lume-ui.css, camada 3.52.0): títulos mais justos, números tabulares, bordas e sombras mais suaves, botões com luz no topo, abas com sublinhado arredondado, bolha da pessoa sem contorno preto (classe .bq em screens-lm.php), telas lidas no "Novo estudo" com cara de tela.
 * Research Hub (cases/rh.css): fechar neutro (não compete com o botão principal), tags em pílula com fio, blocos escuros e botões com profundidade, evidência com fio rosa à esquerda.
 * Frames (shots.css): barra do navegador mais clara, cadeado no endereço, sombras em camadas e fio fino na borda dos prints.
 * Contraste: todo par de cor mexido confere WCAG AA (4,5:1). No Lume, o rosa com texto branco virou #D6048A; o #FF009B fica só em barras, ondas e ícones.
 * Home: no card do Lume, a tela do desktop pintava por cima do celular (o .lmx tem z-index próprio e o .browser do card não cria camada). O frame agora isola a própria pilha.
 * Print 01-home-mob do Research Hub: tirei as contagens (pesquisas, pessoas ouvidas, insights), igual à versão desktop.
+
+= 3.51.0 =
+* Paperplane, seção do site: em vez de rolar a home inteira, quatro vistas fixas (promessa, tour do estúdio, celular, lista de espera), uma por item 01 a 04, trocando com o scroll. Itens viram botões.
+
+= 3.50.0 =
+* Paperplane: respiro no fim das áreas escuras (Dobra e Lighthouse). Papel no case vira "Founder & Designer" / "Fundador e designer".
+
+= 3.49.0 =
+* Paperplane: passagens claro ↔ escuro viram corte seco com fio de luz limão. O 06 (Dobra) abre em cortina circular a partir de um ponto de luz no scroll. A saída do céu para os 23 dias ganhou um degradê longo e macio.
 
 = 3.48.0 =
 * Paperplane: passagens entre áreas claras e escuras (Dobra, celular e o céu da noite) agora escurecem aos poucos, sem corte seco. A última peça antes do escuro ganhou respiro.

@@ -206,7 +206,7 @@
 :lang(pt) .rh-cx-arrow small{white-space:normal;padding:0 6px;line-height:1.25}
 @media (max-width:1000px){:lang(pt) .rh-cx-arrow small{padding:0}}
 
-/* ---------------------------------------------------------------- 3.49.0 · refino visual das telas (.rhs)
+/* ---------------------------------------------------------------- 3.52.0 · refino visual das telas (.rhs)
    Contrast checked (WCAG AA 4.5:1 for text) on every colour pair changed here.
    Same layout and copy; finer finishing: the close button stops competing with the main action,
    tags become soft pills with a hairline, buttons and dark tiles get a little light, cards a layered shadow. */

@@ -213,7 +213,7 @@
 @media (max-width:1000px){.lmx-duo{grid-template-columns:1fr}.lmx-duo-ph .device{--s:.56}}
 .lmx .ta{overflow:hidden}
 
-/* ---------------------------------------------------------------- 3.49.0 · refino visual
+/* ---------------------------------------------------------------- 3.52.0 · refino visual
    Same tokens and components as the product, with finer finishing: tighter headings, tabular figures,
    softer borders, layered shadows, buttons with a little light, calmer person bubbles, real-looking
    skeleton screens. Overrides only; the base rules above stay the 1:1 port. */

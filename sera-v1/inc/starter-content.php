@@ -558,7 +558,7 @@ function sera_starter_cases() {
 			'_sera_headline' => 'Paperplane Studio: an AI film studio that shows the price before the click',
 			'_sera_company'  => 'Paperplane Studio',
 			'_sera_year'     => '2026 · in beta',
-			'_sera_role'     => 'Product designer · concept, design and agent direction',
+			'_sera_role'     => 'Founder & Designer',
 			'_sera_metrics'  => "23 days | From the first screen to a complete studio, with editing and billing\n10 steps | From sentence to episode, as on a real film set\nZero | Media generated without the person’s click",
 			'_sera_chips'    => 'Personal project, Generative AI, Design system',
 			'_sera_visual'   => 'paperplane',

@@ -963,63 +963,84 @@
     if (!reduzido()) ScrollTrigger.create({ trigger: grade, start: 'top 62%', once: true, onEnter: todas })
   }
 
-  /* ================= 07 SITE: a home rola de verdade dentro da moldura ================= */
+  /* ================= 07 SITE: quatro seções da home, uma por vez ================= */
+  /* A moldura fica parada e mostra só a seção do item ativo (01 a 04). A troca é um esmaecer curto: a home salta
+     para a seção com a moldura apagada, então nunca se vê a rolagem nem as passagens entre as seções.
+     Com movimento reduzido, a troca é seca (sem esmaecer). */
   function site(reduz) {
-    const sec = $('.site-sec'), simEl = $('.sim[data-tipo="site"]'), celEl = $('.sim[data-tipo="siteCel"]')
-    if (!sec || !simEl || !simEl.__moldura) return null
-    const m = simEl.__moldura, mc = celEl && celEl.__moldura
-    const caps = $$('.site-caps li')
-    let secoes = null, altura = 0, alturaCel = 0, pedido = 0, ultimoY = -1, ultimoYc = -1, prog = 0
+    const sec = $('.site-sec'), telas = $('.site-telas'), simEl = $('.sim[data-tipo="site"]'), celEl = $('.sim[data-tipo="siteCel"]')
+    if (!sec || !telas || !simEl || !simEl.__moldura) return null
+    const caps = $$('.site-caps li'), N = caps.length
+    if (!N) return null
+    // Onde cada vista para dentro da sua seção (fração do trecho rolável dela): no tour, o passo "O mesmo traço";
+    // no celular dobrável, já aberto na Montagem.
+    const PARADA = { estudio: 0.35, 'iphone-duo': 0.3 }
+    const LISTA = 'comecar' // na 04, a folha da lista de espera aparece aberta sobre o fim da home
+    const vistas = [simEl.__moldura, celEl && celEl.__moldura].filter(Boolean).map((m) => ({ m, secoes: null, altura: 0 }))
+    let atual = -1, ficha = 0
+    const yDe = (v, k) => {
+      const id = caps[k].dataset.sec, s = v.secoes && v.secoes.find((x) => x.id === id)
+      if (!s) return null
+      const max = Math.max(0, v.altura - v.m.vh)
+      return Math.round(Math.min(max, s.top + Math.max(0, s.height - v.m.vh) * (PARADA[id] || 0)))
+    }
+    // A folha abre só pela classe (sem o clique do botão), para o foco nunca entrar no iframe.
+    const folha = (v, abrir) => {
+      try { const wl = v.m.frame.contentDocument.getElementById('wl'); if (wl) { wl.classList.toggle('open', abrir); wl.setAttribute('aria-hidden', abrir ? 'false' : 'true') } } catch (e) {}
+    }
+    function pousar(v, k) {
+      const w = v.m.janela, y = w ? yDe(v, k) : null
+      if (y == null) return
+      w.postMessage({ type: 'scrollTo', y, instant: true }, '*')
+      folha(v, caps[k].dataset.sec === LISTA)
+    }
+    // A home avisa onde fica cada seção quando carrega (e de novo se a moldura for desmontada e voltar).
     const ouvir = (e) => {
       if (!e.data || e.data.type !== 'secoes') return
-      if (m.frame && e.source === m.frame.contentWindow) { secoes = e.data.secoes; altura = e.data.altura; enviar(true) }
-      else if (mc && mc.frame && e.source === mc.frame.contentWindow) { alturaCel = e.data.altura; enviar(true) }
+      const v = vistas.find((x) => x.m.frame && e.source === x.m.frame.contentWindow)
+      if (!v) return
+      v.secoes = e.data.secoes; v.altura = e.data.altura
+      if (atual >= 0) pousar(v, atual)
     }
     addEventListener('message', ouvir)
-    const topoDe = (id) => { const s = secoes && secoes.find((x) => x.id === id); return s ? s.top : null }
-    // De seção em seção: a home descansa no topo de cada uma e só anda no meio do trecho, sem parar no meio do caminho.
-    const suave = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t) }
-    function alvoY(p) {
-      if (!secoes) {
-        // celular: a home de desktop não carrega; os capítulos seguem o progresso direto
-        const k = Math.min(caps.length - 1, Math.floor(p * caps.length))
-        caps.forEach((c, j) => c.classList.toggle('is-on', j === k))
-        return 0
-      }
-      const max = Math.max(0, altura - 720)
-      const marcos = caps.map((c, i) => { const v = topoDe(c.dataset.sec); return v == null ? (i ? null : 0) : Math.min(v, max) })
-      const validos = marcos.map((v, i) => (v == null ? marcos.slice(0, i).filter((x) => x != null).pop() || 0 : v))
-      const n = validos.length - 1, t = p * n, i = Math.min(n - 1, Math.floor(t)), f = suave(0.12, 0.88, t - i)
-      const atual = Math.min(n, Math.round(i + f))
-      caps.forEach((c, k) => c.classList.toggle('is-on', k === atual))
-      return validos[i] + (validos[i + 1] - validos[i]) * f
+    vistas.forEach((v) => v.m.aoFicarPronta(() => { try { v.m.janela.postMessage({ type: 'medir' }, '*') } catch (e) {} }))
+
+    function mostrar(k, direto) {
+      if (k === atual) return
+      atual = k
+      caps.forEach((c, j) => { c.classList.toggle('is-on', j === k); const b = $('.site-b', c); if (b) b.setAttribute('aria-current', j === k ? 'step' : 'false') })
+      const minha = ++ficha
+      if (direto || reduz) { telas.classList.remove('is-trocando'); vistas.forEach((v) => pousar(v, k)); return }
+      telas.classList.add('is-trocando')
+      // apaga, salta com a moldura apagada, deixa a home assentar e acende de novo
+      setTimeout(() => {
+        if (minha !== ficha) return
+        vistas.forEach((v) => pousar(v, k))
+        setTimeout(() => { if (minha === ficha) telas.classList.remove('is-trocando') }, 220)
+      }, 240)
     }
-    let vis = 0, suavizando = 0
-    function aplicar(forca) {
-      const y = Math.round(alvoY(vis))
-      const w = m.janela
-      if (w && (forca || y !== ultimoY)) { ultimoY = y; w.postMessage({ type: 'scrollTo', y, instant: !!forca }, '*') }
-      const wc = mc && mc.janela
-      if (wc && alturaCel) { const yc = Math.round(Math.min(1, vis) * Math.max(0, alturaCel - 844)); if (forca || yc !== ultimoYc) { ultimoYc = yc; wc.postMessage({ type: 'scrollTo', y: yc, instant: !!forca }, '*') } }
-    }
-    // Inércia: a moldura persegue o progresso com uma fração por quadro, em vez de saltar a cada rolagem.
-    function passo() {
-      suavizando = 0
-      vis += (prog - vis) * 0.09
-      if (Math.abs(prog - vis) < 0.0005) vis = prog
-      aplicar(false)
-      if (vis !== prog) suavizando = requestAnimationFrame(passo)
-    }
-    function enviar(forca) {
-      if (forca) { vis = prog; cancelAnimationFrame(suavizando); aplicar(true); return }
-      if (!suavizando) suavizando = requestAnimationFrame(passo)
-    }
-    m.aoFicarPronta(() => { try { m.janela.postMessage({ type: 'medir' }, '*') } catch (e) {} })
-    if (mc) mc.aoFicarPronta(() => { try { mc.janela.postMessage({ type: 'medir' }, '*') } catch (e) {} })
-    if (reduz) { caps.forEach((c) => c.classList.add('is-on')); return () => removeEventListener('message', ouvir) }
+    const passoDe = (p) => Math.max(0, Math.min(N - 1, Math.floor(p * N)))
+    mostrar(0, true)
     sec.classList.add('is-pin')
-    const st = ScrollTrigger.create({ trigger: sec, start: 'top top', end: () => '+=' + Math.round(innerHeight * (innerWidth <= 760 ? 2.6 : 4.5)), pin: true, anticipatePin: 1, onUpdate: (s) => { prog = s.progress; enviar(false) } })
-    return () => { st.kill(); sec.classList.remove('is-pin'); removeEventListener('message', ouvir) }
+    const st = ScrollTrigger.create({
+      trigger: sec, start: 'top top', end: () => '+=' + Math.round(innerHeight * (innerWidth <= 760 ? 0.6 : 0.75) * N), pin: true, anticipatePin: 1,
+      onUpdate: (s) => mostrar(passoDe(s.progress)),
+      onRefresh: (s) => mostrar(passoDe(s.progress), true),
+    })
+    // Um toque no item leva a rolagem até o trecho dele; a troca acontece como se a pessoa tivesse rolado.
+    const cliques = []
+    caps.forEach((c, i) => {
+      const b = $('.site-b', c)
+      if (!b) return
+      const fn = () => scrollTo({ top: Math.round(st.start + ((i + 0.5) / N) * (st.end - st.start)), behavior: reduz ? 'auto' : 'smooth' })
+      b.addEventListener('click', fn); cliques.push([b, fn])
+    })
+    return () => {
+      st.kill(); ficha++
+      sec.classList.remove('is-pin'); telas.classList.remove('is-trocando')
+      removeEventListener('message', ouvir)
+      cliques.forEach(([b, fn]) => b.removeEventListener('click', fn))
+    }
   }
 
   /* ================= 08 CELULAR: aparelhos, notas numeradas e índices em anel ================= */
