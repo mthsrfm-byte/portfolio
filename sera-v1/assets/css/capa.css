@@ -77,6 +77,9 @@ html .cases>.case-card.case-capa.is-buried{visibility:hidden}
 .case-capa.is-buried *,.case-capa.is-buried *::before,.case-capa.is-buried *::after,
 .case-capa.is-still *,.case-capa.is-still *::before,.case-capa.is-still *::after{animation-play-state:paused!important}
 
+/* 3.45.1 · skeleton (capa.js .is-skel): the mockup's contents aren't rendered, only a quiet block in its place */
+html .cases>.case-card.case-capa.is-skel .cc-fig{content-visibility:hidden;background:linear-gradient(180deg,rgba(17,17,16,.07),rgba(17,17,16,.04));box-shadow:none}
+
 /* grains: the canvas lives outside the card (capa.js) so they can fly past its edge */
 .cc-dust{position:fixed;left:0;top:0;z-index:39;pointer-events:none;display:block}
 

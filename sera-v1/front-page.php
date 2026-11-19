@@ -126,7 +126,6 @@ $now_logo = sera_mod( 'hero_now_logo' );
 			<div class="work-bar section-bar xp-bar" aria-hidden="true">
 				<div class="work-bar-in">
 					<span class="wbar-t"><?php echo esc_html( sera_mod( 'xp_title' ) ); ?></span>
-					<span class="wbar-d"><?php echo esc_html( sera_mod( 'xp_intro' ) ); ?></span>
 					<span class="wbar-c"></span>
 					<span class="wbar-n"><b>01</b><span> / <?php echo esc_html( sprintf( '%02d', count( $sera_xp ) ) ); ?></span></span>
 					<span class="wbar-p"><i></i></span>
@@ -135,7 +134,6 @@ $now_logo = sera_mod( 'hero_now_logo' );
 		<?php endif; ?>
 		<div class="section-head reveal xp-head">
 			<h2><?php echo esc_html( sera_mod( 'xp_title' ) ); ?></h2>
-			<p><?php echo esc_html( sera_mod( 'xp_intro' ) ); ?></p>
 		</div>
 		<div class="xp reveal">
 			<?php foreach ( $sera_xp as $row ) : ?>

@@ -80,6 +80,10 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.45.1 =
+* Experiência: sai o texto de apoio ("Fui gestor e voltei a IC...") do título e da barra fixa.
+* Home: mockups dos cards enterrados na pilha ou bem abaixo da dobra viram um bloco skeleton (conteúdo não renderizado) e voltam antes de entrar na tela. Menos memória ao voltar pro topo (camadas de composição no topo: 155 → 46).
+
 = 3.45.0 =
 * Scroll suave com Lenis (darkroomengineering/lenis 1.3.4, MIT) em assets/js/lib/lenis.min.js, no lugar do scroll suave feito à mão (que fica de reserva se o Lenis não carregar). Âncoras do menu e o voo de volta ao topo passam pelo Lenis. Touch, teclado e barra de rolagem seguem nativos.
 

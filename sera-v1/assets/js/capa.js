@@ -562,6 +562,9 @@
 				} else if ( i < k || tops[ i ] > vh * 2 ) {
 					s = 'is-still';
 				}
+				// 3.45.1 · buried or well below the fold: the mockup becomes a plain skeleton block, so its
+				// screens, layers and images stop costing memory; it comes back before it reaches the screen
+				card.classList.toggle( 'is-skel', i < k - 1 || tops[ i ] > vh * 1.5 );
 				if ( s !== stackState[ i ] ) {
 					card.classList.remove( 'is-buried', 'is-still' );
 					if ( s ) {
