@@ -80,6 +80,11 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.44.3 =
+* Home: scroll dos cases liso, sem pisca. Os nove cards ficam empilhados (sticky) e todos continuavam desenhando por baixo: o chão 3D de cada um (três grades inclinadas com blur e máscara) era refeito a cada quadro e os mockups rodavam ~110 animações em loop ao mesmo tempo.
+* O chão agora é desenhado uma vez num canvas, com a mesma conta do CSS, e entra como imagem plana (o CSS fica de reserva).
+* Card já coberto pausa as animações; dois abaixo do topo da pilha nem é desenhado (o que está logo abaixo continua, para rolar de volta sem buraco). Cards bem abaixo da dobra também ficam pausados.
+
 = 3.44.2 =
 * Home: menos espaço entre a faixa de marcas e o primeiro case (era 144px, sobra do título fixo que saiu; agora 24–48px).
 * Cards: corrigido o pisca no scroll. Sai o parallax (nada roda por quadro de scroll), o grão vira fundo do próprio card (sem mix-blend por cima de tudo) e a máscara do nome só existe durante o hover e fecha ao rolar.
