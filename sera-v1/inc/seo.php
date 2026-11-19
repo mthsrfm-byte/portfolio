@@ -97,11 +97,12 @@ add_filter(
 		if ( sera_seo_plugin_active() ) {
 			return $title;
 		}
+		// Escapado: o "&" cru no <title> deixava o leitor do LinkedIn sem título (a prévia caía em "Index").
 		if ( is_front_page() && sera_seo_home_title() ) {
-			return sera_seo_home_title();
+			return esc_html( sera_seo_home_title() );
 		}
 		if ( sera_seo_is_case() ) {
-			return wp_strip_all_tags( sera_case_headline( get_queried_object_id() ) ) . ' — ' . get_bloginfo( 'name' );
+			return esc_html( wp_strip_all_tags( sera_case_headline( get_queried_object_id() ) ) . ' — ' . get_bloginfo( 'name' ) );
 		}
 		return $title;
 	}
