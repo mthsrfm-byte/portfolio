@@ -983,6 +983,26 @@
 	}
 	root.classList.add( 'has-smooth' );
 
+	// 3.45.0 · Lenis (darkroomengineering/lenis, assets/js/lib) drives the wheel when it loaded; the hand-made
+	// scroller below stays as the fallback. glide()/stop() and anchor clicks go through Lenis too.
+	var lenis = null;
+	if ( window.Lenis ) {
+		try {
+			lenis = new window.Lenis( {
+				autoRaf: true,
+				lerp: 0.1,
+				smoothWheel: true,
+				syncTouch: false,
+				prevent: function ( node ) {
+					return !! ( node && node.closest && ( node.closest( '[data-native-scroll], .primary-nav.is-open, .lang.is-open, dialog[open]' ) ) );
+				},
+			} );
+			window.seraLenis = lenis;
+		} catch ( e ) {
+			lenis = null;
+		}
+	}
+
 	var target = window.scrollY;
 	var current = target;
 	var lastSet = target;
@@ -1038,6 +1058,10 @@
 		}
 	}
 	function stop() {
+		if ( lenis ) {
+			lenis.scrollTo( window.scrollY, { immediate: true, force: true } );
+			return;
+		}
 		if ( raf ) {
 			cancelAnimationFrame( raf );
 		}
@@ -1049,6 +1073,10 @@
 	}
 	function glide( y, d ) {
 		y = clamp( y );
+		if ( lenis ) {
+			lenis.scrollTo( y, { duration: ( d || Math.max( 550, Math.min( 1400, 380 + Math.abs( y - window.scrollY ) * 0.28 ) ) ) / 1000, force: true } );
+			return;
+		}
 		if ( ! raf ) {
 			current = window.scrollY;
 		}
@@ -1062,7 +1090,7 @@
 
 	// Anything that scrolls the page without us (keys, scrollbar, find-in-page, scrollIntoView) wins.
 	window.addEventListener( 'scroll', function () {
-		if ( Math.abs( window.scrollY - lastSet ) > 3 ) {
+		if ( ! lenis && Math.abs( window.scrollY - lastSet ) > 3 ) {
 			stop();
 		}
 	}, { passive: true } );
@@ -1105,7 +1133,7 @@
 	}
 
 	window.addEventListener( 'wheel', function ( e ) {
-		if ( e.defaultPrevented || e.ctrlKey || e.shiftKey ) {
+		if ( lenis || e.defaultPrevented || e.ctrlKey || e.shiftKey ) {
 			return; // pinch-zoom / horizontal intent
 		}
 		if ( root.classList.contains( 'deck-on' ) ) {
@@ -1623,18 +1651,34 @@
 			return;
 		}
 		v.classList.add( 'cv-fit' );
-		var m = Math.max( 24, W * 0.075 );
+		// 3.44 · "Capa" cards: a lower, fuller stage (less empty room above and below the devices)
+		var capa = !! v.closest( '.case-capa' );
+		var m = capa ? Math.max( 14, W * 0.05 ) : Math.max( 24, W * 0.075 );
 		var chip = st.querySelector( '.brand-chip' );
-		var top = ( chip ? chip.offsetTop + chip.offsetHeight : 56 ) + Math.max( 28, H * 0.05 );
+		var top = ( chip ? chip.offsetTop + chip.offsetHeight : 56 ) + ( capa ? Math.max( 12, H * 0.03 ) : Math.max( 28, H * 0.05 ) );
 		var browser = st.querySelector( '.browser' );
-		var phones = st.querySelectorAll( '.device' );
+		var phones = [].filter.call( st.querySelectorAll( '.device' ), function ( d ) {
+			return ! capa || 'none' !== getComputedStyle( d ).display;
+		} );
+		// phones: only the phone mockup (mockups.css hides the browser); a phone left alone fills the stage
+		if ( capa && window.innerWidth <= 760 ) {
+			if ( browser && 'none' === getComputedStyle( browser ).display ) {
+				browser = null;
+			}
+			if ( ! browser && 1 === phones.length ) {
+				var sl = Math.min( ( H - top - 12 ) / PH, ( W - 24 ) / PW );
+				phones[0].style.setProperty( '--s', sl.toFixed( 4 ) );
+				place( phones[0], ( W - PW * sl ) / 2, top );
+				return;
+			}
+		}
 		if ( browser ) {
 			var phone = phones[0];
 			var aw = W - 2 * m;
-			var bs = Math.min( 0.5, ( aw * 0.84 ) / 1280 );
+			var bs = Math.min( 0.5, ( aw * ( capa ? 0.92 : 0.84 ) ) / 1280 );
 			browser.style.setProperty( '--bs', bs.toFixed( 4 ) );
 			var bh = browser.offsetHeight;
-			var s = phone ? Math.min( 0.5, ( aw * 0.3 ) / PW ) : 0;
+			var s = phone ? Math.min( 0.5, ( aw * ( capa ? 0.34 : 0.3 ) ) / PW ) : 0;
 			var pOff = bh * 0.3;
 			// Centre the browser + phone group in the space under the chip when it fits.
 			var groupH = Math.max( bh, pOff + PH * s );

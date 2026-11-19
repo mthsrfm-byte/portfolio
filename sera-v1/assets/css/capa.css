@@ -1,0 +1,111 @@
+/* =========================================================================
+   Sera · v3.44 · Selected work cards: "Capa"
+   Each case is a magazine cover in the language of the home cover: the short case name is the
+   masthead, the mockup stands in front of it (like the bust over SERAFIM), four cover lines sit in
+   the corners and the cover's 3D floor runs underneath, with the same grain.
+   Loaded after v2-home.css (home only), so the deck rules there and in main.css (sticky stack,
+   --cover shade, snap points) keep working; only the inside of the card changes.
+   JS: assets/js/capa.js (fit, grains).
+   ========================================================================= */
+
+/* the deck (3.44.1): plain native scrolling, no pinned "Selected work" line, no snap. Each card sticks just
+   under the header and the next one simply lands on top of it: no shade, no scale, no fade, no shadow.
+   Cards keep the cover's proportions instead of filling tall screens. */
+html:root .cases{--stack-top:calc(var(--adm) + var(--hdr) + 16px);--card-h:max(460px,min(calc(100svh - var(--stack-top) - 16px),clamp(620px,60vw,790px)))}
+html:root .cases>.case-card.case-capa,html:root .cases>.case-card.case-capa:hover{scale:none;translate:none;opacity:1;box-shadow:none;transform:none;will-change:auto;border:1px solid rgba(17,17,16,.09)}
+html:root .cases>.case-card.case-capa::after{content:none}
+/* 3.44.2 · without the pinned title, the section's top padding only has to breathe after the brand strip's rule */
+html:root #work{padding-top:clamp(24px,3.4vw,48px)}
+
+html .cases>.case-card.case-capa{
+	--pad:clamp(24px,3vw,40px);--cc-teal:#0B5F63;
+	display:block;grid-template-columns:none;grid-template-rows:none;background:url(../img/grain-light.png) 0 0/180px 180px,var(--bg-2);background-blend-mode:multiply;border:0;border-radius:var(--r-lg);overflow:hidden;isolation:isolate;color:var(--ink)
+}
+html .cases>.case-card.case-capa:hover{border-color:transparent}
+.case-capa .thin{font-family:var(--display);font-weight:220;font-stretch:76%;text-transform:uppercase;letter-spacing:.012em;line-height:.92;text-wrap:balance}
+.case-capa .cap{font:400 12px/1.5 var(--mono);letter-spacing:.16em;text-transform:uppercase}
+
+/* floor: the cover's grid drawn three times, each copy blurred a little more where it sits further away */
+.case-capa .cc-floor{position:absolute;left:0;right:0;bottom:0;height:64%;z-index:0;pointer-events:none;overflow:hidden}
+.case-capa .cc-floor .fl{position:absolute;left:-30%;right:-30%;top:0;bottom:0}
+.case-capa .cc-floor .pl{position:absolute;inset:0;background-image:linear-gradient(rgba(17,17,16,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(17,17,16,.13) 1px,transparent 1px);background-size:84px 84px;background-position:center bottom;transform:perspective(900px) rotateX(64deg);transform-origin:50% 100%}
+.case-capa .cc-floor .near{-webkit-mask-image:linear-gradient(to top,#000 0%,#000 16%,transparent 40%);mask-image:linear-gradient(to top,#000 0%,#000 16%,transparent 40%)}
+.case-capa .cc-floor .mid{filter:blur(1.3px);-webkit-mask-image:linear-gradient(to top,transparent 12%,#000 32%,#000 46%,transparent 66%);mask-image:linear-gradient(to top,transparent 12%,#000 32%,#000 46%,transparent 66%)}
+.case-capa .cc-floor .far{filter:blur(3.4px);opacity:.85;-webkit-mask-image:linear-gradient(to top,transparent 40%,#000 60%,rgba(0,0,0,.6) 78%,transparent 96%);mask-image:linear-gradient(to top,transparent 40%,#000 60%,rgba(0,0,0,.6) 78%,transparent 96%)}
+/* 3.44.3 · capa.js draws the same floor once into a flat image (no 3D layers to redraw while scrolling) */
+.case-capa .cc-floor.is-flat{background-repeat:no-repeat;background-position:0 0;background-size:100% 100%}
+.case-capa .cc-floor.is-flat .fl{display:none}
+html .cases>.case-card.case-capa::before{content:"";position:absolute;left:0;right:0;bottom:-1px;height:22%;z-index:1;background:linear-gradient(to top,var(--bg-2),transparent);pointer-events:none}
+
+/* masthead: one line, full width (font size from capa.js); solid type with a soft hole where the cursor is */
+.case-capa .cc-mast{position:absolute;z-index:1;left:var(--pad);right:var(--pad);top:calc(var(--pad) * .8);margin:0;font:800 100px/.8 var(--display);font-stretch:75%;text-transform:uppercase;letter-spacing:-.012em;white-space:nowrap;text-align:center;color:var(--ink)}
+.case-capa .cc-mast.is-hole{-webkit-mask-image:radial-gradient(circle var(--mr,1px) at var(--mx,-999px) var(--my,-999px),transparent 66%,#000 100%);mask-image:radial-gradient(circle var(--mr,1px) at var(--mx,-999px) var(--my,-999px),transparent 66%,#000 100%)}
+.case-capa .cc-mast-t{display:inline-block}
+.case-capa .cc-mast .bl{display:inline-block;width:0;height:0;vertical-align:baseline}
+
+/* the mockup: in front of the name, covering the bottom ~26% of the letters, with a long shadow */
+html .cases>.case-card.case-capa .cc-fig{position:absolute;z-index:3;left:50%;top:var(--st,180px);width:var(--sw,420px);height:var(--fh,480px);min-height:0;border-radius:18px;overflow:hidden;
+	transform:translateX(-50%) translateY(var(--lift,0px));transition:transform .5s var(--ease);box-shadow:0 60px 90px -40px rgba(17,17,16,.6),0 2px 0 rgba(17,17,16,.06)}
+html .cases>.case-card.case-capa:hover .cc-fig{--lift:-8px}
+
+/* cover lines in the corners */
+.case-capa .cl{position:absolute;z-index:4;width:calc(50% - var(--sw,360px) / 2 - var(--pad) - 28px);min-width:0}
+.case-capa .cl .k{color:var(--cc-teal);display:block;margin-bottom:8px}
+.case-capa .cl .h,.case-capa .cl h3{margin:0;overflow-wrap:normal;font-size:clamp(20px,2.5vw,36px);color:var(--ink)}
+.case-capa .cl p{margin-top:8px;font-size:14.5px;line-height:1.45;color:var(--ink-2);max-width:34ch;text-wrap:pretty}
+.case-capa .c1{left:var(--pad);top:calc(var(--mh,160px) + var(--pad) * 1.5)}
+.case-capa .c2{right:var(--pad);top:calc(var(--mh,160px) + var(--pad) * 1.5);text-align:right}
+.case-capa .c2 p{margin-left:auto}
+.case-capa .c2 .big{font-size:clamp(40px,5.2vw,78px);line-height:.9}
+.case-capa .c3{left:var(--pad);bottom:var(--pad)}
+.case-capa .c3 h3{font-size:clamp(26px,3.1vw,46px);line-height:.94}
+.case-capa .c4{right:var(--pad);bottom:var(--pad);text-align:right;display:grid;gap:14px;justify-items:end}
+.case-capa .c4 .h{font-size:clamp(20px,2.2vw,30px)}
+.case-capa .c4 p{margin-top:2px;font-size:13px}
+.case-capa .cc-cta{display:inline-flex;align-items:center;gap:12px;min-height:50px;margin-top:18px;padding:0 22px;border-radius:999px;font:400 12.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;background:var(--ink);color:#fff;white-space:nowrap}
+.case-capa .cc-cta i{display:inline-flex;font-style:normal;transition:transform .35s var(--ease)}
+.case-capa .cc-cta .ico{width:15px;height:15px}
+html .cases>.case-card.case-capa:hover .cc-cta i{transform:translateX(4px) rotate(-45deg)}
+
+/* tablets: a slimmer button so it fits its corner; short screens: the small print under the 2nd and 3rd metrics goes first */
+@media (min-width:761px) and (max-width:1080px){.case-capa .cc-cta{min-height:44px;padding:0 16px;gap:8px;font-size:11.5px}}
+.case-capa.is-snug .c4 p{display:none}
+
+/* 3.44.3 · the stack (capa.js): covered cards and cards far below stop their loops; cards buried two
+   under the top of the stack aren't drawn at all (they're fully hidden by an identical card on top) */
+html .cases>.case-card.case-capa.is-buried{visibility:hidden}
+.case-capa.is-buried *,.case-capa.is-buried *::before,.case-capa.is-buried *::after,
+.case-capa.is-still *,.case-capa.is-still *::before,.case-capa.is-still *::after{animation-play-state:paused!important}
+
+/* 3.45.1 · skeleton (capa.js .is-skel): the mockup's contents aren't rendered, only a quiet block in its place */
+html .cases>.case-card.case-capa.is-skel .cc-fig{content-visibility:hidden;background:linear-gradient(180deg,rgba(17,17,16,.07),rgba(17,17,16,.04));box-shadow:none}
+
+/* grains: the canvas lives outside the card (capa.js) so they can fly past its edge */
+.cc-dust{position:fixed;left:0;top:0;z-index:39;pointer-events:none;display:block}
+
+@media (prefers-reduced-motion:reduce){.cc-dust{display:none}}
+
+/* phones: name on top, the mockup full width over ~16% of it, cover lines in two columns below */
+@media (max-width:760px){
+	html:root .cases{--stack-top:calc(var(--adm) + var(--hdr) + 8px);--card-h:clamp(480px,calc(100svh - var(--stack-top) - 8px),860px)}
+	html .cases>.case-card.case-capa{--pad:16px;display:flex;flex-direction:column;padding:16px 16px 18px;border-radius:22px}
+	.case-capa .cc-mast{position:relative;left:auto;right:auto;top:auto;flex:none}
+	html .cases>.case-card.case-capa .cc-fig{position:relative;left:auto;top:auto;width:100%;height:auto;flex:1 1 0;min-height:0;margin-top:var(--fmt,-12px);transform:none;border-radius:16px}
+	.case-capa .cc-lines{position:relative;z-index:4;flex:none;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px 16px;margin-top:16px}
+	.case-capa .cl{position:relative;left:auto;right:auto;top:auto;bottom:auto;width:auto;text-align:left}
+	.case-capa .c2 p{margin-left:0}
+	.case-capa .c3{grid-column:1/-1;order:-1;display:flex;align-items:flex-end;justify-content:space-between;gap:14px}
+	.case-capa .c3 h3{font-size:21px;line-height:1}
+	.case-capa .cc-cta{flex:none;margin-top:0;min-height:42px;padding:0 16px;font-size:11.5px;gap:8px}
+	.case-capa .c4{grid-column:1/-1;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;justify-items:start;text-align:left}
+	.case-capa .cl .h{font-size:22px}
+	.case-capa .c2 .big{font-size:34px}
+	.case-capa .c4 .h{font-size:20px}
+	.case-capa .cl p{font-size:12.5px;margin-top:4px;line-height:1.35}
+	.case-capa .cl .k{font-size:11px;margin-bottom:4px}
+	.case-capa .cc-floor{height:44%}
+}
+/* short phones: the third metric line goes first (capa.js adds .is-tight when the mockup gets cramped) */
+@media (max-width:760px){
+	.case-capa.is-tight .c4{display:none}
+}

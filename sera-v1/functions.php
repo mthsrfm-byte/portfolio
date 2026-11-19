@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'SERA_VERSION', '3.44.0' );
+define( 'SERA_VERSION', '3.46.0' );
 
 require_once get_template_directory() . '/inc/i18n.php';
 require_once get_template_directory() . '/inc/i18n/customizer-pt.php';
@@ -165,7 +165,9 @@ add_action(
 			}
 		}
 
-		wp_enqueue_script( 'sera-main', $uri . '/assets/js/main.js', array(), sera_asset_ver( 'assets/js/main.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
+		// 3.45.0 · Lenis smooth scroll (MIT, darkroomengineering/lenis 1.3.4), used by main.js
+		wp_enqueue_script( 'lenis', $uri . '/assets/js/lib/lenis.min.js', array(), '1.3.4', array( 'strategy' => 'defer', 'in_footer' => true ) );
+		wp_enqueue_script( 'sera-main', $uri . '/assets/js/main.js', array( 'lenis' ), sera_asset_ver( 'assets/js/main.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
 
 		if ( ( $is_case || is_front_page() ) && file_exists( $dir . '/assets/js/case.js' ) ) {
 			wp_enqueue_script( 'sera-case-js', $uri . '/assets/js/case.js', array(), sera_asset_ver( 'assets/js/case.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
@@ -184,6 +186,9 @@ add_action(
 		if ( is_front_page() ) {
 			wp_enqueue_style( 'sera-v2-home', $uri . '/assets/css/v2-home.css', array( 'sera-v2' ), sera_asset_ver( 'assets/css/v2-home.css' ) );
 			wp_enqueue_script( 'sera-v2-home', $uri . '/assets/js/v2-home.js', array( 'sera-v2', 'sera-case-js' ), sera_asset_ver( 'assets/js/v2-home.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
+			// 3.44 · Selected work cards "Capa": after the v2 layer, so its deck rules stay and only the card's inside changes.
+			wp_enqueue_style( 'sera-capa', $uri . '/assets/css/capa.css', array( 'sera-v2-home', 'sera-mockups' ), sera_asset_ver( 'assets/css/capa.css' ) );
+			wp_enqueue_script( 'sera-capa', $uri . '/assets/js/capa.js', array( 'sera-main' ), sera_asset_ver( 'assets/js/capa.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
 		}
 		if ( $is_case ) {
 			wp_enqueue_style( 'sera-v2-case', $uri . '/assets/css/v2-case.css', array( 'sera-v2', 'sera-case' ), sera_asset_ver( 'assets/css/v2-case.css' ) );

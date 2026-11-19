@@ -80,8 +80,40 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
-= 3.44.0 =
+= 3.46.0 =
 * Paperplane Studio: facelift do case com a linguagem da home nova (brand kit 0.2, "Dobradura"): Geologica, Onest e Geist Mono; lima #E4F65C com a dobra #9DB321; papel liso, cartões com fio, grifo que dobra nos títulos, rótulo de capítulo com número em lima; telas do estúdio claras com o logotipo novo e as imagens e vídeos da landing; a moldura do "07 · O site" mostra a home nova (só topo, tour, bolso e lista); cada zona com as próprias cores e o menu preto no escuro. Textos: só nomes que mudaram (fontes, "Dobradura", citações da home).
+
+= 3.45.1 =
+* Experiência: sai o texto de apoio ("Fui gestor e voltei a IC...") do título e da barra fixa.
+* Home: mockups dos cards enterrados na pilha ou bem abaixo da dobra viram um bloco skeleton (conteúdo não renderizado) e voltam antes de entrar na tela. Menos memória ao voltar pro topo (camadas de composição no topo: 155 → 46).
+
+= 3.45.0 =
+* Scroll suave com Lenis (darkroomengineering/lenis 1.3.4, MIT) em assets/js/lib/lenis.min.js, no lugar do scroll suave feito à mão (que fica de reserva se o Lenis não carregar). Âncoras do menu e o voo de volta ao topo passam pelo Lenis. Touch, teclado e barra de rolagem seguem nativos.
+
+= 3.44.4 =
+* Home: o menu fixo sobre blocos escuros fica preto sólido, sem o cinza translúcido.
+
+= 3.44.3 =
+* Home: scroll dos cases liso, sem pisca. Os nove cards ficam empilhados (sticky) e todos continuavam desenhando por baixo: o chão 3D de cada um (três grades inclinadas com blur e máscara) era refeito a cada quadro e os mockups rodavam ~110 animações em loop ao mesmo tempo.
+* O chão agora é desenhado uma vez num canvas, com a mesma conta do CSS, e entra como imagem plana (o CSS fica de reserva).
+* Card já coberto pausa as animações; dois abaixo do topo da pilha nem é desenhado (o que está logo abaixo continua, para rolar de volta sem buraco). Cards bem abaixo da dobra também ficam pausados.
+
+= 3.44.2 =
+* Home: menos espaço entre a faixa de marcas e o primeiro case (era 144px, sobra do título fixo que saiu; agora 24–48px).
+* Cards: corrigido o pisca no scroll. Sai o parallax (nada roda por quadro de scroll), o grão vira fundo do próprio card (sem mix-blend por cima de tudo) e a máscara do nome só existe durante o hover e fecha ao rolar.
+
+= 3.44.1 =
+* Selected work: sai a linha fixa "Selected work" (com o contador 01 / 09); o título fica só para leitor de tela.
+* Scroll dos cards orgânico: rolagem nativa, sem snap nem passo de um card por gesto. Cada card gruda logo abaixo do header e o próximo simplesmente pousa por cima, sem sombra, escurecimento, encolhimento ou fade; só um fio de 1px marca a borda.
+* A transição do nome nascendo da linha de base e o fade das cover lines saem; fica só o parallax leve por camada.
+
+= 3.44.0 =
+* Selected work: cards novos "Capa". O nome curto do case vira o masthead (Bricolage 800, 75%, caixa alta, na largura toda do card) e o mockup fica na frente dele, cobrindo uns 26% de baixo das letras, com sombra longa. Cover lines nos cantos: ano · empresa e papel; "Proof" com a primeira métrica; o resto do título com "Read case"; segunda e terceira métricas. Chão 3D e grão da capa embaixo.
+* Cards: com o cursor perto do nome, as letras viram os grãos redondos da poeira da capa e são empurradas para fora; o canvas sai pela borda do card e nunca desenha por cima do mockup.
+* Cards: parallax no scroll vertical por camada (chão, nome, mockup, cover lines). Transição entre cases: enquanto o próximo card sobe por cima do atual, o nome dele nasce da linha de base e as cover lines assentam por último. Sem grãos nem movimento com "reduzir movimento".
+* Cards no celular: nome no topo, mockup na largura toda, cover lines em duas colunas. Só o mockup de celular (sem navegador nem antes/depois); o celular sozinho fica maior e ocupa o palco. Em tela baixa a terceira métrica sai antes do mockup apertar.
+* Palco do mockup no desktop e tablet mais baixo e cheio (528 × 600), com menos espaço vazio em cima e embaixo.
+* Arquivos: template-parts/case-card.php, assets/css/capa.css e assets/js/capa.js (novos, só na home), ajuste no layout dos aparelhos em main.js e regra do celular em mockups.css.
 
 = 3.43.1 =
 * Capa (Coreo · Logo): os grãos em voo voltam a desviar do texto, como na Coreografia do Hero Lab; só o grão já pousado no logo ignora a copy.
