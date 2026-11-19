@@ -80,6 +80,21 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.43.0 =
+* Capa: o retrato em ASCII aparece já no carregamento, desenhado de um mapa de 9 KB (assets/img/cover-ascii.png) sem esperar o modelo 3D. Quando o modelo chega, esse mesmo ASCII se dissolve célula a célula no busto realista e o loop começa. Para refazer o mapa: abrir a home com ?cvdebug e rodar window.__cvBake().
+* Capa: o busto termina sempre num véu para transparente na base da caixa (ASCII, 3D e foto de reserva).
+* Header: saiu o cursor "Matheus"; fica só o cursor do visitante.
+* Header da home: ao rolar a capa some o menu e fica só o logo de partículas; a barra inteira entra quando a faixa de marcas chega no topo.
+
+= 3.42.9 =
+* Header da home: o menu espera escondido até o layout compacto estar pronto e entra com um fade, sem piscar inteiro no carregamento.
+
+= 3.42.8 =
+* Capa: os grãos remedem a posição dos textos a cada frame, então desviam do menu e da copy mesmo quando eles se movem.
+
+= 3.42.7 =
+* Header: tirei o nome "Matheus Serafim" ao lado do logo em todas as páginas.
+
 = 3.42.6 =
 * Capa: clicar no rosto só solta a onda quando o busto está em 3D realista; nas outras fases o clique não interrompe a coreografia.
 * Header da home no topo: sem o nome à esquerda, menu + idioma + Let's talk juntos e centralizados, na largura do logo; ao rolar eles deslizam para o layout normal.

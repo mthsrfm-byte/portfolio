@@ -619,7 +619,7 @@ const LOGO_PITCH = 8.99 / 6;   // six cells per stroke, so the grid sits exactly
 
 /* ---------- reading text the particles avoid (device px, y up) ---------- */
 function measureText(cr) {
-  const els = [...cvRoot.querySelectorAll('.frame .cl > *, #chips, #how')].concat([...document.querySelectorAll('.site-header .primary-nav a, .site-header .header-actions > *, .site-header .brand-name')]);
+  const els = [...cvRoot.querySelectorAll('.frame .cl > *, #chips, #how')].concat([...document.querySelectorAll('.site-header .primary-nav a, .site-header .header-actions > *')]);
   const M = U.uMask.value; let i = 0;
   els.forEach(el => {
     if (i >= M.length) return;
@@ -635,7 +635,7 @@ function measureText(cr) {
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => resize());
 /* ---------- portrait framing: cap over the logo's edge, chin above the headline ---------- */
 const stackedMQ = window.matchMedia('(max-aspect-ratio:4/5),(max-width:760px)');
-const frameF = { cap: 0.044, chin: 0.42 };
+const frameF = { cap: 0.0734, chin: 0.6205 };   // the real values (measured from the model on load); cover-pre.js uses the same
 function layoutBust() {
   const box = cvRoot.querySelector('#bustBox');
   box.style.top = ''; box.style.height = '';
@@ -663,6 +663,9 @@ function resize() {
   layoutBust();
   const bb = cvRoot.querySelector('#bustBox').getBoundingClientRect();
   const bw = Math.max(1, bb.width), bh = Math.max(1, bb.height);
+  // the veil (cover.css): the bust fades to transparent over the lower 26% of its box
+  cvRoot.style.setProperty('--cv-f0', (bb.bottom - r.top - bh * 0.26).toFixed(1) + 'px');
+  cvRoot.style.setProperty('--cv-f1', (bb.bottom - r.top).toFixed(1) + 'px');
   camera.aspect = bw / bh;
   camera.setViewOffset(bw, bh, -(bb.left - r.left), -(bb.top - r.top), W, Hh);
   const dist = (H / 0.95) / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)));
@@ -684,7 +687,7 @@ window.addEventListener('pointermove', e => {
 }, { passive: true });
 document.addEventListener('pointerleave', () => { st.seen = false; readout.hidden = true; });
 cvRoot.addEventListener('pointerdown', e => {
-  if (isShow() && show.on && !failed && !(sim.p > .004 || sim.formed || sim.rebuild >= 0)) {
+  if (isShow() && show.on && !failed && !intro.on && !(sim.p > .004 || sim.formed || sim.rebuild >= 0)) {
     // only while the bust is the realistic 3D photo, and only on the face: anything else leaves the choreography alone
     const T = show.paused != null ? show.paused : ((performance.now() - show.t0) / 1000) % CYCLE;
     const hit = (T < 1.0 || T >= 18.8) ? pick(e.clientX, e.clientY) : null;
@@ -934,6 +937,35 @@ function renderShow(now, T) {
     renderer.render(scene, camera); renderer.autoClear = ac;
   }
 }
+/* ---------- intro: the still ASCII from cover-pre.js holds a beat, then dissolves into the photo, then the loop ----------
+   The still canvas is never swapped for the live ASCII (their glyphs differ cell by cell): WebGL draws only the photo
+   cells revealed so far, on top of it, and the still canvas goes once the photo is whole. */
+const pre = cvRoot.querySelector('canvas.bust-pre');
+const intro = { on: true, t0: -1, hold: 0 };
+const INTRO_DIS = 1200;
+function endIntro(now) {
+  intro.on = false; show.t0 = now; show.cyc = -1; show.paused = null; show.beat = -1;
+  if (pre && pre.isConnected) pre.remove();
+  canvas.classList.add('is-ready');
+}
+function renderIntro(now) {
+  const A = asciiMat.uniforms;
+  if (intro.t0 < 0) { intro.t0 = now; intro.hold = (pre && pre.classList.contains('on')) ? Math.max(500, 1500 - now) : 0; note('intro'); }
+  if (SCROLL_SIM && window.scrollY > innerHeight * .13) { endIntro(now); return false; }   // already scrolling: hand over to the scroll
+  const k = (now - intro.t0 - intro.hold) / INTRO_DIS;
+  if (k >= 1) { endIntro(now); return false; }
+  if (k < 0) { renderer.clear(); return true; }
+  if (pre) { canvas.style.transition = 'none'; pre.style.transition = 'none'; pre.style.opacity = String(1 - sm(.8, 1, k)); }   // the few edge glyphs outside the photo fade, not pop
+  canvas.classList.add('is-ready');
+  rig.updateMatrixWorld(true);
+  drawMeshes('photo');
+  renderer.setRenderTarget(rt); renderer.clear(); renderer.render(scene, camera); renderer.setRenderTarget(null);
+  A.uAmt.value = 0; A.uScr.value = 0; A.uRevMode.value = 0;
+  A.uReveal.value = reduce ? 1.1 : sm(0, 1, k) * 1.08;   // cell by cell, like the photo's return in the loop
+  quad.material = asciiMat; renderer.render(qScene, qCam);
+  A.uAmt.value = 1; A.uReveal.value = 0;
+  return true;
+}
 function frame(t) {
   if (failed) return;
   try { frameBody(t); } catch (e) { cvFail('frame: ' + e.message); return; }
@@ -948,7 +980,7 @@ function frameBody(t) {
   st.cur.x += (tx - st.cur.x) * k; st.cur.y += (ty - st.cur.y) * k;
   const yaw = st.cur.x * 0.62 * 0.38 * 0.85, pitch = st.cur.y * 0.26 * 0.38;
   const T = show.on ? (show.paused != null ? show.paused : ((now - show.t0) / 1000) % CYCLE) : -1;
-  show.fw += ((T > 0.9 && T < 18.8) || (SCROLL_SIM && (sim.p > .004 || sim.formed)) ? (0 - show.fw) * 0.07 : (1 - show.fw) * 0.07);
+  if (intro.on) show.fw = 0; else show.fw += ((T > 0.9 && T < 18.8) || (SCROLL_SIM && (sim.p > .004 || sim.formed)) ? (0 - show.fw) * 0.07 : (1 - show.fw) * 0.07);
   rig.rotation.y = yaw * 0.22 * show.fw;
   pivot.rotation.set(pitch * show.fw, yaw * 0.78 * show.fw, -st.cur.x * 0.04 * show.fw);
   U.uTime.value = reduce ? 4 : t / 1000;
@@ -956,6 +988,8 @@ function frameBody(t) {
   // how close the pointer is to the head → lens radius
   hb.setFromObject(pivot); hb.getCenter(v); v.project(camera);
   const cr = canvas.getBoundingClientRect();
+  // header and hero text move (header slides, copy animates in): keep the avoid mask in step every frame
+  measureText(cr);
   const hx = (v.x * 0.5 + 0.5) * W, hy = (-v.y * 0.5 + 0.5) * Hh;
   v.set(hb.max.x, hb.max.y, hb.max.z).project(camera);
   const headR = Math.abs((v.x * 0.5 + 0.5) * W - hx) + 1;
@@ -967,6 +1001,7 @@ function frameBody(t) {
   U.uOpen.value = st.open;
 
   if (fx.id === 'pulso' && idle && now - autoT > 3400) { autoT = now; dropRandom(); }
+  if (intro.on && renderIntro(now)) { requestAnimationFrame(frame); return; }
   if (!isShow()) { U.uWaveV.value = 0.11; U.uWaveF.value = 0.6; }
   if (isShow()) { renderShow(now, T); requestAnimationFrame(frame); return; }
 
@@ -987,8 +1022,14 @@ function frameBody(t) {
   const items = () => [hdr.querySelector('.primary-nav'), hdr.querySelector('.header-actions')].filter(Boolean);
   const setW = () => { const m = cvRoot.querySelector('.mast svg'); if (m) hdr.style.setProperty('--cv-lw', m.getBoundingClientRect().width + 'px'); };
   setW(); window.addEventListener('resize', setW);
+  // the sticky bar (background, menu, buttons) only arrives once the brands strip reaches it; before that the
+  // header holds just the logo the particles form
+  const strip = document.querySelector('.hero-logos-only, .logos');
+  const bar = () => { hdr.classList.toggle('cv-bar', !strip || strip.getBoundingClientRect().top <= hdr.getBoundingClientRect().bottom + 2); };
+  bar(); window.addEventListener('scroll', bar, { passive: true }); window.addEventListener('resize', bar);
   let top = !hdr.classList.contains('is-scrolled');
   hdr.classList.toggle('cv-top', top);
+  document.documentElement.classList.remove('cv-pre'); // cv-top is on before the next paint, so the menu fades in already compact
   new MutationObserver(() => {
     const now = !hdr.classList.contains('is-scrolled');
     if (now === top) return; top = now;
@@ -1006,95 +1047,67 @@ function frameBody(t) {
   }).observe(hdr, { attributes: true, attributeFilter: ['class'] });
 })();
 
-/* ---------- Figma-style cursors in the header ---------- */
+/* ---------- Figma-style cursor in the header: the visitor's own pointer, labelled ---------- */
 (function cursors() {
   const hdr = document.querySelector('.site-header'); if (!hdr) return;
+  if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
   const nav = hdr.querySelector('.wrap') || hdr;
-  const ARROW = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 1.8 13.8 6.6 8.3 8.3 6.6 13.8Z"/></svg>';
-  const mk = (cls, id, html) => { const d = document.createElement(cls === 'mp-sel' ? 'span' : 'div'); d.className = cls === 'mp-sel' ? 'mp-sel' : 'mp ' + cls; d.id = id; d.setAttribute('aria-hidden', 'true'); d.innerHTML = html; nav.appendChild(d); return d; };
   const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
-  mk('mp-me', 'mpMe', ARROW + '<b>' + esc(CV.me) + '<small>' + esc(CV.say) + '</small></b><i></i>');
-  mk('mp-sel', 'mpSel', '');
-  mk('mp-you', 'mpYou', ARROW + '<b>' + esc(CV.you) + '</b><i></i>');
-  nav.classList.add('mp-host');
-  const me = document.getElementById('mpMe'), you = document.getElementById('mpYou'), sel = document.getElementById('mpSel');
-  const fine = window.matchMedia('(hover:hover) and (pointer:fine)').matches;
-  const R = el => { const r = el.getBoundingClientRect(), n = nav.getBoundingClientRect(); return { x: r.left - n.left, y: r.top - n.top, w: r.width, h: r.height }; };
-  const links = () => [...nav.querySelectorAll('.primary-nav a')].filter(el => el.offsetParent && el.getBoundingClientRect().width);
-  const talk = nav.querySelector('.header-actions .btn-dark') || nav.querySelector('.header-actions') || nav;
-  const rnd = (a, b) => a + Math.random() * (b - a);
-  const sleep = ms => new Promise(r => setTimeout(r, ms));
-  const pos = { x: R(talk).x - 60, y: 54 };
-  let wob = 1;
-  // a remote cursor travels on soft curves, eases in and out, and never quite holds still
-  function moveTo(x, y, speed = 1) {
-    const fx = pos.x, fy = pos.y, dx = x - fx, dy = y - fy, len = Math.hypot(dx, dy) || 1;
-    const bend = rnd(-0.28, 0.28) * len, cx = fx + dx / 2 - dy / len * bend, cy = fy + dy / 2 + dx / len * bend;
-    const dur = Math.min(1700, 380 + len * 1.15) / speed, t0 = performance.now();
-    return new Promise(res => {
-      (function step(now) {
-        let k = Math.min(1, (now - t0) / dur); k = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
-        const u = 1 - k; pos.x = u * u * fx + 2 * u * k * cx + k * k * x; pos.y = u * u * fy + 2 * u * k * cy + k * k * y;
-        if (k < 1) requestAnimationFrame(step); else res();
-      })(performance.now());
-    });
-  }
-  function click(el) { el.classList.remove('click'); void el.offsetWidth; el.classList.add('click'); setTimeout(() => el.classList.remove('click'), 560); }
-  async function say(ms) { me.classList.add('say'); await sleep(ms); me.classList.remove('say'); }
-  const acts = {
-    async visit() { const l = links(); if (!l.length) return; const r = R(l[(Math.random() * l.length) | 0]); await moveTo(r.x + r.w * rnd(.3, .8), r.y + r.h * rnd(.6, .9)); await sleep(rnd(600, 1300)); },
-    async select() { // drag across a menu word, like selecting text in a file
-      const l = links(); if (!l.length) return; const r = R(l[(Math.random() * l.length) | 0]);
-      await moveTo(r.x - 2, r.y + r.h * .55); await sleep(220);
-      sel.style.transform = 'translate(' + (r.x - 3) + 'px,' + (r.y + r.h / 2 - 11) + 'px)'; sel.style.width = '0px'; sel.classList.add('on');
-      const t0 = performance.now(), dur = 520 + r.w * 4;
-      await new Promise(res => { (function step(now) { const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 2);
-        pos.x = r.x - 2 + (r.w + 4) * e; sel.style.width = ((r.w + 6) * e) + 'px'; if (k < 1) requestAnimationFrame(step); else res(); })(t0); });
-      await sleep(rnd(700, 1100)); sel.classList.remove('on'); await sleep(250);
-    },
-    async press() { if (!talk.offsetParent) return this.visit(); // circle the button once, then press it
-      const r = R(talk), cx = r.x + r.w / 2, cy = r.y + r.h / 2, rx = r.w / 2 + 14, ry = r.h / 2 + 10;
-      await moveTo(cx + rx, cy, 1.1);
-      const t0 = performance.now(), dur = 1300;
-      await new Promise(res => { (function step(now) { const k = Math.min(1, (now - t0) / dur), a = k * Math.PI * 2 * (1 - .12 * k);
-        pos.x = cx + Math.cos(a) * rx * (1 - .55 * k); pos.y = cy - Math.sin(a) * ry * (1 - .55 * k); if (k < 1) requestAnimationFrame(step); else res(); })(t0); });
-      await sleep(160); click(me); await sleep(rnd(700, 1000));
-    },
-    async greet() { // drift over to you and wave
-      const n = nav.getBoundingClientRect();
-      const tx = you.classList.contains('on') ? Math.max(20, Math.min(n.width - 80, ux - 70)) : rnd(n.width * .3, n.width * .6);
-      const ty = you.classList.contains('on') ? Math.max(14, Math.min(n.height - 20, uy - 10)) : rnd(20, 50);
-      await moveTo(tx, ty, .9);
-      // a little two-step wiggle, then the label opens for "hi!"
-      for (let i = 0; i < 2; i++) { await moveTo(tx + 7, ty - 3, 3.2); await moveTo(tx - 5, ty + 2, 3.2); }
-      await moveTo(tx, ty, 3); await say(1500); await sleep(300);
-    },
-    async wander() { const n = nav.getBoundingClientRect(); await moveTo(rnd(40, n.width - 120), rnd(18, 56), .8); await sleep(rnd(400, 900)); }
-  };
-  const plan = ['visit', 'select', 'wander', 'press', 'visit', 'greet', 'visit', 'select', 'wander', 'greet', 'press'];
+  const you = document.createElement('div'); you.className = 'mp mp-you'; you.id = 'mpYou'; you.setAttribute('aria-hidden', 'true');
+  you.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 1.8 13.8 6.6 8.3 8.3 6.6 13.8Z"/></svg><b>' + esc(CV.you) + '</b><i></i>';
+  nav.appendChild(you); nav.classList.add('mp-host'); hdr.classList.add('has-you');
   let ux = -100, uy = -100, uxs = -100, uys = -100;
-  if (fine) {
-    hdr.classList.add('has-you');
-    hdr.addEventListener('pointermove', e => { const n = nav.getBoundingClientRect(); ux = e.clientX - n.left; uy = e.clientY - n.top; you.classList.add('on'); });
-    hdr.addEventListener('pointerleave', () => you.classList.remove('on'));
-    hdr.addEventListener('pointerdown', () => click(you));
-  }
-  function render(now) {
-    const wx = Math.sin(now / 410) * .7 + Math.sin(now / 173) * .35, wy = Math.cos(now / 530) * .6;
-    me.style.transform = 'translate(' + (pos.x + wx * wob).toFixed(1) + 'px,' + (pos.y + wy * wob).toFixed(1) + 'px)';
+  hdr.addEventListener('pointermove', e => { const n = nav.getBoundingClientRect(); ux = e.clientX - n.left; uy = e.clientY - n.top; you.classList.add('on'); });
+  hdr.addEventListener('pointerleave', () => you.classList.remove('on'));
+  hdr.addEventListener('pointerdown', () => { you.classList.remove('click'); void you.offsetWidth; you.classList.add('click'); setTimeout(() => you.classList.remove('click'), 560); });
+  (function render() {
     if (uxs < -50) { uxs = ux; uys = uy; }
     uxs += (ux - uxs) * 0.55; uys += (uy - uys) * 0.55;
     you.style.transform = 'translate(' + uxs.toFixed(1) + 'px,' + uys.toFixed(1) + 'px)';
     requestAnimationFrame(render);
-  }
-  if (reduce) { wob = 0; const r = R(talk); pos.x = r.x - 40; pos.y = r.y + r.h; me.style.transform = 'translate(' + pos.x + 'px,' + pos.y + 'px)'; return; }
-  requestAnimationFrame(render);
-  (async function life() { let k = 0; await sleep(900); for (;;) { await acts[plan[k++ % plan.length]](); await sleep(rnd(250, 700)); } })();
+  })();
 })();
+
+/* ?cvdebug only: bake the still ASCII the cover shows before the model arrives (assets/img/cover-ascii.png).
+   Neutral pose, the camera fitted by height exactly as resize() does; stores sRGB luma (rgb) and coverage (alpha). */
+if (DBG) window.__cvBake = (hpx = 192, A = 1.4, ss = 4) => {
+  const w = Math.round(hpx * A) * ss, h = hpx * ss;
+  const t = new THREE.WebGLRenderTarget(w, h);
+  const cam = new THREE.PerspectiveCamera(24, A, 0.01, 20);
+  const dist = (H / 0.95) / (2 * Math.tan(THREE.MathUtils.degToRad(12)));
+  cam.position.set(0, center.y + 0.01, dist); cam.lookAt(0, center.y + 0.02, 0);
+  const ry = rig.rotation.y, pr = pivot.rotation.clone();
+  rig.rotation.y = 0; pivot.rotation.set(0, 0, 0); scene.updateMatrixWorld(true);
+  drawMeshes('ascii'); renderer.setRenderTarget(t); renderer.clear(); renderer.render(scene, cam);
+  const px = new Uint8Array(w * h * 4); renderer.readRenderTargetPixels(t, 0, 0, w, h, px); renderer.setRenderTarget(null);
+  rig.rotation.y = ry; pivot.rotation.copy(pr); t.dispose();
+  const big = document.createElement('canvas'); big.width = w; big.height = h;
+  const bg = big.getContext('2d'), id = bg.createImageData(w, h);
+  const toS = c => Math.pow(Math.max(c, 0), 1 / 2.2);
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    const i = ((h - 1 - y) * w + x) * 4, o = (y * w + x) * 4, a = px[i + 3] / 255;
+    const L = a > 0 ? toS(px[i] / 255 / a) * .299 + toS(px[i + 1] / 255 / a) * .587 + toS(px[i + 2] / 255 / a) * .114 : 0;
+    id.data[o] = id.data[o + 1] = id.data[o + 2] = Math.round(Math.min(1, L) * 255); id.data[o + 3] = px[i + 3];
+  }
+  bg.putImageData(id, 0, 0);
+  const sm2 = document.createElement('canvas'); sm2.width = w / ss; sm2.height = h / ss;
+  const sg = sm2.getContext('2d'); sg.imageSmoothingQuality = 'high'; sg.drawImage(big, 0, 0, w / ss, h / ss);
+  return { png: sm2.toDataURL('image/png'), frameF: { cap: frameF.cap, chin: frameF.chin }, A };
+};
+/* ?cvdebug only: one live ASCII frame, read back in the same task (to compare it with the still one) */
+if (DBG) window.__cvSnap = () => {
+  const A = asciiMat.uniforms;
+  rig.updateMatrixWorld(true); drawMeshes('ascii');
+  renderer.setRenderTarget(rt); renderer.clear(); renderer.render(scene, camera); renderer.setRenderTarget(null);
+  A.uAmt.value = 1; A.uScr.value = 0; A.uReveal.value = 0; quad.material = asciiMat; renderer.render(qScene, qCam);
+  const url = canvas.toDataURL();
+  const px = new Uint8Array(rt.width * rt.height * 4); renderer.readRenderTargetPixels(rt, 0, 0, rt.width, rt.height, px);
+  return { url, rt: { w: rt.width, h: rt.height, px } };
+};
 
 const slow = setTimeout(() => { if (!canvas.classList.contains('is-ready')) { note('slow: photo shown'); cvRoot.classList.add('cv-fallback'); placePhoto(); } }, 20000);
 ready.then(() => { clearTimeout(slow); if (!failed) cvRoot.classList.remove('cv-fallback'); });
-ready.then(() => { resize(); fromHash(); canvas.classList.add('is-ready'); requestAnimationFrame(frame); });
+ready.then(() => { resize(); fromHash(); requestAnimationFrame(frame); });   // the first frame shows the canvas (see dropPre)
 
 /* floor grid tilts a touch with the pointer, as on the cover */
 const hero = cvRoot, g3 = cvRoot.querySelector('#g3');

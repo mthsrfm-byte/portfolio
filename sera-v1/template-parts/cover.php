@@ -21,6 +21,13 @@ $sera_mast = preg_replace( '/<svg\b/', '<svg aria-hidden="true" focusable="false
 	<div class="mast" aria-hidden="true"><?php echo $sera_mast; // phpcs:ignore WordPress.Security.EscapeOutput -- theme file. ?></div>
 	<span class="bust-box" id="bustBox" aria-hidden="true"></span>
 	<img class="cv-photo" src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/cover-fallback.webp?v=' . SERA_VERSION ); ?>" alt="" aria-hidden="true" loading="lazy" decoding="async">
+	<?php
+	// The first paint: the ASCII portrait from a 9 KB baked map, so the face is there before the 3D model arrives.
+	$sera_ascii = get_template_directory() . '/assets/img/cover-ascii.png';
+	if ( is_readable( $sera_ascii ) ) :
+		?>
+	<canvas class="bust-pre" aria-hidden="true" data-src="data:image/png;base64,<?php echo esc_attr( base64_encode( file_get_contents( $sera_ascii ) ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions ?>"></canvas>
+	<?php endif; ?>
 	<canvas class="bust" role="img" aria-label="<?php echo esc_attr( sera_t( '3D portrait of Matheus Serafim, turning to follow your pointer', 'Retrato 3D de Matheus Serafim, que vira a cabeça seguindo o cursor' ) ); ?>"></canvas>
 	<div class="frame">
 		<div class="cl c1"><span class="cap k"><?php sera_e( 'The fintech years', 'Os anos de fintech' ); ?></span><h2 class="thin"><?php sera_e( 'Nubank to Pagaleve', 'Do Nubank à Pagaleve' ); ?></h2><p><?php sera_e( 'Seven years designing credit, accounts, payment plans and debt negotiation.', 'Sete anos desenhando crédito, conta, parcelamento e negociação de dívidas.' ); ?></p></div>
@@ -29,4 +36,5 @@ $sera_mast = preg_replace( '/<svg\b/', '<svg aria-hidden="true" focusable="false
 		<div class="cl c4"><span class="cap k"><?php sera_e( 'Open to', 'Aberto a' ); ?></span><h2 class="thin"><?php sera_e( 'Lead &amp; design manager roles', 'Vagas de lead e design manager' ); ?></h2><p><?php sera_e( 'And freelance projects, by project.', 'E freelas, por projeto.' ); ?></p></div>
 	</div>
 	<div class="cv-lab" hidden><p id="how"></p><div id="chips"></div><p id="readout" hidden></p></div>
+	<script><?php echo file_get_contents( get_template_directory() . '/assets/js/cover-pre.js' ); // phpcs:ignore WordPress.Security.EscapeOutput,WordPress.WP.AlternativeFunctions -- theme file. ?></script>
 </section>
