@@ -13,6 +13,8 @@ const CV = { model: (LITE && MODEL_M) || cvRoot.dataset.model, say: cvRoot.datas
 document.documentElement.classList.add('cv-on');
 /* diagnostics: anything that stops the bust shows the photo instead; ?cvdebug prints what happened */
 const DBG = /[?&]cvdebug/.test(location.search);
+// ?cvdebug only: knobs to compare render cost (cvdpr=1.5, cvms=0 for no MSAA in the render target, cvaa=0 for no antialias)
+const KNOB = k => (DBG && new URLSearchParams(location.search).has(k)) ? +new URLSearchParams(location.search).get(k) : null;
 const diag = { ua: navigator.userAgent, steps: [], loaded: 0, total: 0 };
 let hud = null;
 function note(m) { diag.steps.push(((performance.now() / 1000).toFixed(1)) + 's ' + m); if (DBG) paintHud(); }
@@ -63,11 +65,11 @@ const TORSO = ['camiseta', 'base do busto', 'base do pescoço'];
 const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const canvas = cvRoot.querySelector('canvas.bust');
 let renderer;
-try { renderer = new THREE.WebGLRenderer({ canvas, antialias: !LITE, alpha: true, powerPreference: LITE ? 'default' : 'high-performance' }); }
+try { renderer = new THREE.WebGLRenderer({ canvas, antialias: KNOB('cvaa') != null ? !!KNOB('cvaa') : !LITE, alpha: true, powerPreference: LITE ? 'default' : 'high-performance' }); }
 catch (e) { cvFail('webgl: ' + (e && e.message)); throw e; }
 { const gl = renderer.getContext(); note('webgl ' + (renderer.capabilities.isWebGL2 ? '2' : '1') + ' maxTex ' + gl.getParameter(gl.MAX_TEXTURE_SIZE) + ' fltTex ' + !!gl.getExtension('EXT_color_buffer_float')); }
 canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); cvFail('webgl context lost'); });
-const dpr = Math.min(window.devicePixelRatio || 1, 2);
+const dpr = KNOB('cvdpr') || Math.min(window.devicePixelRatio || 1, 2);
 renderer.setPixelRatio(dpr);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.setClearColor(0x000000, 0);
@@ -345,9 +347,14 @@ void main(){
   vGeo = mz.z; vMz = mk * (1. - r); vArr = mk * r; vHide = clamp(uMaze + uRet, 0., 1.) * (1. - bound) * .92;
   vFar *= 1. - mk;
   float wob = (vnoise(sp / (90. * uDpr) + vec2(uTime * .25, -uTime * .18)) - .5) * 1.1 + (vnoise(sp / (34. * uDpr) - uTime * .4) - .5) * .5;
-  float d = textField(sp) + wob * uMaskPad;
-  vec2 e = vec2(2. * uDpr, 0.);
-  vec2 grad = normalize(vec2(textField(sp + e.xy) - textField(sp - e.xy), textField(sp + e.yx) - textField(sp - e.yx)) + 1e-5);
+  float tf = textField(sp);
+  float d = tf + wob * uMaskPad;
+  // the direction round the stone is four more field lookups: only dots near the text need it (the push is zero further out)
+  vec2 grad = vec2(0., 1.);
+  if (tf < uMaskPad * 3.) {
+    vec2 e = vec2(2. * uDpr, 0.);
+    grad = normalize(vec2(textField(sp + e.xy) - textField(sp - e.xy), textField(sp + e.yx) - textField(sp - e.yx)) + 1e-5);
+  }
   // liquid: dots are pushed out and also swirl along the edge, and keep doing it until they land in the header logo
   float land = 1. - smoothstep(.86, 1., th);
   float push = smoothstep(uMaskPad * 1.9, -uMaskPad * .4, d) * uMaskPad * (.7 + .8 * rnd) * (1. - mkT) * land;
@@ -376,7 +383,7 @@ void main(){
   vec2 q = gl_PointCoord - .5;
   if ((vSq < .5 && dot(q, q) > .25) || vRnd > uAlpha || (fract(vRnd * 13.7) < .7375 && vSq < .5 && vMz < .5)) discard;
   if (vSq > .5 && max(abs(q.x), abs(q.y)) > .5) discard;
-  if (fract(vRnd * 29.1) < .58) discard;   // 58% fewer dots everywhere (42% of the mesh); the logo cells still overlap, so it stays solid
+  // (the density cut, 42% of the mesh, is made in the geometry: see DOT_SHARE)
   cutout();
   if (fract(vRnd * 31.3) > vClear || fract(vRnd * 5.3) < vHide) discard;
   // ink and greys only
@@ -494,7 +501,8 @@ function glyphAtlas() {
 }
 
 /* ---------- screen passes ---------- */
-const rt = new THREE.WebGLRenderTarget(2, 2, { samples: LITE ? 0 : 4 });
+// no MSAA: the target feeds the glyph pass (one sample per cell) and the short photo reveals; MSAA cost 2–3 ms a frame
+const rt = new THREE.WebGLRenderTarget(2, 2, { samples: KNOB('cvms') != null ? KNOB('cvms') : 0 });
 const qCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 const qScene = new THREE.Scene();
 const quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2)); quad.frustumCulled = false; qScene.add(quad);
@@ -503,10 +511,29 @@ const halfMat = new THREE.ShaderMaterial({ uniforms: qU, vertexShader: QV, fragm
 const asciiMat = new THREE.ShaderMaterial({ uniforms: { ...qU, tGlyph: { value: null }, uN: { value: RAMP.length }, uLod: { value: 0 }, uAmt: { value: 1 }, uScr: { value: 0 }, uReveal: { value: 0 }, uRevMode: { value: 0 } }, vertexShader: QV, fragmentShader: ASCII_F, blending: THREE.NoBlending, depthTest: false, depthWrite: false });
 (document.fonts && document.fonts.load ? document.fonts.load('500 86px "Geist Mono"') : Promise.resolve()).catch(() => {}).then(() => { asciiMat.uniforms.tGlyph.value = glyphAtlas(); });
 
+/* the glyph/photo pass only where the bust can be (its box plus a margin for the turning head and the shoulders):
+   the rest of the canvas is plain clear. quadBox is in CSS px, origin bottom-left, set by resize(). */
+const quadBox = { x: 0, y: 0, w: 1, h: 1 };
+function drawQuad() {
+  renderer.setRenderTarget(null); renderer.clear();
+  renderer.setScissorTest(true); renderer.setScissor(quadBox.x, quadBox.y, quadBox.w, quadBox.h);
+  const ac = renderer.autoClear; renderer.autoClear = false; renderer.render(qScene, qCam); renderer.autoClear = ac;
+  renderer.setScissorTest(false);
+}
+
 /* ---------- load + split the bust ---------- */
 const nose = new THREE.Vector3(0, 0.26, 0.1);
 const skinMat = new THREE.MeshBasicMaterial({ color: 0xB88468, side: THREE.DoubleSide });
 const faceMeshes = [];
+/* the dust draws 42% of the mesh's vertices, picked once with a fixed seed: the points that would be thrown away are
+   never drawn, so the GPU skips their (heavy) vertex shader. The logo cells still get several dots each and stay solid. */
+const DOT_SHARE = 0.42;
+let dotSeed = 0x9E3779B9;
+function dotSubset(count) {
+  const keep = [];
+  for (let i = 0; i < count; i++) { dotSeed ^= dotSeed << 13; dotSeed ^= dotSeed >>> 17; dotSeed ^= dotSeed << 5; if ((dotSeed >>> 0) / 4294967296 < DOT_SHARE) keep.push(i); }
+  return new THREE.BufferAttribute(count > 65535 ? new Uint32Array(keep) : new Uint16Array(keep), 1);
+}
 const parts = []; let H = 0.393, center = new THREE.Vector3(0, 0.2, 0), faceMesh = null;
 function bytes(b64) { const s = atob(b64), u = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) u[i] = s.charCodeAt(i); return u.buffer; }
 const ready = new Promise(resolve => {
@@ -535,6 +562,7 @@ const ready = new Promise(resolve => {
       };
       const pg = new THREE.BufferGeometry();
       pg.setAttribute('position', m.geometry.attributes.position);
+      pg.setIndex(dotSubset(m.geometry.attributes.position.count));
       if (m.geometry.attributes.uv) pg.setAttribute('uv', m.geometry.attributes.uv);
       const pts = new THREE.Points(pg, mk(PTS_V, PTS_F));
       pts.position.copy(m.position); pts.quaternion.copy(m.quaternion); pts.scale.copy(m.scale);
@@ -620,11 +648,15 @@ const LOGO_PITCH = 8.99 / 6;   // six cells per stroke, so the grid sits exactly
 })();
 
 /* ---------- reading text the particles avoid (device px, y up) ---------- */
+// the elements are found once (and again on resize, when the layout may swap them); only their boxes are read per frame
+let textEls = null, menuEls = null;
+window.addEventListener('resize', () => { textEls = menuEls = null; });
 function measureText(cr) {
-  const rects = [...cvRoot.querySelectorAll('.frame .cl > *, #chips, #how')].map(el => el.getBoundingClientRect());
+  if (!textEls) { textEls = [...cvRoot.querySelectorAll('.frame .cl > *, #chips, #how')]; menuEls = [...document.querySelectorAll('.site-header .primary-nav a, .site-header .header-actions > *')]; }
+  const rects = textEls.map(el => el.getBoundingClientRect());
   // the menu and its buttons are one stone in the stream: one box round all of them, so no dust in the gaps
   let menu = null;
-  document.querySelectorAll('.site-header .primary-nav a, .site-header .header-actions > *').forEach(el => {
+  menuEls.forEach(el => {
     const r = el.getBoundingClientRect(); if (!r.width || !r.height) return;
     menu = menu ? { left: Math.min(menu.left, r.left), top: Math.min(menu.top, r.top), right: Math.max(menu.right, r.right), bottom: Math.max(menu.bottom, r.bottom) } : { left: r.left, top: r.top, right: r.right, bottom: r.bottom };
   });
@@ -676,6 +708,9 @@ function resize() {
   // the veil (cover.css): the bust fades to transparent over the lower 26% of its box
   cvRoot.style.setProperty('--cv-f0', (bb.bottom - r.top - bh * 0.26).toFixed(1) + 'px');
   cvRoot.style.setProperty('--cv-f1', (bb.bottom - r.top).toFixed(1) + 'px');
+  { const mx = bw * 0.14, mt = bh * 0.08, x0 = Math.max(0, bb.left - r.left - mx), x1 = Math.min(W, bb.right - r.left + mx);
+    const y0 = Math.max(0, r.bottom - bb.bottom - 8), y1 = Math.min(Hh, r.bottom - bb.top + mt);
+    quadBox.x = Math.floor(x0); quadBox.y = Math.floor(y0); quadBox.w = Math.ceil(x1 - x0); quadBox.h = Math.ceil(y1 - y0); }
   camera.aspect = bw / bh;
   camera.setViewOffset(bw, bh, -(bb.left - r.left), -(bb.top - r.top), W, Hh);
   const dist = (H / 0.95) / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)));
@@ -826,7 +861,7 @@ function renderScroll(P) {
   drawMeshes('photo');
   renderer.setRenderTarget(rt); renderer.clear(); renderer.render(scene, camera); renderer.setRenderTarget(null);
   A.uAmt.value = 0; A.uScr.value = 0; A.uReveal.value = (1 - sm(0, .16, P)) * 1.08;
-  quad.material = asciiMat; renderer.render(qScene, qCam);
+  quad.material = asciiMat; drawQuad();
   A.uAmt.value = 1; A.uReveal.value = 0;
   if (!formed) {
     U.uAlpha.value = .55;
@@ -841,7 +876,7 @@ function renderRebuild(k) {
   drawMeshes('photo');
   renderer.setRenderTarget(rt); renderer.clear(); renderer.render(scene, camera); renderer.setRenderTarget(null);
   A.uAmt.value = 0; A.uScr.value = 0; A.uReveal.value = k * 1.1; A.uRevMode.value = 1;
-  quad.material = asciiMat; renderer.render(qScene, qCam);
+  quad.material = asciiMat; drawQuad();
   A.uAmt.value = 1; A.uReveal.value = 0; A.uRevMode.value = 0;
 }
 function simTick(now) {
@@ -942,7 +977,7 @@ function renderShow(now, T) {
   drawMeshes(amt > 0.001 ? 'ascii' : 'photo');
   renderer.setRenderTarget(rt); renderer.clear(); renderer.render(scene, camera); renderer.setRenderTarget(null);
   A.uAmt.value = amt; A.uScr.value = scr; A.uReveal.value = rev;
-  quad.material = asciiMat; renderer.render(qScene, qCam);
+  quad.material = asciiMat; drawQuad();
   A.uAmt.value = 1; A.uScr.value = 0; A.uReveal.value = 0;
   // particles on top (eyeballs never fly)
   if (alpha > 0) {
@@ -977,13 +1012,55 @@ function renderIntro(now) {
   renderer.setRenderTarget(rt); renderer.clear(); renderer.render(scene, camera); renderer.setRenderTarget(null);
   A.uAmt.value = 0; A.uScr.value = 0; A.uRevMode.value = 0;
   A.uReveal.value = reduce ? 1.1 : sm(0, 1, k) * 1.08;   // cell by cell, like the photo's return in the loop
-  quad.material = asciiMat; renderer.render(qScene, qCam);
+  quad.material = asciiMat; drawQuad();
   A.uAmt.value = 1; A.uReveal.value = 0;
   return true;
 }
+/* the loop only draws while the cover is on screen, and at most 60 times a second (also on 120 Hz screens):
+   off screen the canvas would still be cleared and composited every frame, which kept the GPU busy all over the page */
+const vis = { on: true, running: false, last: -1e9 };
+/* ?cvdebug only: GPU time of each cover frame (EXT_disjoint_timer_query_webgl2), read with window.__cvGpu.stats() */
+const GT = (() => {
+  if (!DBG) return null;
+  const gl = renderer.getContext(), ext = gl.getExtension && gl.getExtension('EXT_disjoint_timer_query_webgl2');
+  if (!ext || !gl.createQuery) return null;
+  const q = [], ms = [];
+  return {
+    begin() { const k = gl.createQuery(); gl.beginQuery(ext.TIME_ELAPSED_EXT, k); return k; },
+    end(k) {
+      gl.endQuery(ext.TIME_ELAPSED_EXT); q.push(k);
+      while (q.length && gl.getQueryParameter(q[0], gl.QUERY_RESULT_AVAILABLE)) {
+        const kk = q.shift();
+        if (!gl.getParameter(ext.GPU_DISJOINT_EXT)) ms.push(gl.getQueryParameter(kk, gl.QUERY_RESULT) / 1e6);
+        gl.deleteQuery(kk);
+      }
+      if (ms.length > 240) ms.splice(0, ms.length - 240);
+    },
+    stats() { const s = ms.slice().sort((a, b) => a - b); return { n: s.length, med: +(s[s.length >> 1] || 0).toFixed(2), p90: +(s[Math.floor(s.length * .9)] || 0).toFixed(2) }; },
+    reset() { ms.length = 0; }
+  };
+})();
+if (DBG) window.__cvGpu = GT;
+function park() {
+  // the cover left the screen: whatever the scroll was gathering is now the header logo, and drawing stops
+  if (SCROLL_SIM && !sim.formed) { sim.formed = true; sim.p = 1; hdrEl.classList.add('logo-on'); hdrEl.classList.remove('cv-flying'); }
+  renderer.clear();
+  note('parked');
+}
+if ('IntersectionObserver' in window) new IntersectionObserver(es => {
+  vis.on = es[es.length - 1].isIntersecting;
+  if (vis.on && !vis.running && frame.started && !failed) { vis.running = true; requestAnimationFrame(frame); }
+}, { rootMargin: '80px 0px' }).observe(cvRoot);
 function frame(t) {
   if (failed) return;
+  frame.started = true;
+  if (!vis.on) { vis.running = false; park(); return; }
+  vis.running = true;
+  if (t - vis.last < 13) { requestAnimationFrame(frame); return; }
+  vis.last = t;
+  const gk = GT && GT.begin();
   try { frameBody(t); } catch (e) { cvFail('frame: ' + e.message); return; }
+  if (gk) GT.end(gk);
   if (!frame.ok) { frame.ok = true; note('first frame'); }
 }
 function frameBody(t) {
@@ -1079,12 +1156,15 @@ function frameBody(t) {
   hdr.addEventListener('pointermove', e => { const n = nav.getBoundingClientRect(); ux = e.clientX - n.left; uy = e.clientY - n.top; you.classList.add('on'); });
   hdr.addEventListener('pointerleave', () => you.classList.remove('on'));
   hdr.addEventListener('pointerdown', () => { you.classList.remove('click'); void you.offsetWidth; you.classList.add('click'); setTimeout(() => you.classList.remove('click'), 560); });
-  (function render() {
+  // the label follows the pointer only while it is over the header, then the loop rests
+  let moving = false;
+  const render = () => {
     if (uxs < -50) { uxs = ux; uys = uy; }
     uxs += (ux - uxs) * 0.55; uys += (uy - uys) * 0.55;
     you.style.transform = 'translate(' + uxs.toFixed(1) + 'px,' + uys.toFixed(1) + 'px)';
-    requestAnimationFrame(render);
-  })();
+    if (Math.abs(ux - uxs) + Math.abs(uy - uys) > 0.2) requestAnimationFrame(render); else moving = false;
+  };
+  hdr.addEventListener('pointermove', () => { if (!moving) { moving = true; requestAnimationFrame(render); } });
 })();
 
 /* ?cvdebug only: bake the still ASCII the cover shows before the model arrives (assets/img/cover-ascii.png).
@@ -1113,6 +1193,7 @@ if (DBG) window.__cvBake = (hpx = 192, A = 1.4, ss = 4) => {
   const sg = sm2.getContext('2d'); sg.imageSmoothingQuality = 'high'; sg.drawImage(big, 0, 0, w / ss, h / ss);
   return { png: sm2.toDataURL('image/png'), frameF: { cap: frameF.cap, chin: frameF.chin }, A };
 };
+if (DBG) window.__cvInfo = () => { let v = 0, m = 0; parts.forEach(p => { v += p.mesh.geometry.attributes.position.count; m++; }); return { meshes: m, vertices: v, canvas: canvas.width + 'x' + canvas.height, rt: rt.width + 'x' + rt.height + ' samples ' + rt.samples }; };
 /* ?cvdebug only: render one frame of the loop at T seconds, synchronously, and hand it back as an image */
 if (DBG) window.__cvShot = (T) => { if (intro.on) endIntro(performance.now()); window.__show.seek(T); window.__show.pause(); frameBody(performance.now()); return canvas.toDataURL(); };
 /* ?cvdebug only: one live ASCII frame, read back in the same task (to compare it with the still one) */

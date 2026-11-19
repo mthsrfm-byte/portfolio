@@ -88,6 +88,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 * Capa: 40% menos grãos (o logo de partículas continua sólido) e nenhum grão acima do menu.
 * Capa: a saída do 3D realista para o voo dura 20% mais (2,4 s em vez de 2 s); o resto da coreografia só começa 0,4 s depois.
 * Home: o labirinto do hero não quebra mais ao redimensionar a janela.
+* Desempenho da capa: o busto para de desenhar quando a capa sai da tela (antes a GPU ficava ocupada no site inteiro), o loop roda no máximo a 60 quadros por segundo também em telas de 120 Hz, a poeira só calcula os pontos que aparecem, a direção do desvio só perto do texto, o pass de caracteres só na área do busto e sem MSAA no buffer intermediário.
+* Desempenho do header: o vidro fosco fica desligado enquanto está invisível e o cursor "Você" só anima quando o mouse está no header.
+* Diagnóstico (?cvdebug): window.__cvGpu.stats() dá o tempo de GPU de cada quadro; ?cvdpr, ?cvms e ?cvaa comparam resolução e antialias.
 * Header da home: sobre blocos escuros a barra volta a escurecer (antes o texto clarinho ficava sobre fundo claro).
 
 = 3.43.0 =
