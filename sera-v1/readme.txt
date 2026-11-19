@@ -80,6 +80,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.42.5 =
+* Capa: se o 3D não carregar, entra a foto original do escaneamento (assets/img/cover-fallback.webp, sem fundo) no mesmo lugar do busto, na frente do logo.
+
 = 3.42.4 =
 * Capa: o celular acha o modelo leve mesmo quando o servidor entrega uma cópia antiga da página em cache.
 

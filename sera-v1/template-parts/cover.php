@@ -20,7 +20,7 @@ $sera_mast = preg_replace( '/<svg\b/', '<svg aria-hidden="true" focusable="false
 	<span class="grid3d" id="g3" aria-hidden="true"><span class="fl near"><span class="pl"></span></span><span class="fl mid"><span class="pl"></span></span><span class="fl far"><span class="pl"></span></span></span>
 	<div class="mast" aria-hidden="true"><?php echo $sera_mast; // phpcs:ignore WordPress.Security.EscapeOutput -- theme file. ?></div>
 	<span class="bust-box" id="bustBox" aria-hidden="true"></span>
-	<img class="cv-photo" src="<?php echo esc_url( sera_photo_url() ); ?>" alt="" aria-hidden="true" loading="lazy" decoding="async">
+	<img class="cv-photo" src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/cover-fallback.webp?v=' . SERA_VERSION ); ?>" alt="" aria-hidden="true" loading="lazy" decoding="async">
 	<canvas class="bust" role="img" aria-label="<?php echo esc_attr( sera_t( '3D portrait of Matheus Serafim, turning to follow your pointer', 'Retrato 3D de Matheus Serafim, que vira a cabeça seguindo o cursor' ) ); ?>"></canvas>
 	<div class="frame">
 		<div class="cl c1"><span class="cap k"><?php sera_e( 'The fintech years', 'Os anos de fintech' ); ?></span><h2 class="thin"><?php sera_e( 'Nubank to Pagaleve', 'Do Nubank à Pagaleve' ); ?></h2><p><?php sera_e( 'Seven years designing credit, accounts, payment plans and debt negotiation.', 'Sete anos desenhando crédito, conta, parcelamento e negociação de dívidas.' ); ?></p></div>

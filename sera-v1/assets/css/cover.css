@@ -110,7 +110,8 @@
 /* no model (load failed): the cover still reads as a cover */
 #cover .cv-photo{display:none}
 #cover.cv-fallback canvas.bust{display:none}
-#cover.cv-fallback .cv-photo{display:block;position:absolute;z-index:2;left:50%;transform:translateX(-50%);top:calc(var(--bt) + var(--bh) * .08);height:calc(var(--bh) * .5);width:auto;aspect-ratio:1;object-fit:cover;border-radius:50%}
+/* the source photo of the 3D scan, framed like the bust; multiply turns its white backdrop into the page's paper */
+#cover.cv-fallback .cv-photo{display:block;position:absolute;z-index:2;left:50%;transform:translateX(-50%);top:var(--bt);height:var(--bh);width:var(--bw);max-width:100%;object-fit:contain;object-position:50% 100%}
 .cv-hud{position:fixed;z-index:9999;left:8px;right:8px;bottom:8px;margin:0;padding:10px 12px;border-radius:8px;background:rgba(17,17,16,.88);color:#EFEEE8;font:11px/1.45 var(--mono,monospace);white-space:pre-wrap;word-break:break-all;max-height:45vh;overflow:auto}
 
 /* header on the home: the brand logo is built by the particles on the way down, so it waits for them */

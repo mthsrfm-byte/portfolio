@@ -21,10 +21,28 @@ function paintHud() {
   hud.textContent = ['cover debug', 'loaded ' + (diag.loaded / 1048576).toFixed(2) + ' / ' + (diag.total / 1048576).toFixed(2) + ' MB'].concat(diag.steps.slice(-14), [diag.ua]).join('\n');
 }
 let failed = false;
+/* the fallback photo sits exactly in the bust's box, whatever layout is active */
+function placePhoto() {
+  const ph = cvRoot.querySelector('.cv-photo'), bx = cvRoot.querySelector('#bustBox');
+  if (!ph || !bx) return;
+  const c = cvRoot.getBoundingClientRect();
+  ph.style.transform = 'none';
+  if (window.matchMedia('(max-aspect-ratio:4/5),(max-width:760px)').matches) {
+    // stacked layout: the cap cuts into the logo's lower edge, the chin clears the headline (photo: cap top 1%, chin 53%)
+    const L = cvRoot.querySelector('.mast svg').getBoundingClientRect().bottom - c.top, S = cvRoot.querySelector('.c3').getBoundingClientRect().top - c.top - 14;
+    const hgt = Math.max(140, Math.min((S - L) / (.53 - .06), c.width * 1.1)), top = L - .06 * hgt;
+    ph.style.left = ((c.width - hgt) / 2) + 'px'; ph.style.top = top + 'px'; ph.style.width = hgt + 'px'; ph.style.height = hgt + 'px';
+    return;
+  }
+  const r = bx.getBoundingClientRect();
+  ph.style.left = (r.left - c.left) + 'px'; ph.style.top = (r.top - c.top) + 'px';
+  ph.style.width = r.width + 'px'; ph.style.height = r.height + 'px';
+}
+window.addEventListener('resize', () => { if (cvRoot.classList.contains('cv-fallback')) placePhoto(); });
 function cvFail(why) {
   note('FAIL ' + why);
   if (failed) return; failed = true;
-  cvRoot.classList.add('cv-fallback');
+  cvRoot.classList.add('cv-fallback'); placePhoto();
   try { console.error('[cover]', why); } catch (e) {}
 }
 window.addEventListener('error', e => { if (!failed && e && e.filename && /cover\.js|three/.test(e.filename)) cvFail('error: ' + e.message + ' @' + (e.lineno || '')); });
@@ -1040,7 +1058,7 @@ function frameBody(t) {
   (async function life() { let k = 0; await sleep(900); for (;;) { await acts[plan[k++ % plan.length]](); await sleep(rnd(250, 700)); } })();
 })();
 
-const slow = setTimeout(() => { if (!canvas.classList.contains('is-ready')) { note('slow: photo shown'); cvRoot.classList.add('cv-fallback'); } }, 20000);
+const slow = setTimeout(() => { if (!canvas.classList.contains('is-ready')) { note('slow: photo shown'); cvRoot.classList.add('cv-fallback'); placePhoto(); } }, 20000);
 ready.then(() => { clearTimeout(slow); if (!failed) cvRoot.classList.remove('cv-fallback'); });
 ready.then(() => { resize(); fromHash(); canvas.classList.add('is-ready'); requestAnimationFrame(frame); });
 
