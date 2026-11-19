@@ -156,10 +156,16 @@ html.cv-pre .site-header>.wrap>:not(.brand){opacity:0}
    the sticky bar slides in once the brands strip reaches the top */
 html.cv-on .site-header:not(.cv-bar){position:relative;top:auto}
 html.cv-on .site-header:not(.cv-bar)::before,html.cv-on .site-header:not(.cv-bar)::after{opacity:0!important}
-html.cv-on .site-header.cv-bar{animation:cvBarIn .5s cubic-bezier(.2,.8,.2,1) both}
+/* ...except the logo: it is the sticky bar's logo from the start, waiting fixed on its spot in the bar
+   (--cv-bl/--cv-bt, measured by cover.js), so the particles that become the logo always head there */
+html.cv-on .site-header:not(.cv-bar):not(.cv-meas) .brand{position:fixed;left:var(--cv-bl,24px);top:var(--cv-bt,22px);margin:0;z-index:2}
+html.cv-on .site-header.logo-on .brand{pointer-events:auto}
+@media (max-width:900px){html.cv-on .site-header:not(.cv-bar):not(.cv-meas)>.wrap>.header-actions{margin-left:auto}}
+/* the bar arrives around the logo: background fades in, menu and buttons drop into place */
+html.cv-on .site-header.cv-bar>.wrap>:not(.brand){animation:cvBarIn .5s cubic-bezier(.2,.8,.2,1) both}
 html.cv-on .site-header.cv-bar .brand svg{opacity:1}
-@keyframes cvBarIn{from{transform:translateY(-100%)}to{transform:none}}
-@media (prefers-reduced-motion:reduce){html.cv-on .site-header.cv-bar{animation:none}}
+@keyframes cvBarIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){html.cv-on .site-header.cv-bar>.wrap>:not(.brand){animation:none}}
 
 /* home header at the top: no name, menu + language + button grouped in the middle, never wider than the logo */
 @media (min-width:901px){

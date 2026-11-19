@@ -621,11 +621,17 @@ const LOGO_PITCH = 8.99 / 6;   // six cells per stroke, so the grid sits exactly
 
 /* ---------- reading text the particles avoid (device px, y up) ---------- */
 function measureText(cr) {
-  const els = [...cvRoot.querySelectorAll('.frame .cl > *, #chips, #how')].concat([...document.querySelectorAll('.site-header .primary-nav a, .site-header .header-actions > *')]);
-  const M = U.uMask.value; let i = 0;
-  els.forEach(el => {
-    if (i >= M.length) return;
+  const rects = [...cvRoot.querySelectorAll('.frame .cl > *, #chips, #how')].map(el => el.getBoundingClientRect());
+  // the menu and its buttons are one stone in the stream: one box round all of them, so no dust in the gaps
+  let menu = null;
+  document.querySelectorAll('.site-header .primary-nav a, .site-header .header-actions > *').forEach(el => {
     const r = el.getBoundingClientRect(); if (!r.width || !r.height) return;
+    menu = menu ? { left: Math.min(menu.left, r.left), top: Math.min(menu.top, r.top), right: Math.max(menu.right, r.right), bottom: Math.max(menu.bottom, r.bottom) } : { left: r.left, top: r.top, right: r.right, bottom: r.bottom };
+  });
+  if (menu) rects.push({ left: menu.left, top: menu.top, right: menu.right, bottom: menu.bottom, width: menu.right - menu.left, height: menu.bottom - menu.top });
+  const M = U.uMask.value; let i = 0;
+  rects.forEach(r => {
+    if (i >= M.length || !r.width || !r.height) return;
     M[i++].set((r.left - cr.left) * dpr, (cr.bottom - r.bottom) * dpr, (r.right - cr.left) * dpr, (cr.bottom - r.top) * dpr);
   });
   for (; i < M.length; i++) M[i].set(0, 0, 0, 0);
@@ -1027,8 +1033,23 @@ function frameBody(t) {
   // The sticky bar (normal layout, background, logo) slides in once the brands strip reaches the top.
   const strip = document.querySelector('.hero-logos-only, .logos');
   const adminBar = document.getElementById('wpadminbar');
+  const adm = () => (adminBar && getComputedStyle(adminBar).position === 'fixed' ? adminBar.offsetHeight : 0);
+  // the logo is the sticky bar's logo from the start: while the menu scrolls away it waits fixed on the spot it has
+  // in the bar (measured from the bar's own layout), so the particles always fly to where the logo will be
+  const brand = hdr.querySelector('.brand');
+  const place = () => {
+    if (!brand) return;
+    const hadTop = hdr.classList.contains('cv-top');
+    hdr.classList.add('cv-meas'); hdr.classList.remove('cv-top');
+    const b = brand.getBoundingClientRect(), h = hdr.getBoundingClientRect();
+    hdr.classList.remove('cv-meas'); if (hadTop) hdr.classList.add('cv-top');
+    hdr.style.setProperty('--cv-bl', b.left.toFixed(1) + 'px');
+    hdr.style.setProperty('--cv-bt', (adm() + b.top - h.top).toFixed(1) + 'px');
+  };
+  place(); window.addEventListener('resize', place);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
   const bar = () => {
-    const at = (adminBar && getComputedStyle(adminBar).position === 'fixed' ? adminBar.offsetHeight : 0) + hdr.offsetHeight + 2;
+    const at = adm() + hdr.offsetHeight + 2;
     const on = !strip || strip.getBoundingClientRect().top <= at;
     if (on === hdr.classList.contains('cv-bar')) return;
     hdr.classList.toggle('cv-bar', on); hdr.classList.toggle('cv-top', !on);

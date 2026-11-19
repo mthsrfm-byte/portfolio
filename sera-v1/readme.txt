@@ -82,7 +82,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 = 3.43.1 =
 * Capa (Coreo · Logo): os grãos em voo voltam a desviar do texto, como na Coreografia do Hero Lab; só o grão já pousado no logo ignora a copy.
-* Header da home: o menu do topo fica parado no lugar e sobe com a página; a barra sticky entra deslizando quando a faixa de marcas chega no topo.
+* Header da home: o menu do topo fica parado no lugar e sobe com a página; a barra sticky entra quando a faixa de marcas chega no topo.
+* Header da home: o logo já é o logo da barra sticky desde o início e espera fixo no lugar dele, então os grãos que viram logo sempre vão para lá; quando a barra entra, só o fundo, o menu e os botões aparecem em volta dele.
+* Capa: a poeira desvia do menu e dos botões como um bloco só, sem entrar nos vãos entre os itens.
 * Header da home: sobre blocos escuros a barra volta a escurecer (antes o texto clarinho ficava sobre fundo claro).
 
 = 3.43.0 =
