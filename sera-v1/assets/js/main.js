@@ -983,6 +983,26 @@
 	}
 	root.classList.add( 'has-smooth' );
 
+	// 3.45.0 · Lenis (darkroomengineering/lenis, assets/js/lib) drives the wheel when it loaded; the hand-made
+	// scroller below stays as the fallback. glide()/stop() and anchor clicks go through Lenis too.
+	var lenis = null;
+	if ( window.Lenis ) {
+		try {
+			lenis = new window.Lenis( {
+				autoRaf: true,
+				lerp: 0.1,
+				smoothWheel: true,
+				syncTouch: false,
+				prevent: function ( node ) {
+					return !! ( node && node.closest && ( node.closest( '[data-native-scroll], .primary-nav.is-open, .lang.is-open, dialog[open]' ) ) );
+				},
+			} );
+			window.seraLenis = lenis;
+		} catch ( e ) {
+			lenis = null;
+		}
+	}
+
 	var target = window.scrollY;
 	var current = target;
 	var lastSet = target;
@@ -1038,6 +1058,10 @@
 		}
 	}
 	function stop() {
+		if ( lenis ) {
+			lenis.scrollTo( window.scrollY, { immediate: true, force: true } );
+			return;
+		}
 		if ( raf ) {
 			cancelAnimationFrame( raf );
 		}
@@ -1049,6 +1073,10 @@
 	}
 	function glide( y, d ) {
 		y = clamp( y );
+		if ( lenis ) {
+			lenis.scrollTo( y, { duration: ( d || Math.max( 550, Math.min( 1400, 380 + Math.abs( y - window.scrollY ) * 0.28 ) ) ) / 1000, force: true } );
+			return;
+		}
 		if ( ! raf ) {
 			current = window.scrollY;
 		}
@@ -1062,7 +1090,7 @@
 
 	// Anything that scrolls the page without us (keys, scrollbar, find-in-page, scrollIntoView) wins.
 	window.addEventListener( 'scroll', function () {
-		if ( Math.abs( window.scrollY - lastSet ) > 3 ) {
+		if ( ! lenis && Math.abs( window.scrollY - lastSet ) > 3 ) {
 			stop();
 		}
 	}, { passive: true } );
@@ -1105,7 +1133,7 @@
 	}
 
 	window.addEventListener( 'wheel', function ( e ) {
-		if ( e.defaultPrevented || e.ctrlKey || e.shiftKey ) {
+		if ( lenis || e.defaultPrevented || e.ctrlKey || e.shiftKey ) {
 			return; // pinch-zoom / horizontal intent
 		}
 		if ( root.classList.contains( 'deck-on' ) ) {
