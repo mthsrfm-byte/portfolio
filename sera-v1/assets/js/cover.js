@@ -1143,30 +1143,6 @@ function frameBody(t) {
   document.documentElement.classList.remove('cv-pre'); // cv-top is on before the next paint, so the menu fades in already compact
 })();
 
-/* ---------- Figma-style cursor in the header: the visitor's own pointer, labelled ---------- */
-(function cursors() {
-  const hdr = document.querySelector('.site-header'); if (!hdr) return;
-  if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
-  const nav = hdr.querySelector('.wrap') || hdr;
-  const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
-  const you = document.createElement('div'); you.className = 'mp mp-you'; you.id = 'mpYou'; you.setAttribute('aria-hidden', 'true');
-  you.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 1.8 13.8 6.6 8.3 8.3 6.6 13.8Z"/></svg><b>' + esc(CV.you) + '</b><i></i>';
-  nav.appendChild(you); nav.classList.add('mp-host'); hdr.classList.add('has-you');
-  let ux = -100, uy = -100, uxs = -100, uys = -100;
-  hdr.addEventListener('pointermove', e => { const n = nav.getBoundingClientRect(); ux = e.clientX - n.left; uy = e.clientY - n.top; you.classList.add('on'); });
-  hdr.addEventListener('pointerleave', () => you.classList.remove('on'));
-  hdr.addEventListener('pointerdown', () => { you.classList.remove('click'); void you.offsetWidth; you.classList.add('click'); setTimeout(() => you.classList.remove('click'), 560); });
-  // the label follows the pointer only while it is over the header, then the loop rests
-  let moving = false;
-  const render = () => {
-    if (uxs < -50) { uxs = ux; uys = uy; }
-    uxs += (ux - uxs) * 0.55; uys += (uy - uys) * 0.55;
-    you.style.transform = 'translate(' + uxs.toFixed(1) + 'px,' + uys.toFixed(1) + 'px)';
-    if (Math.abs(ux - uxs) + Math.abs(uy - uys) > 0.2) requestAnimationFrame(render); else moving = false;
-  };
-  hdr.addEventListener('pointermove', () => { if (!moving) { moving = true; requestAnimationFrame(render); } });
-})();
-
 /* ?cvdebug only: bake the still ASCII the cover shows before the model arrives (assets/img/cover-ascii.png).
    Neutral pose, the camera fitted by height exactly as resize() does; stores sRGB luma (rgb) and coverage (alpha). */
 if (DBG) window.__cvBake = (hpx = 192, A = 1.4, ss = 4) => {

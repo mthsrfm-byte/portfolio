@@ -126,27 +126,6 @@ html.cv-on .site-header.logo-on .brand svg{opacity:1}
 /* while the dots fly into the header its glass stays clear, so they read */
 html.cv-on .site-header.cv-flying::before,html.cv-on .site-header.cv-flying>.v2-pill-tint{opacity:0!important}
 
-/* multiplayer cursors in the header (desktop with a mouse only) */
-.site-header .mp-host{position:relative}
-.site-header.has-you,.site-header.has-you a,.site-header.has-you button{cursor:none}
-.site-header .mp{position:absolute;left:0;top:0;z-index:5;pointer-events:none;will-change:transform;transition:opacity .35s}
-.site-header .mp svg{display:block;width:15px;height:15px;filter:drop-shadow(0 1px 1.5px rgba(17,17,16,.22))}
-.site-header .mp b{position:absolute;left:12px;top:13px;padding:4px 8px 5px;border-radius:2px 9px 9px 9px;font:500 11.5px/1 var(--sans);letter-spacing:.01em;white-space:nowrap;color:#fff;background:var(--c);
-	box-shadow:0 1px 2px rgba(17,17,16,.18),0 4px 12px -4px rgba(17,17,16,.25);transform-origin:0 0;transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
-.site-header .mp.click b{transform:scale(.92)}
-.site-header .mp-me{--c:#111110}.site-header .mp-you{--c:#6E6C66;opacity:0}
-.site-header .mp-you.on{opacity:1}
-.site-header .mp svg path{fill:var(--c);stroke:#fff;stroke-width:1.3;stroke-linejoin:round}
-.site-header .mp-me b small{display:inline-block;vertical-align:bottom;max-width:0;margin-left:0;overflow:hidden;opacity:0;font:500 11.5px/1 var(--sans);
-	transition:max-width .45s cubic-bezier(.3,1.3,.5,1),margin-left .45s cubic-bezier(.3,1.3,.5,1),opacity .25s}
-.site-header .mp-me.say b small{max-width:3em;margin-left:5px;opacity:1}
-.site-header .mp i{position:absolute;left:-9px;top:-9px;width:20px;height:20px;border-radius:50%;border:1.5px solid var(--c);opacity:0;pointer-events:none}
-.site-header .mp.click i{animation:cvRing .55s ease-out}
-@keyframes cvRing{0%{opacity:.85;transform:scale(.3)}100%{opacity:0;transform:scale(1.7)}}
-.site-header .mp-sel{position:absolute;left:0;top:0;z-index:4;height:22px;width:0;border-radius:2px;background:rgba(17,17,16,.08);box-shadow:inset 0 0 0 1px rgba(17,17,16,.35);pointer-events:none;opacity:0;transition:opacity .35s}
-.site-header .mp-sel.on{opacity:1}
-@media (max-width:900px),(hover:none){.site-header .mp,.site-header .mp-sel{display:none}.site-header.has-you,.site-header.has-you a,.site-header.has-you button{cursor:auto}}
-
 @media (prefers-reduced-motion:reduce){#cover *{transition:none!important}}
 
 /* the cover script loads after Three.js: until it has laid the header out, the menu waits hidden instead of jumping */
