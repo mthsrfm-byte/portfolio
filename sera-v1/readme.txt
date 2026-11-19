@@ -80,6 +80,11 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.44.1 =
+* Selected work: sai a linha fixa "Selected work" (com o contador 01 / 09); o título fica só para leitor de tela.
+* Scroll dos cards orgânico: rolagem nativa, sem snap nem passo de um card por gesto. Cada card gruda logo abaixo do header e o próximo simplesmente pousa por cima, sem sombra, escurecimento, encolhimento ou fade; só um fio de 1px marca a borda.
+* A transição do nome nascendo da linha de base e o fade das cover lines saem; fica só o parallax leve por camada.
+
 = 3.44.0 =
 * Selected work: cards novos "Capa". O nome curto do case vira o masthead (Bricolage 800, 75%, caixa alta, na largura toda do card) e o mockup fica na frente dele, cobrindo uns 26% de baixo das letras, com sombra longa. Cover lines nos cantos: ano · empresa e papel; "Proof" com a primeira métrica; o resto do título com "Read case"; segunda e terceira métricas. Chão 3D e grão da capa embaixo.
 * Cards: com o cursor perto do nome, as letras viram os grãos redondos da poeira da capa e são empurradas para fora; o canvas sai pela borda do card e nunca desenha por cima do mockup.

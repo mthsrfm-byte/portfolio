@@ -52,9 +52,10 @@ $now_logo = sera_mod( 'hero_now_logo' );
 <section class="block" id="work">
 	<div class="wrap">
 		<?php
-		$sera_cards = $cases->have_posts() ? min( (int) $featured, (int) $cases->post_count ) : 0;
-		get_template_part( 'template-parts/work-head', null, array( 'total' => $sera_cards ) );
+		// 3.44.1 · no pinned "Selected work" line: the cards stack on plain, native scrolling (no snap, no stepping).
+		// The heading stays for screen readers and the outline.
 		?>
+		<h2 class="screen-reader-text"><?php echo esc_html( sera_mod( 'work_title' ) ); ?></h2>
 
 		<?php if ( $cases->have_posts() ) : ?>
 			<div class="cases">
