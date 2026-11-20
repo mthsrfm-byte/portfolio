@@ -2006,3 +2006,6 @@
   .ba-sync .browser-more{display:inline-flex}
   .ba-sync .ba-prog{display:none}
 }
+/* 3.56.4 · Bastidores demo with the real home photos */
+.nb-th.nb-ph{background:#1a1a1a}
+.nb-th.nb-ph img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;display:block}

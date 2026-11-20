@@ -120,8 +120,15 @@ function sera_scr_nb_before_m() {
 
 /* ------------------------------------------------------------- AFTER (2026) */
 
+/**
+ * Real home photos (assets/img/bastidores/, collected from the live home on 20/11/2026).
+ */
+function sera_nb_ph( $file, $class = '' ) {
+	return '<span class="nb-th nb-ph ' . esc_attr( $class ) . '"><img src="' . esc_url( get_template_directory_uri() . '/assets/img/bastidores/' . $file ) . '" alt="" loading="lazy" decoding="async"></span>';
+}
+
 function sera_nb_ticker() {
-	return '<div class="nbn-ticker"><b><i></i>ÚLTIMAS</b><span class="nbn-tk"><span class="mk-ticker">Vingadores: Ultimato Encore fatura US$ 26 milhões e lidera melhor fim de setembro desde 2015 <em>·</em> Marvel’s Wolverine agora deixa desligar rastros que viraram piada na web <em>·</em> Ace Combat 8 terá base em porta-aviões e quatro modos online</span></span></div>';
+	return '<div class="nbn-ticker"><b><i></i>ÚLTIMAS</b><span class="nbn-tk"><span class="mk-ticker">Os 10 jogos mais bem avaliados da história no Metacritic, agora com GTA 6 no topo <em>·</em> Os 5 melhores diretores de 007, ranqueados enquanto Denis Villeneuve assume o novo James Bond <em>·</em> Os 10 chefes mais difíceis da saga Zelda</span></span></div>';
 }
 
 function sera_nb_sec_title( $a, $b, $em_first = true ) {
@@ -133,37 +140,36 @@ function sera_nb_ad( $class = '', $size = '970 × 250' ) {
 	return '<div class="nbn-ad ' . esc_attr( $class ) . '"><span>PUBLICIDADE</span></div>';
 }
 
+function sera_nb_hero_main() {
+	return '<article class="main">' . sera_nb_ph( '02.jpg', 'mk-zoom' ) . '<b class="mk-pop" aria-hidden="true">Breaking</b><div class="ov"><span class="kick">NOTÍCIA · GAMES</span><h3>GTA 6 tira Zelda: Ocarina of Time do topo e vira o jogo mais bem avaliado da história do Metacritic</h3></div></article>';
+}
+
 function sera_scr_nb_after() {
 	$h  = '<div class="nbn mk-page">' . sera_nb_ticker();
 	$h .= '<header class="nbn-head">' . sera_nb_logo() . '<nav><span>Início</span><span>Notícias ' . sera_nb_i( 'chev' ) . '</span><span>Críticas ' . sera_nb_i( 'chev' ) . '</span><span>Artigos</span><span>Listas</span><span>Colunas</span></nav><div class="act"><span>' . sera_nb_i( 'search' ) . '</span><span class="mb">' . sera_nb_i( 'menu' ) . '</span></div></header>';
 	$h .= sera_nb_ad( 'top' );
-	$h .= '<section class="nbn-hero"><article class="main">' . sera_nb_th( 7, 'mk-zoom' ) . '<b class="mk-pop" aria-hidden="true">Breaking</b><div class="ov"><span class="kick">REVIEW · GAMES</span><h3>Review | Silent Hill Townfall traz uma excelente experiência de terror, porém preso a sombra de Silent Hill 2</h3><p>Silent Hill: Townfall aposta em uma nova dinâmica de terror com monstros que perseguem o jogador, uma cidade gigantesca e a misteriosa CRTV.</p></div></article>';
-	foreach ( array( array( 8, 'CRÍTICA · CINEMA', 'Crítica | Coração Selvagem não apela ao sentimentalismo para emocionar o espectador' ), array( 9, 'FAMOSOS', 'Rick, da dupla com Renner, morre aos 59 anos em queda de helicóptero em SC' ), array( 10, 'REVIEW · GAMES', 'Review | Fire Emblem Fortune’s Weave é o RPG tático mais ambicioso da série' ), array( 11, 'CRÍTICA · CINEMA', 'Crítica | Resident Evil (2026) é experiência imersiva, mas banal como cinema' ) ) as $c ) {
-		$h .= '<article>' . sera_nb_th( $c[0] ) . '<div class="ov"><span class="kick">' . esc_html( $c[1] ) . '</span><h3>' . esc_html( $c[2] ) . '</h3></div></article>';
+	$h .= '<section class="nbn-hero">' . sera_nb_hero_main();
+	foreach ( array( array( '04.webp', 'NOTÍCIA · CINEMA', 'Robert Pattinson é o novo James Bond e assume o 007 no filme de Denis Villeneuve' ), array( '01.jpg', 'GUIA · GAMES', 'Grand Theft Auto VI: lista de códigos, como ativar e desbloquear os 61 cheats' ), array( '18.jpg', 'NOTÍCIA · CINEMA', 'A Odisseia: Christopher Nolan aponta vantagem de ver o filme em casa para notar atuações' ), array( '20.webp', 'NOTÍCIA · CINEMA', 'Star Wars: Guillermo del Toro escreveu roteiro e fez esculturas para filme de Jabba the Hutt' ) ) as $c ) {
+		$h .= '<article>' . sera_nb_ph( $c[0] ) . '<div class="ov"><span class="kick">' . esc_html( $c[1] ) . '</span><h3>' . esc_html( $c[2] ) . '</h3></div></article>';
 	}
 	$h .= '</section>';
 	$h .= '<section class="nbn-sec">' . sera_nb_sec_title( 'Críticas', 'Cinema' ) . '<div class="nbn-grid g4">';
-	foreach ( array( 'Crítica | A Ilha Esquecida oferece ao público infantil roupagem modernizada para folclore filipino', 'Crítica | Oasis: Don’t Look Back in Anger celebra rock como experiência de encontro coletivo', 'Crítica | Da Magia à Sedução: Feitiço de Amor é pacote fechado de Hollywood', 'Crítica | O Grande Arco de Paris é comovente relato histórico sobre arquitetura' ) as $i => $t ) {
-		$h .= '<article>' . sera_nb_th( $i + 1 ) . '<h4>' . esc_html( $t ) . '</h4></article>';
+	foreach ( array( '06.webp' => 'Ebenezer e os Fantasmas do Natal adapta Dickens sem reinventar a história de Scrooge', '07.webp' => 'Eu Sou o Rocky – a aposta de Stallone vira um filme tão envolvente quanto o original', '08.webp' => 'Amor Possível é filme menor de um mestre do cinema coreano', '09.webp' => 'Contos Paralelos é desafio para Farhadi filmando em idioma estrangeiro' ) as $f => $t ) {
+		$h .= '<article>' . sera_nb_ph( $f ) . '<h4>' . esc_html( $t ) . '</h4></article>';
 	}
 	$h .= '</div></section>';
 	$h .= '<section class="nbn-sec">' . sera_nb_sec_title( 'Críticas', 'Games' ) . '<div class="nbn-grid g4">';
-	foreach ( array( 'Review | Marvel’s Wolverine acerta na fúria de Logan, mas foge do risco que faria a diferença', 'Review | The Blood of Dawnwalker traz um ótimo Dilema do Monstro', 'Review | BioEden tem um coração lindo para relaxar, mas mecânicas podem ser melhores', 'Review | Moonlighter 2: The Endless Vault, quando explorar masmorras vira um grande negócio' ) as $i => $t ) {
-		$h .= '<article>' . sera_nb_th( $i + 7 ) . '<h4>' . esc_html( $t ) . '</h4></article>';
+	foreach ( array( '05.webp' => 'Pikmin 4 Nintendo Switch 2 Edition faz da Academia Dandori um vício de fim de semana', '10.webp' => 'The Legend of Zelda: Ocarina of Time é a experiência definitiva no Switch 2', '11.webp' => 'Phantom Blade Zero consagra o estilo Kungfupunk com mais de 50 armas em estreia gloriosa', '12.webp' => 'Castlevania: Belmont’s Curse – O Legado Continua' ) as $f => $t ) {
+		$h .= '<article>' . sera_nb_ph( $f ) . '<h4>' . esc_html( $t ) . '</h4></article>';
 	}
 	$h .= '</div></section>';
 	$h .= '<section class="nbn-sec">' . sera_nb_sec_title( 'Últimas', 'do Bastidores', false ) . '<div class="nbn-grid g3 latest">';
-	$latest = array(
-		array( 'CINEMA', 'Vingadores: Ultimato Encore fatura US$ 26 milhões e lidera melhor fim de setembro desde 2015', 'Bilheteria dos EUA soma US$ 122,3 milhões, e Coração Selvagem, de Brad Pitt, abre com US$ 20 milhões, acima das previsões.' ),
-		array( 'GAMES', 'Marvel’s Wolverine agora deixa desligar rastros que viraram piada na web', '' ),
-		array( 'GAMES', 'Ace Combat 8 terá base em porta-aviões e quatro modos online, mostra trailer', '' ),
-	);
-	foreach ( $latest as $i => $l ) {
-		$h .= '<article>' . sera_nb_th( $i + 4 ) . '<span class="chip">' . $l[0] . '</span><h4>' . esc_html( $l[1] ) . '</h4><p>' . esc_html( $l[2] ) . '</p></article>';
+	foreach ( array( array( '03.jpg', 'GAMES', 'The Game Awards 2026: todos os indicados nas 30 categorias, com GTA 6 no topo e brasileiros na disputa' ), array( '19.jpg', 'GAMES', 'Grand Theft Auto VI muda cenas centrais da história conforme o romance de Lucia e Jason' ), array( '21.jpg', 'CINEMA', 'A Odisseia: Christopher Nolan descarta versão do diretor e veta cenas deletadas' ) ) as $l ) {
+		$h .= '<article>' . sera_nb_ph( $l[0] ) . '<span class="chip">' . $l[1] . '</span><h4>' . esc_html( $l[2] ) . '</h4></article>';
 	}
 	$h .= '</div>' . sera_nb_ad( 'inline', '728 × 90' ) . '<div class="nbn-grid g3 latest">';
-	foreach ( array( array( 'FAMOSOS', 'Família de Rick pede compreensão a fãs que se sentiram excluídos do velório' ), array( 'GAMES', 'Ex-designer diz que Starfield não fez sucesso suficiente para ganhar sequência' ), array( 'CINEMA', 'Vingadores: Doutor Destino ainda tem elenco secreto, diz diretor' ) ) as $i => $l ) {
-		$h .= '<article>' . sera_nb_th( $i + 9 ) . '<span class="chip">' . $l[0] . '</span><h4>' . esc_html( $l[1] ) . '</h4></article>';
+	foreach ( array( array( '22.jpg', 'GAMES', 'Grand Theft Auto VI: jogadores descobrem truque para ativar câmera em primeira pessoa' ), array( '23.jpg', 'GAMES', 'Assassin’s Creed Black Flag Resynced e Odyssey superam expectativas da Ubisoft com A Odisseia' ), array( '24.jpg', 'GAMES', 'Grand Theft Auto VI: grupo hacker afirma ter vazado versão de desenvolvimento para Xbox' ) ) as $l ) {
+		$h .= '<article>' . sera_nb_ph( $l[0] ) . '<span class="chip">' . $l[1] . '</span><h4>' . esc_html( $l[2] ) . '</h4></article>';
 	}
 	$h .= '</div><span class="nbn-more">CARREGAR MAIS</span></section>';
 	$h .= '<footer class="nbn-foot"><div class="top"><div>' . sera_nb_logo( 'light' ) . '<p>Aqui a crítica acontece!</p><p class="ads">📣 Quer anunciar? Manda um email pro Matheus.</p></div><div><small>NAVEGAÇÃO</small><span>Início</span><span>Notícias</span><span>Críticas</span><span>Artigos</span><span>Listas</span></div><div><small>LEGAL</small><span>Privacidade</span><span>Termos</span><span>Cookies</span></div></div><div class="bot">© 2026 BASTIDORES. TODOS OS DIREITOS RESERVADOS. <span>FEITO COM CAFÉ POR MATHEUS SERAFIM</span></div></footer>';
@@ -176,20 +182,20 @@ function sera_nb_m_head() {
 
 function sera_scr_nb_m1() {
 	$h  = '<div class="nbn nbn-m">' . sera_nb_m_head() . '<div class="mk-body">';
-	$h .= '<section class="nbn-hero m"><article class="main">' . sera_nb_th( 7, 'mk-zoom' ) . '<b class="mk-pop" aria-hidden="true">Breaking</b><div class="ov"><span class="kick">REVIEW · GAMES</span><h3>Review | Silent Hill Townfall traz uma excelente experiência de terror, porém preso a sombra de Silent Hill 2</h3></div></article>';
-	foreach ( array( array( 8, 'CRÍTICA · CINEMA', 'Crítica | Coração Selvagem não apela ao sentimentalismo para emocionar o espectador' ), array( 10, 'REVIEW · GAMES', 'Review | Fire Emblem Fortune’s Weave é o RPG tático mais ambicioso da série' ) ) as $c ) {
-		$h .= '<article>' . sera_nb_th( $c[0] ) . '<div class="ov"><span class="kick">' . esc_html( $c[1] ) . '</span><h3>' . esc_html( $c[2] ) . '</h3></div></article>';
+	$h .= '<section class="nbn-hero m">' . sera_nb_hero_main();
+	foreach ( array( array( '04.webp', 'NOTÍCIA · CINEMA', 'Robert Pattinson é o novo James Bond e assume o 007 no filme de Denis Villeneuve' ), array( '01.jpg', 'GUIA · GAMES', 'Grand Theft Auto VI: lista de códigos, como ativar e desbloquear os 61 cheats' ) ) as $c ) {
+		$h .= '<article>' . sera_nb_ph( $c[0] ) . '<div class="ov"><span class="kick">' . esc_html( $c[1] ) . '</span><h3>' . esc_html( $c[2] ) . '</h3></div></article>';
 	}
-	$h .= '</section><section class="nbn-sec">' . sera_nb_sec_title( 'Críticas', 'Cinema' ) . '<div class="nbn-grid"><article>' . sera_nb_th( 1 ) . '<h4>Crítica | A Ilha Esquecida oferece ao público infantil roupagem modernizada para folclore filipino</h4></article></div></section>';
+	$h .= '</section><section class="nbn-sec">' . sera_nb_sec_title( 'Críticas', 'Cinema' ) . '<div class="nbn-grid"><article>' . sera_nb_ph( '06.webp' ) . '<h4>Ebenezer e os Fantasmas do Natal adapta Dickens sem reinventar a história de Scrooge</h4></article></div></section>';
 	return $h . '</div></div>';
 }
 
 function sera_scr_nb_m2() {
 	$h  = '<div class="nbn nbn-m">' . sera_nb_m_head();
 	$h .= '<section class="nbn-sec">' . sera_nb_sec_title( 'Críticas', 'Cinema' ) . '<div class="nbn-grid">';
-	$h .= '<article>' . sera_nb_th( 1 ) . '<h4>Crítica | A Ilha Esquecida oferece ao público infantil roupagem modernizada para folclore filipino</h4></article>';
+	$h .= '<article>' . sera_nb_ph( '06.webp' ) . '<h4>Ebenezer e os Fantasmas do Natal adapta Dickens sem reinventar a história de Scrooge</h4></article>';
 	$h .= '</div></section>' . str_replace( '<span>PUBLICIDADE</span>', '<span>PUBLICIDADE</span><span class="mk-adfill" aria-hidden="true"><i></i><b></b><b></b><em>Anúncio</em></span>', sera_nb_ad( 'inline m', '320 × 100' ) );
 	$h .= '<section class="nbn-sec">' . sera_nb_sec_title( 'Últimas', 'do Bastidores', false ) . '<div class="nbn-grid latest">';
-	$h .= '<article>' . sera_nb_th( 4 ) . '<span class="chip">CINEMA</span><h4>Vingadores: Ultimato Encore fatura US$ 26 milhões e lidera melhor fim de setembro desde 2015</h4></article>';
+	$h .= '<article>' . sera_nb_ph( '03.jpg' ) . '<span class="chip">GAMES</span><h4>The Game Awards 2026: todos os indicados nas 30 categorias, com GTA 6 no topo e brasileiros na disputa</h4></article>';
 	return $h . '</div></section></div>';
 }

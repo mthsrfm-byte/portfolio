@@ -80,6 +80,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.56.4 =
+* Case Bastidores: o site demo (desktop e mobile) usa as fotos e as manchetes reais da home (coleta de 20/11/2026) no lugar dos placeholders abstratos (inc/screens-nb.php, assets/img/bastidores/, mockups.css).
+
 = 3.56.3 =
 * Home: a transição papel → escuro antes do Approach sobe com o scroll (o início do escuro vai subindo conforme a faixa entra na tela) e avança sobre o vão branco da seção anterior; base sempre escura e com o mesmo grão, sem emenda.
 
