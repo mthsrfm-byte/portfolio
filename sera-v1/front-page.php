@@ -121,7 +121,7 @@ $sera_ap_proof_html = function ( $p ) {
 	return '<p class="ap-proof">' . ( $p['co'] ? '<b>' . esc_html( $p['co'] ) . '</b>' : '' ) . esc_html( $p['proof'] ) . '</p>';
 };
 ?>
-<div class="ap-fade" data-header-tint="ink" aria-hidden="true"></div>
+<div class="ap-fade" data-header-ramp aria-hidden="true"></div>
 <section class="block" id="approach" data-ap-title="<?php echo esc_attr( sera_mod( 'approach_title' ) ); ?>">
 
 	<div class="ap-pin"><div class="ap-floor">

@@ -160,15 +160,20 @@ html.cv-on .site-header::after{left:0!important;right:0!important;bottom:0!impor
 /* over dark blocks the bar turns ink (v2's tint layer), full width like the bar itself; never on the static top menu */
 html.cv-on .site-header>.v2-pill-tint{inset:0!important;border-radius:0!important}
 html.cv-on .site-header:not(.cv-bar)>.v2-pill-tint{opacity:0!important}
-/* 3.57 · home bar "camaleão": vidro de ponta a ponta (blur + saturação no ::before, sem cor) e o tom numa camada
-   própria e translúcida, que desliza entre papel e tinta em 0,7 s. Como o tom é translúcido, o fundo de trás
-   aparece por ele e a barra acompanha o bloco em vez de trocar seco. */
-html.cv-on .site-header.cv-bar{--cv-tint:rgba(245,244,239,.72);--cv-line:rgba(17,17,16,.08)}
-html.cv-on .site-header.cv-bar:is(.v2-dark,.hdr-escuro){--cv-tint:rgba(17,17,16,.66);--cv-line:rgba(239,238,232,.08)}
+/* 3.57 · home bar "camaleão": vidro de ponta a ponta (blur + saturação no ::before, sem cor). O tom são duas
+   camadas translúcidas na .v2-pill-tint, papel e tinta, cruzadas por --cv-mix (0 = papel, 1 = tinta). Nos blocos
+   comuns a troca leva 0,7 s; sobre o degradê que leva à Approach (data-header-ramp) o v2.js põe --cv-mix igual
+   ao escuro do degradê atrás da barra, então ela acompanha o fundo quadro a quadro. */
+html.cv-on .site-header.cv-bar{--cv-mix:0;--cv-line:rgba(17,17,16,.08)}
+html.cv-on .site-header.cv-bar:is(.v2-dark,.hdr-escuro){--cv-mix:1;--cv-line:rgba(239,238,232,.08)}
 html.cv-on .site-header.cv-bar::before{background:transparent!important;-webkit-backdrop-filter:blur(18px) saturate(170%)!important;backdrop-filter:blur(18px) saturate(170%)!important;box-shadow:none!important}
-html.cv-on .site-header.cv-bar:not(.cv-flying)>.v2-pill-tint{opacity:1!important;background:var(--cv-tint)!important;box-shadow:0 1px 0 var(--cv-line);transition:background-color .7s cubic-bezier(.4,0,.2,1),box-shadow .7s cubic-bezier(.4,0,.2,1)!important}
+html.cv-on .site-header.cv-bar:not(.cv-flying)>.v2-pill-tint{opacity:1!important;background:transparent!important;box-shadow:0 1px 0 var(--cv-line);transition:box-shadow .7s cubic-bezier(.4,0,.2,1)!important}
+html.cv-on .site-header.cv-bar>.v2-pill-tint::before,html.cv-on .site-header.cv-bar>.v2-pill-tint::after{content:"";position:absolute;inset:0;transition:opacity .7s cubic-bezier(.4,0,.2,1)}
+html.cv-on .site-header.cv-bar>.v2-pill-tint::before{background:rgba(245,244,239,.74);opacity:calc(1 - var(--cv-mix))}
+html.cv-on .site-header.cv-bar>.v2-pill-tint::after{background:rgba(17,17,16,.8);opacity:var(--cv-mix)}
+html.cv-on .site-header.cv-ramp>.v2-pill-tint::before,html.cv-on .site-header.cv-ramp>.v2-pill-tint::after{transition:none}
 @supports not ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
-  html.cv-on .site-header.cv-bar{--cv-tint:rgba(245,244,239,.96)}
-  html.cv-on .site-header.cv-bar:is(.v2-dark,.hdr-escuro){--cv-tint:rgba(17,17,16,.96)}
+  html.cv-on .site-header.cv-bar>.v2-pill-tint::before{background:rgba(245,244,239,.96)}
+  html.cv-on .site-header.cv-bar>.v2-pill-tint::after{background:rgba(17,17,16,.96)}
 }
 html.cv-on .site-header.cv-bar,html.cv-on .site-header.cv-bar .brand,html.cv-on .site-header.cv-bar .lang-trigger,html.cv-on .site-header.cv-bar .lang-chev,html.cv-on .site-header.cv-bar .menu-toggle,html.cv-on .site-header.cv-bar>.wrap>.header-actions>.btn-dark,html.cv-on .site-header.cv-bar .primary-nav ul{transition:color .7s cubic-bezier(.4,0,.2,1),background-color .7s cubic-bezier(.4,0,.2,1),border-color .7s cubic-bezier(.4,0,.2,1)}

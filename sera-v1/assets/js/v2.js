@@ -1090,7 +1090,7 @@
 	var PAPER = { key: 'paper', color: '', dark: false };
 	var meta = document.querySelector( 'meta[name="theme-color"]' );
 	var LIGHT = meta ? meta.getAttribute( 'content' ) : '#F5F4EF', DARK = '#121211';
-	var spans = [], cur = null, mt = 0, probe = null;
+	var spans = [], ramps = [], cur = null, mt = 0, probe = null;
 	// any CSS colour to [r, g, b] (via the browser's own parser)
 	function rgbOf( c ) {
 		if ( ! probe ) {
@@ -1125,6 +1125,11 @@
 	function measure() {
 		var sy = window.scrollY, vw = document.documentElement.clientWidth;
 		spans = [];
+		// 3.57 · degradês papel → tinta (data-header-ramp): a barra acompanha o escuro do degradê, sem degrau
+		ramps = [].slice.call( document.querySelectorAll( '[data-header-ramp]' ) ).map( function ( e ) {
+			var r = e.getBoundingClientRect();
+			return [ r.top + sy, r.bottom + sy ];
+		} );
 		// document order: a block inside another comes later and wins (see tintAt)
 		[].slice.call( document.querySelectorAll( SEL ) ).forEach( function ( e ) {
 			var r = e.getBoundingClientRect();
@@ -1165,6 +1170,30 @@
 	}
 	function check( y ) {
 		var mid = y + 40;
+		// on a ramp, read the fade at the bar's bottom edge, where bar and background meet
+		var edge = y + header.offsetHeight * 0.85;
+		for ( var i = 0; i < ramps.length; i++ ) {
+			if ( edge >= ramps[ i ][ 0 ] && mid < ramps[ i ][ 1 ] ) {
+				var t = ( edge - ramps[ i ][ 0 ] ) / ( ramps[ i ][ 1 ] - ramps[ i ][ 0 ] );
+				var m = t * t * ( 3 - 2 * t ); // the fade's own curve, close enough to smoothstep
+				header.classList.add( 'cv-ramp' );
+				header.style.setProperty( '--cv-mix', m.toFixed( 3 ) );
+				var dk = m > 0.5;
+				if ( cur !== ( dk ? 'ramp-ink' : 'ramp-paper' ) ) {
+					cur = dk ? 'ramp-ink' : 'ramp-paper';
+					header.classList.toggle( 'v2-dark', dk );
+					if ( meta ) {
+						meta.setAttribute( 'content', dk ? DARK : LIGHT );
+					}
+				}
+				return;
+			}
+		}
+		if ( header.classList.contains( 'cv-ramp' ) ) {
+			header.classList.remove( 'cv-ramp' );
+			header.style.removeProperty( '--cv-mix' );
+			cur = null;
+		}
 		// a small hysteresis: the new tone has to cover the pill's middle by 14px before it switches
 		var a = tintAt( mid - 14 ), b = tintAt( mid + 14 );
 		if ( a.key !== b.key ) {
