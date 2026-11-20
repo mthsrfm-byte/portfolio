@@ -80,6 +80,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.57.1 =
+* Menu da home acompanha o degradê papel → tinta antes da Approach quadro a quadro (data-header-ramp + --cv-mix), sem degrau nem faixa clara sobre o escuro.
+
 = 3.57.0 =
 * Menu da home "camaleão": vidro de ponta a ponta com tom translúcido que desliza entre papel e tinta (0,7 s), sem troca seca na Approach.
 * About: bento enxuto, cabe numa dobra no desktop; sem ícones, curiosidades numa linha só.
