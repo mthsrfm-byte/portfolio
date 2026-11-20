@@ -111,3 +111,23 @@
   #about .ab-fact:hover .ab-ph-in img{transform:none}
   #about .ab-f1 .ab-ph-in img,#about .ab-f1:hover .ab-ph-in img{transform:scale(1.05)}
 }
+
+/* 3.57 · bento enxuto: cabe numa dobra no desktop. Sem ícones; texto e foto lado a lado na primeira linha,
+   as quatro curiosidades numa linha só, com a foto como faixa baixa. */
+#about .ab-ico{display:none}
+#about .ab-top{justify-content:flex-start}
+@media (min-width:1081px){
+  #about .ab-lead{gap:18px;padding:clamp(22px,2.4vw,36px)}
+  #about .about-text{max-width:34ch;font-size:clamp(22px,2vw,30px);line-height:1.18}
+  #about .ab-chips li{font-size:12px;padding:5px 11px}
+  #about .ab-me{grid-row:1;min-height:0}
+  #about .ab-f1,#about .ab-f2,#about .ab-f3,#about .ab-f4,#about .ab-fact:nth-child(n+5){grid-row:2;grid-column:span 3}
+  #about .ab-f1{grid-column:1/4}#about .ab-f2{grid-column:4/7}#about .ab-f3{grid-column:7/10}#about .ab-f4{grid-column:10/13}
+  #about .ab-fact,#about .ab-f3,#about .ab-f4{display:flex;flex-direction:column;gap:12px;padding:8px 8px 18px}
+  #about .ab-f3 .ab-ph,#about .ab-f4 .ab-ph{order:0;display:block}
+  #about .ab-ph-in,#about .ab-f3 .ab-ph-in,#about .ab-f4 .ab-ph-in{aspect-ratio:16/9;min-height:0}
+  #about .ab-ph.is-posters .ab-ph-in{padding:6px;gap:6px}
+  #about .ab-fact-body,#about .ab-f3 .ab-fact-body,#about .ab-f4 .ab-fact-body{gap:6px;padding:0 10px}
+  #about .ab-fact h3{margin:2px 0 0;font-size:clamp(17px,1.3vw,19px)}
+  #about .ab-fact p{font-size:13.5px;line-height:1.45}
+}
