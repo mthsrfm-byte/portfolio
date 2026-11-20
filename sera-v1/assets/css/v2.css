@@ -276,3 +276,8 @@ html.is-v2 body:is(.is-case,.is-pp) .site-header[data-tint="sky"]>.wrap>.header-
 @media (prefers-reduced-motion:reduce){
   html.is-v2 body:is(.is-case,.is-pp) .site-header::before,html.is-v2 body:is(.is-case,.is-pp) .site-header>.v2-pill-tint,html.is-v2 body:is(.is-case,.is-pp) .site-header *{transition:none!important}
 }
+
+/* v3.54 · menu in the cover's condensed caps (same family as .thin), a touch heavier to read at nav size */
+html.is-v2 .primary-nav a{font-family:var(--display);font-weight:420;font-stretch:76%;text-transform:uppercase;letter-spacing:.05em;font-size:15px;line-height:1}
+@media (min-width:861px){html.is-v2 .primary-nav a{display:inline-flex;align-items:center;min-height:24px}}
+@media (max-width:860px){html.is-v2 .primary-nav li a{font-size:18px}}

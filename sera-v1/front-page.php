@@ -92,27 +92,62 @@ $now_logo = sera_mod( 'hero_now_logo' );
 </section>
 </div>
 
-<section class="block" id="approach">
-	<div class="wrap">
-		<div class="section-head reveal">
-			<h2><?php echo esc_html( sera_mod( 'approach_title' ) ); ?></h2>
-			<p><?php echo esc_html( sera_mod( 'approach_intro' ) ); ?></p>
+<?php
+// 3.55 · Approach "Piso vivo" at every width: the title in grains + a perspective floor of glyphs (assets/js/approach.js).
+// Texts come from the Customizer; the h2 stays real for screen readers, the canvases are decoration.
+$sera_ap       = array();
+for ( $i = 1; $i <= 4; $i++ ) {
+	if ( sera_mod( "p{$i}_title" ) ) {
+		$sera_ap_proof = (string) sera_mod( "p{$i}_proof" );
+		$sera_ap_co    = '';
+		if ( preg_match( '/^([^:]{1,40}):\s*(.+)$/u', $sera_ap_proof, $m ) ) {
+			$sera_ap_co    = $m[1];
+			$sera_ap_proof = $m[2];
+		}
+		$sera_ap[] = array(
+			'i'     => $i,
+			'n'     => sprintf( '%02d', $i ),
+			'title' => sera_mod( "p{$i}_title" ),
+			'text'  => sera_mod( "p{$i}_text" ),
+			'co'    => $sera_ap_co,
+			'proof' => $sera_ap_proof,
+		);
+	}
+}
+$sera_ap_proof_html = function ( $p ) {
+	if ( '' === $p['proof'] ) {
+		return '';
+	}
+	return '<p class="ap-proof">' . ( $p['co'] ? '<b>' . esc_html( $p['co'] ) . '</b>' : '' ) . esc_html( $p['proof'] ) . '</p>';
+};
+?>
+<div class="ap-fade" aria-hidden="true"></div>
+<section class="block" id="approach" data-ap-title="<?php echo esc_attr( sera_mod( 'approach_title' ) ); ?>">
+
+	<div class="ap-pin"><div class="ap-floor">
+		<div class="wrap">
+			<h2 class="ap-floor-h"><?php echo esc_html( sera_mod( 'approach_title' ) ); ?></h2>
+			<div class="ap-top">
+				<div class="ap-mast" aria-hidden="true"></div>
+				<p class="ap-intro"><?php echo esc_html( sera_mod( 'approach_intro' ) ); ?></p>
+			</div>
 		</div>
-		<div class="principles">
-			<?php for ( $i = 1; $i <= 4; $i++ ) : ?>
-				<?php if ( sera_mod( "p{$i}_title" ) ) : ?>
-					<div class="principle reveal">
-						<div class="p-top"><span class="p-ico"><?php echo sera_ph( array( 1 => 'chart-line-up', 2 => 'magnifying-glass', 3 => 'target', 4 => 'wrench' )[ $i ] ); // phpcs:ignore ?></span><span class="n"><?php echo esc_html( sprintf( '%02d', $i ) ); ?></span></div>
-						<h3><?php echo esc_html( sera_mod( "p{$i}_title" ) ); ?></h3>
-						<p><?php echo esc_html( sera_mod( "p{$i}_text" ) ); ?></p>
-						<?php if ( sera_mod( "p{$i}_proof" ) ) : ?>
-							<span class="proof"><?php echo esc_html( sera_mod( "p{$i}_proof" ) ); ?></span>
-						<?php endif; ?>
-					</div>
-				<?php endif; ?>
-			<?php endfor; ?>
+		<div class="ap-stage" aria-hidden="true">
+			<canvas></canvas>
+			<div class="wrap"><div class="ap-now"><span class="ap-n"><?php echo esc_html( $sera_ap ? $sera_ap[0]['n'] : '' ); ?></span><span class="ap-cap"><?php echo esc_html( $sera_ap ? $sera_ap[0]['title'] : '' ); ?></span></div></div>
 		</div>
-	</div>
+		<div class="wrap">
+			<ol class="ap-list">
+				<?php foreach ( $sera_ap as $k => $p ) : ?>
+					<li class="ap-p<?php echo 0 === $k ? ' on' : ''; ?>">
+						<h3 class="ap-t"><button type="button" aria-pressed="<?php echo 0 === $k ? 'true' : 'false'; ?>"><span class="ap-n"><?php echo esc_html( $p['n'] ); ?></span><span class="ap-tt"><?php echo esc_html( $p['title'] ); ?></span></button></h3>
+						<p class="ap-tx"><?php echo esc_html( $p['text'] ); ?></p>
+						<?php echo $sera_ap_proof_html( $p ); // phpcs:ignore ?>
+					</li>
+				<?php endforeach; ?>
+			</ol>
+		</div>
+	</div></div>
 </section>
 
 <section class="block" id="experience">
@@ -121,70 +156,89 @@ $now_logo = sera_mod( 'hero_now_logo' );
 		$sera_xp     = sera_lines( sera_mod( 'xp_items' ), 4 );
 		$sera_xp_now = '/\b(now|present|hoje|atual|o momento)\b/iu';
 		?>
-		<?php if ( count( $sera_xp ) > 1 ) : ?>
-			<?php // Compact bar: same component as the Selected work bar (title, intro in one line, current role, n / total). ?>
-			<div class="work-bar section-bar xp-bar" aria-hidden="true">
-				<div class="work-bar-in">
-					<span class="wbar-t"><?php echo esc_html( sera_mod( 'xp_title' ) ); ?></span>
-					<span class="wbar-c"></span>
-					<span class="wbar-n"><b>01</b><span> / <?php echo esc_html( sprintf( '%02d', count( $sera_xp ) ) ); ?></span></span>
-					<span class="wbar-p"><i></i></span>
-				</div>
+		<?php // 3.x · Experience "Masthead": each company is a thin condensed cover name; role and area sit on the name's baseline, tied to it by a dashed leader (assets/css/experience.css). ?>
+		<div class="xpm">
+			<div class="xpm-head reveal">
+				<h2><?php echo esc_html( sera_mod( 'xp_title' ) ); ?></h2>
 			</div>
-		<?php endif; ?>
-		<div class="section-head reveal xp-head">
-			<h2><?php echo esc_html( sera_mod( 'xp_title' ) ); ?></h2>
+			<div class="xpm-list reveal">
+				<?php foreach ( $sera_xp as $i => $row ) : ?>
+					<?php
+					$sera_is_now = (bool) preg_match( $sera_xp_now, $row[0] );
+					// "Title, area" → title on top, area in mono below (only splits the existing text at its first comma).
+					$sera_role = array_map( 'trim', explode( ',', (string) $row[2], 2 ) );
+					?>
+					<article class="xpm-row<?php echo $sera_is_now ? ' is-now' : ''; ?>">
+						<div class="xpm-meta">
+							<span class="xpm-when"><?php echo esc_html( sprintf( '%02d', $i + 1 ) . ' · ' . $row[0] ); ?></span>
+							<?php if ( $sera_is_now ) : ?>
+								<span class="xpm-now"><i></i><?php echo esc_html( sera_t( 'Now', 'Atual' ) ); ?></span>
+							<?php endif; ?>
+						</div>
+						<div class="xpm-line">
+							<h3 class="xpm-name"><?php echo esc_html( $row[1] ); ?></h3>
+							<span class="xpm-lead" aria-hidden="true"></span>
+							<p class="xpm-role">
+								<span class="xpm-title"><?php echo esc_html( $sera_role[0] ); ?></span>
+								<?php if ( ! empty( $sera_role[1] ) ) : ?>
+									<span class="xpm-area"><?php echo esc_html( $sera_role[1] ); ?></span>
+								<?php endif; ?>
+							</p>
+						</div>
+						<?php if ( ! empty( $row[3] ) ) : ?>
+							<p class="xpm-what"><?php echo esc_html( $row[3] ); ?></p>
+						<?php endif; ?>
+					</article>
+				<?php endforeach; ?>
+			</div>
+			<?php if ( sera_mod( 'xp_more' ) ) : ?>
+				<p class="xpm-more"><?php echo esc_html( sera_mod( 'xp_more' ) ); ?></p>
+			<?php endif; ?>
 		</div>
-		<div class="xp reveal">
-			<?php foreach ( $sera_xp as $row ) : ?>
-				<?php
-				// "2026 — now" → "2026–now" for the bar label.
-				$sera_when = preg_replace( '/\s*[—–-]\s*/u', '–', $row[0] );
-				?>
-				<div class="xp-row" data-label="<?php echo esc_attr( $row[1] . ' · ' . $sera_when ); ?>">
-					<span class="when"><?php echo esc_html( $row[0] ); ?></span>
-					<div>
-						<div class="co"><?php echo esc_html( $row[1] ); ?><?php echo preg_match( $sera_xp_now, $row[0] ) ? '<span class="now">' . esc_html( sera_t( 'Now', 'Atual' ) ) . '</span>' : ''; ?></div>
-						<div class="role"><?php echo esc_html( $row[2] ); ?></div>
-					</div>
-					<p class="what"><?php echo esc_html( $row[3] ); ?></p>
-				</div>
-			<?php endforeach; ?>
-		</div>
-		<?php if ( sera_mod( 'xp_more' ) ) : ?>
-			<p class="xp-more"><?php echo esc_html( sera_mod( 'xp_more' ) ); ?></p>
-		<?php endif; ?>
 	</div>
 </section>
 
 <section class="block" id="about">
-	<div class="wrap about">
-		<div class="reveal">
-			<span class="eyebrow"><?php sera_e( 'About', 'Sobre' ); ?></span>
-			<p class="about-text"><?php echo sera_emphasis( sera_mod( 'about_text' ) ); // phpcs:ignore ?></p>
-			<?php $chips = array_filter( array_map( 'trim', explode( ';', (string) sera_mod( 'about_chips' ) ) ) ); ?>
-			<?php if ( $chips ) : ?>
-				<ul class="chips">
-					<?php foreach ( $chips as $c ) : ?>
-						<li class="chip"><?php echo esc_html( $c ); ?></li>
-					<?php endforeach; ?>
-				</ul>
+	<div class="wrap ab-wrap">
+		<div class="ab-bento">
+			<div class="ab-tile ab-lead reveal">
+				<span class="eyebrow"><?php sera_e( 'About', 'Sobre' ); ?></span>
+				<p class="about-text"><?php echo sera_emphasis( sera_mod( 'about_text' ) ); // phpcs:ignore ?></p>
+				<?php $chips = array_filter( array_map( 'trim', explode( ';', (string) sera_mod( 'about_chips' ) ) ) ); ?>
+				<?php if ( $chips ) : ?>
+					<ul class="ab-chips">
+						<?php foreach ( $chips as $c ) : ?>
+							<li><?php echo esc_html( $c ); ?></li>
+						<?php endforeach; ?>
+					</ul>
+				<?php endif; ?>
+			</div>
+			<figure class="ab-tile ab-me reveal" data-ab-parallax>
+				<img class="ab-me-img" src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/about/me-mic.jpg' ); ?>" width="1000" height="1000" loading="lazy" decoding="async" alt="<?php echo esc_attr( sera_t( 'Matheus Serafim holding a microphone, wearing a New York cap', 'Matheus Serafim segurando um microfone, de boné New York' ) ); ?>">
+				<figcaption class="ab-me-cap"><span>Matheus Serafim</span></figcaption>
+			</figure>
+			<?php $ab_items = sera_lines( sera_mod( 'about_items' ) ); ?>
+			<div class="ab-facts" data-ab-facts>
+				<?php foreach ( $ab_items as $n => $item ) : ?>
+					<?php
+					$parts = array_map( 'trim', explode( '|', $item, 2 ) );
+					$title = count( $parts ) > 1 ? $parts[0] : '';
+					$body  = count( $parts ) > 1 ? $parts[1] : $parts[0];
+					?>
+					<article class="ab-tile ab-fact ab-f<?php echo (int) ( $n + 1 ); ?> reveal">
+						<?php echo sera_about_media( $n + 1 ); // phpcs:ignore ?>
+						<div class="ab-fact-body">
+							<div class="ab-top"><span class="ab-ico" aria-hidden="true"><?php echo sera_about_icon( $n + 1 ); // phpcs:ignore ?></span><span class="ab-k"><?php echo esc_html( sprintf( '%02d', $n + 1 ) ); ?></span></div>
+							<?php if ( $title ) : ?><h3><?php echo esc_html( $title ); ?></h3><?php endif; ?>
+							<p><?php echo esc_html( $body ); ?></p>
+						</div>
+					</article>
+				<?php endforeach; ?>
+			</div>
+			<?php if ( count( $ab_items ) > 1 ) : ?>
+				<p class="ab-count" aria-hidden="true"><span data-ab-now>01</span> / <?php echo esc_html( sprintf( '%02d', count( $ab_items ) ) ); ?></p>
 			<?php endif; ?>
 		</div>
-		<ol class="about-list reveal">
-			<?php foreach ( sera_lines( sera_mod( 'about_items' ) ) as $n => $item ) : ?>
-				<?php
-				$parts = array_map( 'trim', explode( '|', $item, 2 ) );
-				$title = count( $parts ) > 1 ? $parts[0] : '';
-				$body  = count( $parts ) > 1 ? $parts[1] : $parts[0];
-				?>
-				<li>
-					<span class="k"><?php echo esc_html( sprintf( '%02d', $n + 1 ) ); ?></span>
-					<span class="txt"><?php if ( $title ) : ?><b><?php echo esc_html( $title ); ?></b><?php endif; ?><?php echo esc_html( $body ); ?></span>
-					<?php echo sera_about_pop( $n + 1 ); // phpcs:ignore ?>
-				</li>
-			<?php endforeach; ?>
-		</ol>
 	</div>
 </section>
 

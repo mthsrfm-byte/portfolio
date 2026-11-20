@@ -80,6 +80,33 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.56.3 =
+* Home: a transição papel → escuro antes do Approach sobe com o scroll (o início do escuro vai subindo conforme a faixa entra na tela) e avança sobre o vão branco da seção anterior; base sempre escura e com o mesmo grão, sem emenda.
+
+= 3.56.2 =
+* About: legenda da foto só com o nome, sem "São Paulo".
+
+= 3.56.1 =
+* About: sem a borda escura em volta da foto do bento (a borda transparente deixava o fundo escuro aparecer).
+
+= 3.56.0 =
+* Home, seção About em bento (front-page.php, inc/template-tags.php, assets/css/about.css, assets/js/about.js, assets/img/about/me-mic.jpg): parágrafo em bloco grande, foto nova com parallax (parada com movimento reduzido), as quatro curiosidades com a foto visível no card sem hover. Tablet em duas colunas; mobile com foto 4:5 e as curiosidades num carrossel com snap e contador. Textos seguem do Customizer.
+
+= 3.55.9 =
+* Rodapé: título do contato 15% menor e mais leve (peso 500 → 380).
+
+= 3.55.8 =
+* Home: transição do papel para o bloco escuro do Approach com gradiente suavizado (curva easing), grão que aparece junto com o escuro e um brilho teal discreto, no lugar da borda seca (front-page.php, approach.css).
+
+= 3.55.7 =
+* Home, Approach presa na tela: a barra de cada princípio se preenche com o scroll, uma depois da outra, para mostrar o quanto falta até sair da seção.
+
+= 3.55.6 =
+* Home, Approach presa na tela: faixa do piso de caracteres ~30% mais baixa, mais respiro em cima e embaixo da seção, textos dos princípios maiores e mais legíveis (inativos menos apagados).
+
+= 3.55.5 =
+* Home, seção Approach: novo "Piso vivo" em todas as larguras (front-page.php, assets/css/approach.css, assets/js/approach.js). Título em grãos claros que se monta com o scroll (um canvas sobre o bloco escuro inteiro, sem se desfazer ao descer), intro, linha do princípio ativo, piso de caracteres em perspectiva cujo relevo muda por princípio (hover, toque, foco ou sozinho a cada 5 s) e os quatro princípios em texto real. Em telas grandes (≥ 1081 × 600) a seção ocupa uma tela abaixo do header e fica presa (sticky) enquanto o scroll avança 01 → 04; clicar num princípio rola até o trecho dele; sem troca automática nesse modo. Abaixo disso e com movimento reduzido, layout estático. Textos padrão dos quatro princípios e das provas encurtados (inc/customizer.php e inc/i18n/customizer-pt.php; valores já salvos em Personalizar continuam valendo). h2 real para leitores de tela, canvas aria-hidden, movimento reduzido mostra o estado final parado. Textos seguem do Customizer.
+
 = 3.53.0 =
 * Cases: menu de vidro "Camaleão". Sai o preto chapado; o vidro ganha borda de luz, grão e mais respiro interno, e a cor acompanha a seção de trás (papel, escuro ou céu, ou data-header-tint). Home sem mudança.
 

@@ -1,0 +1,97 @@
+/* 3.55 · Home #approach "Piso vivo", at every width (approved prototype, option 3):
+   the section title in grains that assembles as it scrolls in (one canvas over the whole dark block),
+   the intro, the active principle's line, a perspective floor of glyphs reshaped by that principle,
+   and the four principles as real text below. The dark block (background, grain, spacing) is v2-home.css.
+   Breakpoints follow the theme: 1080px (two columns) and 860px (the mobile split, one column). */
+
+#approach{--ap-fg:#EFEEE8;--ap-2:#B9B7AF;--ap-3:#9A988F;--ap-4:#8C8A83;--ap-hair:rgba(239,238,232,.12);--ap-dash:rgba(239,238,232,.16);--ap-teal:#7DB8B4;position:relative;overflow:clip}
+#approach :focus-visible{outline:2px solid var(--ap-teal);outline-offset:4px;border-radius:4px}
+#approach .ap-pin{position:relative}
+#approach .ap-floor{position:relative;z-index:1}
+#approach .ap-bleed{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;display:block}
+#approach canvas{display:block}
+#approach .ap-n{font:400 12px/1 var(--mono);letter-spacing:.14em;color:var(--ap-4)}
+#approach .ap-intro{margin:0;max-width:440px;color:var(--ap-3);font-size:15.5px;line-height:1.55;text-wrap:pretty}
+
+/* title: a real h2; once JS runs it is read by screen readers and drawn in grains on the canvas */
+#approach .ap-floor-h{margin:0 0 24px;font-family:var(--display);font-weight:220;font-stretch:76%;text-transform:uppercase;letter-spacing:.012em;line-height:.92;font-size:clamp(56px,8vw,112px);color:var(--ap-fg)}
+#approach .ap-mast{display:none;aspect-ratio:1000/215;margin-inline:calc(-1 * clamp(8px,1.6vw,24px));touch-action:pan-y}
+#approach.ap-ready .ap-floor-h{position:absolute!important;width:1px;height:1px;margin:0;overflow:hidden;clip:rect(1px,1px,1px,1px);white-space:nowrap}
+#approach.ap-ready .ap-mast{display:block}
+#approach .ap-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px 40px;margin-bottom:clamp(24px,3vw,40px)}
+#approach .ap-top .ap-mast{grid-column:1/-1}
+#approach .ap-top .ap-intro{grid-column:2}
+
+/* the floor */
+#approach .ap-stage{display:none;position:relative;height:340px;touch-action:pan-y}
+#approach.ap-ready .ap-stage{display:block}
+#approach .ap-stage canvas{position:absolute;inset:0;width:100%;height:100%}
+#approach .ap-stage .wrap{position:relative;pointer-events:none}
+#approach .ap-now{position:absolute;left:0;top:6px;display:flex;gap:12px;align-items:baseline;padding-left:inherit;padding-right:inherit}
+#approach .ap-now .ap-n{flex:none;color:var(--ap-teal)}
+#approach .ap-now .ap-cap{font:400 11.5px/1.5 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--ap-3)}
+
+/* the principles */
+#approach .ap-list{list-style:none;margin:8px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+#approach .ap-p{display:grid;gap:12px;align-content:start;padding:20px 20px 4px 0;border-top:2px solid var(--ap-hair);cursor:pointer;opacity:.55;transition:border-color .4s,opacity .4s}
+#approach .ap-p+.ap-p{padding-left:20px}
+#approach .ap-p.on{border-top-color:var(--ap-teal);opacity:1}
+#approach:not(.ap-ready) .ap-p{opacity:1}
+#approach .ap-t{margin:0;font-family:var(--display);font-weight:220;font-stretch:76%;text-transform:uppercase;letter-spacing:.012em;line-height:1;text-wrap:balance;color:var(--ap-fg);font-size:clamp(19px,1.7vw,23px)}
+#approach .ap-t button{all:unset;cursor:pointer;display:grid;gap:12px;border-radius:4px}
+#approach .ap-t button:focus-visible{outline:2px solid var(--ap-teal);outline-offset:4px}
+#approach .ap-tx{margin:0;color:var(--ap-2);font-size:14px;line-height:1.55;text-wrap:pretty}
+#approach .ap-proof{margin:4px 0 0;border-top:1px dashed var(--ap-dash);padding-top:14px;font-size:13.5px;line-height:1.5;color:var(--ap-4)}
+#approach .ap-proof b{font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ap-teal);margin-right:6px}
+
+@media (max-width:1080px){
+  #approach .ap-list{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:12px}
+  #approach .ap-p:nth-child(3){padding-left:0}
+  #approach .ap-stage{height:300px}
+}
+@media (max-width:860px){
+  #approach .ap-top{grid-template-columns:1fr;row-gap:16px}
+  #approach .ap-top .ap-intro{grid-column:1}
+}
+@media (max-width:640px){
+  #approach .ap-list{grid-template-columns:1fr}
+  #approach .ap-p,#approach .ap-p+.ap-p{padding-left:0;padding-right:0}
+  #approach .ap-stage{height:230px}
+  #approach .ap-mast{margin-inline:-4px}
+}
+/* ---------- pinned (>= 1081px wide and 600px tall, motion allowed; class set by approach.js) ----------
+   The section is one screen tall under the fixed header and stays put (sticky) inside a taller section;
+   the extra 3 x 70svh of scroll walk the principles 01 -> 04, then the page moves on. */
+html.is-v2 #approach.ap-pinned{--ap-top:calc(var(--adm,0px) + var(--hdr,80px));--ap-vh:calc(100svh - var(--ap-top));height:calc(var(--ap-vh) + 210svh);padding-top:0;padding-bottom:0}
+#approach.ap-pinned .ap-pin{position:sticky;top:var(--ap-top);height:var(--ap-vh)}
+#approach.ap-pinned .ap-floor{height:100%;display:flex;flex-direction:column;padding:clamp(44px,8.5vh,112px) 0 clamp(40px,8vh,104px)}
+#approach.ap-pinned .ap-floor>.wrap{width:100%;flex:none}
+/* title band: the grains ~19% of the screen (was 25%), intro on its right, bottom-aligned */
+#approach.ap-pinned .ap-top{flex:none;grid-template-columns:minmax(0,1fr) clamp(260px,24vw,360px);align-items:end;gap:0 clamp(40px,5vw,96px);margin:0}
+#approach.ap-pinned .ap-top .ap-mast{grid-column:1;height:calc(var(--ap-vh) * .19);aspect-ratio:auto;margin:0 0 0 -.5%}
+#approach.ap-pinned .ap-top .ap-intro{grid-column:2;font-size:14px;line-height:1.55;color:var(--ap-4)}
+/* the floor: the middle band, with air above and below */
+#approach.ap-pinned .ap-stage{flex:0 1 calc(var(--ap-vh) * .21);min-height:110px;height:auto;margin:clamp(24px,5vh,64px) 0 clamp(16px,3.5vh,44px)}
+#approach.ap-pinned .ap-list{flex:none;margin-top:auto;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:clamp(24px,2.6vw,48px);row-gap:0}
+#approach.ap-pinned .ap-p,#approach.ap-pinned .ap-p+.ap-p,#approach.ap-pinned .ap-p:nth-child(3){gap:clamp(8px,1.3vh,14px);padding:clamp(14px,2.2vh,24px) 0 0;opacity:.62}
+#approach.ap-pinned .ap-p.on{opacity:1}
+#approach.ap-pinned .ap-t{font-size:clamp(19px,2.6vh,24px)}
+#approach.ap-pinned .ap-t button{gap:clamp(8px,1.2vh,12px)}
+#approach.ap-pinned .ap-tx{font-size:15.5px;line-height:1.5;color:var(--ap-2)}
+#approach.ap-pinned .ap-proof{margin-top:clamp(2px,.6vh,8px);padding-top:clamp(8px,1.3vh,14px);font-size:14px;line-height:1.45;color:var(--ap-3)}
+#approach.ap-pinned .ap-p{transition:border-color .6s cubic-bezier(.22,1,.36,1),opacity .6s cubic-bezier(.22,1,.36,1)}
+
+@media (prefers-reduced-motion:reduce){
+  #approach .ap-p{transition:none}
+}
+
+/* 3.55.7 · pinned: the top bar of each principle fills with the scroll, one after the other (--fill set by approach.js) */
+#approach.ap-pinned .ap-p{position:relative}
+#approach.ap-pinned .ap-p.on{border-top-color:var(--ap-hair)}
+#approach.ap-pinned .ap-p::before{content:"";position:absolute;left:0;right:0;top:-2px;height:2px;background:var(--ap-teal);transform-origin:0 50%;transform:scaleX(var(--fill,0));pointer-events:none}
+/* 3.56.3 · paper → ink, driven by the scroll: the fade band overlaps the white gap above; as it comes up the
+   screen the dark start (--ap-s, set by approach.js) climbs from the bottom, so the gradient "rises" with the scroll.
+   The bottom edge is always solid ink + the same grain as the section, so there is no seam. */
+.ap-fade{position:relative;z-index:1;height:clamp(240px,30vw,460px);margin-top:calc(-1 * clamp(96px,12vw,200px));pointer-events:none;background:linear-gradient(to bottom,rgba(17,17,16,0) 0%,rgba(17,17,16,0) var(--ap-s,0%),rgba(17,17,16,0.013) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.081),rgba(17,17,16,0.049) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.155),rgba(17,17,16,0.104) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.225),rgba(17,17,16,0.175) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.290),rgba(17,17,16,0.259) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.353),rgba(17,17,16,0.352) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.412),rgba(17,17,16,0.45) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.471),rgba(17,17,16,0.55) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.529),rgba(17,17,16,0.648) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.588),rgba(17,17,16,0.741) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.647),rgba(17,17,16,0.825) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.710),rgba(17,17,16,0.896) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.775),rgba(17,17,16,0.951) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.845),rgba(17,17,16,0.987) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.919),rgba(17,17,16,1) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 1.000))}
+.ap-fade::before{content:"";position:absolute;inset:0;background:url("../img/grain-light.png") 0 0/180px 180px;-webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,0) var(--ap-s,0%),rgba(0,0,0,0.013) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.081),rgba(0,0,0,0.049) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.155),rgba(0,0,0,0.104) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.225),rgba(0,0,0,0.175) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.290),rgba(0,0,0,0.259) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.353),rgba(0,0,0,0.352) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.412),rgba(0,0,0,0.45) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.471),rgba(0,0,0,0.55) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.529),rgba(0,0,0,0.648) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.588),rgba(0,0,0,0.741) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.647),rgba(0,0,0,0.825) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.710),rgba(0,0,0,0.896) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.775),rgba(0,0,0,0.951) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.845),rgba(0,0,0,0.987) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.919),rgba(0,0,0,1) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 1.000));mask-image:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,0) var(--ap-s,0%),rgba(0,0,0,0.013) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.081),rgba(0,0,0,0.049) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.155),rgba(0,0,0,0.104) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.225),rgba(0,0,0,0.175) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.290),rgba(0,0,0,0.259) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.353),rgba(0,0,0,0.352) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.412),rgba(0,0,0,0.45) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.471),rgba(0,0,0,0.55) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.529),rgba(0,0,0,0.648) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.588),rgba(0,0,0,0.741) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.647),rgba(0,0,0,0.825) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.710),rgba(0,0,0,0.896) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.775),rgba(0,0,0,0.951) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.845),rgba(0,0,0,0.987) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 0.919),rgba(0,0,0,1) calc(var(--ap-s,0%) + (100% - var(--ap-s,0%)) * 1.000))}
+html.is-v2 .ap-fade+#approach{margin-top:0}

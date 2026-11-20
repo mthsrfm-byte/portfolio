@@ -7,7 +7,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'SERA_VERSION', '3.53.0' );
+define( 'SERA_VERSION', '3.56.3' );
 
 require_once get_template_directory() . '/inc/i18n.php';
 require_once get_template_directory() . '/inc/i18n/customizer-pt.php';
@@ -188,7 +188,15 @@ add_action(
 			wp_enqueue_script( 'sera-v2-home', $uri . '/assets/js/v2-home.js', array( 'sera-v2', 'sera-case-js' ), sera_asset_ver( 'assets/js/v2-home.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
 			// 3.44 · Selected work cards "Capa": after the v2 layer, so its deck rules stay and only the card's inside changes.
 			wp_enqueue_style( 'sera-capa', $uri . '/assets/css/capa.css', array( 'sera-v2-home', 'sera-mockups' ), sera_asset_ver( 'assets/css/capa.css' ) );
+			// Experience "Masthead": its own file, after the v2 home layer.
+			wp_enqueue_style( 'sera-experience', $uri . '/assets/css/experience.css', array( 'sera-v2-home' ), sera_asset_ver( 'assets/css/experience.css' ) );
+			// About "Caixinhas" bento (photo parallax + curiosity cards with their photos always visible).
+			wp_enqueue_style( 'sera-about', $uri . '/assets/css/about.css', array( 'sera-v2-home' ), sera_asset_ver( 'assets/css/about.css' ) );
+			wp_enqueue_script( 'sera-about', $uri . '/assets/js/about.js', array(), sera_asset_ver( 'assets/js/about.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
 			wp_enqueue_script( 'sera-capa', $uri . '/assets/js/capa.js', array( 'sera-main' ), sera_asset_ver( 'assets/js/capa.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
+			// 3.55 · #approach "Piso vivo" at every width (canvas 2D, no library).
+			wp_enqueue_style( 'sera-approach', $uri . '/assets/css/approach.css', array( 'sera-v2-home' ), sera_asset_ver( 'assets/css/approach.css' ) );
+			wp_enqueue_script( 'sera-approach', $uri . '/assets/js/approach.js', array(), sera_asset_ver( 'assets/js/approach.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
 		}
 		if ( $is_case ) {
 			wp_enqueue_style( 'sera-v2-case', $uri . '/assets/css/v2-case.css', array( 'sera-v2', 'sera-case' ), sera_asset_ver( 'assets/css/v2-case.css' ) );

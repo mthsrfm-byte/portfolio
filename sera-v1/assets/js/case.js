@@ -369,3 +369,59 @@
 		} );
 	} )();
 } )();
+
+/* v3.54 · Acordo Certo before/after: each page scrolls on its own (only when the user scrolls it), smoothed by Lenis; tabs below 1100 px. */
+( function () {
+	[].slice.call( document.querySelectorAll( '.ba-sync' ) ).forEach( function ( box ) {
+		var wide = window.matchMedia( '(min-width:1101px)' );
+		[].slice.call( box.querySelectorAll( '.browser-page' ) ).forEach( function ( page ) {
+			page.setAttribute( 'data-native-scroll', '' );
+			var bar = document.createElement( 'span' );
+			bar.className = 'ba-prog';
+			bar.innerHTML = '<i></i>';
+			page.parentNode.appendChild( bar );
+			function paint( p ) {
+				bar.style.setProperty( '--p', p.toFixed( 4 ) );
+			}
+			if ( window.Lenis && wide.matches && ! window.matchMedia( '(prefers-reduced-motion: reduce)' ).matches ) {
+				// At the top/bottom edge, let the wheel fall through to the page instead of trapping it.
+				page.addEventListener( 'wheel', function ( e ) {
+					var max = page.scrollHeight - page.clientHeight;
+					if ( ( e.deltaY < 0 && page.scrollTop <= 0 ) || ( e.deltaY > 0 && page.scrollTop >= max - 1 ) ) {
+						e.stopImmediatePropagation();
+					}
+				}, { capture: true, passive: true } );
+				var inner = new window.Lenis( {
+					wrapper: page,
+					content: page.firstElementChild,
+					autoRaf: true,
+					lerp: 0.08,
+					smoothWheel: true,
+				} );
+				inner.on( 'scroll', function ( l ) {
+					paint( l.progress || 0 );
+				} );
+			} else {
+				page.addEventListener( 'scroll', function () {
+					var max = page.scrollHeight - page.clientHeight;
+					paint( max > 0 ? page.scrollTop / max : 0 );
+				}, { passive: true } );
+			}
+		} );
+		var tabs = [].slice.call( box.querySelectorAll( '.ba-tab' ) );
+		var cols = [].slice.call( box.querySelectorAll( '[data-ba-col]' ) );
+		tabs.forEach( function ( tab ) {
+			tab.addEventListener( 'click', function () {
+				var i = tab.getAttribute( 'data-ba' );
+				tabs.forEach( function ( t2 ) {
+					var on = t2 === tab;
+					t2.classList.toggle( 'is-on', on );
+					t2.setAttribute( 'aria-selected', on ? 'true' : 'false' );
+				} );
+				cols.forEach( function ( c ) {
+					c.classList.toggle( 'is-on', c.getAttribute( 'data-ba-col' ) === i );
+				} );
+			} );
+		} );
+	} );
+}() );

@@ -31,7 +31,7 @@ html.is-v2 body:not(.is-pp) .case-hero .case-meta{font-family:var(--mono);font-s
 html.is-v2 body:not(.is-pp) .case-hero .case-meta strong{font-weight:500;color:var(--ink)}
 html.is-v2 body:not(.is-pp) .case-hero .case-meta strong::before{content:"";display:inline-block;width:7px;height:7px;margin-right:9px;border-radius:2px;background:var(--case-mark);vertical-align:.08em}
 html.is-v2 body:not(.is-pp) .case-hero .case-meta .sep{width:14px;height:1px;border-radius:0;background:var(--cv2-hair)}
-html.is-v2 body:not(.is-pp) .case-hero h1{margin-top:22px}
+html.is-v2 body:not(.is-pp) .case-hero h1:not(.mockup-stage h1){margin-top:22px}
 html.is-v2 body:not(.is-pp) .case-hero .metrics{max-width:960px;margin-top:48px;border-top:1px solid var(--ink)}
 html.is-v2 body:not(.is-pp) .case-hero .metric{padding-top:16px}
 html.is-v2 body:not(.is-pp) .case-hero .metric b{font-variant-numeric:tabular-nums lining-nums;font-size:clamp(28px,2.6vw,38px)}
@@ -42,7 +42,7 @@ html.is-v2 body:not(.is-pp) .case-hero .chip{font-family:var(--mono);font-size:1
 @media (min-width:1000px){
   html.is-v2 body:not(.is-pp) .case-hero>.wrap{display:grid;grid-template-columns:minmax(0,1fr) clamp(280px,25vw,340px);column-gap:clamp(48px,6vw,96px);align-items:start}
   html.is-v2 body:not(.is-pp) .case-hero>.wrap>*{grid-column:1/-1}
-  html.is-v2 body:not(.is-pp) .case-hero h1{max-width:none;margin-top:26px;font-size:clamp(56px,6.3vw,96px);line-height:.97;letter-spacing:-.036em}
+  html.is-v2 body:not(.is-pp) .case-hero h1:not(.mockup-stage h1){max-width:none;margin-top:26px;font-size:clamp(56px,6.3vw,96px);line-height:.97;letter-spacing:-.036em}
   html.is-v2 body:not(.is-pp) .case-hero .lede{grid-column:1;grid-row:4;margin-top:44px;max-width:680px;font-size:clamp(18px,1.55vw,21px);line-height:1.55}
   html.is-v2 body:not(.is-pp) .case-hero .metrics{grid-column:2;grid-row:4/span 2;display:block;max-width:none;margin-top:50px;border-top:1px solid var(--ink)}
   html.is-v2 body:not(.is-pp) .case-hero .metric,html.is-v2 body:not(.is-pp) .case-hero .metric+.metric{display:grid;grid-template-columns:minmax(0,1fr);padding:12px 0 13px;border-left:0;margin:0}
@@ -71,7 +71,7 @@ html.cv2-anim.is-v2 body:not(.is-pp) .case-hero h1.cv2-wait{opacity:0}
 html.cv2-anim.is-v2 body:not(.is-pp) .cv2-lines .cv2-li{transform:translateY(108%);transition:transform 1s var(--cv2-out);transition-delay:calc(var(--l,0) * 90ms + var(--d0,0ms))}
 html.cv2-anim.is-v2 body:not(.is-pp) .cv2-lines.cv2-in .cv2-li,html.cv2-safe.is-v2 body:not(.is-pp) .cv2-lines .cv2-li{transform:none}
 html.cv2-anim.is-v2 body:not(.is-pp) .case-content h2.chapter{--d0:120ms}
-html.cv2-anim.is-v2 body:not(.is-pp) .case-hero h1{--d0:80ms}
+html.cv2-anim.is-v2 body:not(.is-pp) .case-hero h1:not(.mockup-stage h1){--d0:80ms}
 
 /* ---------- chapter openers ---------- */
 html.is-v2 body:not(.is-pp) .case-content .kicker.cv2-opener{

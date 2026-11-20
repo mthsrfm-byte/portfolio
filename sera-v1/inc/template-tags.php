@@ -454,3 +454,46 @@ function sera_about_pop( $i ) {
 	}
 	return '<figure class="about-pop pop-' . (int) $i . '" aria-hidden="true"><span class="ph">' . $art . '</span><figcaption>' . esc_html( $cap ) . '</figcaption></figure>';
 }
+
+/**
+ * About bento: the photo of curiosity $i, always visible inside its card (Customizer image wins).
+ *
+ * @param int $i 1-based curiosity index.
+ */
+function sera_about_media( $i ) {
+	$img_id = absint( sera_mod( 'about_img_' . $i ) );
+	$uri    = get_template_directory_uri() . '/assets/img/about/';
+	$caps   = array( 1 => sera_t( 'Me, long before Figma', 'Eu, bem antes do Figma' ), 2 => sera_t( 'Greetings from the capital', 'Lembranças da capital' ), 3 => 'Miopia · Ctrl Alt Del', 4 => sera_t( 'Runs on espresso', 'Movido a espresso' ) );
+	$cap    = isset( $caps[ $i ] ) ? $caps[ $i ] : '';
+	$cls    = '';
+	if ( $img_id ) {
+		$art = '<img src="' . esc_url( wp_get_attachment_image_url( $img_id, 'medium_large' ) ) . '" alt="" loading="lazy" decoding="async">';
+	} else {
+		$files = array( 1 => 'kid.webp', 2 => 'brasilia.webp', 4 => 'coffee.webp' );
+		if ( 3 === $i ) {
+			$cls = ' is-posters';
+			$art = '<img src="' . esc_url( $uri . 'miopia.webp' ) . '" alt="" loading="lazy" decoding="async"><img src="' . esc_url( $uri . 'ctrlaltdel.webp' ) . '" alt="" loading="lazy" decoding="async">';
+		} elseif ( isset( $files[ $i ] ) ) {
+			$art = '<img src="' . esc_url( $uri . $files[ $i ] ) . '" alt="" loading="lazy" decoding="async">';
+		} else {
+			return '';
+		}
+	}
+	return '<figure class="ab-ph' . $cls . '" aria-hidden="true"><span class="ab-ph-in">' . $art . '</span>' . ( $cap ? '<figcaption>' . esc_html( $cap ) . '</figcaption>' : '' ) . '</figure>';
+}
+
+/**
+ * About bento: line icon of curiosity $i (same stroke language as the Approach icons).
+ *
+ * @param int $i 1-based curiosity index.
+ */
+function sera_about_icon( $i ) {
+	$paths = array(
+		1 => '<path d="M6.5 8.5h11a4 4 0 0 1 3.9 4.9l-.8 3.5a2.4 2.4 0 0 1-4.1 1.1L14.4 16H9.6l-2.1 2a2.4 2.4 0 0 1-4.1-1.1l-.8-3.5a4 4 0 0 1 3.9-4.9z"/><path d="M8 11v3.5M6.25 12.75h3.5"/><circle cx="15.5" cy="12" r=".6"/><circle cx="17.5" cy="14" r=".6"/>',
+		2 => '<path d="M10 4h4v13h-4zM12 4v13M2.5 17h19"/><path d="M3.5 17a3.25 2.8 0 0 1 6.5 0"/><path d="M15 13.8h6a3 3.2 0 0 1-6 0z"/>',
+		3 => '<path d="M4 10h16v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="M4 10l-.6-3.2 15.7-2.9.6 3.2z"/><path d="M8.3 6l2.3 3.2M13 5.1l2.3 3.2"/>',
+		4 => '<path d="M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5z"/><path d="M16 10.5h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M9 3.5c-.8 1 .8 2 0 3M12.5 3.5c-.8 1 .8 2 0 3"/>',
+	);
+	$d = isset( $paths[ $i ] ) ? $paths[ $i ] : '<circle cx="12" cy="12" r="7"/><path d="M12 9v3.5l2 1.5"/>';
+	return '<svg viewBox="0 0 24 24">' . $d . '</svg>';
+}
