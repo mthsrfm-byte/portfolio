@@ -83,6 +83,7 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 = 3.57.0 =
 * Menu da home "camaleão": vidro de ponta a ponta com tom translúcido que desliza entre papel e tinta (0,7 s), sem troca seca na Approach.
 * About: bento enxuto, cabe numa dobra no desktop; sem ícones, curiosidades numa linha só.
+* Mobile: About com abertura menor, foto quadrada e carrossel mais baixo; Approach com piso mais baixo, princípios mais legíveis e menos fios; o menu escurece já no degradê antes da Approach.
 
 = 3.56.4 =
 * Case Bastidores: o site demo (desktop e mobile) usa as fotos e as manchetes reais da home (coleta de 20/11/2026) no lugar dos placeholders abstratos (inc/screens-nb.php, assets/img/bastidores/, mockups.css).
