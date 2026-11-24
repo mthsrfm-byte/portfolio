@@ -53,13 +53,13 @@ function sera_starter_cases() {
 	$c .= sera_b_p( 'Time was the main design constraint. Every extra week of delay makes the money much harder to get back. So the agreement is short on purpose: a few days, and never past the day an instalment is reported to the credit bureau.' );
 	$c .= sera_b_art( 'pg-window' );
 	$c .= sera_b_chapter( 3, 'The idea', 'Let customers agree on a new date before the due date.' );
-	$c .= sera_b_p( 'Our squad picked this idea in the 2026 hackathon. My job was to turn it into something that works for the customer, for credit and for the P&amp;L at the same time. The product itself had to stay very simple: a heads-up, a new date and the payment.' );
+	$c .= sera_b_p( 'Our squad picked this idea in the 2026 hackathon. My part was to make it work for the customer, for credit and for the P&amp;L at the same time: I defined the problem, designed the two-layer system and the flow from end to end, built a first working version of the orchestrator and put together the pitch to leadership. The product itself had to stay very simple: a heads-up, a new date and the payment.' );
 	$c .= sera_b_art( 'pg-steps' );
 	$c .= sera_b_mock( 'pagaleve-flow' );
 	$c .= sera_b_p( 'I designed every screen so that <strong>the customer is never surprised by a number or a rule</strong>.' );
 	$c .= sera_b_art( 'pg-decisions' );
 	$c .= sera_b_chapter( 4, 'The hard part', 'Showing the offer to everyone would eat into late fees.' );
-	$c .= sera_b_p( 'Leadership raised a fair objection: if everyone gets the button, everyone clicks, including people who would have paid one day late anyway. We accepted it and built the design around it.' );
+	$c .= sera_b_p( 'Leadership raised a fair objection: if everyone gets the button, everyone clicks, including people who would have paid one day late anyway. We accepted it, and I designed the product around it.' );
 	$c .= sera_b_art( 'pg-economics' );
 	$c .= sera_b_chapter( 5, 'The system', 'AI decides who sees the offer. Credit decides who gets it.' );
 	$c .= sera_b_p( 'The squad’s engineer was worried, fairly, that we were taking on too much for an MVP and stepping on the Risk team’s turf. So I drew a clear line. The orchestrator only decides <strong>who sees the button and who gets a heads-up</strong>. The credit engine decides, at the click, whether someone can postpone, for how long and at what price. That line is what got the idea built, and it’s the part of this case I’m proudest of.' );
@@ -158,7 +158,7 @@ function sera_starter_cases() {
 	$c .= sera_b_art( 'wb-stakes' );
 	$c .= sera_b_p( 'Replacing the whole processor was too big a job, so the team decided to bring in-house the part that caused the most problems, the authorizer. On paper, it was an infrastructure project with nothing for customers to see.' );
 	$c .= sera_b_art( 'wb-statement' );
-	$c .= sera_b_p( 'Beyond approval rates, the team saw the authorizer as a chance to make customers happier and the card more competitive. To find out how, the work ran in six stages, each adding a point of view before anything reached the backlog.' );
+	$c .= sera_b_p( 'Beyond approval rates, the team saw the authorizer as a chance to make customers happier and the card more competitive. Engineering built the authorizer. My part was finding out what customers could gain from it and designing that: the ticket analysis, the interviews, the benchmark with Mastercard, the workshop with leadership, the prototypes and tests, and the Temporal Control screens. The work ran in six stages, each adding a point of view before anything reached the backlog.' );
 	$c .= sera_b_art( 'wb-process' );
 	$c .= sera_b_chapter( 2, 'Discovery', 'I read the support tickets first, then interviewed customers.' );
 	$c .= sera_b_p( 'I used an LLM to classify chat transcripts by cause and measure what the old brain was costing us in operations. Then I interviewed customers who had opened chats, to understand what those tickets meant in their lives.' );
@@ -169,7 +169,7 @@ function sera_starter_cases() {
 	$c .= sera_b_p( 'Worse, even the present wasn’t reliable. Purchases still being processed weren’t added to the open bill, and instalments from earlier months only appeared after the bill had opened.' );
 	$c .= sera_b_art( 'wb-bill-model' );
 	$c .= sera_b_chapter( 3, 'Market and ideas', 'We compared our card with what the market already offers.' );
-	$c .= sera_b_p( 'With Mastercard, we mapped what every card in Brazil is expected to do, and looked for what ours was missing.' );
+	$c .= sera_b_p( 'With Mastercard, I mapped what every card in Brazil is expected to do, and looked for what ours was missing.' );
 	$c .= sera_b_art( 'wb-framework' );
 	$c .= sera_b_p( 'The workshop gave us a direction we called Temporal Control: customers needed to see the past, the present and the future of their bill, and act on them. The order became clear there too. No one plans the coming months on a bill that keeps changing, so the present came first.' );
 	$c .= sera_b_art( 'wb-next' );
@@ -422,6 +422,7 @@ function sera_starter_cases() {
 	$c .= sera_b_p( 'I designed the privacy rules before the first screen. The findings are open to the whole company, and data about the people behind them stays locked. Every rule is applied automatically: on import, inside the skill, and in what the roadmap’s AI is allowed to read.' );
 	$c .= sera_b_art( 'rh-privacy' );
 	$c .= sera_b_chapter( 10, 'What changed', 'From “who ran that study?” to “what do we learn next?”' );
+	$c .= sera_b_p( 'The hub is in use. Designers with no research training have run studies with the skill and published them in the same format. People outside design look things up on their own, in the hub or from their own Claude. A quarter’s research roadmap left the hub as Jira cards. And the questions research had already answered stopped coming back to whoever ran the study.', 'lead' );
 	$c .= sera_b_art( 'rh-impact' );
 	$c .= sera_b_chapter( 11, 'What I learned', 'With AI, more of my work became describing how the system should behave.' );
 	$c .= sera_b_art( 'rh-reflection' );
@@ -432,14 +433,14 @@ function sera_starter_cases() {
 		'slug'    => 'research-hub',
 		'title'   => 'Research Hub: the research nobody opened twice',
 		'order'   => 2,
-		'excerpt' => 'I designed and built Pagaleve’s Research Hub, with Lovable and Claude, because our research ended as decks nobody opened again. It is an archive that fills itself, a Claude skill that guides each study, a chat that cites every claim and an AI roadmap that sends next quarter’s studies to Jira.',
+		'excerpt' => 'I designed and built Pagaleve’s Research Hub, with Lovable and Claude, because our research ended as decks nobody opened again. Now every study goes into one archive that the team can question, with a source on every answer. Designers with no research training run studies with it, people outside design look things up on their own, and next quarter’s research roadmap comes out of it as Jira cards.',
 		'meta'    => array(
-			'_sera_headline' => 'Research Hub: an archive of Pagaleve’s research that answers questions',
+			'_sera_headline' => 'Research Hub: Pagaleve’s research stopped depending on who remembers it',
 			'_sera_company'  => 'Pagaleve',
 			'_sera_year'     => '2026',
 			'_sera_role'     => 'Specialist Product Designer · concept, design and build',
-			'_sera_metrics'  => "Searchable | One archive, in plain language, in the hub and from Claude\nSourced | Every claim linked to the study it came from\n→ Jira | An AI roadmap turns findings into next quarter’s studies",
-			'_sera_chips'    => 'Research ops, AI tooling, LGPD by design',
+			'_sera_metrics'  => "In use | By designers with no research training, who run and publish studies with the skill\nSelf-serve | People outside design look up research on their own, in the hub or from Claude\n→ Jira | A quarter’s research roadmap left the hub as Jira cards",
+			'_sera_chips'    => 'Research ops, Knowledge management, LGPD by design',
 			'_sera_visual'   => 'research-hub',
 		),
 		'content' => $c,
@@ -453,7 +454,7 @@ function sera_starter_cases() {
 	$c .= sera_b_art( 'lm-pains' );
 	$c .= sera_b_chapter( 2, 'The bet', 'A moderator that comes with the link.' );
 	$c .= sera_b_art( 'lm-statement' );
-	$c .= sera_b_p( 'I called it the Lume. I’m building it for the team in Lovable, on a realtime voice model, and it’s still in progress, so this page shows where it stands today. Four decisions shaped it before the first screen.' );
+	$c .= sera_b_p( 'I called it the Lume. I’m building it for the team in Lovable, on a realtime voice model, and it’s still in progress. The first sessions with real Pagaleve customers have already run, and this page shows where it stands today. Four decisions shaped it before the first screen.' );
 	$c .= sera_b_art( 'lm-principles' );
 	$c .= sera_b_chapter( 3, 'The system', 'A Figma link in, an invite link out, a report that fills itself in.' );
 	$c .= sera_b_p( 'The designer sends a Figma prototype link. A Claude skill reads the screens, drafts the script and creates the study through the Lume’s own MCP server, the same open standard I used in the Research Hub. The designer marks what can’t be skipped, rehearses with simulated participants and publishes. The CRM sends the invite. Customers use the prototype on their phones, thinking out loud, and the report writes itself as the sessions come in.' );
@@ -488,14 +489,14 @@ function sera_starter_cases() {
 		'slug'    => 'lume',
 		'title'   => 'Lume: an AI moderator that knows when to stop talking',
 		'order'   => 3,
-		'excerpt' => 'Moderated usability tests don’t scale, and unmoderated tools lose the why. I’m building the Lume, an AI voice moderator that turns a Figma prototype link into a usability test customers run on their phones, with a report that cites every finding. The hard part was deciding when it stops talking. Work in progress, published on purpose.',
+		'excerpt' => 'Moderated usability tests don’t scale, and unmoderated tools lose the why. I’m building the Lume, an AI voice moderator that turns a Figma prototype link into a usability test customers run on their phones, with a report that cites every finding. The hard part was deciding when it stops talking. The first sessions with real Pagaleve customers have already run. Work in progress, published on purpose.',
 		'meta'    => array(
-			'_sera_headline' => 'Lume: usability tests run by an AI voice, from a Figma link',
+			'_sera_headline' => 'Lume: usability tests moderated by an AI voice, where the hard part was the silence',
 			'_sera_company'  => 'Pagaleve',
 			'_sera_year'     => '2026 · in progress',
 			'_sera_role'     => 'Specialist Product Designer · concept, design and build',
-			'_sera_metrics'  => "One link | A Figma prototype in, a CRM invite out\nBy voice | The moderator asks, waits and never interrupts\n5–12 | sessions per study, rehearsed with simulated participants first",
-			'_sera_chips'    => 'Research tooling, Voice AI, Work in progress',
+			'_sera_metrics'  => "Real customers | The first sessions have already run, on their own phones\nOne link | A Figma prototype in, a CRM invite out\nBy voice | The moderator asks, waits and never interrupts",
+			'_sera_chips'    => 'Conversation design, Voice AI, Work in progress',
 			'_sera_visual'   => 'lume',
 		),
 		'content' => $c,
@@ -560,7 +561,7 @@ function sera_starter_cases() {
 			'_sera_year'     => '2026 · in beta',
 			'_sera_role'     => 'Founder & Designer',
 			'_sera_metrics'  => "23 days | From the first screen to a complete studio, with editing and billing\n10 steps | From sentence to episode, as on a real film set\nZero | Media generated without the person’s click",
-			'_sera_chips'    => 'Personal project, Generative AI, Design system',
+			'_sera_chips'    => 'Personal project, Pricing UX, Directing AI agents',
 			'_sera_visual'   => 'paperplane',
 		),
 		'content' => $c,

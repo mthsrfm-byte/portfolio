@@ -50,6 +50,7 @@ $c .= sera_b_chapter( 9, 'Privacidade por padrão', 'O sistema aplica as regras 
 $c .= sera_b_p( 'Desenhei as regras de privacidade antes da primeira tela. Os achados são abertos para a empresa toda, e os dados das pessoas por trás deles ficam trancados. Toda regra é aplicada automaticamente: na importação, dentro da skill e no que a IA do roadmap tem permissão de ler.' );
 $c .= sera_b_art( 'rh-privacy' );
 $c .= sera_b_chapter( 10, 'O que mudou', 'De “quem fez aquele estudo?” para “o que a gente aprende agora?”' );
+$c .= sera_b_p( 'O hub está em uso. Designers sem formação em pesquisa já conduziram estudos com a skill e publicaram no mesmo formato. Gente de fora de design consulta o acervo por conta própria, no hub ou pelo próprio Claude. O roadmap de pesquisa de um trimestre saiu do hub como cards no Jira. E as perguntas que a pesquisa já tinha respondido pararam de voltar para quem conduziu o estudo.', 'lead' );
 $c .= sera_b_art( 'rh-impact' );
 $c .= sera_b_chapter( 11, 'O que aprendi', 'Com IA, boa parte do meu trabalho passou a ser descrever como o sistema deve se comportar.' );
 $c .= sera_b_art( 'rh-reflection' );
@@ -58,13 +59,13 @@ $c .= sera_b_p( 'Telas reais do produto, anonimizadas: estudos, pessoas, citaç�
 
 return array(
 	'title'   => 'Research Hub: a pesquisa que ninguém abria duas vezes',
-	'excerpt' => 'Desenhei e construí o Research Hub da Pagaleve, com Lovable e Claude, porque a nossa pesquisa terminava em decks que ninguém abria de novo. É um acervo que se enche sozinho, uma skill do Claude que guia cada estudo, um chat que cita a fonte de cada afirmação e um roadmap com IA que manda os estudos do próximo trimestre para o Jira.',
+	'excerpt' => 'Desenhei e construí o Research Hub da Pagaleve, com Lovable e Claude, porque a nossa pesquisa terminava em decks que ninguém abria de novo. Agora todo estudo vai para um acervo só, que o time pode consultar com perguntas, com fonte em cada resposta. Designers sem formação em pesquisa conduzem estudos com ele, gente de fora de design consulta por conta própria e o roadmap de pesquisa do próximo trimestre sai dele como cards no Jira.',
 	'meta'    => array(
-		'_sera_headline' => 'Research Hub: um acervo da pesquisa da Pagaleve que responde perguntas',
+		'_sera_headline' => 'Research Hub: a pesquisa da Pagaleve deixou de depender de quem lembra dela',
 		'_sera_year'     => '2026',
 		'_sera_role'     => 'Product Designer Especialista · conceito, design e construção',
-		'_sera_metrics'  => "Pesquisável | Um acervo só, em linguagem natural, no hub e pelo Claude\nCom fonte | Cada afirmação ligada ao estudo de onde veio\n→ Jira | Um roadmap com IA transforma achados nos estudos do próximo trimestre",
-		'_sera_chips'    => 'Research ops, Ferramentas de IA, LGPD por padrão',
+		'_sera_metrics'  => "Em uso | Por designers sem formação em pesquisa, que conduzem e publicam estudos com a skill\nSem intermediário | Gente de fora de design consulta a pesquisa por conta própria, no hub ou pelo Claude\n→ Jira | O roadmap de pesquisa de um trimestre saiu do hub como cards no Jira",
+		'_sera_chips'    => 'Research ops, Gestão do conhecimento, LGPD por padrão',
 	),
 	'content' => $c,
 );

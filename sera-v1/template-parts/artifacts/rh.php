@@ -263,7 +263,7 @@ switch ( $args['name'] ) :
 		</div>
 		<div class="signals" style="margin-top:16px">
 			<div><i>01</i><b><?php sera_e( 'Research outlives the meeting', 'A pesquisa sobrevive à reunião' ); ?></b><span><?php sera_e( 'Any study, and any quote in it, is one question away, months after the deck was presented.', 'Qualquer estudo, e qualquer fala dentro dele, está a uma pergunta de distância, meses depois da apresentação.' ); ?></span></div>
-			<div><i>02</i><b><?php sera_e( 'More people can run research well', 'Mais gente faz pesquisa bem-feita' ); ?></b><span><?php sera_e( 'Designers without a research background follow the same process and ship the same format, with the guardrails built in.', 'Designers sem formação em pesquisa seguem o mesmo processo e entregam o mesmo formato, com as travas já embutidas.' ); ?></span></div>
+			<div><i>02</i><b><?php sera_e( 'More people can run research well', 'Mais gente faz pesquisa bem-feita' ); ?></b><span><?php sera_e( 'Designers without a research background have run studies with the same process and shipped the same format, with the guardrails built in.', 'Designers sem formação em pesquisa já conduziram estudos com o mesmo processo e entregaram o mesmo formato, com as travas já embutidas.' ); ?></span></div>
 			<div><i>03</i><b><?php sera_e( 'Research got a calendar', 'A pesquisa ganhou um calendário' ); ?></b><span><?php sera_e( 'The next quarter’s studies are chosen from what we already know, prioritised in the open and tracked in Jira.', 'Os estudos do próximo trimestre saem do que já sabemos, são priorizados às claras e acompanhados no Jira.' ); ?></span></div>
 		</div>
 		<?php

@@ -80,6 +80,12 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.60.0 =
+* Combina Antes e will bank: uma frase em cada case separa o que foi decisão minha do que foi do squad.
+* Research Hub e Lume: métricas e resumo passam a mostrar uso real (quem usa, o que deixou de acontecer), sem números.
+* Os três cases de IA ganham teses distintas em headline e chips: memória da pesquisa (Research Hub), design de conversa por voz (Lume), preço e direção de agentes (Paperplane).
+* Depois do deploy: Aparência › Sera · Cases › "Importar e publicar todos".
+
 = 3.59.0 =
 * Cases abrem pelo resultado e pelo meu papel: resumos (lede) reescritos em 8 cases, em inglês e português.
 * Títulos dos cards e headlines puxam o conflito de cada case para a frente (ex.: "Western Union: as pessoas mandavam a frente do documento duas vezes").

@@ -15,7 +15,7 @@ $c .= sera_b_p( 'E quando o designer que desenhou a tela modera a sessão, o tes
 $c .= sera_b_art( 'lm-pains' );
 $c .= sera_b_chapter( 2, 'A aposta', 'Um moderador que vai junto com o link.' );
 $c .= sera_b_art( 'lm-statement' );
-$c .= sera_b_p( 'Chamei de Lume. Estou construindo para o time no Lovable, sobre um modelo de voz em tempo real, e ainda está em andamento, então esta página mostra como ele está hoje. Quatro decisões definiram a forma dele antes da primeira tela.' );
+$c .= sera_b_p( 'Chamei de Lume. Estou construindo para o time no Lovable, sobre um modelo de voz em tempo real, e ainda está em andamento. As primeiras sessões com clientes reais da Pagaleve já rodaram, e esta página mostra como ele está hoje. Quatro decisões definiram a forma dele antes da primeira tela.' );
 $c .= sera_b_art( 'lm-principles' );
 $c .= sera_b_chapter( 3, 'O sistema', 'Entra um link do Figma, sai um link de convite, e um relatório que se preenche sozinho.' );
 $c .= sera_b_p( 'O designer manda o link do protótipo do Figma. Uma skill do Claude lê as telas, monta o roteiro e cria o estudo pelo servidor MCP do próprio Lume, o mesmo padrão aberto que usei no Research Hub. O designer marca o que não pode ser pulado, ensaia com participantes simulados e publica. O CRM dispara o convite. Os clientes usam o protótipo no celular, pensando em voz alta, e o relatório vai se escrevendo conforme as sessões chegam.' );
@@ -48,13 +48,13 @@ $c .= sera_b_p( 'Trabalho em andamento, publicado de propósito. Telas reais do 
 
 return array(
 	'title'   => 'Lume: um moderador de IA que sabe a hora de ficar quieto',
-	'excerpt' => 'Teste de usabilidade moderado não escala, e ferramenta não moderada perde o porquê. Estou construindo o Lume, um moderador de IA por voz que transforma o link de um protótipo do Figma num teste de usabilidade que os clientes fazem no celular, com um relatório que cita cada achado. O difícil foi decidir quando ele para de falar. Trabalho em andamento, publicado de propósito.',
+	'excerpt' => 'Teste de usabilidade moderado não escala, e ferramenta não moderada perde o porquê. Estou construindo o Lume, um moderador de IA por voz que transforma o link de um protótipo do Figma num teste de usabilidade que os clientes fazem no celular, com um relatório que cita cada achado. O difícil foi decidir quando ele para de falar. As primeiras sessões com clientes reais da Pagaleve já rodaram. Trabalho em andamento, publicado de propósito.',
 	'meta'    => array(
-		'_sera_headline' => 'Lume: testes de usabilidade conduzidos por uma voz de IA, a partir de um link do Figma',
+		'_sera_headline' => 'Lume: testes de usabilidade moderados por uma voz de IA, em que o difícil foi o silêncio',
 		'_sera_year'     => '2026 · em andamento',
 		'_sera_role'     => 'Product Designer Especialista · conceito, design e construção',
-		'_sera_metrics'  => "Um link | Entra um protótipo do Figma, sai um convite para o CRM\nPor voz | O moderador pergunta, espera e nunca interrompe\n5 a 12 | sessões por estudo, ensaiadas antes com participantes simulados",
-		'_sera_chips'    => 'Ferramentas de pesquisa, IA por voz, Em andamento',
+		'_sera_metrics'  => "Clientes reais | As primeiras sessões já rodaram, no celular de cada um\nUm link | Entra um protótipo do Figma, sai um convite para o CRM\nPor voz | O moderador pergunta, espera e nunca interrompe",
+		'_sera_chips'    => 'Design de conversa, IA por voz, Em andamento',
 	),
 	'content' => $c,
 );
