@@ -80,6 +80,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.61.1 =
+* About: foto da infância centralizada em todas as larguras; "previsível" sem sublinhado; tablet mantém o mosaico com a foto ao lado do texto; no celular a foto principal fica mais baixa e os pôsteres vão para o lado do texto.
+
 = 3.61.0 =
 * About "Mosaico": o texto principal vai para uma caixa escura e cada curiosidade ganha a forma do que mostra (1M+ do blog em destaque, Brasília com a foto inteira, pôsteres em pé, espresso como assinatura). No celular, as caixas empilham no lugar do carrossel.
 
