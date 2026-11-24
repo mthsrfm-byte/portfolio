@@ -47,8 +47,8 @@ $c .= sera_b_art( 'lm-signals' );
 $c .= sera_b_p( 'Trabalho em andamento, publicado de propósito. Telas reais do produto, reconstruídas em HTML e CSS a partir da UI no Lovable e anonimizadas; estudos, participantes, perguntas e citações são fictícios. Os achados e dados internos da Pagaleve são confidenciais e não aparecem aqui.', 'note' );
 
 return array(
-	'title'   => 'Lume: um moderador de IA por voz para testes de protótipo no Figma',
-	'excerpt' => 'Teste de usabilidade moderado não escala, e ferramenta não moderada perde o porquê. Estou construindo o Lume, um moderador de IA por voz que transforma o link de um protótipo do Figma num teste de usabilidade que os clientes fazem no celular, com um relatório que cita cada achado. Trabalho em andamento, publicado de propósito.',
+	'title'   => 'Lume: um moderador de IA que sabe a hora de ficar quieto',
+	'excerpt' => 'Teste de usabilidade moderado não escala, e ferramenta não moderada perde o porquê. Estou construindo o Lume, um moderador de IA por voz que transforma o link de um protótipo do Figma num teste de usabilidade que os clientes fazem no celular, com um relatório que cita cada achado. O difícil foi decidir quando ele para de falar. Trabalho em andamento, publicado de propósito.',
 	'meta'    => array(
 		'_sera_headline' => 'Lume: testes de usabilidade conduzidos por uma voz de IA, a partir de um link do Figma',
 		'_sera_year'     => '2026 · em andamento',

@@ -71,17 +71,17 @@ function sera_starter_cases() {
 	$c .= sera_b_p( 'We pitched it to leadership as a pilot: a small share of the base, a control group in every audience and a few weeks to replace our estimates with measured numbers. The idea was then implemented, and it is live in production today. I stayed on the product through implementation and owned the flow until it shipped.' );
 	$c .= sera_b_art( 'pg-pilot' );
 	$c .= sera_b_art( 'pg-impact' );
-	$c .= sera_b_chapter( 7, 'Why it matters', 'What this case says about how I work.' );
+	$c .= sera_b_chapter( 7, 'Why it matters', 'I turned leadership’s objection into the product’s rule.' );
 	$c .= sera_b_art( 'pg-reflection' );
 	$c .= sera_b_art( 'pg-signals' );
 
 	$cases[] = array(
 		'slug'    => 'combina-antes',
-		'title'   => 'Combina Antes: reschedule a payment before it’s late',
+		'title'   => 'Combina Antes: the feature that threatened late-fee revenue',
 		'order'   => 1,
-		'excerpt' => 'Customers knew days in advance they couldn’t pay, and the app had nothing to offer them until after the late fee hit. We designed a way to agree on a new due date ahead of time, with AI agents deciding who sees the offer so it doesn’t eat into late-fee revenue. It started as a hackathon pitch and is now live in production.',
+		'excerpt' => 'A hackathon idea that is now live in production: customers agree on a new due date before they fall behind. I designed the flow and drew the line that got it approved: AI decides who sees the offer, credit decides who gets it. Leadership’s objection was that the offer would eat into late-fee revenue, so we built the product around that objection.',
 		'meta'    => array(
-			'_sera_headline' => 'Combina Antes: letting customers reschedule a payment before they fall behind',
+			'_sera_headline' => 'Combina Antes: leadership feared it would eat late-fee revenue, so that fear became the product’s rule',
 			'_sera_company'  => 'Pagaleve',
 			'_sera_year'     => '2026',
 			'_sera_role'     => 'Specialist Product Designer, hackathon squad',
@@ -131,16 +131,16 @@ function sera_starter_cases() {
 	$c .= sera_b_p( 'With those results, the company approved budget for an identity-verification vendor to improve authentication.' );
 	$c .= sera_b_chapter( 9, 'Looking back', 'What I’d keep, and what I’d change.' );
 	$c .= sera_b_art( 'wu-reflection' );
-	$c .= sera_b_chapter( 10, 'Why it matters', 'What this case says about how I work.' );
+	$c .= sera_b_chapter( 10, 'Why it matters', 'No budget and no vendor. I got the result first and the budget after.' );
 	$c .= sera_b_art( 'wu-signals' );
 
 	$cases[] = array(
 		'slug'    => 'western-union-onboarding',
-		'title'   => 'Western Union: digital account onboarding',
+		'title'   => 'Western Union: people sent the front of their ID twice',
 		'order'   => 4,
-		'excerpt' => 'No research budget, no OCR vendor, a small engineering team, and Compliance reviewing every change. An audit of rejected documents showed users were sending the front of their ID twice. The redesign prevented that error, and the results secured budget for an identity-verification vendor.',
+		'excerpt' => 'Onboarding conversion reached an all-time record, with a double-digit gain, and the results got a vendor budget approved. I was both the designer and the PO, with no research budget, no OCR vendor, a small engineering team and Compliance reviewing every change. An audit of rejected documents showed people were sending the front of their ID twice. The first release made conversion worse. I treated it as an incident, and the second one set the record.',
 		'meta'    => array(
-			'_sera_headline' => 'Western Union: fixing an onboarding where most rejections came from one ambiguous step',
+			'_sera_headline' => 'Western Union: the onboarding redesign that first lowered conversion, then took it to a record',
 			'_sera_company'  => 'Western Union',
 			'_sera_year'     => '2025–26',
 			'_sera_role'     => 'Specialist Product Designer, acting as Designer + PO',
@@ -191,17 +191,17 @@ function sera_starter_cases() {
 	$c .= sera_b_chapter( 6, 'Impact', 'Measured against a control group.' );
 	$c .= sera_b_p( 'Everything shipped in a controlled rollout, with a test group compared against a control group. I also worked with other teams so they could use the new authorizer in their own products.' );
 	$c .= sera_b_art( 'wb-impact' );
-	$c .= sera_b_chapter( 7, 'Why it matters', 'What this case says about how I work.' );
+	$c .= sera_b_chapter( 7, 'Why it matters', 'I found a product inside an infrastructure project.' );
 	$c .= sera_b_art( 'wb-reflection' );
 	$c .= sera_b_art( 'wb-signals' );
 
 	$cases[] = array(
 		'slug'    => 'will-bank-switching-the-brain',
-		'title'   => 'will bank: switching the brain',
+		'title'   => 'will bank: an infrastructure project that became a product',
 		'order'   => 5,
-		'excerpt' => 'A back-end migration looked like infrastructure work only. Contact data and interviews showed that customers plan their lives around the bill, looking back and ahead, and the old setup didn’t let them. We used the new authorizer to fix that: a real-time open bill, past and future bills in the app, early payment of instalments with a discount and planning before buying.',
+		'excerpt' => 'A back-end migration with nothing for customers to see ended up shipping four things they use: a real-time open bill, past and future bills in the app, early payment of instalments with a discount and planning before buying. In a controlled rollout, CSAT and NPS were higher and support contacts lower in the test group. As Staff Product Designer on the credit card, I read the support tickets, interviewed customers and found that they plan their lives around the bill, which the old setup didn’t let them do.',
 		'meta'    => array(
-			'_sera_headline' => 'Switching the brain: how a card-authorizer migration gave customers control over their bill’s timeline',
+			'_sera_headline' => 'Switching the brain: the migration that wasn’t meant to change anything for customers, and changed their bill',
 			'_sera_company'  => 'will bank',
 			'_sera_year'     => '2023',
 			'_sera_role'     => 'Staff Product Designer, Credit Card',
@@ -245,17 +245,17 @@ function sera_starter_cases() {
 	$c .= sera_b_p( 'Each opportunity area traces back to something advertisers asked for. The requests we couldn’t act on yet stayed in the readout as open questions.' );
 	$c .= sera_b_art( 'fm-asks' );
 	$c .= sera_b_art( 'fm-next' );
-	$c .= sera_b_chapter( 7, 'Why it matters', 'What this study says about how I work.' );
+	$c .= sera_b_chapter( 7, 'Why it matters', 'I answered the commercial question, and the one nobody had asked.' );
 	$c .= sera_b_art( 'fm-reflection' );
 	$c .= sera_b_art( 'fm-signals' );
 
 	$cases[] = array(
 		'slug'    => 'fatal-model-perfis-ad',
-		'title'   => 'Fatal Model: who are the advertisers?',
+		'title'   => 'Fatal Model: a revenue study that ended on safety',
 		'order'   => 7,
-		'excerpt' => 'A study to grow revenue from the platform’s advertisers turned into a portrait of the people behind it. I designed an asynchronous, AI-assisted research flow that heard independent escorts by video and validated the patterns with a survey, and the findings became the base for the next planning cycle’s OKRs and an internal reorganisation at Atlas Technologies around advertisers.',
+		'excerpt' => 'The study became the base for the next planning cycle’s OKRs and for a reorganisation at Atlas Technologies around advertisers. I led the research: an asynchronous, AI-assisted flow that heard independent escorts by video and checked the patterns with a survey. The brief was to grow revenue. The only pattern shared by every profile was about safety, so I gave it the same weight as the commercial findings.',
 		'meta'    => array(
-			'_sera_headline' => 'Fatal Model: humanising the advertisers behind the platform, from video interviews to new OKRs',
+			'_sera_headline' => 'Fatal Model: I was asked how to grow revenue, and closed the readout talking about safety',
 			'_sera_company'  => 'Atlas Technologies',
 			'_sera_year'     => '2024',
 			'_sera_role'     => 'Staff Product Designer, research lead',
@@ -308,15 +308,15 @@ function sera_starter_cases() {
 	$c .= sera_b_chapter( 9, 'Impact', 'Higher conversion and new design roles.' );
 	$c .= sera_b_art( 'ac-impact' );
 	$c .= sera_b_p( 'We also redesigned the About, Partners and partner landing pages with the same system.' );
-	$c .= sera_b_chapter( 10, 'Why it matters', 'What this case says about how I lead.' );
+	$c .= sera_b_chapter( 10, 'Why it matters', 'I left the page for last. By then, every block had a reason.' );
 	$c .= sera_b_art( 'ac-reflection' );
 	$c .= sera_b_art( 'ac-signals' );
 
 	$cases[] = array(
 		'slug'    => 'acordo-certo-homepage',
-		'title'   => 'Acordo Certo: homepage redesign',
+		'title'   => 'Acordo Certo: the homepage people didn’t trust with their debt',
 		'order'   => 6,
-		'excerpt' => 'Acordo Certo is a debt-negotiation platform that’s free for people in debt, and its homepage didn’t feel safe. In a two-person design team, I led the strategy, the research, a company-wide vision workshop and the overall direction, with Carolina Miguel, the junior product designer on my team, turning it into UI throughout. The redesign, built on our Atlas design system, lifted conversion by 15%.',
+		'excerpt' => 'The redesign lifted conversion by 15% on the homepage and landing pages, and the company opened new design roles after it. I led a two-person design team: the strategy, the research, a company-wide vision workshop and the direction, with Carolina Miguel, the junior product designer on my team, turning it into UI. Acordo Certo negotiates debts for free for the person in debt, and its homepage didn’t feel safe. We started with the customer and left the layout for last.',
 		'meta'    => array(
 			'_sera_headline' => 'Acordo Certo: making a debt-negotiation platform feel safe enough to start',
 			'_sera_company'  => 'Acordo Certo',
@@ -358,15 +358,15 @@ function sera_starter_cases() {
 	$c .= sera_b_art( 'nb-weight' );
 	$c .= sera_b_chapter( 7, 'Impact', 'A much bigger audience, and a more profitable business.' );
 	$c .= sera_b_art( 'nb-impact' );
-	$c .= sera_b_chapter( 8, 'Why it matters', 'What running my own product says about how I work.' );
+	$c .= sera_b_chapter( 8, 'Why it matters', 'I decided where the ads go before I drew anything else.' );
 	$c .= sera_b_art( 'nb-reflection' );
 	$c .= sera_b_art( 'nb-signals' );
 
 	$cases[] = array(
 		'slug'    => 'bastidores-redesign',
-		'title'   => 'Bastidores: editorial redesign and ad strategy',
+		'title'   => 'Bastidores: more readers and more ad revenue, at once',
 		'order'   => 8,
-		'excerpt' => 'Bastidores, a Brazilian film, TV and games criticism site, ran on a stock viral-news theme. I redesigned it end to end, putting reviews at the front door and designing the ads into the layout. In the 30 days after launch, visits grew about 500% and ad revenue per visit rose 20%, against the 30 days before.',
+		'excerpt' => 'In the 30 days after launch, visits grew about 500% and ad revenue per visit rose 20%, against the 30 days before. Bastidores is my own product, a Brazilian film, TV and games criticism site that ran on a stock viral-news theme. I did the strategy, the design and the front end: reviews at the front door, and ads designed into the layout so they stop competing with the stories.',
 		'meta'    => array(
 			'_sera_headline' => 'Bastidores: turning a viral-news blog into a criticism publication, and a better business',
 			'_sera_company'  => 'Bastidores',
@@ -430,9 +430,9 @@ function sera_starter_cases() {
 
 	$cases[] = array(
 		'slug'    => 'research-hub',
-		'title'   => 'Research Hub: a memory and a plan for research',
+		'title'   => 'Research Hub: the research nobody opened twice',
 		'order'   => 2,
-		'excerpt' => 'Pagaleve’s research ended as decks nobody opened again. I designed and built a Research Hub with Lovable and Claude: an archive that fills itself, a Claude skill that guides each study, a chat that cites every claim and an AI roadmap that sends next quarter’s studies to Jira.',
+		'excerpt' => 'I designed and built Pagaleve’s Research Hub, with Lovable and Claude, because our research ended as decks nobody opened again. It is an archive that fills itself, a Claude skill that guides each study, a chat that cites every claim and an AI roadmap that sends next quarter’s studies to Jira.',
 		'meta'    => array(
 			'_sera_headline' => 'Research Hub: an archive of Pagaleve’s research that answers questions',
 			'_sera_company'  => 'Pagaleve',
@@ -486,9 +486,9 @@ function sera_starter_cases() {
 
 	$cases[] = array(
 		'slug'    => 'lume',
-		'title'   => 'Lume: an AI voice moderator for Figma prototype tests',
+		'title'   => 'Lume: an AI moderator that knows when to stop talking',
 		'order'   => 3,
-		'excerpt' => 'Moderated usability tests don’t scale, and unmoderated tools lose the why. I’m building the Lume, an AI voice moderator that turns a Figma prototype link into a usability test customers run on their phones, with a report that cites every finding. Work in progress, published on purpose.',
+		'excerpt' => 'Moderated usability tests don’t scale, and unmoderated tools lose the why. I’m building the Lume, an AI voice moderator that turns a Figma prototype link into a usability test customers run on their phones, with a report that cites every finding. The hard part was deciding when it stops talking. Work in progress, published on purpose.',
 		'meta'    => array(
 			'_sera_headline' => 'Lume: usability tests run by an AI voice, from a Figma link',
 			'_sera_company'  => 'Pagaleve',

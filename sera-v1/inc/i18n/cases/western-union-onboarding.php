@@ -46,14 +46,14 @@ $c .= sera_b_art( 'wu-impact' );
 $c .= sera_b_p( 'Com esses resultados, a empresa aprovou orçamento para um fornecedor de verificação de identidade, para melhorar a autenticação.' );
 $c .= sera_b_chapter( 9, 'Olhando para trás', 'O que eu manteria, e o que eu mudaria.' );
 $c .= sera_b_art( 'wu-reflection' );
-$c .= sera_b_chapter( 10, 'Por que importa', 'O que este case diz sobre como eu trabalho.' );
+$c .= sera_b_chapter( 10, 'Por que importa', 'Sem verba e sem fornecedor. Trouxe o resultado primeiro e a verba depois.' );
 $c .= sera_b_art( 'wu-signals' );
 
 return array(
-	'title'   => 'Western Union: onboarding da conta digital',
-	'excerpt' => 'Sem orçamento de pesquisa, sem fornecedor de OCR, um time de engenharia pequeno e Compliance revisando cada mudança. Uma auditoria dos documentos recusados mostrou que as pessoas mandavam a frente do RG duas vezes. O redesign evitou esse erro, e os resultados garantiram orçamento para um fornecedor de verificação de identidade.',
+	'title'   => 'Western Union: as pessoas mandavam a frente do documento duas vezes',
+	'excerpt' => 'A conversão do onboarding chegou ao recorde histórico, com ganho de dois dígitos, e os resultados garantiram a verba para um fornecedor. Fui designer e PO ao mesmo tempo, sem orçamento de pesquisa, sem fornecedor de OCR, com um time de engenharia pequeno e Compliance revisando cada mudança. Uma auditoria dos documentos recusados mostrou que as pessoas mandavam a frente do documento duas vezes. O primeiro release piorou a conversão. Tratei como incidente, e o segundo bateu o recorde.',
 	'meta'    => array(
-		'_sera_headline' => 'Western Union: consertando um onboarding em que a maioria das recusas vinha de uma única etapa ambígua',
+		'_sera_headline' => 'Western Union: o redesign do onboarding que primeiro derrubou a conversão e depois bateu recorde',
 		'_sera_year'     => '2025–26',
 		'_sera_role'     => 'Product Designer Especialista, atuando como Designer + PO',
 		'_sera_metrics'  => "Dois dígitos | De ganho na conversão do onboarding, até um recorde histórico\nMenos | Reenvios de documento, muito mais perto de uma tentativa só\n~2 min | A menos no funil, com etapas movidas para depois do onboarding",

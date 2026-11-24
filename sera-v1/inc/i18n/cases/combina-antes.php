@@ -37,15 +37,15 @@ $c .= sera_b_p( 'Antes do pitch, o squad testou a demanda com um e-mail de fake 
 $c .= sera_b_p( 'Levamos a proposta para a liderança como piloto: uma fatia pequena da base, um grupo de controle em cada público e algumas semanas para trocar nossas estimativas por números medidos. A ideia foi implementada e hoje está em produção. Segui no produto durante a implementação e cuidei do fluxo até ele ir para o ar.' );
 $c .= sera_b_art( 'pg-pilot' );
 $c .= sera_b_art( 'pg-impact' );
-$c .= sera_b_chapter( 7, 'Por que importa', 'O que este case diz sobre como eu trabalho.' );
+$c .= sera_b_chapter( 7, 'Por que importa', 'Transformei a objeção da liderança na regra do produto.' );
 $c .= sera_b_art( 'pg-reflection' );
 $c .= sera_b_art( 'pg-signals' );
 
 return array(
-	'title'   => 'Combina Antes: uma nova data antes do atraso',
-	'excerpt' => 'O cliente sabia com dias de antecedência que não ia conseguir pagar, e o app não tinha nada a oferecer até a multa chegar. Desenhamos um jeito de combinar uma nova data de vencimento antes, com agentes de IA decidindo quem vê a oferta para ela não comer a receita de multas. Começou como pitch de hackathon e hoje está em produção.',
+	'title'   => 'Combina Antes: a ideia que ameaçava a receita de multas',
+	'excerpt' => 'Uma ideia de hackathon que hoje está em produção: o cliente combina uma nova data de vencimento antes de atrasar. Desenhei o fluxo e tracei a linha que fez a proposta ser aprovada: a IA decide quem vê a oferta, o crédito decide quem leva. A objeção da liderança era que a oferta ia comer a receita de multas, então construímos o produto a partir dessa objeção.',
 	'meta'    => array(
-		'_sera_headline' => 'Combina Antes: o cliente remarca o pagamento antes de atrasar',
+		'_sera_headline' => 'Combina Antes: a liderança temia perder receita de multas, e esse receio virou a regra do produto',
 		'_sera_year'     => '2026',
 		'_sera_role'     => 'Product Designer Especialista, squad do hackathon',
 		'_sera_metrics'  => "0→1 | Da ideia de hackathon a um produto lançado\n2 agentes de IA | Escolhem quem vê a oferta e recalibram toda semana com o grupo de controle\nNo ar | Implementado depois do pitch para a liderança",

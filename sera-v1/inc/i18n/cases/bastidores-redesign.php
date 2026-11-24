@@ -35,13 +35,13 @@ $c .= sera_b_p( 'O redesign também pesa menos. Sem os menus extras, os widgets 
 $c .= sera_b_art( 'nb-weight' );
 $c .= sera_b_chapter( 7, 'Impacto', 'Uma audiência muito maior, e um negócio mais rentável.' );
 $c .= sera_b_art( 'nb-impact' );
-$c .= sera_b_chapter( 8, 'Por que importa', 'O que tocar meu próprio produto diz sobre como eu trabalho.' );
+$c .= sera_b_chapter( 8, 'Por que importa', 'Decidi onde os anúncios ficam antes de desenhar o resto.' );
 $c .= sera_b_art( 'nb-reflection' );
 $c .= sera_b_art( 'nb-signals' );
 
 return array(
-	'title'   => 'Bastidores: redesign editorial e estratégia de anúncios',
-	'excerpt' => 'O Bastidores, site brasileiro de crítica de cinema, séries e games, rodava num tema pronto de notícias virais. Redesenhei o site de ponta a ponta, coloquei as críticas na porta de entrada e desenhei os anúncios dentro do layout. Nos 30 dias após o lançamento, as visitas cresceram cerca de 500% e a receita de anúncios por visita subiu 20%, na comparação com os 30 dias anteriores.',
+	'title'   => 'Bastidores: mais leitores e mais receita de anúncio, ao mesmo tempo',
+	'excerpt' => 'Nos 30 dias após o lançamento, as visitas cresceram cerca de 500% e a receita de anúncios por visita subiu 20%, na comparação com os 30 dias anteriores. O Bastidores é um produto meu, um site brasileiro de crítica de cinema, séries e games que rodava num tema pronto de notícias virais. Fiz a estratégia, o design e o front-end: críticas na porta de entrada e anúncios desenhados dentro do layout, para pararem de competir com as matérias.',
 	'meta'    => array(
 		'_sera_headline' => 'Bastidores: de blog de notícias virais a publicação de crítica, e um negócio melhor',
 		'_sera_year'     => '2026',

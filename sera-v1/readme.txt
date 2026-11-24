@@ -80,6 +80,12 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.59.0 =
+* Cases abrem pelo resultado e pelo meu papel: resumos (lede) reescritos em 8 cases, em inglês e português.
+* Títulos dos cards e headlines puxam o conflito de cada case para a frente (ex.: "Western Union: as pessoas mandavam a frente do documento duas vezes").
+* O fecho "O que este case diz sobre como eu trabalho" deu lugar a uma afirmação própria em 6 cases.
+* Depois do deploy: Aparência › Sera · Cases › "Importar e publicar todos".
+
 = 3.58.0 =
 * Refino dos textos dos 9 cases, em inglês e português, no tom "seco com sorriso de canto": narrativa, artefatos, legendas dos mockups e a página do Paperplane. Frases mais curtas e literais, construções confusas reescritas, jargão cortado, alguns títulos com humor discreto.
 * Inglês padronizado na grafia britânica ("instalment").

@@ -47,15 +47,15 @@ $c .= sera_b_art( 'wb-lessons' );
 $c .= sera_b_chapter( 6, 'Impacto', 'Medido contra um grupo de controle.' );
 $c .= sera_b_p( 'Tudo foi lançado num rollout controlado, com um grupo de teste comparado a um grupo de controle. Também trabalhei com outros times para que eles usassem o novo autorizador nos próprios produtos.' );
 $c .= sera_b_art( 'wb-impact' );
-$c .= sera_b_chapter( 7, 'Por que importa', 'O que este case diz sobre como eu trabalho.' );
+$c .= sera_b_chapter( 7, 'Por que importa', 'Achei um produto dentro de um projeto de infraestrutura.' );
 $c .= sera_b_art( 'wb-reflection' );
 $c .= sera_b_art( 'wb-signals' );
 
 return array(
-	'title'   => 'will bank: trocando o cérebro',
-	'excerpt' => 'Uma migração de back-end parecia só trabalho de infraestrutura. Dados de contato e entrevistas mostraram que o cliente planeja a vida pela fatura, olhando para trás e para a frente, e o sistema antigo não deixava. Usamos o novo autorizador para resolver isso: fatura aberta em tempo real, faturas passadas e futuras no app, antecipação de parcelas com desconto e planejamento antes da compra.',
+	'title'   => 'will bank: o projeto de infraestrutura que virou produto',
+	'excerpt' => 'Uma migração de back-end sem nada para o cliente ver acabou entregando quatro coisas que ele usa: fatura aberta em tempo real, faturas passadas e futuras no app, antecipação de parcelas com desconto e planejamento antes da compra. No rollout controlado, CSAT e NPS ficaram maiores e os chamados menores no grupo de teste. Como Staff Product Designer do cartão de crédito, li os chamados, entrevistei clientes e descobri que eles planejam a vida pela fatura, coisa que o sistema antigo não deixava.',
 	'meta'    => array(
-		'_sera_headline' => 'Trocando o cérebro: como a migração do autorizador devolveu ao cliente o controle do tempo da fatura',
+		'_sera_headline' => 'Trocando o cérebro: a migração que não ia mudar nada para o cliente, e mudou a fatura dele',
 		'_sera_year'     => '2023',
 		'_sera_role'     => 'Staff Product Designer, Cartão de Crédito',
 		'_sera_metrics'  => "A/B | Lançado com um grupo de controle\nCSAT & NPS ↑ | Maiores no grupo de teste do que no de controle\nContatos ↓ | Menos chamados no grupo de teste",

@@ -48,13 +48,13 @@ $c .= sera_b_art( 'ac-system' );
 $c .= sera_b_chapter( 9, 'Impacto', 'Mais conversão e novas vagas de design.' );
 $c .= sera_b_art( 'ac-impact' );
 $c .= sera_b_p( 'Com o mesmo sistema, também redesenhamos as páginas Sobre e Parceiros e as landing pages de parceiros.' );
-$c .= sera_b_chapter( 10, 'Por que importa', 'O que este case diz sobre como eu lidero.' );
+$c .= sera_b_chapter( 10, 'Por que importa', 'Deixei a página por último. Quando ela chegou, cada bloco já tinha um motivo.' );
 $c .= sera_b_art( 'ac-reflection' );
 $c .= sera_b_art( 'ac-signals' );
 
 return array(
-	'title'   => 'Acordo Certo: redesign da home',
-	'excerpt' => 'A Acordo Certo é uma plataforma de negociação de dívidas gratuita para quem está devendo, e a home dela não passava segurança. Num time de design de duas pessoas, liderei a estratégia, a pesquisa, um workshop de visão com a empresa toda e a direção geral, com a Carolina Miguel, product designer júnior do meu time, transformando tudo em UI do começo ao fim. O redesign, construído sobre o nosso design system Atlas, aumentou a conversão em 15%.',
+	'title'   => 'Acordo Certo: a home que não passava segurança para quem deve',
+	'excerpt' => 'O redesign aumentou a conversão em 15% na home e nas landing pages, e a empresa abriu novas vagas de design depois dele. Liderei um time de design de duas pessoas: a estratégia, a pesquisa, um workshop de visão com a empresa toda e a direção, com a Carolina Miguel, product designer júnior do meu time, transformando tudo em UI. A Acordo Certo negocia dívidas de graça para quem está devendo, e a home dela não passava segurança. Começamos pelo cliente e deixamos o layout por último.',
 	'meta'    => array(
 		'_sera_headline' => 'Acordo Certo: uma plataforma de negociação de dívidas segura o bastante para dar o primeiro passo',
 		'_sera_year'     => '2021–22',

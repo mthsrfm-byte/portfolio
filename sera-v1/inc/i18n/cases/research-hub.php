@@ -57,8 +57,8 @@ $c .= sera_b_art( 'rh-signals' );
 $c .= sera_b_p( 'Telas reais do produto, anonimizadas: estudos, pessoas, citações e números são fictícios. Os achados, números e dados internos da Pagaleve são confidenciais e não aparecem aqui.', 'note' );
 
 return array(
-	'title'   => 'Research Hub: uma memória e um plano para a pesquisa',
-	'excerpt' => 'A pesquisa da Pagaleve terminava em decks que ninguém abria de novo. Desenhei e construí um Research Hub com Lovable e Claude: um acervo que se enche sozinho, uma skill do Claude que guia cada estudo, um chat que cita a fonte de cada afirmação e um roadmap com IA que manda os estudos do próximo trimestre para o Jira.',
+	'title'   => 'Research Hub: a pesquisa que ninguém abria duas vezes',
+	'excerpt' => 'Desenhei e construí o Research Hub da Pagaleve, com Lovable e Claude, porque a nossa pesquisa terminava em decks que ninguém abria de novo. É um acervo que se enche sozinho, uma skill do Claude que guia cada estudo, um chat que cita a fonte de cada afirmação e um roadmap com IA que manda os estudos do próximo trimestre para o Jira.',
 	'meta'    => array(
 		'_sera_headline' => 'Research Hub: um acervo da pesquisa da Pagaleve que responde perguntas',
 		'_sera_year'     => '2026',
