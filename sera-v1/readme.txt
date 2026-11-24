@@ -80,6 +80,9 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.61.0 =
+* About "Mosaico": o texto principal vai para uma caixa escura e cada curiosidade ganha a forma do que mostra (1M+ do blog em destaque, Brasília com a foto inteira, pôsteres em pé, espresso como assinatura). No celular, as caixas empilham no lugar do carrossel.
+
 = 3.60.0 =
 * Combina Antes e will bank: uma frase em cada case separa o que foi decisão minha do que foi do squad.
 * Research Hub e Lume: métricas e resumo passam a mostrar uso real (quem usa, o que deixou de acontecer), sem números.

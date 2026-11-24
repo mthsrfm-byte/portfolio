@@ -217,27 +217,52 @@ $sera_ap_proof_html = function ( $p ) {
 				<img class="ab-me-img" src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/about/me-mic.jpg' ); ?>" width="1000" height="1000" loading="lazy" decoding="async" alt="<?php echo esc_attr( sera_t( 'Matheus Serafim holding a microphone, wearing a New York cap', 'Matheus Serafim segurando um microfone, de boné New York' ) ); ?>">
 				<figcaption class="ab-me-cap"><span>Matheus Serafim</span></figcaption>
 			</figure>
-			<?php $ab_items = sera_lines( sera_mod( 'about_items' ) ); ?>
-			<div class="ab-facts" data-ab-facts>
-				<?php foreach ( $ab_items as $n => $item ) : ?>
-					<?php
-					$parts = array_map( 'trim', explode( '|', $item, 2 ) );
-					$title = count( $parts ) > 1 ? $parts[0] : '';
-					$body  = count( $parts ) > 1 ? $parts[1] : $parts[0];
-					?>
-					<article class="ab-tile ab-fact ab-f<?php echo (int) ( $n + 1 ); ?> reveal">
-						<?php echo sera_about_media( $n + 1 ); // phpcs:ignore ?>
-						<div class="ab-fact-body">
-							<div class="ab-top"><span class="ab-ico" aria-hidden="true"><?php echo sera_about_icon( $n + 1 ); // phpcs:ignore ?></span><span class="ab-k"><?php echo esc_html( sprintf( '%02d', $n + 1 ) ); ?></span></div>
-							<?php if ( $title ) : ?><h3><?php echo esc_html( $title ); ?></h3><?php endif; ?>
-							<p><?php echo esc_html( $body ); ?></p>
+			<?php
+			// 3.61 · "Mosaico": each curiosity gets the shape of what it shows (figure, full photo, posters, signature).
+			$ab_items = sera_lines( sera_mod( 'about_items' ) );
+			$ab_kinds = array( 1 => 'num', 2 => 'place', 3 => 'film', 4 => 'tongue' );
+			foreach ( $ab_items as $n => $item ) :
+				$i     = $n + 1;
+				$parts = array_map( 'trim', explode( '|', $item, 2 ) );
+				$title = count( $parts ) > 1 ? $parts[0] : '';
+				$body  = count( $parts ) > 1 ? $parts[1] : $parts[0];
+				$kind  = isset( $ab_kinds[ $i ] ) ? $ab_kinds[ $i ] : 'plain';
+				$imgs  = sera_about_imgs( $i );
+				$fig   = false;
+				if ( 'num' === $kind ) {
+					// The blog's reach becomes the figure; the sentence loses that clause so it isn't said twice.
+					$cut = preg_replace( '/ (that reached over 1M organic visitors a month|que chegou a mais de 1 milhão de visitas orgânicas por mês)\./u', '.', $body, 1, $hit );
+					if ( $hit ) {
+						$body = $cut;
+						$fig  = true;
+					}
+				}
+				$title_html = esc_html( $title );
+				if ( 'tongue' === $kind ) {
+					$title_html = preg_replace( '/\bespresso\b/u', '<em>espresso</em>', $title_html, 1 );
+				}
+				?>
+				<article class="ab-tile ab-fact ab-<?php echo esc_attr( $kind ); ?> reveal">
+					<?php if ( 'place' === $kind && $imgs ) : ?>
+						<img class="ab-bg" src="<?php echo esc_url( $imgs[0] ); ?>" alt="" loading="lazy" decoding="async">
+					<?php endif; ?>
+					<div class="ab-txt">
+						<?php if ( $title ) : ?><h3><?php echo $title_html; // phpcs:ignore ?></h3><?php endif; ?>
+						<p><?php echo esc_html( $body ); ?></p>
+						<?php if ( $fig ) : ?>
+							<p class="ab-figure">1M+</p>
+							<p class="ab-figure-l"><?php sera_e( 'organic visitors a month', 'visitas orgânicas por mês' ); ?></p>
+						<?php endif; ?>
+					</div>
+					<?php if ( 'place' !== $kind && $imgs ) : ?>
+						<div class="ab-pic" aria-hidden="true">
+							<?php foreach ( $imgs as $src ) : ?>
+								<img src="<?php echo esc_url( $src ); ?>" alt="" loading="lazy" decoding="async">
+							<?php endforeach; ?>
 						</div>
-					</article>
-				<?php endforeach; ?>
-			</div>
-			<?php if ( count( $ab_items ) > 1 ) : ?>
-				<p class="ab-count" aria-hidden="true"><span data-ab-now>01</span> / <?php echo esc_html( sprintf( '%02d', count( $ab_items ) ) ); ?></p>
-			<?php endif; ?>
+					<?php endif; ?>
+				</article>
+			<?php endforeach; ?>
 		</div>
 	</div>
 </section>

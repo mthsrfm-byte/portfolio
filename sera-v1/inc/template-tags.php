@@ -483,6 +483,28 @@ function sera_about_media( $i ) {
 }
 
 /**
+ * About bento: image URLs of curiosity $i (Customizer upload, else the theme's own; curiosity 3 has two posters).
+ *
+ * @param int $i 1-based curiosity index.
+ * @return string[]
+ */
+function sera_about_imgs( $i ) {
+	$img_id = absint( sera_mod( 'about_img_' . $i ) );
+	if ( $img_id ) {
+		$src = wp_get_attachment_image_url( $img_id, 'large' );
+		return $src ? array( $src ) : array();
+	}
+	$uri   = get_template_directory_uri() . '/assets/img/about/';
+	$files = array( 1 => array( 'kid.webp' ), 2 => array( 'brasilia.webp' ), 3 => array( 'miopia.webp', 'ctrlaltdel.webp' ), 4 => array( 'coffee.webp' ) );
+	if ( ! isset( $files[ $i ] ) ) {
+		return array();
+	}
+	return array_map( function ( $f ) use ( $uri ) {
+		return $uri . $f;
+	}, $files[ $i ] );
+}
+
+/**
  * About bento: line icon of curiosity $i (same stroke language as the Approach icons).
  *
  * @param int $i 1-based curiosity index.
