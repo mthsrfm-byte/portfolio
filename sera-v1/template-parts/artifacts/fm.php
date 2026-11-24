@@ -18,7 +18,7 @@ switch ( $args['name'] ) :
 			<div><dt><?php sera_e( 'My role', 'Meu papel' ); ?></dt><dd><?php sera_e( 'Staff Product Designer in the advertiser (AD) tribe. I led the study from method to final readout', 'Staff Product Designer na tribo de anunciantes (ADs). Liderei a pesquisa do método à apresentação final' ); ?></dd></div>
 			<div><dt><?php sera_e( 'Team', 'Time' ); ?></dt><dd><?php sera_e( 'Product management, data science, marketing and the product design team', 'Gestão de produto, ciência de dados, marketing e o time de product design' ); ?></dd></div>
 			<div><dt><?php sera_e( 'Timeline', 'Período' ); ?></dt><dd><?php sera_e( '2024 (first half)', '2024 (primeiro semestre)' ); ?></dd></div>
-			<div><dt><?php sera_e( 'Scope', 'Escopo' ); ?></dt><dd><?php sera_e( 'A research case: no screens shipped from this study', 'Um case de pesquisa: nenhuma tela foi lançada a partir deste estudo' ); ?></dd></div>
+			<div><dt><?php sera_e( 'Scope', 'Escopo' ); ?></dt><dd><?php sera_e( 'Research only. No screens came out of this study', 'Só pesquisa. Nenhuma tela saiu deste estudo' ); ?></dd></div>
 		</dl>
 		<?php
 		break;
@@ -27,8 +27,8 @@ switch ( $args['name'] ) :
 		?>
 		<div class="statement">
 			<span class="art-label"><?php sera_e( 'Where we started', 'O ponto de partida' ); ?></span>
-			<p><?php sera_e( 'Inside the company, an advertiser was a plan, a score and a place in the ranking. <em>Behind each of those rows was someone running a business on their own.</em>', 'Dentro da empresa, uma anunciante era um plano, uma pontuação e uma posição no ranking. <em>Por trás de cada linha dessas havia alguém tocando o próprio negócio sozinha.</em>' ); ?></p>
-			<span class="by"><?php sera_e( 'So the readout opened with their routines, in their own words, before any chart.', 'Por isso a apresentação dos resultados abriu com a rotina delas, nas palavras delas, antes de qualquer gráfico.' ); ?></span>
+			<p><?php sera_e( 'Inside the company, an advertiser was a plan, a score and a place in the ranking. <em>Behind each one was someone running a business on their own.</em>', 'Dentro da empresa, uma anunciante era um plano, uma pontuação e uma posição no ranking. <em>Por trás de cada uma havia alguém tocando o próprio negócio sozinha.</em>' ); ?></p>
+			<span class="by"><?php sera_e( 'So the readout opened with their routines, in their own words, before any chart.', 'Por isso a apresentação abriu com a rotina delas, nas palavras delas, antes de qualquer gráfico.' ); ?></span>
 		</div>
 		<?php
 		break;
@@ -63,10 +63,10 @@ switch ( $args['name'] ) :
 		$s = array(
 			array( '01', sera_t( 'Video interviews', 'Entrevistas em vídeo' ), sera_t( 'Asynchronous questions on VideoAsk. Each person answered by video, audio or text, when and where they felt safe.', 'Perguntas assíncronas no VideoAsk. Cada pessoa respondeu por vídeo, áudio ou texto, quando e onde se sentia segura.' ) ),
 			array( '02', sera_t( 'Speech to text', 'Transcrição' ), sera_t( 'Every answer was transcribed automatically, so every interview could be read, searched and quoted.', 'Toda resposta foi transcrita automaticamente, então cada entrevista podia ser lida, buscada e citada.' ) ),
-			array( '03', sera_t( 'AI synthesis', 'Síntese com IA' ), sera_t( 'An AI pass grouped similar answers and surfaced recurring themes, which the team then checked by hand.', 'Uma rodada de IA agrupou respostas parecidas e trouxe os temas recorrentes, que o time depois conferiu à mão.' ) ),
-			array( '04', sera_t( 'Survey', 'Questionário' ), sera_t( 'The themes became a survey, to see which patterns held at scale.', 'Os temas viraram um questionário, para ver quais padrões se sustentavam em escala.' ) ),
+			array( '03', sera_t( 'AI synthesis', 'Síntese com IA' ), sera_t( 'An AI pass grouped similar answers and pointed to recurring themes. The team then checked them by hand.', 'Uma rodada de IA agrupou respostas parecidas e apontou os temas recorrentes. Depois o time conferiu tudo à mão.' ) ),
+			array( '04', sera_t( 'Survey', 'Questionário' ), sera_t( 'The themes became a survey, to see which patterns held with far more people.', 'Os temas viraram um questionário, para ver quais padrões se repetiam com muito mais gente.' ) ),
 			array( '05', 'Clusters', sera_t( 'Crossing answers with behaviour data gave each profile its sub-groups, habits, goals and pains.', 'Cruzar as respostas com dados de comportamento deu a cada perfil seus subgrupos, hábitos, objetivos e dores.' ) ),
-			array( '06', sera_t( 'Readout', 'Apresentação' ), sera_t( 'Profiles told as people, with their quotes, presented to the company as the base for the next cycle.', 'Perfis contados como pessoas, com as próprias falas, apresentados à empresa como base para o ciclo seguinte.' ) ),
+			array( '06', sera_t( 'Readout', 'Apresentação' ), sera_t( 'Each profile presented through its people and their quotes, as the base for the company’s next cycle.', 'Cada perfil apresentado pelas pessoas e pelas falas delas, como base para o ciclo seguinte da empresa.' ) ),
 		);
 		?>
 		<div class="art-panel">
@@ -89,9 +89,9 @@ switch ( $args['name'] ) :
 				sera_t( 'Profitable · Strategic', 'Lucrativos · Estratégicos' ),
 				array(
 					sera_t( 'Invest the most and know the plans best, but returns vary a lot inside the group', 'Investem mais e conhecem melhor os planos, mas o retorno varia muito dentro do grupo' ),
-					sera_t( 'Put earnings before self-care: skipped meals, answering clients until bedtime', 'Põem o ganho antes do autocuidado: pulam refeições e respondem clientes até a hora de dormir' ),
+					sera_t( 'Put earnings before self-care: they skip meals and answer clients until bedtime', 'Põem o ganho antes do autocuidado: pulam refeições e respondem clientes até a hora de dormir' ),
 					sera_t( 'Reached big goals through the work and plan an exit: a flat, a business, a degree', 'Conquistaram coisas grandes com o trabalho e planejam a saída: um apartamento, um negócio, um diploma' ),
-					sera_t( 'Feel undervalued as loyal customers, and see the ranking as a way to extract money', 'Se sentem pouco valorizados como clientes fiéis e veem o ranking como um jeito de arrancar dinheiro' ),
+					sera_t( 'Feel undervalued as loyal customers, and see the ranking as a way to squeeze money out of them', 'Se sentem pouco valorizados como clientes fiéis e veem o ranking como um jeito de arrancar dinheiro' ),
 				),
 			),
 			array(
@@ -101,7 +101,7 @@ switch ( $args['name'] ) :
 				array(
 					sera_t( 'Well-defined routines with room for the gym, study, family and friends', 'Rotinas bem definidas, com espaço para academia, estudo, família e amigos' ),
 					sera_t( 'Value the flexibility and the financial stability the platform gave them', 'Valorizam a flexibilidade e a estabilidade financeira que a plataforma trouxe' ),
-					sera_t( 'Some, mostly longer-standing ones with fixed costs like rent, worry about fluctuating earnings', 'Alguns, sobretudo os mais antigos e com custos fixos como aluguel, se preocupam com a renda que oscila' ),
+					sera_t( 'Some worry about unsteady earnings, mostly the longer-standing ones with fixed costs like rent', 'Alguns se preocupam com a renda que oscila, sobretudo os mais antigos, com custos fixos como aluguel' ),
 					sera_t( 'See growing competition in the ranking as a threat to staying visible', 'Veem a concorrência crescente no ranking como ameaça à própria visibilidade' ),
 				),
 			),
@@ -111,9 +111,9 @@ switch ( $args['name'] ) :
 				sera_t( 'A double working day', 'Dupla jornada' ),
 				array(
 					sera_t( 'Split time between a formal job, study or home office and escort work', 'Dividem o tempo entre emprego formal, estudo ou home office e o trabalho como acompanhante' ),
-					sera_t( 'The central goal is a fixed, predictable income outside the profession', 'O objetivo central é uma renda fixa e previsível fora da profissão' ),
+					sera_t( 'What they want most is a fixed, predictable income outside the profession', 'O que mais querem é uma renda fixa e previsível fora da profissão' ),
 					sera_t( 'Struggle to attract clients even with paid plans, so they stay sceptical', 'Têm dificuldade de atrair clientes mesmo com plano pago, por isso seguem desconfiados' ),
-					sera_t( 'Describe the platform as bureaucratic, buggy and expensive, and see the face check at login as a risk to the discretion their other job requires', 'Descrevem a plataforma como burocrática, cheia de bugs e cara, e veem a verificação facial no login como um risco à discrição que o outro emprego exige' ),
+					sera_t( 'Call the platform bureaucratic, buggy and expensive. The face check at login threatens the discretion their other job requires', 'Chamam a plataforma de burocrática, cara e cheia de bugs. A verificação facial no login ameaça a discrição que o outro emprego exige' ),
 				),
 			),
 			array(
@@ -123,7 +123,7 @@ switch ( $args['name'] ) :
 				array(
 					sera_t( 'Never bought a plan, and many already earn reasonably without one', 'Nunca compraram um plano, e muitos já ganham razoavelmente sem ele' ),
 					sera_t( 'Admit they don’t understand plans or the ranking at all', 'Admitem que não entendem nada de planos nem de ranking' ),
-					sera_t( 'Lack a fixed place to meet clients and depend on ride apps', 'Não têm um lugar fixo para receber clientes e dependem de apps de transporte' ),
+					sera_t( 'Have no fixed place to meet clients and depend on ride apps', 'Não têm um lugar fixo para receber clientes e dependem de apps de transporte' ),
 					sera_t( 'Men in the group are often approached by clients they don’t want to serve', 'Os homens do grupo costumam ser procurados por clientes que eles não querem atender' ),
 				),
 			),
@@ -170,13 +170,13 @@ switch ( $args['name'] ) :
 		?>
 		<div class="art-panel">
 			<span class="art-label"><?php sera_e( 'Triangulation · behaviour data', 'Triangulação · dados de comportamento' ); ?></span>
-			<span class="art-title"><?php sera_e( 'The most engaged advertisers are also the most exposed to its penalties.', 'Os anunciantes mais engajados também são os mais expostos às punições da plataforma.' ); ?></span>
+			<span class="art-title"><?php sera_e( 'The most engaged advertisers are also the most exposed to the platform’s penalties.', 'Os anunciantes mais engajados também são os mais expostos às punições da plataforma.' ); ?></span>
 			<div class="fm-bars">
 				<?php foreach ( $w as $x ) : ?>
 					<div><span><?php echo esc_html( $x[0] ); ?></span><i style="--v:<?php echo (int) $x[1]; ?>;--c:<?php echo esc_attr( $x[2] ); ?>"></i><b><?php echo esc_html( $x[3] ); ?></b></div>
 				<?php endforeach; ?>
 			</div>
-			<p class="art-cap"><?php sera_e( 'Relative share of each profile with warnings on the platform (figures withheld). In the interviews, advertisers said feedback on warnings and bans was unclear.', 'Parcela relativa de cada perfil com advertências na plataforma (números omitidos). Nas entrevistas, os anunciantes disseram que não entendiam o motivo das advertências e dos banimentos.' ); ?></p>
+			<p class="art-cap"><?php sera_e( 'Relative share of each profile with warnings on the platform (figures withheld). In the interviews, advertisers said they didn’t understand why they got warnings and bans.', 'Parcela relativa de cada perfil com advertências na plataforma (números omitidos). Nas entrevistas, os anunciantes disseram que não entendiam o motivo das advertências e dos banimentos.' ); ?></p>
 		</div>
 		<?php
 		break;
@@ -189,12 +189,12 @@ switch ( $args['name'] ) :
 			<p><?php sera_e( '“We never know what we’re in for <em>when we open the door.</em>”', '“A gente nunca sabe o que vai encontrar <em>quando abre a porta.</em>”' ); ?></p>
 		</div>
 		<div class="art-grid cols-3 fm-common">
-			<div class="art-card"><span class="art-label"><?php echo esc_html( $all ); ?></span><h4 style="margin-top:14px"><?php sera_e( 'Toxic interactions are part of the routine', 'Interações tóxicas fazem parte da rotina' ); ?></h4><p><?php sera_e( 'Rude and disrespectful clients, constant haggling over price, and a daily exposure that takes a real psychological toll.', 'Clientes grosseiros e desrespeitosos, pechincha o tempo todo e uma exposição diária que cobra um preço psicológico real.' ); ?></p></div>
-			<div class="art-card"><span class="art-label"><?php echo esc_html( $all ); ?></span><h4 style="margin-top:14px"><?php sera_e( 'Time-wasters and scams', 'Curiosos e golpes' ); ?></h4><p><?php sera_e( 'People asking for free photos and videos, bookings that never show up, and attempts to scam, which keep advertisers on constant alert.', 'Gente pedindo foto e vídeo de graça, agendamentos em que ninguém aparece e tentativas de golpe, que deixam os anunciantes em alerta constante.' ); ?></p></div>
+			<div class="art-card"><span class="art-label"><?php echo esc_html( $all ); ?></span><h4 style="margin-top:14px"><?php sera_e( 'Toxic interactions are part of the routine', 'Interações tóxicas fazem parte da rotina' ); ?></h4><p><?php sera_e( 'Rude, disrespectful clients, constant haggling over price, and daily exposure that wears on their mental health.', 'Clientes grosseiros e desrespeitosos, pechincha o tempo todo e uma exposição diária que pesa na saúde mental.' ); ?></p></div>
+			<div class="art-card"><span class="art-label"><?php echo esc_html( $all ); ?></span><h4 style="margin-top:14px"><?php sera_e( 'Time-wasters and scams', 'Curiosos e golpes' ); ?></h4><p><?php sera_e( 'People asking for free photos and videos, clients who book and don’t show up, and scam attempts. Advertisers stay on alert all the time.', 'Gente pedindo foto e vídeo de graça, cliente que agenda e não aparece e tentativas de golpe. Os anunciantes vivem em alerta.' ); ?></p></div>
 			<div class="art-card"><span class="art-label"><?php echo esc_html( $all ); ?></span><h4 style="margin-top:14px"><?php sera_e( 'Limits are not always respected', 'Os limites nem sempre são respeitados' ); ?></h4><p><?php sera_e( 'Many reports of clients asking for things outside what was agreed, during the appointment itself.', 'Muitos relatos de clientes pedindo coisas fora do combinado, já durante o atendimento.' ); ?></p></div>
-			<div class="art-card"><span class="art-label"><?php echo esc_html( $all ); ?></span><h4 style="margin-top:14px"><?php sera_e( 'A constant sense of vulnerability', 'Uma sensação constante de vulnerabilidade' ); ?></h4><p><?php sera_e( 'Fear of violence when meeting a new client is, sadly, a common part of the job.', 'O medo de violência ao encontrar um cliente novo é, infelizmente, parte comum do trabalho.' ); ?></p></div>
-			<div class="art-card"><span class="art-label"><?php sera_e( 'What they asked for', 'O que pediram' ); ?></span><h4 style="margin-top:14px"><?php sera_e( 'Safety designed for advertisers', 'Segurança pensada para quem anuncia' ); ?></h4><p><?php sera_e( 'A clear request for stronger checks on clients, to protect advertisers from possible threats.', 'Um pedido claro por uma verificação mais rígida dos clientes, para proteger os anunciantes de possíveis ameaças.' ); ?></p></div>
-			<div class="art-card"><span class="art-label"><?php sera_e( 'What they value most', 'O que mais valorizam' ); ?></span><h4 style="margin-top:14px"><?php sera_e( 'Reputation and safety', 'Reputação e segurança' ); ?></h4><p><?php sera_e( 'Face verification and comparison media were seen as protection for them too, because clients trust the platform more.', 'A verificação facial e as mídias de comparação também foram vistas como proteção para eles, porque os clientes confiam mais na plataforma.' ); ?></p></div>
+			<div class="art-card"><span class="art-label"><?php echo esc_html( $all ); ?></span><h4 style="margin-top:14px"><?php sera_e( 'A constant sense of vulnerability', 'Uma sensação constante de vulnerabilidade' ); ?></h4><p><?php sera_e( 'Fear of violence when meeting a new client is a common part of the job.', 'O medo de violência ao encontrar um cliente novo é parte comum do trabalho.' ); ?></p></div>
+			<div class="art-card"><span class="art-label"><?php sera_e( 'What they asked for', 'O que pediram' ); ?></span><h4 style="margin-top:14px"><?php sera_e( 'Safety designed for advertisers', 'Segurança pensada para quem anuncia' ); ?></h4><p><?php sera_e( 'They asked for stronger checks on clients, to protect advertisers from threats.', 'Pediram uma verificação mais rígida dos clientes, para proteger quem anuncia de ameaças.' ); ?></p></div>
+			<div class="art-card"><span class="art-label"><?php sera_e( 'What they value most', 'O que mais valorizam' ); ?></span><h4 style="margin-top:14px"><?php sera_e( 'Reputation and safety', 'Reputação e segurança' ); ?></h4><p><?php sera_e( 'They see face verification and comparison media as protection for themselves too, because clients trust the platform more.', 'Também veem a verificação facial e as mídias de comparação como proteção própria, porque os clientes passam a confiar mais na plataforma.' ); ?></p></div>
 		</div>
 		<?php
 		break;
@@ -203,7 +203,7 @@ switch ( $args['name'] ) :
 		?>
 		<div class="impact" style="background:#0E0D14">
 			<span class="art-label"><?php sera_e( 'Impact', 'Impacto' ); ?></span>
-			<h3><?php sera_e( 'A study about revenue that became the base for how the company organised itself around the people behind it.', 'Uma pesquisa sobre receita que virou a base de como a empresa se organizou em torno das pessoas por trás dela.' ); ?></h3>
+			<h3><?php sera_e( 'A revenue study became the base for reorganising the company around the people who bring that revenue in.', 'Uma pesquisa sobre receita virou a base para reorganizar a empresa em torno de quem gera essa receita.' ); ?></h3>
 			<div class="impact-grid">
 				<div><b><?php sera_e( 'Async', 'Em vídeo' ); ?></b><span><?php sera_e( 'Advertisers heard by video, on their own time', 'Anunciantes ouvidos de forma assíncrona, no tempo de cada um' ); ?></span></div>
 				<div><b><?php sera_e( 'At scale', 'Em escala' ); ?></b><span><?php sera_e( 'A survey that confirmed the patterns', 'Um questionário que confirmou os padrões' ); ?></span></div>
@@ -221,7 +221,7 @@ switch ( $args['name'] ) :
 		<div class="art-panel fm-later">
 			<span class="art-label"><?php sera_e( 'Planned next · Perfis 2.0', 'Próxima rodada · Perfis 2.0' ); ?></span>
 			<span class="art-title"><?php sera_e( 'We started in the middle of the lifecycle. The next round goes to both ends.', 'Começamos pelo meio do ciclo de vida. A próxima rodada vai às duas pontas.' ); ?></span>
-			<div class="fm-cycle"><div><small><?php sera_e( 'Pre-cycle', 'Antes do ciclo' ); ?></small><b><?php sera_e( 'People who haven’t signed up yet', 'Quem ainda não se cadastrou' ); ?></b></div><div class="on"><small><?php sera_e( 'This study', 'Este estudo' ); ?></small><b><?php sera_e( 'From never bought to most loyal', 'De quem nunca comprou aos mais fiéis' ); ?></b></div><div><small><?php sera_e( 'End of cycle', 'Fim do ciclo' ); ?></small><b><?php sera_e( 'Advertisers in the process of leaving', 'Anunciantes de saída da plataforma' ); ?></b></div></div>
+			<div class="fm-cycle"><div><small><?php sera_e( 'Pre-cycle', 'Antes do ciclo' ); ?></small><b><?php sera_e( 'People who haven’t signed up yet', 'Quem ainda não se cadastrou' ); ?></b></div><div class="on"><small><?php sera_e( 'This study', 'Este estudo' ); ?></small><b><?php sera_e( 'From never bought to most loyal', 'De quem nunca comprou aos mais fiéis' ); ?></b></div><div><small><?php sera_e( 'End of cycle', 'Fim do ciclo' ); ?></small><b><?php sera_e( 'Advertisers on their way out', 'Anunciantes de saída da plataforma' ); ?></b></div></div>
 		</div>
 		<?php
 		break;
@@ -229,8 +229,8 @@ switch ( $args['name'] ) :
 	case 'fm-reflection':
 		?>
 		<div class="reflect">
-			<div><span class="art-label"><?php sera_e( 'What I’d keep', 'O que eu manteria' ); ?></span><ul><li><?php sera_e( 'The asynchronous format: video questions answered on each person’s own time reached people a calendar of live interviews never would', 'O formato assíncrono: perguntas em vídeo, respondidas no tempo de cada pessoa, chegaram a gente que nenhuma agenda de entrevistas ao vivo alcançaria' ); ?></li><li><?php sera_e( 'Closing a revenue readout with safety. It was the one finding every profile shared, and the company acted on it', 'Fechar uma apresentação sobre receita falando de segurança. Foi o único achado comum a todos os perfis, e a empresa agiu a partir dele' ); ?></li></ul></div>
-			<div class="alt"><span class="art-label"><?php sera_e( 'What I’d change', 'O que eu mudaria' ); ?></span><ul><li><?php sera_e( 'Hear advertisers who are leaving, and people who never signed up, in the same round instead of a planned second one', 'Ouvir quem está saindo da plataforma, e quem nunca se cadastrou, já nesta rodada, em vez de deixar para uma segunda' ); ?></li><li><?php sera_e( 'Attach a measurable OKR to each opportunity area in the readout itself, so the restructuring started with numbers to beat', 'Amarrar um OKR mensurável a cada área de oportunidade na própria apresentação, para a reestruturação já começar com números a bater' ); ?></li></ul></div>
+			<div><span class="art-label"><?php sera_e( 'What I’d keep', 'O que eu manteria' ); ?></span><ul><li><?php sera_e( 'The asynchronous format. Video questions, answered on each person’s own time, reached people that scheduled live interviews never would', 'O formato assíncrono. Perguntas em vídeo, respondidas no tempo de cada pessoa, chegaram a gente que entrevista com hora marcada nunca alcançaria' ); ?></li><li><?php sera_e( 'Closing a revenue readout with safety. It was the one finding every profile shared, and the company acted on it', 'Fechar uma apresentação sobre receita falando de segurança. Foi o único achado comum a todos os perfis, e a empresa agiu a partir dele' ); ?></li></ul></div>
+			<div class="alt"><span class="art-label"><?php sera_e( 'What I’d change', 'O que eu mudaria' ); ?></span><ul><li><?php sera_e( 'Hear advertisers who are leaving, and people who never signed up, in the same round instead of leaving them for a second one', 'Ouvir quem está saindo da plataforma, e quem nunca se cadastrou, já nesta rodada, em vez de deixar para uma segunda' ); ?></li><li><?php sera_e( 'Attach a measurable OKR to each opportunity area in the readout itself, so the restructuring started with numbers to beat', 'Amarrar um OKR mensurável a cada área de oportunidade na própria apresentação, para a reestruturação já começar com números a bater' ); ?></li></ul></div>
 		</div>
 		<?php
 		break;
@@ -240,9 +240,9 @@ switch ( $args['name'] ) :
 		<div class="signals">
 			<div><i>01</i><b><?php sera_e( 'Designed the method and ran the study', 'Desenhei o método e conduzi a pesquisa' ); ?></b><span><?php sera_e( 'An asynchronous, AI-assisted method that reached people live interviews never would, then tested the patterns at scale.', 'Um método assíncrono, com apoio de IA, que chegou a gente que entrevista ao vivo nunca alcançaria, e depois testou os padrões em escala.' ); ?></span></div>
 			<div><i>02</i><b><?php sera_e( 'Humanised a stigmatised audience', 'Humanizei um público estigmatizado' ); ?></b><span><?php sera_e( 'Advertisers presented as people, with their own routines, goals and fears.', 'Anunciantes apresentados como pessoas, com rotinas, objetivos e medos próprios.' ); ?></span></div>
-			<div><i>03</i><b><?php sera_e( 'Followed the evidence past the brief', 'Segui a evidência além do briefing' ); ?></b><span><?php sera_e( 'A question about profitability uncovered vulnerability, and the study made room for it.', 'Uma pergunta sobre rentabilidade revelou vulnerabilidade, e o estudo abriu espaço para ela.' ); ?></span></div>
-			<div><i>04</i><b><?php sera_e( 'Turned insight into organisation', 'Transformei insight em organização' ); ?></b><span><?php sera_e( 'The readout became the base for the next cycle’s OKRs and a reorganisation around advertisers.', 'A apresentação virou a base dos OKRs do ciclo seguinte e de uma reorganização em torno dos anunciantes.' ); ?></span></div>
-			<div><i>05</i><b><?php sera_e( 'Triangulated words with behaviour', 'Cruzei o que diziam com o que faziam' ); ?></b><span><?php sera_e( 'Started from an RFM cut with data science, and checked what people said against what the platform recorded.', 'Partimos de um recorte RFM com ciência de dados e conferimos o que as pessoas diziam com o que a plataforma registrava.' ); ?></span></div>
+			<div><i>03</i><b><?php sera_e( 'Followed the evidence past the brief', 'Segui a evidência além do briefing' ); ?></b><span><?php sera_e( 'The question was about profitability. The answers were also about safety, and I gave them the same weight.', 'A pergunta era sobre rentabilidade. As respostas também falavam de segurança, e dei a elas o mesmo peso.' ); ?></span></div>
+			<div><i>04</i><b><?php sera_e( 'Took the findings into planning', 'Levei os achados para o planejamento' ); ?></b><span><?php sera_e( 'The readout became the base for the next cycle’s OKRs and a reorganisation around advertisers.', 'A apresentação virou a base dos OKRs do ciclo seguinte e de uma reorganização em torno dos anunciantes.' ); ?></span></div>
+			<div><i>05</i><b><?php sera_e( 'Checked words against behaviour', 'Cruzei o que diziam com o que faziam' ); ?></b><span><?php sera_e( 'We started from an RFM cut with data science, and checked what people said against what the platform recorded.', 'Partimos de um recorte RFM com ciência de dados e conferimos o que as pessoas diziam com o que a plataforma registrava.' ); ?></span></div>
 			<div><i>06</i><b><?php sera_e( 'Kept the open questions open', 'Deixei as perguntas abertas à vista' ); ?></b><span><?php sera_e( 'Requests the company couldn’t act on yet stayed in the readout as open questions.', 'Pedidos que a empresa ainda não podia atender ficaram na apresentação como perguntas em aberto.' ); ?></span></div>
 		</div>
 		<?php
@@ -268,7 +268,7 @@ switch ( $args['name'] ) :
 				array( 'fm', 2, sera_t( 'Clients fitted in between, or after a late shift', 'Clientes encaixados no meio, ou depois de um turno que acaba tarde' ) ),
 				array( 'self', 2, sera_t( 'Weekends kept for rest and family', 'Fim de semana reservado para descanso e família' ) ),
 			) ),
-			array( sera_t( 'Improvisers · Idle', 'Improvisadores · Ociosos' ), '#2FB67C', sera_t( 'Plenty of time, not enough demand.', 'Tempo de sobra, demanda de menos.' ), array(
+			array( sera_t( 'Improvisers · Idle', 'Improvisadores · Ociosos' ), '#2FB67C', sera_t( 'Plenty of time, not enough clients.', 'Tempo de sobra, cliente de menos.' ), array(
 				array( 'self', 3, sera_t( 'Mostly at home: series, podcasts, hobbies', 'Quase sempre em casa: séries, podcasts, hobbies' ) ),
 				array( 'job', 2, sera_t( 'Some are looking for a new job', 'Alguns procuram um novo emprego' ) ),
 				array( 'wait', 4, sera_t( 'Waiting for a client, sometimes one or two a week', 'Esperando cliente, às vezes um ou dois por semana' ) ),
@@ -315,7 +315,7 @@ switch ( $args['name'] ) :
 	case 'fm-plans':
 		$r = array(
 			array( sera_t( 'Veterans · Profitable', 'Veteranos · Lucrativos' ), sera_t( 'Most Veterans', 'A maioria dos Veteranos' ), '#E25352', sera_t( 'Buy all the time, some weekly to keep it affordable', 'Compram o tempo todo, alguns por semana para caber no bolso' ), sera_t( 'A clear, steady return on what they paid', 'Um retorno claro e constante sobre o que pagaram' ), sera_t( 'Understand plans and ranking best, and many still call it “just a way to squeeze money out of escorts”', 'São quem mais entende de planos e ranking, e muitos ainda chamam de “só um jeito de arrancar dinheiro das acompanhantes”' ) ),
-			array( sera_t( 'Veterans · Strategic', 'Veteranos · Estratégicos' ), sera_t( 'The other Veterans', 'Os demais Veteranos' ), '#E25352', sera_t( 'Time every purchase: skip the end of the month, spend more when fewer clients are searching', 'Escolhem a hora de cada compra: pulam o fim do mês e gastam mais quando há menos clientes buscando' ), sera_t( 'A smaller return for the same investment', 'Um retorno menor pelo mesmo investimento' ), sera_t( 'The same critique, plus a sense that one ranking across so many cities and services is unfair to small towns', 'A mesma crítica, e a sensação de que um ranking único para tantas cidades e serviços é injusto com as cidades pequenas' ) ),
+			array( sera_t( 'Veterans · Strategic', 'Veteranos · Estratégicos' ), sera_t( 'The other Veterans', 'Os demais Veteranos' ), '#E25352', sera_t( 'Time every purchase: skip the end of the month, spend more when fewer clients are searching', 'Escolhem a hora de cada compra: pulam o fim do mês e gastam mais quando há menos clientes buscando' ), sera_t( 'A smaller return for the same investment', 'Um retorno menor pelo mesmo investimento' ), sera_t( 'The same criticism, plus a sense that one ranking across so many cities and services is unfair to small towns', 'A mesma crítica, e a sensação de que um ranking único para tantas cidades e serviços é injusto com as cidades pequenas' ) ),
 			array( sera_t( 'Loyal', 'Leais' ), sera_t( 'The most satisfied profile', 'O perfil mais satisfeito' ), '#B25CF0', sera_t( 'Buy regularly. Some cut back from every plan to two as earnings dropped', 'Compram com regularidade. Alguns passaram de todos os planos para dois quando a renda caiu' ), sera_t( 'Adequate or better, and almost immediate', 'Adequado ou melhor, e quase imediato' ), sera_t( 'Growing competition for visibility makes them wonder if they’ll stay relevant', 'A disputa crescente por visibilidade faz eles se perguntarem se vão continuar relevantes' ) ),
 			array( sera_t( 'Jugglers', 'Malabaristas' ), sera_t( 'Sceptical of plans', 'Desconfiados dos planos' ), '#4C7DF0', sera_t( 'Mostly the cheapest plan, the one that shows their phone number', 'Quase sempre o plano mais barato, o que mostra o telefone' ), sera_t( 'Below expectations: on a top plan, “I felt like I was paying for the lowest one”', 'Abaixo do esperado: num plano top, “parecia que eu estava pagando o mais básico”' ), sera_t( '“I don’t really understand how the ranking works”, and they doubt it changes their exposure', '“Não entendo muito bem como o ranking funciona”, e duvidam que ele mude a exposição' ) ),
 			array( sera_t( 'Improvisers', 'Improvisadores' ), sera_t( 'Never bought a plan', 'Nunca compraram um plano' ), '#2FB67C', sera_t( 'Never. Prices looked too high, and some tried to pay and couldn’t', 'Nunca. Os preços pareciam altos demais, e alguns tentaram pagar e não conseguiram' ), sera_t( 'Reasonable earnings without a plan, so less reason to invest', 'Ganham razoavelmente sem plano, então têm menos motivo para investir' ), sera_t( '“I don’t even know what this ranking is”', '“Nem sei o que é esse ranking”' ) ),
@@ -326,7 +326,7 @@ switch ( $args['name'] ) :
 		?>
 		<div class="art-panel">
 			<span class="art-label"><?php sera_e( 'Plans and ranking · by profile', 'Planos e ranking · por perfil' ); ?></span>
-			<span class="art-title"><?php sera_e( 'The same plans, and five very different relationships with them.', 'Os mesmos planos, e cinco relações bem diferentes com eles.' ); ?></span>
+			<span class="art-title"><?php sera_e( 'The same plans, and five different relationships with them.', 'Os mesmos planos, e cinco relações diferentes com eles.' ); ?></span>
 			<div class="fm-plans">
 				<div class="fm-plans-head" aria-hidden="true"><span></span><span><?php echo esc_html( $hb ); ?></span><span><?php echo esc_html( $hg ); ?></span><span><?php echo esc_html( $hr ); ?></span></div>
 				<?php foreach ( $r as $x ) : ?>
@@ -348,7 +348,7 @@ switch ( $args['name'] ) :
 		$vet = sera_t( 'Veteran', 'Veteranos' );
 		$jug = sera_t( 'Juggler', 'Malabaristas' );
 		$m   = array(
-			array( sera_t( 'Safety for advertisers', 'Segurança para anunciantes' ), array( array( sera_t( 'Finding across all profiles', 'Achado em todos os perfis' ), sera_t( 'A clear request for stronger checks on clients, to protect advertisers from possible threats.', 'Um pedido claro por uma verificação mais rígida dos clientes, para proteger os anunciantes de possíveis ameaças.' ), 1 ) ) ),
+			array( sera_t( 'Safety for advertisers', 'Segurança para anunciantes' ), array( array( sera_t( 'Finding across all profiles', 'Achado em todos os perfis' ), sera_t( 'They asked for stronger checks on clients, to protect advertisers from threats.', 'Pediram uma verificação mais rígida dos clientes, para proteger quem anuncia de ameaças.' ), 1 ) ) ),
 			array( sera_t( 'Fair, explained moderation', 'Moderação justa e explicada' ), array( array( $vet, sera_t( 'A three-day penalty, and in the end I didn’t know why.', 'Três dias de punição, e no fim eu nem sabia por quê.' ) ), array( $vet, sera_t( 'Penalties could be lighter. If it isn’t something serious, give the person a chance to make it right instead of a ban.', 'As punições podiam ser mais leves. Se não for nada grave, dá uma chance de a pessoa corrigir em vez de banir.' ) ) ) ),
 			array( sera_t( 'Clarity on plans and ranking', 'Clareza sobre planos e ranking' ), array( array( sera_t( 'Improviser', 'Improvisadores' ), sera_t( 'I’ve seen the plans, but this ranking thing, I don’t know what it is.', 'Os planos eu já vi, mas essa coisa de ranking eu não sei o que é.' ) ), array( $jug, sera_t( 'I don’t really understand how the ranking works. I know points and ranking are linked.', 'Não entendo muito bem como o ranking funciona. Sei que ponto e ranking estão ligados.' ) ) ) ),
 			array( sera_t( 'Recognition for loyalty', 'Reconhecimento da fidelidade' ), array( array( $vet, sera_t( 'It would be great to launch coupons for those who always buy every package.', 'Seria ótimo lançar cupom pra quem sempre compra todos os pacotes.' ) ), array( $vet, sera_t( 'For those of us who joined a long time ago, there’s no discount. New girls get lots of them.', 'Pra quem entrou há muito tempo não tem desconto nenhum. As meninas novas ganham um monte.' ) ) ) ),
@@ -361,7 +361,7 @@ switch ( $args['name'] ) :
 		);
 		?>
 		<div class="art-panel">
-			<span class="art-label"><?php sera_e( 'From their words to the work', 'Das palavras deles para o trabalho' ); ?></span>
+			<span class="art-label"><?php sera_e( 'From requests to opportunity areas', 'Dos pedidos às áreas de oportunidade' ); ?></span>
 			<span class="art-title"><?php sera_e( 'Every opportunity area traces back to something advertisers asked for.', 'Cada área de oportunidade nasce de algo que os anunciantes pediram.' ); ?></span>
 			<div class="fm-asks">
 				<div class="fm-asks-head" aria-hidden="true"><span><?php sera_e( 'What advertisers asked for', 'O que os anunciantes pediram' ); ?></span><span><?php sera_e( 'Opportunity area', 'Área de oportunidade' ); ?></span></div>

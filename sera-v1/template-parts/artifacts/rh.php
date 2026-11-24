@@ -86,9 +86,9 @@ switch ( $args['name'] ) :
 	case 'rh-failures':
 		?>
 		<div class="art-grid cols-3">
-			<div class="art-card"><span class="art-label"><?php sera_e( 'Findability', 'Busca' ); ?></span><h4><?php sera_e( 'Nobody could find past studies', 'Ninguém achava os estudos antigos' ); ?></h4><p><?php sera_e( 'Answers were buried in slide 27 of a deck whose name you had to remember.', 'As respostas estavam enterradas no slide 27 de um deck cujo nome você precisava lembrar.' ); ?></p></div>
-			<div class="art-card"><span class="art-label"><?php sera_e( 'Repeatability', 'Método' ); ?></span><h4><?php sera_e( 'Every study started from zero', 'Todo estudo começava do zero' ); ?></h4><p><?php sera_e( 'No shared process and no shared format. Quality depended on who ran it.', 'Sem processo nem formato em comum. A qualidade dependia de quem conduzia.' ); ?></p></div>
-			<div class="art-card"><span class="art-label"><?php sera_e( 'Safety', 'Segurança' ); ?></span><h4><?php sera_e( 'Personal data next to the slides', 'Dado pessoal do lado dos slides' ); ?></h4><p><?php sera_e( 'Protection depended on someone remembering to lock a file.', 'A proteção dependia de alguém lembrar de trancar um arquivo.' ); ?></p></div>
+			<div class="art-card"><span class="art-label"><?php sera_e( 'Search', 'Busca' ); ?></span><h4><?php sera_e( 'Nobody could find past studies', 'Ninguém achava os estudos antigos' ); ?></h4><p><?php sera_e( 'The answer was on slide 27 of a deck. To find it, you had to remember the file name.', 'A resposta estava no slide 27 de um deck. Para achar, só lembrando o nome do arquivo.' ); ?></p></div>
+			<div class="art-card"><span class="art-label"><?php sera_e( 'Method', 'Método' ); ?></span><h4><?php sera_e( 'Every study started from zero', 'Todo estudo começava do zero' ); ?></h4><p><?php sera_e( 'No shared process and no shared format. Quality depended on who ran it.', 'Sem processo nem formato em comum. A qualidade dependia de quem conduzia.' ); ?></p></div>
+			<div class="art-card"><span class="art-label"><?php sera_e( 'Safety', 'Segurança' ); ?></span><h4><?php sera_e( 'Personal data next to the slides', 'Dado pessoal ao lado dos slides' ); ?></h4><p><?php sera_e( 'Protection depended on someone remembering to lock a file.', 'A proteção dependia de alguém lembrar de trancar um arquivo.' ); ?></p></div>
 		</div>
 		<?php
 		break;
@@ -105,10 +105,10 @@ switch ( $args['name'] ) :
 	case 'rh-principles':
 		?>
 		<div class="decisions">
-			<div><i>01</i><div><b><?php sera_e( 'Zero extra work to publish', 'Zero trabalho extra para publicar' ); ?></b><span><?php sera_e( 'The archive fills itself as a by-product of running a study, straight from the Drive folder or from the skill.', 'O acervo se enche sozinho, como consequência de fazer o estudo, direto da pasta do Drive ou pela skill.' ); ?></span></div></div>
-			<div><i>02</i><div><b><?php sera_e( 'Every answer shows its source', 'Toda resposta mostra de onde veio' ); ?></b><span><?php sera_e( 'Nothing the hub says is unsourced. Each claim links to its study, so anyone can check it.', 'Nada do que o hub diz fica sem fonte. Cada afirmação leva ao seu estudo, então qualquer pessoa pode conferir.' ); ?></span></div></div>
-			<div><i>03</i><div><b><?php sera_e( 'One shape for every study', 'Um formato para todo estudo' ); ?></b><span><?php sera_e( 'The same six sections every time, so a usability test and a survey can be compared at a glance.', 'As mesmas seis seções, sempre, para dar para comparar um teste de usabilidade e um survey num relance.' ); ?></span></div></div>
-			<div><i>04</i><div><b><?php sera_e( 'Findings open, personal data locked', 'Achados abertos, dado pessoal trancado' ); ?></b><span><?php sera_e( 'Findings are for everyone. The people behind them aren’t. The system enforces the difference, so nobody has to remember it.', 'Os achados são de todo mundo. As pessoas por trás deles, não. O sistema garante essa diferença, e ninguém precisa lembrar dela.' ); ?></span></div></div>
+			<div><i>01</i><div><b><?php sera_e( 'Zero extra work to publish', 'Zero trabalho extra para publicar' ); ?></b><span><?php sera_e( 'Running a study already fills the archive, straight from the Drive folder or from the skill.', 'Fazer o estudo já enche o acervo, direto da pasta do Drive ou pela skill.' ); ?></span></div></div>
+			<div><i>02</i><div><b><?php sera_e( 'Every answer shows its source', 'Toda resposta mostra de onde veio' ); ?></b><span><?php sera_e( 'Each claim links to the study it came from, so anyone can check it.', 'Cada afirmação leva ao estudo de onde veio, e qualquer pessoa pode conferir.' ); ?></span></div></div>
+			<div><i>03</i><div><b><?php sera_e( 'One format for every study', 'Um formato para todo estudo' ); ?></b><span><?php sera_e( 'The same six sections every time, so a usability test and a survey can be compared at a glance.', 'As mesmas seis seções, sempre. Assim dá para comparar um teste de usabilidade e um survey num relance.' ); ?></span></div></div>
+			<div><i>04</i><div><b><?php sera_e( 'Findings open, personal data locked', 'Achados abertos, dado pessoal trancado' ); ?></b><span><?php sera_e( 'Everyone can read the findings. The personal data behind them stays locked. The system enforces it, so nobody has to remember.', 'Todo mundo lê os achados. Os dados pessoais por trás deles ficam trancados. O sistema cuida disso, e ninguém precisa lembrar.' ); ?></span></div></div>
 		</div>
 		<?php
 		break;
@@ -119,14 +119,14 @@ switch ( $args['name'] ) :
 			<div class="rh-map-grid">
 				<div class="rh-stack">
 					<div class="rh-node"><span class="art-label"><?php sera_e( 'Process', 'Processo' ); ?></span><h4><?php sera_e( 'Claude skill', 'Skill do Claude' ); ?></h4><p><?php sera_e( 'Walks any designer from question to report. Reads the archive before a study and publishes the insights after it.', 'Leva qualquer designer da pergunta ao relatório. Lê o acervo antes do estudo e publica os insights depois.' ); ?></p></div>
-					<div class="rh-node"><span class="art-label"><?php sera_e( 'Source of truth', 'Fonte da verdade' ); ?></span><h4>Google Drive</h4><p><?php sera_e( 'The team’s research folder, organised by area and study.', 'A pasta de pesquisa do time, organizada por área e por estudo.' ); ?></p></div>
+					<div class="rh-node"><span class="art-label"><?php sera_e( 'Files', 'Arquivos' ); ?></span><h4>Google Drive</h4><p><?php sera_e( 'The team’s research folder, organised by area and study.', 'A pasta de pesquisa do time, organizada por área e por estudo.' ); ?></p></div>
 				</div>
 				<div class="rh-arrow both" aria-hidden="true"><small><?php sera_e( 'MCP · sync', 'MCP · sync' ); ?></small></div>
 				<div class="rh-node is-hub"><span class="art-label"><?php sera_e( 'Product', 'Produto' ); ?></span><h4>Research Hub</h4><p><?php sera_e( 'Built in Lovable, with its own MCP server. Standardised reports, themes tagged on import, a timeline of everything we’ve learned, and privacy rules applied to every file.', 'Feito no Lovable, com servidor MCP próprio. Relatórios padronizados, temas marcados na importação, uma linha do tempo de tudo o que aprendemos e regras de privacidade aplicadas a cada arquivo.' ); ?></p></div>
 				<div class="rh-arrow both" aria-hidden="true"><small><?php sera_e( 'ask · cite', 'pergunta · cita' ); ?></small></div>
 				<div class="rh-stack">
 					<div class="rh-node"><span class="art-label"><?php sera_e( 'Interface', 'Interface' ); ?></span><h4><?php sera_e( 'Ask the archive', 'Pergunte ao acervo' ); ?></h4><p><?php sera_e( 'In the hub’s chat or in anyone’s Claude, through the connector. Every claim links to its study.', 'No chat do hub ou no Claude de qualquer pessoa, pelo conector. Cada afirmação leva ao seu estudo.' ); ?></p></div>
-					<div class="rh-node"><span class="art-label"><?php sera_e( 'Looking ahead', 'Daqui para a frente' ); ?></span><h4><?php sera_e( 'Research roadmap', 'Roadmap de pesquisa' ); ?></h4><p><?php sera_e( 'AI turns past findings into next quarter’s studies. The team prioritises, and each study lands in Jira.', 'A IA transforma achados antigos nos estudos do próximo trimestre. O time prioriza, e cada estudo cai no Jira.' ); ?></p></div>
+					<div class="rh-node"><span class="art-label"><?php sera_e( 'Looking ahead', 'Daqui para a frente' ); ?></span><h4><?php sera_e( 'Research roadmap', 'Roadmap de pesquisa' ); ?></h4><p><?php sera_e( 'AI suggests next quarter’s studies from past findings. The team prioritises, and each study lands in Jira.', 'A IA sugere os estudos do próximo trimestre a partir dos achados antigos. O time prioriza, e cada estudo cai no Jira.' ); ?></p></div>
 				</div>
 			</div>
 			<div class="rh-map-foot"><span>Lovable</span><span><?php sera_e( 'Custom MCP server · Claude connector', 'Servidor MCP próprio · conector do Claude' ); ?></span><span><?php sera_e( 'Claude · custom skill', 'Claude · skill própria' ); ?></span><span><?php sera_e( 'REST API', 'API REST' ); ?></span><span>Jira</span><span><?php sera_e( 'Google Drive sync', 'Sync com o Google Drive' ); ?></span><span><?php sera_e( 'Google SSO · company domain only', 'Google SSO · só o domínio da empresa' ); ?></span><span><?php sera_e( 'LGPD guardrails', 'Proteções de LGPD' ); ?></span></div>
@@ -149,7 +149,7 @@ switch ( $args['name'] ) :
 		<p class="art-cap"><?php sera_e( 'The review step. Each file shows what it becomes and who can open it, before anything is published.', 'A etapa de revisão. Cada arquivo mostra o que vai virar e quem pode abrir, antes de qualquer coisa ir para o ar.' ); ?></p>
 		<div class="art-grid cols-3" style="margin-top:20px">
 			<div class="art-card"><h4><?php sera_e( 'Themes tag themselves', 'Os temas se marcam sozinhos' ); ?></h4><p><?php sera_e( 'Tags are pulled from each study on import, so “most researched themes” is always current.', 'As tags saem de cada estudo na importação, então “temas mais pesquisados” está sempre em dia.' ); ?></p></div>
-			<div class="art-card"><h4><?php sera_e( 'A timeline of learning', 'Uma linha do tempo do aprendizado' ); ?></h4><p><?php sera_e( 'Studies are grouped by month, so you can see what the company was curious about, and when.', 'Os estudos ficam agrupados por mês, então dá para ver o que a empresa queria entender, e quando.' ); ?></p></div>
+			<div class="art-card"><h4><?php sera_e( 'Studies, month by month', 'Os estudos, mês a mês' ); ?></h4><p><?php sera_e( 'A timeline shows what the company was curious about, and when.', 'Uma linha do tempo mostra o que a empresa queria entender, e quando.' ); ?></p></div>
 			<div class="art-card"><h4><?php sera_e( 'Open to other tools', 'Aberto a outras ferramentas' ); ?></h4><p><?php sera_e( 'Besides the MCP server, a REST endpoint with a key lets any tool publish a study without opening the hub.', 'Além do servidor MCP, um endpoint REST com chave deixa qualquer ferramenta publicar um estudo sem abrir o hub.' ); ?></p></div>
 		</div>
 		<?php
@@ -185,10 +185,10 @@ switch ( $args['name'] ) :
 			<?php endif; ?>
 			<div class="rh-mcp-why">
 				<div><span class="art-label"><?php sera_e( 'Why a skill', 'Por que uma skill' ); ?></span><p><?php sera_e( 'The skill runs the whole process for you. A designer who has never written a survey gets the same bias review, the same email guardrails and the same report format as a seasoned researcher.', 'A skill executa o processo inteiro por você. Quem nunca escreveu um questionário ganha a mesma revisão de viés, as mesmas travas de e-mail e o mesmo formato de relatório de alguém com anos de pesquisa.' ); ?></p></div>
-				<div><span class="art-label"><?php sera_e( 'Why the hub speaks MCP', 'Por que o hub fala MCP' ); ?></span><p><?php sera_e( 'The skill uses the archive directly. At the start, it reads every past study and flags anything similar, so duplicate questions are cut before they reach a customer’s inbox. At the end, it publishes the approved insights by itself, so nobody has to do the step where most repositories die.', 'A skill usa o acervo diretamente. No começo, ela lê todos os estudos anteriores e aponta o que for parecido, então pergunta repetida cai antes de chegar à caixa de entrada do cliente. No fim, publica sozinha os insights aprovados, então ninguém precisa fazer a etapa em que a maioria dos repositórios morre.' ); ?></p></div>
+				<div><span class="art-label"><?php sera_e( 'Why the hub speaks MCP', 'Por que o hub fala MCP' ); ?></span><p><?php sera_e( 'The skill uses the archive directly. At the start, it reads every past study and flags anything similar, so a repeated question is cut before it reaches a customer’s inbox. At the end, it publishes the approved insights itself. That is the step where most repositories die, and here nobody has to do it.', 'A skill usa o acervo diretamente. No começo, lê todos os estudos anteriores e aponta o que for parecido, então pergunta repetida cai antes de chegar à caixa de entrada do cliente. No fim, publica sozinha os insights aprovados. É a etapa em que a maioria dos repositórios morre, e aqui ninguém precisa fazer.' ); ?></p></div>
 			</div>
 		</div>
-		<p class="art-cap"><?php sera_e( 'The connector’s real tools; arguments simplified for readability.', 'As ferramentas reais do conector; argumentos simplificados para facilitar a leitura.' ); ?></p>
+		<p class="art-cap"><?php sera_e( 'These are the connector’s real tools. The arguments are simplified.', 'São as ferramentas reais do conector. Os argumentos foram simplificados.' ); ?></p>
 		<?php
 		break;
 
@@ -215,7 +215,7 @@ switch ( $args['name'] ) :
 			<figure class="rh-shot"><?php echo sera_rh_frame( sera_scr_rh_ask(), sera_t( 'Ask the archive on desktop: the hub menu on the left, a question limited to two studies, and an answer with a source on every point', 'Pergunte ao acervo no desktop: o menu do hub à esquerda, uma pergunta limitada a dois estudos e uma resposta com fonte em cada ponto' ) ); // phpcs:ignore ?></figure>
 			<div class="rh-phone"><?php echo sera_device( 'scr-rh', sera_scr_rh_ask_mobile(), array( 'label' => sera_t( 'Ask the archive on mobile: a blank page with starting questions', 'Pergunte ao acervo no celular: uma página em branco com perguntas para começar' ) ) ); // phpcs:ignore ?></div>
 		</div>
-		<p class="art-cap"><?php sera_e( 'Findings first, then a design reading, always with the source chips. Studies and answers are fictional.', 'Primeiro os achados, depois uma leitura de design, sempre com os chips de fonte. Estudos e respostas são fictícios.' ); ?></p>
+		<p class="art-cap"><?php sera_e( 'Findings first, then what they mean for design, always with the source chips. Studies and answers are fictional.', 'Primeiro os achados, depois o que eles significam para o design, sempre com os chips de fonte. Estudos e respostas são fictícios.' ); ?></p>
 		<?php
 		break;
 
@@ -224,9 +224,9 @@ switch ( $args['name'] ) :
 			array( sera_t( 'One menu for the whole hub', 'Um menu para o hub inteiro' ), sera_t( 'Archive, chat, roadmap, guide and the Claude connector in one place: a sidebar on desktop, a drawer on mobile.', 'Acervo, chat, roadmap, guia e o conector do Claude num lugar só: barra lateral no desktop, gaveta no celular.' ) ),
 			array( sera_t( 'Conversations you can keep', 'Conversas que ficam' ), sera_t( 'Recent chats stay in the menu, and you can pin, rename or delete them.', 'As conversas recentes ficam no menu, e dá para fixar, renomear ou apagar.' ) ),
 			array( sera_t( 'Ask inside chosen studies', 'Pergunte dentro dos estudos que escolher' ), sera_t( 'Attach up to ten studies to a question. The answer stays inside them, and the chips stay on the message.', 'Anexe até dez estudos a uma pergunta. A resposta fica dentro deles, e os chips ficam na mensagem.' ) ),
-			array( sera_t( 'Stop without losing it', 'Pare sem perder nada' ), sera_t( 'Stopping an answer freezes exactly what is on screen and saves it to the conversation.', 'Interromper uma resposta congela exatamente o que está na tela e salva na conversa.' ) ),
+			array( sera_t( 'Stop without losing anything', 'Pare sem perder nada' ), sera_t( 'Stopping an answer keeps what is already on screen and saves it to the conversation.', 'Interromper uma resposta mantém o que já está na tela e salva na conversa.' ) ),
 			array( sera_t( 'Says what it’s doing', 'Diz o que está fazendo' ), sera_t( '“Leafing through the interviews…”, “checking the quotes…” while you wait.', '“Folheando as entrevistas…”, “conferindo as citações…” enquanto você espera.' ) ),
-			array( sera_t( 'Every answer can be judged', 'Toda resposta pode ser avaliada' ), sera_t( 'Copy, redo, thumbs up or down. A thumbs down opens a short note on what was missing.', 'Copiar, refazer, joinha para cima ou para baixo. O joinha para baixo abre um campo curto sobre o que faltou.' ) ),
+			array( sera_t( 'Every answer can be rated', 'Toda resposta pode ser avaliada' ), sera_t( 'Copy, redo, thumbs up or down. A thumbs down opens a short note on what was missing.', 'Copiar, refazer, joinha para cima ou para baixo. O joinha para baixo abre um campo curto sobre o que faltou.' ) ),
 		);
 		?>
 		<div class="rh-askmore">
@@ -248,7 +248,7 @@ switch ( $args['name'] ) :
 			<div><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></span><h4><?php sera_e( 'Company accounts only', 'Só contas da empresa' ); ?></h4><p><?php sera_e( 'Google sign-in restricted to the company domain.', 'Login com Google restrito ao domínio da empresa.' ); ?></p></div>
 			<div><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><h4><?php sera_e( 'Raw data locks itself', 'Dado bruto se tranca sozinho' ); ?></h4><p><?php sera_e( 'Spreadsheets and recordings open only for the person who uploaded them.', 'Planilhas e gravações só abrem para quem enviou.' ); ?></p></div>
 			<div><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"/><path d="M9.9 5.1A9 9 0 0 1 12 5c5 0 8.5 4 9.5 7a13 13 0 0 1-2.6 3.9M6.3 6.3C4.2 7.7 2.9 9.8 2.5 12c1 3 4.5 7 9.5 7 1.6 0 3-.4 4.3-1"/></svg></span><h4><?php sera_e( 'Anonymised before it leaves', 'Anonimizado antes de sair' ); ?></h4><p><?php sera_e( 'The skill strips name, email and customer ID, and cuts open answers that mention contact details.', 'A skill tira nome, e-mail e ID do cliente, e corta respostas abertas que mencionam dados de contato.' ); ?></p></div>
-			<div><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12V7l-8-4-8 4v5c0 5 3.5 8 8 9 4.5-1 8-4 8-9z"/></svg></span><h4><?php sera_e( 'Two levels, always visible', 'Dois níveis, sempre à vista' ); ?></h4><p><?php sera_e( 'Every study and file is tagged Confidential or Internal, right where you see it.', 'Todo estudo e todo arquivo levam a etiqueta Confidencial ou Interno, bem onde você vê.' ); ?></p></div>
+			<div><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12V7l-8-4-8 4v5c0 5 3.5 8 8 9 4.5-1 8-4 8-9z"/></svg></span><h4><?php sera_e( 'Two levels, always visible', 'Dois níveis, sempre à vista' ); ?></h4><p><?php sera_e( 'Every study and every file shows its tag: Confidential or Internal.', 'Todo estudo e todo arquivo mostram a etiqueta: Confidencial ou Interno.' ); ?></p></div>
 		</div>
 		<?php
 		break;
@@ -257,12 +257,12 @@ switch ( $args['name'] ) :
 		?>
 		<div class="art-grid cols-4">
 			<div class="stat is-word hl"><b><?php sera_e( 'One place', 'Um lugar só' ); ?></b><span><?php sera_e( 'for every study, old and new, instead of decks scattered across Drive.', 'para todo estudo, antigo ou novo, em vez de decks espalhados pelo Drive.' ); ?></span></div>
-			<div class="stat is-word"><b><?php sera_e( 'Plain language', 'Do seu jeito' ); ?></b><span><?php sera_e( 'to search everyone we’ve heard, with the source of every answer.', 'para buscar em tudo o que já ouvimos, com a fonte de cada resposta.' ); ?></span></div>
-			<div class="stat is-word"><b><?php sera_e( 'Same shape', 'Padrão único' ); ?></b><span><?php sera_e( 'for every insight, so studies can be compared at a glance.', 'para todo insight, então dá para comparar estudos num relance.' ); ?></span></div>
-			<div class="stat is-word dark"><b><?php sera_e( 'Classified', 'Rotulado' ); ?></b><span><?php sera_e( 'on import: every material gets its access level before it goes live.', 'na importação: todo material ganha seu nível de acesso antes de ir para o ar.' ); ?></span></div>
+			<div class="stat is-word"><b><?php sera_e( 'Plain language', 'Do seu jeito' ); ?></b><span><?php sera_e( 'to search everything we’ve heard, with the source of every answer.', 'para buscar em tudo o que já ouvimos, com a fonte de cada resposta.' ); ?></span></div>
+			<div class="stat is-word"><b><?php sera_e( 'Same format', 'Padrão único' ); ?></b><span><?php sera_e( 'for every insight, so studies can be compared at a glance.', 'para todo insight, então dá para comparar estudos num relance.' ); ?></span></div>
+			<div class="stat is-word dark"><b><?php sera_e( 'Classified', 'Rotulado' ); ?></b><span><?php sera_e( 'on import: every file gets its access level before it goes live.', 'na importação: todo arquivo ganha seu nível de acesso antes de ir para o ar.' ); ?></span></div>
 		</div>
 		<div class="signals" style="margin-top:16px">
-			<div><i>01</i><b><?php sera_e( 'Research outlives the meeting', 'A pesquisa sobrevive à reunião' ); ?></b><span><?php sera_e( 'Every study and every voice is one question away, months after its deck was presented.', 'Cada estudo e cada voz estão a uma pergunta de distância, meses depois da apresentação do deck.' ); ?></span></div>
+			<div><i>01</i><b><?php sera_e( 'Research outlives the meeting', 'A pesquisa sobrevive à reunião' ); ?></b><span><?php sera_e( 'Any study, and any quote in it, is one question away, months after the deck was presented.', 'Qualquer estudo, e qualquer fala dentro dele, está a uma pergunta de distância, meses depois da apresentação.' ); ?></span></div>
 			<div><i>02</i><b><?php sera_e( 'More people can run research well', 'Mais gente faz pesquisa bem-feita' ); ?></b><span><?php sera_e( 'Designers without a research background follow the same process and ship the same format, with the guardrails built in.', 'Designers sem formação em pesquisa seguem o mesmo processo e entregam o mesmo formato, com as travas já embutidas.' ); ?></span></div>
 			<div><i>03</i><b><?php sera_e( 'Research got a calendar', 'A pesquisa ganhou um calendário' ); ?></b><span><?php sera_e( 'The next quarter’s studies are chosen from what we already know, prioritised in the open and tracked in Jira.', 'Os estudos do próximo trimestre saem do que já sabemos, são priorizados às claras e acompanhados no Jira.' ); ?></span></div>
 		</div>
@@ -273,7 +273,7 @@ switch ( $args['name'] ) :
 		?>
 		<div class="reflect">
 			<div><span class="art-label"><?php sera_e( 'What I’d keep', 'O que eu manteria' ); ?></span><ul><li><?php sera_e( 'Making publishing the last step of a study. It is the only reason the archive stays alive', 'Fazer da publicação o último passo do estudo. É o único motivo de o acervo continuar vivo' ); ?></li><li><?php sera_e( 'The privacy rules designed before the first screen, so the system remembers LGPD and people don’t have to', 'As regras de privacidade desenhadas antes da primeira tela, para o sistema lembrar da LGPD e as pessoas não precisarem' ); ?></li></ul></div>
-			<div class="alt"><span class="art-label"><?php sera_e( 'What I’d change', 'O que eu mudaria' ); ?></span><ul><li><?php sera_e( 'Start with the roadmap and the archive together: the memory only earned its keep once it fed the next question', 'Começar com o roadmap e o acervo juntos: a memória só se pagou quando passou a alimentar a próxima pergunta' ); ?></li><li><?php sera_e( 'Put the connector in people’s own Claude from the first week, instead of expecting them to visit the hub', 'Colocar o conector no Claude de cada pessoa desde a primeira semana, em vez de esperar que elas fossem até o hub' ); ?></li></ul></div>
+			<div class="alt"><span class="art-label"><?php sera_e( 'What I’d change', 'O que eu mudaria' ); ?></span><ul><li><?php sera_e( 'Start with the roadmap and the archive together: the archive only paid off once it was used to plan the next study', 'Começar com o roadmap e o acervo juntos: o acervo só se pagou quando passou a servir para planejar o próximo estudo' ); ?></li><li><?php sera_e( 'Put the connector in people’s own Claude from the first week, instead of expecting them to visit the hub', 'Colocar o conector no Claude de cada pessoa desde a primeira semana, em vez de esperar que elas fossem até o hub' ); ?></li></ul></div>
 		</div>
 		<?php
 		break;
@@ -281,11 +281,11 @@ switch ( $args['name'] ) :
 	case 'rh-signals':
 		?>
 		<div class="rh-learn">
-			<div><h3><?php sera_e( 'Writing the spec became the work.', 'Escrever a especificação virou o trabalho.' ); ?></h3><p><?php sera_e( 'With Lovable and Claude, the distance between a well-written intent and working software got very short. The craft moved to describing behaviour precisely: what the system should do, refuse to do, and always show.', 'Com Lovable e Claude, a distância entre uma intenção bem escrita e um software funcionando ficou muito curta. O ofício passou a ser descrever comportamento com precisão: o que o sistema deve fazer, o que deve recusar e o que deve mostrar sempre.' ); ?></p></div>
+			<div><h3><?php sera_e( 'Writing the spec became the work.', 'Escrever a especificação virou o trabalho.' ); ?></h3><p><?php sera_e( 'With Lovable and Claude, a well-written description turns into working software quickly. So most of my work was describing behaviour precisely: what the system should do, what it should refuse and what it should always show.', 'Com Lovable e Claude, uma descrição bem escrita vira software funcionando em pouco tempo. Então boa parte do meu trabalho foi descrever comportamento com precisão: o que o sistema deve fazer, o que deve recusar e o que deve mostrar sempre.' ); ?></p></div>
 			<div><h3><?php sera_e( 'I started from the constraints.', 'Comecei pelas restrições.' ); ?></h3><p><?php sera_e( 'Starting from LGPD made the product simpler. Once “who can see this?” had an answer for every file, the rest of the design fell into place.', 'Começar pela LGPD deixou o produto mais simples. Quando “quem pode ver isso?” ganhou resposta para cada arquivo, o resto do design se encaixou.' ); ?></p></div>
 			<div><h3><?php sera_e( 'People trust what they can check.', 'As pessoas confiam no que podem conferir.' ); ?></h3><p><?php sera_e( 'A chat that answers about customers is only useful if people believe it. The source chip turned out to be the most important component in the whole hub.', 'Um chat que responde sobre clientes só serve se as pessoas acreditam nele. O chip de fonte acabou sendo o componente mais importante do hub inteiro.' ); ?></p></div>
-			<div><h3><?php sera_e( 'An archive also needs a plan.', 'Um acervo também precisa de um plano.' ); ?></h3><p><?php sera_e( 'Once the past was searchable, the team started asking what to learn next. The roadmap reuses the same archive to plan it, so every new study starts from existing evidence.', 'Com o passado pesquisável, o time passou a perguntar o que aprender em seguida. O roadmap usa o mesmo acervo para planejar, e cada novo estudo parte da evidência que já existe.' ); ?></p></div>
-			<div><h3><?php sera_e( 'Next: satisfaction data every week.', 'Próximo passo: satisfação toda semana.' ); ?></h3><p><?php sera_e( 'Plugging continuous, in-flow satisfaction surveys straight into the archive, so the hub gets new data every week, between studies too.', 'Ligar pesquisas contínuas de satisfação, feitas dentro dos fluxos, direto no acervo, para o hub receber dados novos toda semana, também entre um estudo e outro.' ); ?></p></div>
+			<div><h3><?php sera_e( 'An archive also needs a plan.', 'Um acervo também precisa de um plano.' ); ?></h3><p><?php sera_e( 'Once the archive was searchable, the team started asking what to learn next. The roadmap uses the same archive to answer that, so every new study starts from what we already know.', 'Com o acervo pesquisável, o time passou a perguntar o que aprender em seguida. O roadmap usa o mesmo acervo para responder, e cada novo estudo parte do que já sabemos.' ); ?></p></div>
+			<div><h3><?php sera_e( 'Next: satisfaction data every week.', 'Próximo passo: satisfação toda semana.' ); ?></h3><p><?php sera_e( 'I want to plug ongoing satisfaction surveys, run inside the product flows, straight into the archive. Then the hub gets new data every week, between studies too.', 'Quero ligar ao acervo pesquisas contínuas de satisfação, feitas dentro dos fluxos do produto. Assim o hub recebe dados novos toda semana, também entre um estudo e outro.' ); ?></p></div>
 		</div>
 		<?php
 		break;
@@ -320,7 +320,7 @@ switch ( $args['name'] ) :
 				<div class="rh-cx-node is-hub">
 					<span class="art-label"><?php sera_e( 'The archive', 'O acervo' ); ?></span>
 					<h4><?php sera_e( 'Every study + the roadmap', 'Todos os estudos + o roadmap' ); ?></h4>
-					<p><?php sera_e( 'Confidential files stay locked here too. Only what the site would show, the connector shows.', 'Arquivos confidenciais continuam trancados aqui também. O conector só mostra o que o site mostraria.' ); ?></p>
+					<p><?php sera_e( 'Confidential files stay locked here too. The connector only shows what the site would show.', 'Arquivos confidenciais continuam trancados aqui também. O conector só mostra o que o site mostraria.' ); ?></p>
 				</div>
 			</div>
 			<div class="rh-cx-chat">
@@ -330,7 +330,7 @@ switch ( $args['name'] ) :
 				<p class="a">Sim, dois estudos tocam nisso. No <span class="src">Checkout no Celular</span> a maioria saiu da compra para conferir o extrato e não voltou. No <span class="src">Carteira Digital</span> quem tinha saldo não pensou em usá-lo. Nenhum dos dois ouviu quem ainda não comprou: essa pergunta segue aberta.</p>
 			</div>
 		</div>
-		<p class="art-cap"><?php sera_e( 'Example with fictional studies. The question asks “have we researched anything about the first purchase?”; the answer names two studies and the question still open. The four tools are the connector’s real ones.', 'Exemplo com estudos fictícios: a resposta cita dois estudos e aponta a pergunta que segue aberta. As quatro ferramentas são as reais do conector.' ); ?></p>
+		<p class="art-cap"><?php sera_e( 'Example with fictional studies. The question asks “have we researched anything about the first purchase?”, and the answer names two studies and the question that is still open. The four tools are the connector’s real ones.', 'Exemplo com estudos fictícios: a resposta cita dois estudos e aponta a pergunta que segue aberta. As quatro ferramentas são as reais do conector.' ); ?></p>
 		<?php
 		break;
 
@@ -338,7 +338,7 @@ switch ( $args['name'] ) :
 		?>
 		<div class="steps3">
 			<div><h4><?php sera_e( 'Ideas', 'Ideias' ); ?></h4><p><?php sera_e( 'AI suggests studies from what the archive already knows, reading only Internal content and citing the study behind each one. Anyone can add an idea and vote. Every idea arrives as a brief: question, decision it informs, audience and why now.', 'A IA sugere estudos a partir do que o acervo já sabe, lendo só conteúdo Interno e citando o estudo por trás de cada sugestão. Qualquer pessoa pode adicionar uma ideia e votar. Toda ideia chega como um brief: pergunta, decisão que ela informa, público e por que agora.' ); ?></p></div>
-			<div><h4><?php sera_e( 'Priority', 'Prioridade' ); ?></h4><p><?php sera_e( 'AI proposes impact and effort, each with a one-line reason. The team moves whatever it disagrees with on an impact × effort map, and the top of the list goes first.', 'A IA propõe impacto e esforço, cada um com uma justificativa de uma linha. O time mexe no que discordar num mapa de impacto × esforço, e o topo da lista vai primeiro.' ); ?></p></div>
+			<div><h4><?php sera_e( 'Priority', 'Prioridade' ); ?></h4><p><?php sera_e( 'AI proposes impact and effort, each with a one-line reason. The team moves whatever it disagrees with on an impact × effort map, and the top of the list goes first.', 'A IA propõe impacto e esforço, cada um com uma justificativa de uma linha. O time muda de lugar o que discordar, num mapa de impacto × esforço, e o topo da lista vai primeiro.' ); ?></p></div>
 			<div><h4><?php sera_e( 'Calendar', 'Calendário' ); ?></h4><p><?php sera_e( 'The ranked list becomes one study per week on a timeline, with duration and status. Publishing sends each study to Jira with its question, decision and audience.', 'A lista ordenada vira um estudo por semana numa linha do tempo, com duração e status. Publicar manda cada estudo para o Jira com a pergunta, a decisão e o público.' ); ?></p></div>
 		</div>
 		<?php
@@ -354,7 +354,7 @@ switch ( $args['name'] ) :
 	case 'rh-priority':
 		?>
 		<figure class="rh-shot is-dark"><?php echo sera_rh_frame( sera_scr_rh_priority(), sera_t( 'Roadmap step 2: an impact × effort map with numbered ideas and the reason behind each score', 'Passo 2 do roadmap: um mapa de impacto × esforço com ideias numeradas e o motivo de cada nota' ) ); // phpcs:ignore ?></figure>
-		<p class="art-cap"><?php sera_e( 'Step 2 · Priority. AI proposes the score; people make the call.', 'Passo 2 · Prioridade. A IA propõe a nota; as pessoas decidem.' ); ?></p>
+		<p class="art-cap"><?php sera_e( 'Step 2 · Priority. AI proposes the score and people make the call.', 'Passo 2 · Prioridade. A IA propõe a nota e as pessoas decidem.' ); ?></p>
 		<?php
 		break;
 

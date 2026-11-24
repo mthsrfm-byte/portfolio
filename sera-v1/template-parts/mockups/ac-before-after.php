@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 		<button type="button" role="tab" class="ba-tab" data-ba="0" aria-selected="false"><?php sera_e( 'Before', 'Antes' ); ?></button>
 		<button type="button" role="tab" class="ba-tab is-on" data-ba="1" aria-selected="true"><?php sera_e( 'After', 'Depois' ); ?></button>
 	</div>
-	<p class="ba-hint"><?php sera_e( 'Scroll inside each page to see it whole', 'Role dentro de cada página para ver inteira' ); ?></p>
+	<p class="ba-hint"><?php sera_e( 'Scroll inside each page to see all of it', 'Role dentro de cada página para ver inteira' ); ?></p>
 	<div class="col" data-ba-col="0">
 		<span class="ba-tag"><?php sera_e( 'Before', 'Antes' ); ?></span>
 		<?php echo sera_browser( sera_scr_ac_before(), array( 'label' => sera_t( 'The old homepage', 'A home antiga' ), 'caption' => sera_t( 'The old homepage: one blue, stock imagery, competing messages and no system behind the components.', 'A home antiga: um azul só, fotos de banco de imagem, mensagens disputando atenção e nenhum sistema por trás dos componentes.' ) ) ); // phpcs:ignore ?>

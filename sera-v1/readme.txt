@@ -80,6 +80,11 @@ Prévia estática (sem servidor): php tools/proposal-preview/build.php evanly
 
 == Changelog ==
 
+= 3.58.0 =
+* Refino dos textos dos 9 cases, em inglês e português, no tom "seco com sorriso de canto": narrativa, artefatos, legendas dos mockups e a página do Paperplane. Frases mais curtas e literais, construções confusas reescritas, jargão cortado, alguns títulos com humor discreto.
+* Inglês padronizado na grafia britânica ("instalment").
+* Depois do deploy: Aparência › Sera · Cases › "Importar e publicar todos".
+
 = 3.57.1 =
 * Menu da home acompanha o degradê papel → tinta antes da Approach quadro a quadro (data-header-ramp + --cv-mix), sem degrau nem faixa clara sobre o escuro.
 

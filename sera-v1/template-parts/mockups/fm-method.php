@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
 	<span class="brand-chip"><?php echo sera_fm_logo( 'chip-logo' ); // phpcs:ignore ?></span>
 	<?php
 	echo sera_device( 'scr-fm mk-scr-ask', sera_scr_fm_ask() . sera_mk_tap( 196, 576, 0, 'is-light' ), array( 'dark' => true, 'caption' => sera_t( 'A question on video, answered in video, audio or text', 'Uma pergunta em vídeo, respondida em vídeo, áudio ou texto' ), 'label' => sera_t( 'Video question', 'Pergunta em vídeo' ) ) ); // phpcs:ignore
-	echo sera_device( 'scr-fm mk-scr-rec', sera_scr_fm_rec(), array( 'dark' => true, 'caption' => sera_t( 'Answered in their own time and space, transcribed automatically', 'Respondida no tempo e no espaço de cada pessoa, com transcrição automática' ), 'label' => sera_t( 'Recording an answer', 'Gravando uma resposta' ) ) ); // phpcs:ignore
+	echo sera_device( 'scr-fm mk-scr-rec', sera_scr_fm_rec(), array( 'dark' => true, 'caption' => sera_t( 'Answered when and where they like, transcribed automatically', 'Respondida quando e onde a pessoa quiser, com transcrição automática' ), 'label' => sera_t( 'Recording an answer', 'Gravando uma resposta' ) ) ); // phpcs:ignore
 	echo sera_device( 'scr-fm mk-scr-survey', sera_scr_fm_survey() . sera_mk_tap( 196, 406, 0, 'is-light' ) . sera_mk_tap( 196, 778, 3.6, 'is-light' ), array( 'dark' => true, 'caption' => sera_t( 'Then a survey to check the patterns at scale', 'Depois, um questionário para checar os padrões em escala' ), 'label' => sera_t( 'Survey question', 'Pergunta do questionário' ) ) ); // phpcs:ignore
 	?>
 </div>

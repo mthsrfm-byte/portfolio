@@ -12,7 +12,7 @@ switch ( $args['name'] ) :
 	case 'nb-glance':
 		?>
 		<dl class="glance">
-			<div><dt><?php sera_e( 'Product', 'Produto' ); ?></dt><dd><?php sera_e( 'Bastidores (nosbastidores.com.br), a Brazilian site of film, TV and game criticism and pop-culture news', 'Bastidores (nosbastidores.com.br), site brasileiro de crítica de cinema, séries e games e de notícias de cultura pop' ); ?></dd></div>
+			<div><dt><?php sera_e( 'Product', 'Produto' ); ?></dt><dd><?php sera_e( 'Bastidores (nosbastidores.com.br), a Brazilian site for film, TV and games criticism and pop-culture news', 'Bastidores (nosbastidores.com.br), site brasileiro de crítica de cinema, séries e games e de notícias de cultura pop' ); ?></dd></div>
 			<div><dt><?php sera_e( 'My role', 'Meu papel' ); ?></dt><dd><?php sera_e( 'Owner of the product: strategy, design and front end, end to end', 'Dono do produto: estratégia, design e front-end, de ponta a ponta' ); ?></dd></div>
 			<div><dt><?php sera_e( 'Scope', 'Escopo' ); ?></dt><dd><?php sera_e( 'Identity, homepage and templates, mobile, performance and the ad strategy', 'Identidade, home e templates, mobile, performance e a estratégia de anúncios' ); ?></dd></div>
 			<div><dt><?php sera_e( 'Timeline', 'Período' ); ?></dt><dd><?php sera_e( 'Redesign shipped in 2026', 'Redesign lançado em 2026' ); ?></dd></div>
@@ -24,8 +24,8 @@ switch ( $args['name'] ) :
 		?>
 		<div class="art-grid cols-4">
 			<div class="art-card"><span class="art-label"><?php sera_e( '01 · Identity', '01 · Identidade' ); ?></span><h4 style="margin-top:14px"><?php sera_e( 'A viral-news theme for a criticism site', 'Um tema de notícia viral num site de crítica' ); ?></h4><p><?php sera_e( 'A stock theme made for quizzes and viral lists. Uppercase everywhere, generic blue, nothing that said “this is where criticism happens”.', 'Um tema pronto, feito para quizzes e listas virais. Caixa-alta em tudo, azul genérico, nada que dissesse “aqui a crítica acontece”.' ); ?></p></div>
-			<div class="art-card"><span class="art-label"><?php sera_e( '02 · Hierarchy', '02 · Hierarquia' ); ?></span><h4 style="margin-top:14px"><?php sera_e( 'Three menus before the first story', 'Três menus antes da primeira matéria' ); ?></h4><p><?php sera_e( 'Social links, a “Popular · Quente · Tendência” bar, the main menu and a row of six thumbnails, all above the fold and all at the same volume.', 'Links de redes sociais, uma barra “Popular · Quente · Tendência”, o menu principal e uma fileira de seis miniaturas, tudo acima da dobra e tudo no mesmo volume.' ); ?></p></div>
-			<div class="art-card"><span class="art-label"><?php sera_e( '03 · Content', '03 · Conteúdo' ); ?></span><h4 style="margin-top:14px"><?php sera_e( 'Reviews buried in the feed', 'Críticas enterradas no feed' ); ?></h4><p><?php sera_e( 'The reviews, the reason the site exists, looked exactly like any piece of news, mixed into long lists with small thumbnails.', 'As críticas, a razão de o site existir, pareciam uma notícia qualquer, misturadas em listas longas com miniaturas pequenas.' ); ?></p></div>
+			<div class="art-card"><span class="art-label"><?php sera_e( '02 · Hierarchy', '02 · Hierarquia' ); ?></span><h4 style="margin-top:14px"><?php sera_e( 'Three menus before the first story', 'Três menus antes da primeira matéria' ); ?></h4><p><?php sera_e( 'Social links, a “Popular · Quente · Tendência” bar, the main menu and a row of six thumbnails, all above the fold and all equally loud.', 'Links de redes sociais, uma barra “Popular · Quente · Tendência”, o menu principal e uma fileira de seis miniaturas, tudo acima da dobra e tudo no mesmo volume.' ); ?></p></div>
+			<div class="art-card"><span class="art-label"><?php sera_e( '03 · Content', '03 · Conteúdo' ); ?></span><h4 style="margin-top:14px"><?php sera_e( 'Reviews buried in the feed', 'Críticas enterradas no feed' ); ?></h4><p><?php sera_e( 'The reviews, the reason the site exists, looked like any other news item, mixed into long lists with small thumbnails.', 'As críticas, a razão de o site existir, pareciam uma notícia qualquer, misturadas em listas longas com miniaturas pequenas.' ); ?></p></div>
 			<div class="art-card"><span class="art-label"><?php sera_e( '04 · Revenue', '04 · Receita' ); ?></span><h4 style="margin-top:14px"><?php sera_e( 'Ads with no place of their own', 'Anúncios sem lugar próprio' ); ?></h4><p><?php sera_e( 'Ad units had to fight the layout for space. Every new unit made reading worse, and every page was heavier than it needed to be.', 'Os anúncios tinham que brigar com o layout por espaço. Cada bloco novo piorava a leitura, e toda página pesava mais do que precisava.' ); ?></p></div>
 		</div>
 		<?php
@@ -35,13 +35,13 @@ switch ( $args['name'] ) :
 		?>
 		<div class="art-panel">
 			<span class="art-label"><?php sera_e( 'The bet', 'A aposta' ); ?></span>
-			<span class="art-title"><?php sera_e( 'One product, two levers that usually fight each other.', 'Um produto, duas alavancas que costumam brigar entre si.' ); ?></span>
+			<span class="art-title"><?php sera_e( 'One product, two goals that usually get in each other’s way.', 'Um produto, dois objetivos que costumam se atrapalhar.' ); ?></span>
 			<div class="nb-levers">
-				<div><b><?php sera_e( 'Audience', 'Audiência' ); ?></b><span><?php sera_e( 'Give people a reason to come, stay and come back: criticism up front, a clear hierarchy, fast pages on the phone.', 'Dar às pessoas um motivo para chegar, ficar e voltar: crítica na frente, hierarquia clara, páginas rápidas no celular.' ); ?></span><ul><li><?php sera_e( 'Reviews as the front door', 'Críticas como porta de entrada' ); ?></li><li><?php sera_e( 'Editorial identity', 'Identidade editorial' ); ?></li><li><?php sera_e( 'Lighter pages, mobile first', 'Páginas mais leves, mobile first' ); ?></li></ul></div>
+				<div><b><?php sera_e( 'Audience', 'Audiência' ); ?></b><span><?php sera_e( 'Give people a reason to come back: criticism up front, a clear hierarchy, fast pages on the phone.', 'Dar às pessoas um motivo para voltar: crítica na frente, hierarquia clara, páginas rápidas no celular.' ); ?></span><ul><li><?php sera_e( 'Reviews as the front door', 'Críticas como porta de entrada' ); ?></li><li><?php sera_e( 'Editorial identity', 'Identidade editorial' ); ?></li><li><?php sera_e( 'Lighter pages, mobile first', 'Páginas mais leves, mobile first' ); ?></li></ul></div>
 				<i aria-hidden="true">+</i>
-				<div><b><?php sera_e( 'Revenue', 'Receita' ); ?></b><span><?php sera_e( 'Grow revenue without taxing the reading: fewer, better-placed units that belong to the grid.', 'Aumentar a receita sem cobrar pedágio da leitura: menos anúncios, mais bem posicionados, que fazem parte do grid.' ); ?></span><ul><li><?php sera_e( 'Ad slots designed into the layout', 'Espaços de anúncio desenhados no layout' ); ?></li><li><?php sera_e( 'Reserved space, no layout jumps', 'Espaço reservado, sem a página pular' ); ?></li><li><?php sera_e( 'A direct channel for advertisers', 'Um canal direto para anunciantes' ); ?></li></ul></div>
+				<div><b><?php sera_e( 'Revenue', 'Receita' ); ?></b><span><?php sera_e( 'Grow revenue without making reading worse: fewer, better-placed ads that belong to the grid.', 'Aumentar a receita sem piorar a leitura: menos anúncios, mais bem posicionados, dentro do grid.' ); ?></span><ul><li><?php sera_e( 'Ad slots designed into the layout', 'Espaços de anúncio desenhados no layout' ); ?></li><li><?php sera_e( 'Reserved space, no layout jumps', 'Espaço reservado, sem a página pular' ); ?></li><li><?php sera_e( 'A direct channel for advertisers', 'Um canal direto para anunciantes' ); ?></li></ul></div>
 			</div>
-			<p class="art-cap"><?php sera_e( 'The rule for every decision: an ad that makes the page worse to read costs more traffic than it earns.', 'A regra para toda decisão: um anúncio que piora a leitura custa mais audiência do que rende.' ); ?></p>
+			<p class="art-cap"><?php sera_e( 'The rule for every decision: an ad that makes the page worse to read costs more in readers than it earns.', 'A regra para toda decisão: anúncio que piora a leitura custa mais em audiência do que rende.' ); ?></p>
 		</div>
 		<?php
 		break;
@@ -50,7 +50,7 @@ switch ( $args['name'] ) :
 		?>
 		<div class="art-panel nb-ds">
 			<span class="art-label"><?php sera_e( 'The editorial system', 'O sistema editorial' ); ?></span>
-			<span class="art-title"><?php sera_e( 'A stock theme replaced by an editorial identity.', 'Um tema pronto trocado por uma identidade editorial.' ); ?></span>
+			<span class="art-title"><?php sera_e( 'Out with the stock blue. In with paper and ink.', 'Sai o azul genérico. Entram papel e tinta.' ); ?></span>
 			<div class="nb-ds-grid">
 				<div class="brand"><?php echo sera_nb_logo(); // phpcs:ignore ?><small><?php sera_e( 'The director’s chair icon, kept from the old logo, with a heavy serif wordmark', 'O ícone da cadeira de diretor, mantido do logo antigo, com um logotipo em serifa pesada' ); ?></small></div>
 				<div class="type"><b>Aa</b><div><strong>Fraunces</strong><span><?php sera_e( 'Headlines and section titles', 'Títulos e nomes de seção' ); ?></span><strong>Inter</strong><span><?php sera_e( 'Body copy, built for long reads', 'Texto corrido, feito para leituras longas' ); ?></span><strong class="mono">JetBrains Mono</strong><span><?php sera_e( 'Labels, chips, the news ticker', 'Rótulos, chips, o ticker de notícias' ); ?></span></div></div>
@@ -74,7 +74,7 @@ switch ( $args['name'] ) :
 				<ol>
 					<li><b><?php sera_e( 'Planned places', 'Lugares planejados' ); ?></b><span><?php sera_e( 'Ads live in places decided with the layout: under the header and between feed sections.', 'Os anúncios moram em lugares decididos junto com o layout: abaixo do cabeçalho e entre as seções do feed.' ); ?></span></li>
 					<li><b><?php sera_e( 'Fewer, better placed', 'Menos anúncios, mais bem posicionados' ); ?></b><span><?php sera_e( 'One slot under the header and in-feed units between sections, so the stories stay in focus.', 'Um espaço abaixo do cabeçalho e anúncios no feed entre as seções, para as matérias seguirem em destaque.' ); ?></span></li>
-					<li><b><?php sera_e( 'Two sources of demand', 'Duas fontes de demanda' ); ?></b><span><?php sera_e( 'An ad network for fill, and a direct channel for brands (“Quer anunciar? Manda um email pro Matheus”: want to advertise? Email Matheus).', 'Uma rede de anúncios para preencher os espaços, e um canal direto com as marcas (“Quer anunciar? Manda um email pro Matheus”).' ); ?></span></li>
+					<li><b><?php sera_e( 'Two ways to sell a slot', 'Dois jeitos de vender o espaço' ); ?></b><span><?php sera_e( 'An ad network to fill the slots, and a direct line for brands (“Quer anunciar? Manda um email pro Matheus”: want to advertise? Email Matheus).', 'Uma rede de anúncios para preencher os espaços, e um canal direto com as marcas (“Quer anunciar? Manda um email pro Matheus”).' ); ?></span></li>
 				</ol>
 			</div>
 		</div>
@@ -88,12 +88,12 @@ switch ( $args['name'] ) :
 			<h3><?php sera_e( 'More people reading, and a more profitable site.', 'Mais gente lendo, e um site mais lucrativo.' ); ?></h3>
 			<div class="impact-grid">
 				<div><b>~500<small class="u">%</small></b><span><?php sera_e( 'More visits in the 30 days after launch, vs the 30 before', 'Mais visitas nos 30 dias após o lançamento, contra os 30 anteriores' ); ?></span></div>
-				<div><b>+20<small class="u">%</small></b><span><?php sera_e( 'Higher ad revenue per visit in the same window', 'De receita de anúncios por visita, no mesmo período' ); ?></span></div>
+				<div><b>+20<small class="u">%</small></b><span><?php sera_e( 'More ad revenue per visit over the same period', 'Mais receita de anúncios por visita, no mesmo período' ); ?></span></div>
 				<div><b>~4<small class="u">×</small></b><span><?php sera_e( 'Lighter homepage HTML, from about 200 KB to about 52 KB', 'Mais leve: o HTML da home caiu de cerca de 200 KB para cerca de 52 KB' ); ?></span></div>
 			</div>
 			<div class="impact-foot"><span><?php sera_e( 'Reviews as the front door', 'Críticas como porta de entrada' ); ?></span><span><?php sera_e( 'Designed ad slots', 'Espaços de anúncio desenhados' ); ?></span><span>Mobile first</span></div>
 		</div>
-		<p class="art-cap"><?php sera_e( 'Visits and ad revenue per visit measured in the 30 days after launch against the 30 days before, same publishing rhythm, from the site’s own analytics and ad reports. HTML weights measured on archived snapshots of the homepage (April and May 2026).', 'Visitas e receita de anúncios por visita medidas nos 30 dias após o lançamento contra os 30 dias anteriores, com o mesmo ritmo de publicação, a partir do analytics e dos relatórios de anúncios do próprio site. Peso do HTML medido em snapshots arquivados da home (abril e maio de 2026).' ); ?></p>
+		<p class="art-cap"><?php sera_e( 'Visits and ad revenue per visit measured in the 30 days after launch against the 30 days before, at the same publishing pace, from the site’s own analytics and ad reports. HTML weights measured on archived snapshots of the homepage (April and May 2026).', 'Visitas e receita de anúncios por visita medidas nos 30 dias após o lançamento contra os 30 dias anteriores, com o mesmo ritmo de publicação, a partir do analytics e dos relatórios de anúncios do próprio site. Peso do HTML medido em snapshots arquivados da home (abril e maio de 2026).' ); ?></p>
 		<?php
 		break;
 
@@ -101,7 +101,7 @@ switch ( $args['name'] ) :
 		?>
 		<div class="reflect">
 			<div><span class="art-label"><?php sera_e( 'What I’d keep', 'O que eu manteria' ); ?></span><ul><li><?php sera_e( 'Deciding where the ads live before drawing the layout. Reserved, labelled slots are why the page never jumps', 'Decidir onde os anúncios moram antes de desenhar o layout. Espaços reservados e sinalizados são o motivo de a página nunca pular' ); ?></li><li><?php sera_e( 'Criticism as the front door. The mosaic of reviews shows what the site is about, which the old theme never did', 'A crítica como porta de entrada. O mosaico de críticas mostra do que o site trata, coisa que o tema antigo nunca fez' ); ?></li></ul></div>
-			<div class="alt"><span class="art-label"><?php sera_e( 'What I’d change', 'O que eu mudaria' ); ?></span><ul><li><?php sera_e( 'Measure over a longer window: 30 days show the launch worked, but not yet whether the audience stays', 'Medir por mais tempo: 30 dias mostram que o lançamento deu certo, mas ainda não se a audiência fica' ); ?></li><li><?php sera_e( 'Design the article page with the same care as the homepage from the start, since that is where most readers land', 'Desenhar a página de matéria com o mesmo cuidado da home desde o começo, porque é nela que a maioria dos leitores chega' ); ?></li></ul></div>
+			<div class="alt"><span class="art-label"><?php sera_e( 'What I’d change', 'O que eu mudaria' ); ?></span><ul><li><?php sera_e( 'Measure over a longer window: 30 days show the launch worked, but not yet whether the audience stays', 'Medir por mais tempo: 30 dias mostram que o lançamento deu certo, mas ainda não dizem se a audiência fica' ); ?></li><li><?php sera_e( 'Design the article page with the same care as the homepage from the start, since that is where most readers land', 'Desenhar a página de matéria com o mesmo cuidado da home desde o começo, porque é nela que a maioria dos leitores chega' ); ?></li></ul></div>
 		</div>
 		<?php
 		break;
@@ -111,9 +111,9 @@ switch ( $args['name'] ) :
 		<div class="signals">
 			<div><i>01</i><b><?php sera_e( 'Ran a product end to end, audience to revenue', 'Toquei um produto de ponta a ponta, da audiência à receita' ); ?></b><span><?php sera_e( 'Audience, design, front end and revenue in one pair of hands, so every trade-off between reading and revenue was mine to make.', 'Audiência, design, front-end e receita nas mesmas mãos, então cada escolha entre leitura e receita era minha.' ); ?></span></div>
 			<div><i>02</i><b><?php sera_e( 'Designed the business model into the layout', 'Desenhei o modelo de negócio dentro do layout' ); ?></b><span><?php sera_e( 'Ads became components of the system, with sizes, rules and a place in the grid.', 'Os anúncios viraram componentes do sistema, com tamanhos, regras e lugar no grid.' ); ?></span></div>
-			<div><i>03</i><b><?php sera_e( 'Put the core value up front', 'Pus o que importa na frente' ); ?></b><span><?php sera_e( 'Criticism is why people choose Bastidores, so reviews became the structure of the homepage.', 'A crítica é o motivo de as pessoas escolherem o Bastidores, então as críticas viraram a estrutura da home.' ); ?></span></div>
-			<div><i>04</i><b><?php sera_e( 'Treated performance as design', 'Tratei performance como design' ); ?></b><span><?php sera_e( 'A lighter page on the phone is a better reading experience and a better ad inventory.', 'Uma página mais leve no celular é uma leitura melhor e um inventário de anúncios melhor.' ); ?></span></div>
-			<div><i>05</i><b><?php sera_e( 'Measured against a baseline', 'Medi contra uma linha de base' ); ?></b><span><?php sera_e( 'Visits and revenue read in the 30 days after launch against the 30 before, with the same publishing rhythm.', 'Visitas e receita lidas nos 30 dias após o lançamento contra os 30 anteriores, com o mesmo ritmo de publicação.' ); ?></span></div>
+			<div><i>03</i><b><?php sera_e( 'Put what matters up front', 'Pus o que importa na frente' ); ?></b><span><?php sera_e( 'Criticism is why people choose Bastidores, so reviews became the structure of the homepage.', 'A crítica é o motivo de as pessoas escolherem o Bastidores, então as críticas viraram a estrutura da home.' ); ?></span></div>
+			<div><i>04</i><b><?php sera_e( 'Treated performance as design', 'Tratei performance como design' ); ?></b><span><?php sera_e( 'A lighter page on the phone is easier to read and loads its ads faster.', 'Uma página mais leve no celular é melhor de ler e carrega os anúncios mais rápido.' ); ?></span></div>
+			<div><i>05</i><b><?php sera_e( 'Measured before and after', 'Medi o antes e o depois' ); ?></b><span><?php sera_e( 'Visits and revenue in the 30 days after launch, compared with the 30 before, at the same publishing pace.', 'Visitas e receita nos 30 dias após o lançamento, comparadas com os 30 anteriores, no mesmo ritmo de publicação.' ); ?></span></div>
 			<div><i>06</i><b><?php sera_e( 'Shipped the whole thing', 'Entreguei tudo, do começo ao fim' ); ?></b><span><?php sera_e( 'Identity, templates, mobile and a custom WordPress theme, written so one person can maintain it.', 'Identidade, templates, mobile e um tema WordPress sob medida, escrito para uma pessoa só dar conta de manter.' ); ?></span></div>
 		</div>
 		<?php
@@ -137,7 +137,7 @@ switch ( $args['name'] ) :
 						<div class="l l-story"><span><?php sera_e( 'First story', 'Primeira matéria' ); ?></span></div>
 					</div>
 					<ol>
-						<li><?php sera_e( '<b>1–3</b> Three bars of links at the same volume, all uppercase', '<b>1–3</b> Três barras de links no mesmo volume, tudo em caixa-alta' ); ?></li>
+						<li><?php sera_e( '<b>1–3</b> Three bars of links, equally loud, all uppercase', '<b>1–3</b> Três barras de links no mesmo volume, tudo em caixa-alta' ); ?></li>
 						<li><?php sera_e( '<b>4</b> Six tiny thumbnails, reviews and news mixed', '<b>4</b> Seis miniaturas minúsculas, críticas e notícias misturadas' ); ?></li>
 						<li><?php sera_e( '<b>→</b> The first story starts below the fold', '<b>→</b> A primeira matéria começa abaixo da dobra' ); ?></li>
 					</ol>
@@ -168,7 +168,7 @@ switch ( $args['name'] ) :
 		?>
 		<div class="art-panel">
 			<span class="art-label"><?php sera_e( 'Component anatomy · in-feed ad slot', 'Anatomia do componente · espaço de anúncio no feed' ); ?></span>
-			<span class="art-title"><?php sera_e( 'An ad slot with its own rules.', 'Um espaço de anúncio com regras próprias.' ); ?></span>
+			<span class="art-title"><?php sera_e( 'An ad slot that knows its place.', 'Um espaço de anúncio que sabe o seu lugar.' ); ?></span>
 			<div class="nb-slot">
 				<div class="feed" aria-hidden="true">
 					<div class="sec"><strong>Últimas</strong> <em>do Bastidores</em></div>
@@ -211,7 +211,7 @@ switch ( $args['name'] ) :
 				</div>
 				<div class="why">
 					<div><b><?php sera_e( 'Reading', 'Leitura' ); ?></b><span><?php sera_e( 'Less to download on the phone before the first story.', 'Menos coisa para baixar no celular antes da primeira matéria.' ); ?></span></div>
-					<div><b><?php sera_e( 'Revenue', 'Receita' ); ?></b><span><?php sera_e( 'A lighter page is a better ad inventory.', 'Página mais leve é inventário de anúncios melhor.' ); ?></span></div>
+					<div><b><?php sera_e( 'Revenue', 'Receita' ); ?></b><span><?php sera_e( 'A lighter page loads its ads faster too.', 'Página mais leve também carrega os anúncios mais rápido.' ); ?></span></div>
 				</div>
 			</div>
 			<p class="art-cap"><?php sera_e( 'Homepage HTML only, measured on archived snapshots (April and May 2026). Bars to scale.', 'Só o HTML da home, medido em snapshots arquivados (abril e maio de 2026). Barras em escala.' ); ?></p>

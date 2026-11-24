@@ -14,6 +14,6 @@ defined( 'ABSPATH' ) || exit;
 	</div>
 	<div class="col">
 		<span class="ba-tag new"><?php sera_e( 'After · 2026', 'Depois · 2026' ); ?></span>
-		<?php echo sera_browser( sera_scr_nb_after(), array( 'url' => 'nosbastidores.com.br', 'label' => sera_t( 'The 2026 homepage', 'A home de 2026' ), 'caption' => sera_t( 'The redesign: an editorial identity, reviews as the front door, a clear hierarchy, and ad slots designed into the layout.', 'O redesign: identidade editorial, críticas como porta de entrada, hierarquia clara e espaços de anúncio desenhados no layout.' ) ) ); // phpcs:ignore ?>
+		<?php echo sera_browser( sera_scr_nb_after(), array( 'url' => 'nosbastidores.com.br', 'label' => sera_t( 'The 2026 homepage', 'A home de 2026' ), 'caption' => sera_t( 'The redesign: an editorial identity, reviews as the front door, a clear hierarchy and ad slots designed into the layout.', 'O redesign: identidade editorial, críticas como porta de entrada, hierarquia clara e espaços de anúncio desenhados no layout.' ) ) ); // phpcs:ignore ?>
 	</div>
 </div>

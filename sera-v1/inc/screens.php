@@ -344,7 +344,7 @@ function sera_scr_wb_detail() {
 }
 
 /**
- * will bank sheets for the motion loops: installments of a purchase, and "parcelar compra".
+ * will bank sheets for the motion loops: instalments of a purchase, and "parcelar compra".
  */
 function sera_wb_sheet_inst() {
 	$h  = '<b class="t">Mercado Livre</b><span class="s">R$ 1.390,90 em 10 parcelas de R$ 139,09</span>';
@@ -363,7 +363,7 @@ function sera_wb_sheet_split( $class = '' ) {
 
 
 /* ------------------------------------------- will bank · time control (v3.9) */
-/* Reconstructed screens (the originals are gone): bills past and future, and paying installments
+/* Reconstructed screens (the originals are gone): bills past and future, and paying instalments
    early with a discount. Same visual language as the card screens above (.scr-wb). */
 
 function sera_wbx_check() {
